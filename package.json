@@ -1,0 +1,16 @@
+{
+  "name": "artilate",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    
+    "dev": "wrangler types && astro dev",
+    "build": "astro check && astro build",
+    "preview": "wrangler types && astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.4.0",
+    "astro": "^5.6.1"
+  }
+}
