@@ -1,5 +1,6 @@
 ---
 
+import  Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -7,5 +8,15 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<h1>Welcome to Astro!</h1>
+	<Header /> 
 </Layout>
+
+<style is:global>
+
+h1, h2, h3 {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+</style>
