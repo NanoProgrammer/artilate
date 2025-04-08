@@ -3,10 +3,8 @@ name = "artilate" # Nombre de tu proyecto en Cloudflare Pages
 compatibility_date = "2023-10-10" # Fecha de compatibilidad para Cloudflare Workers
 
 # Configuración para archivos estáticos (SSG)
-[build]
-command = "npm run build" # Comando para construir tu proyecto
-upload = { format = "static", dir = "dist" } # Carpeta donde están los archivos estáticos
+pages_build_output_dir = "dist" # Carpeta donde están los archivos estáticos generados
 
-# Configuración para SSR (opcional)
-[[pages]]
-directory = "src/pages" # Carpeta de páginas si usas Astro
+# Opcional: Comando para construir tu proyecto
+[build]
+command = "npm run build"
