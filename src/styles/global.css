@@ -1,1 +1,38 @@
 @import "tailwindcss";
+
+/* Definición de variables CSS */
+:root {
+    /* Colores */
+    --color-1: #A120F0; /* Primario */
+    --color-2: #f07d20; /* Acción secundaria */
+    --color-3: #4d16a8; /* Hover, borde activo */
+    --color-4: #76f020; /* Éxito */
+    --color-5: #302b33; /* Fondo tarjetas/UI */
+    --color-6: #e8e8e8 ; /* Fondo base */
+
+    /* Gradientes */
+    --gradient-1: #a120f0;
+    --gradient-2: #ff00b4;
+    --gradient-3: #ff2f79;
+    --gradient-4: #ff864e;
+    --gradient-5: #ffc545;
+}
+
+/* Establecer el comportamiento de desplazamiento en toda la página */
+* {
+    scroll-behavior: smooth;
+}
+
+/* Capa base para estilos globales */
+@layer base {
+    body {
+        @apply font-sans bg-[var(--color-base-bg)] text-[var(--color-primary)] text-base;
+    }
+}
+
+/* Definición de clases utilitarias personalizadas */
+@layer utilities {
+    .gradient-custom {
+        background-image: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4), var(--gradient-5));
+    }
+}
