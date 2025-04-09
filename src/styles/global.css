@@ -1,9 +1,10 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap');
 
 /* Definición de variables CSS */
 :root {
     /* Colores */
-    --color-1: #A120F0; /* Primario */
+    --color-1: #d29d68 ; /* Primario */
     --color-2: #f07d20; /* Acción secundaria */
     --color-3: #4d16a8; /* Hover, borde activo */
     --color-4: #76f020; /* Éxito */
@@ -11,14 +12,24 @@
     --color-6: #e8e8e8 ; /* Fondo base */
 
     /* Gradientes */
-    --gradient-1: #a120f0;
-    --gradient-2: #ff00b4;
-    --gradient-3: #ff2f79;
-    --gradient-4: #ff864e;
-    --gradient-5: #ffc545;
-}
+    --gradient-1: #9a2de4; /* Un tono más suave de púrpura */
+--gradient-2: #d5008b; /* Un rosa más apagado */
+--gradient-3: #e44b8a; /* Un rosa más tenue */
+--gradient-4: #f38c62; /* Un naranja más apagado */
+--gradient-5: #f7c77a; /* Un amarillo más suave */
 
-/* Establecer el comportamiento de desplazamiento en toda la página */
+    --font-sans: 'Inter', sans-serif;
+        --font-serif: 'Playfair Display', serif;
+}
+/*
+Parte del header	Color sugerido	Clase Tailwind v4
+Fondo	Fondo UI	bg-[--color5]
+Texto (links/logo)	Blanco o Primario	text-white o text-[--color1]
+Link activo / hover	Complementario	hover:text-[--color3]
+Botón CTA	Primario + hover	bg-[--color1] hover:bg-[--color3] text-white
+Borde inferior (opcional)	Complementario	border-b border-[--color3]
+*/
+
 * {
     scroll-behavior: smooth;
 }
