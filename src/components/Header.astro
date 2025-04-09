@@ -1,43 +1,56 @@
-<header class="bg-[var(--color-5)]  text-white p-4 w-full">
-    <div class="max-w-7xl mx-auto grid grid-cols-3 items-center">
-      <!-- Columna izquierda: Enlaces de navegación -->
-      <nav class="flex justify-center space-x-4 lg:space-x-8">
-        <a href="#shop" class=" transition lg:mr-32">shop</a>
-        <a href="/story" class=" transition ">our story</a>
-      </nav>
-  
-      <!-- Columna central: Logo -->
-      <div class="flex justify-center">
-        <a href="/" class="flex ">
-          <img src="/assets/logo_blanco.png" alt="Artilate Logo" class="w-24 h-auto" />
+<header class="text-white p-4 w-full shadow-md">
+  <div class="max-w-7xl mx-auto grid grid-cols-3 items-center">
+    <!-- Columna izquierda: Enlaces de navegación -->
+    <nav class="flex justify-center space-x-4 lg:space-x-8">
+      <a href="#shop" class="transition lg:mr-32 hover:text-gray-300">shop</a>
+      <a href="/story" class="transition hover:text-gray-300">our story</a>
+    </nav>
+
+    <!-- Columna central: Logo -->
+    <div class="flex justify-center">
+      <a href="/" class="flex">
+        <img src="/assets/logo_blanco.png" alt="Artilate Logo" class="w-24 h-auto" />
+      </a>
+    </div>
+
+    <!-- Columna derecha: Enlaces de navegación -->
+    <nav class="flex justify-center space-x-4 lg:space-x-8">
+      <a href="/track" class="transition lg:mr-32 my-auto hover:text-gray-300">track</a>
+      <div>
+        <a href="/cart" class="transition">
+          <img
+            src="/assets/cart.svg"
+            alt="Cart"
+            class="w-8 h-auto lg:w-10 hov"
+          />
         </a>
       </div>
-  
-      <!-- Columna derecha: Enlaces de navegación -->
-      <nav class="flex justify-center space-x-4 lg:space-x-8">
-        <a href="/track" class=" transition lg:mr-32 my-auto">track</a>
-        <div>
-          <a href="/cart" class=" transition">
-            <img src="/assets/cart.svg" alt="Cart" class="w-8 h-auto lg:w-10" style="filter: invert(100%) brightness(100%); transition: filter 0.3s ease;" />
-          </a>
-        </div>
-      </nav>
-    </div>
-  </header>
-  
-  <style>
-    header {
-      position: sticky;
-      top: 0; /* Para que el header se mantenga visible al hacer scroll */
-      z-index: 10; /* Para que el header esté sobre otros elementos */
-    }
-    background: linear-gradient(to right, 
-  var(--color-5) 0%, 
-  var(--gradient-1) 25%, 
-  var(--color-5) 75%, 
-  var(--gradient-1) 100%);
+    </nav>
+  </div>
+</header>
 
-  a:hover img {
-    filter: invert(37%) sepia(76%) saturate(2953%) hue-rotate(47deg) brightness(95%);
+<style>
+  header {
+    position: sticky;
+    top: 0; /* Para que el header se mantenga visible al hacer scroll */
+    z-index: 10; /* Para que el header esté sobre otros elementos */
+    background: linear-gradient(
+      230deg,
+      #e44b8a,
+      #f07d20,
+      #302b33,
+      #302b33,
+      #f07d20,
+      #e44b8a
+    );
   }
-  </style>
+
+  .hov {
+    filter: invert(100%) brightness(100%);
+    transition: filter 0.3s ease-in-out;
+  }
+
+  .hov:hover {
+    filter: invert(90%) saturate(2953%)  brightness(75%);
+}
+</style>
