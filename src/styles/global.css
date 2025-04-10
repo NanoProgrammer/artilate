@@ -4,12 +4,12 @@
 /* Definición de variables CSS */
 :root {
     /* Colores */
-    --color-1: #d29d68 ; /* Primario */
-    --color-2: #f07d20; /* Acción secundaria */
-    --color-3: #4d16a8; /* Hover, borde activo */
-    --color-4: #76f020; /* Éxito */
-    --color-5: #302b33; /* Fondo tarjetas/UI */
-    --color-6: #e8e8e8 ; /* Fondo base */
+    --color-1: #0E0C15 ; /* Primario */
+    --color-2: #1E40FF; /* Acción secundaria */
+    --color-3: #F03900 ; /* Hover, borde activo */
+    --color-4: #FFD000 ; /* Éxito */
+    --color-5: #F2F2F2; /* Fondo tarjetas/UI */
+    --color-6: #FFFFFF ; /* Fondo base */
 
     /* Gradientes */
     --gradient-1: #9a2de4; /* Un tono más suave de púrpura */

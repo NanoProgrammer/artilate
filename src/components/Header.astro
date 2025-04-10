@@ -1,4 +1,4 @@
-<header class="text-white p-4 w-full shadow-md">
+<header class="text-white p-4 w-full bg-[var(--color-1)]" id="main-header">
   <div class="max-w-7xl mx-auto grid grid-cols-3 items-center">
     <!-- Columna izquierda: Enlaces de navegación -->
     <nav class="flex justify-center space-x-4 lg:space-x-8">
@@ -16,12 +16,12 @@
     <!-- Columna derecha: Enlaces de navegación -->
     <nav class="flex justify-center space-x-4 lg:space-x-8">
       <a href="/track" class="transition lg:mr-32 my-auto hover:text-gray-300">track</a>
-      <div>
+      <div class="ml-5">
         <a href="/cart" class="transition">
           <img
             src="/assets/cart.svg"
             alt="Cart"
-            class="w-8 h-auto lg:w-10 hov"
+            class="w-8 h-auto lg:w-9 hov"
           />
         </a>
       </div>
@@ -34,15 +34,7 @@
     position: sticky;
     top: 0; /* Para que el header se mantenga visible al hacer scroll */
     z-index: 10; /* Para que el header esté sobre otros elementos */
-    background: linear-gradient(
-      230deg,
-      #e44b8a,
-      #f07d20,
-      #302b33,
-      #302b33,
-      #f07d20,
-      #e44b8a
-    );
+
   }
 
   .hov {
@@ -54,3 +46,5 @@
     filter: invert(90%) saturate(2953%)  brightness(75%);
 }
 </style>
+
+
