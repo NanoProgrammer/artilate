@@ -4,7 +4,6 @@ import { gsap } from "gsap";
 export default function ImgHero() {
   useEffect(() => {
     const imageElement = document.querySelector('.increase');
-    console.log("Elemento encontrado:", imageElement);
 
     if (imageElement) {
       gsap.fromTo(
@@ -12,7 +11,7 @@ export default function ImgHero() {
         { scale: 1 }, // Inicia con la escala normal
         {
           scale: 1.5, // Aumenta la escala al 150%
-          duration: 15, // Duración del efecto en segundos
+          duration: 10, // Duración del efecto en segundos
           repeat: -1, // Repite infinitamente
           yoyo: true, // Hace que el efecto sea reversible (ida y vuelta)
           ease: "power1.inOut", // Efecto de transición suave

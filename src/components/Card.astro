@@ -27,10 +27,17 @@ const { imgUrl, title, description, id } = Astro.props as {
       </div>
       <div class="flex flex-col sm:flex-row gap-3 justify-end md:mr-16">
         <button
-          class="px-4 py-2 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-colors ease-in-out duration-200 text-white w-full sm:w-auto"
+          class="px-4 py-2 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-colors ease-in-out duration-200 text-white w-full sm:w-auto open-modal"
         >
           add to cart
         </button>
+        <div class="hidden modal w-100 fixed top-0 left-0 h-full bg-black bg-opacity-50 justify-center items-center">
+          <div class="flex modal-content bg-white p-6 rounded-md">
+            <span>check the cart</span>
+            <button class="ml-4 text-red-500" id="closeModalBtn">Close</button>
+          </div>
+        </div>
+        
         <a href={`/products/${id}`} class="w-full sm:w-auto">
           <button
             class="px-4 py-2 rounded-md bg-[var(--color-2)]/70 hover:bg-[var(--color-2)]/80 transition-colors ease-in-out duration-200 text-white w-full"
@@ -52,3 +59,17 @@ const { imgUrl, title, description, id } = Astro.props as {
         border-box;
   }
 </style>
+<script>
+  const modalopen = document.querySelector('.open-modal');
+const modal = document.querySelector('.modal');
+modalopen.addEventListener('click', () => {
+  modal.classList.add('flex');
+    modal.classList.remove('hidden');
+});
+
+const closeModalBtn = document.querySelector('.closeModalBtn');
+closeModalBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+});
+</script>
