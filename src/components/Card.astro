@@ -1,13 +1,12 @@
 ---
-import Card from '../components/Card.jsx';
-
+import CardWithProvider from '../components/CardWithProvider.jsx';
 const { imgUrl, title, description, id } = Astro.props;
 ---
 
-<Card 
+<CardWithProvider 
   imgUrl={imgUrl}
   title={title}
   description={description}
   id={id}
-  client:only="Card"
+  client:load
 />
