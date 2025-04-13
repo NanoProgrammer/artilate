@@ -1,4 +1,4 @@
-<header class="text-white w-full bg-[var(--color-1)] " id="main-header">
+<header class="text-white w-full h-auto  " id="main-header">
   <div class="max-w-7xl mx-auto grid grid-cols-3 items-center">
     <!-- Columna izquierda: Enlaces de navegación -->
     <nav class="flex justify-center space-x-4 lg:space-x-8">
@@ -34,7 +34,11 @@
     position: sticky;
     top: 0; /* Para que el header se mantenga visible al hacer scroll */
     z-index: 10; /* Para que el header esté sobre otros elementos */
-
+    color: white;
+    background-color: #0E0C15;
+    padding: 3px;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 30px 24px; /* Espaciado de las pepitas */
   }
 
   .hov {
@@ -45,6 +49,7 @@
   .hov:hover {
     filter: invert(90%) saturate(2953%)  brightness(75%);
 }
+ 
 </style>
 
 
