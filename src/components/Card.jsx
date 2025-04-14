@@ -21,6 +21,8 @@ export default function Card({ imgUrl, title, description, id, price }) {
             src={imgUrl}
             alt={title}
             className="w-full md:w-56 h-auto max-h-[200px] object-cover rounded-lg border-2 border-[var(--color-1)]"
+            transition:name={`img-${id}`}
+            transition:delay={0.1}
           />
           <div className="flex flex-col justify-between w-full">
             <div>
