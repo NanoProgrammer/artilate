@@ -1,5 +1,6 @@
 ---
 import Card from "./Card.astro";
+import {Products} from "../constants/catalog.js"
 ---
 
 <div class="container mx-auto py-8 lg:max-w-4xl bg-[var(--color-2)]/40">
@@ -11,28 +12,32 @@ import Card from "./Card.astro";
   </p>
   <div class="flex flex-wrap justify-center item-center gap-8">
     <Card
-      imgUrl="/assets/2.webp"
-      title="Chocolate 1"
-      description="Description 1: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic error ipsum aspernatur quos vero, illum velit? Suscipit velit optio vitae officiis? Consectetur est vitae ab corrupti vitae ab corrupti vitae ab corrupti "
-      id={1}
+      imgUrl={Products[0].image}
+      title={Products[0].title}
+      description={Products[0].description}
+      id={Products[0].id}
+      price={Products[0].price}
     />
     <Card
-      imgUrl="/assets/3.webp"
-      title="Chocolate 2"
-      description="Description 2: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic error ipsum aspernatur quos vero, illum velit? Suscipit velit optio vitae officiis? Consectetur est vitae ab corrupti vitae ab corrupti vitae ab corrupti "
-      id={2}
+    imgUrl={Products[1].image}
+    title={Products[1].title}
+    description={Products[1].description}
+    id={Products[1].id}
+    price={Products[1].price}
     />
     <Card
-      imgUrl="/assets/4.webp"
-      title="Chocolate 3"
-      description="Description 3: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic error ipsum aspernatur quos vero, illum velit? Suscipit velit optio vitae officiis? Consectetur est vitae ab corrupti vitae ab corrupti vitae ab corrupti "
-      id={3}
+    imgUrl={Products[2].image}
+    title={Products[2].title}
+    description={Products[2].description}
+    id={Products[2].id}
+    price={Products[2].price}
     />
     <Card
-      imgUrl="/assets/5.webp"
-      title="Chocolate 4"
-      description="Description 4: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic error ipsum aspernatur quos vero, illum velit? Suscipit velit optio vitae officiis? Consectetur est vitae ab corrupti vitae ab corrupti vitae ab corrupti "
-      id={4}
+    imgUrl={Products[3].image}
+    title={Products[3].title}
+    description={Products[3].description}
+    id={Products[3].id}
+    price={Products[3].price}
     />
     <div class="flex flex-col items-center justify-center mt-8">
       <h3 class="text-2xl font-bold mb-4 text-center text-[var(--color-1)]">Want to see more products?</h3>
