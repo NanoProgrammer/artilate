@@ -48,7 +48,7 @@ export default function Modal() {
             </button>
           </div>
           <div className="flex flex-col sm:flex-row justify-between ml-35 sm:ml-0  mt-8 gap-4">
-            <a href="/cart" className="flex hov">
+            <a href="/products" className="flex hov">
               <div className="flex flex-row bg-[var(--color-4)]/60 rounded-md p-4 border-2 border-[var(--color-4)] hover:bg-[var(--color-4)]/80 transition-colors ease-in-out duration-200">
                 <div className="flex flex-col justify-center items-center w-24 text-center">
                   <p className="text-sm sm:text-base">Explore more</p>
@@ -72,7 +72,7 @@ export default function Modal() {
                 </div>
               </div>
             </a>
-            <a href="/cart" className="flex hov">
+            <a href="/" className="flex hov">
               <div className="flex flex-row bg-[var(--color-3)]/60 rounded-md p-4 border-2 border-[var(--color-3)] hover:bg-[var(--color-3)]/80 transition-colors ease-in-out duration-200">
                 <div className="flex flex-col justify-center items-center w-24 text-center">
                   <p className="text-sm sm:text-base">See home</p>

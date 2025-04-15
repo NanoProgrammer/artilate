@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import './polyfills.js'; // Importa el polyfill
-import clientRouter from '@astrojs/client-router';
 
 import react from '@astrojs/react';
 
@@ -16,8 +15,5 @@ export default defineConfig({
   vite: {plugins: [tailwindcss()],
   },
 
-  integrations: [react(), clientRouter()],
-  experimental: {
-    viewTransitions: true,
-  },
+  integrations: [react()],
 });

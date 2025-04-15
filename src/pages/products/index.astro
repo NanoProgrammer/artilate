@@ -1,15 +1,8 @@
 ---
 export const prerender = true;
-import {Products} from '../../constants/catalog.js';
+import ItemGrid from '../../components/products/ItemGrid.astro'
 import Layout from '../../layouts/Layout.astro';
 ---
 <Layout>
-    {
-        Products.map((product) => {
-            return (
-                <a href={`/products/${product.id}`}>
-                    <img src={product.image} alt={product.title} />
-                </a>
-            );
-    })}
+    <ItemGrid />
 </Layout>

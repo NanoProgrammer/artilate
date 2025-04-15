@@ -15,7 +15,8 @@ export default function Card({ imgUrl, title, description, id, price }) {
 
   return (
     <>
-      <div className="relative min-h-[200px] w-full max-w-[400px] md:max-w-[500px] lg:max-w-2xl bg-[var(--color-4)]/20 rounded-lg overflow-hidden p-4 bord hover:scale-105 transition-scale ease-in-out duration-200">
+      <a href={`/products/${id}`}>
+      <div className="relative min-h-[200px] w-full max-w-[400px] md:max-w-[500px] lg:max-w-2xl bg-[var(--color-4)]/20 rounded-lg overflow-hidden p-4 bord hover:scale-105 transition-scale ease-in-out duration-200 card">
         <div className="flex flex-col md:flex-row gap-4">
           <img
             src={imgUrl}
@@ -33,19 +34,19 @@ export default function Card({ imgUrl, title, description, id, price }) {
             <div className="flex flex-col sm:flex-row gap-3 justify-end md:mr-16">
               <button
                 onClick={toggleModal}
-                className="px-4 py-2 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-colors ease-in-out duration-200 text-white w-full sm:w-auto"
+                className="px-4 py-2 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-colors ease-in-out duration-200 text-white w-full sm:w-auto tag"
               >
                 add to cart
               </button>
               <a href={`/products/${id}`} className="w-full sm:w-auto">
-                <button className="px-4 py-2 rounded-md bg-[var(--color-2)]/70 hover:bg-[var(--color-2)]/80 transition-colors ease-in-out duration-200 text-white w-full">
+                <button className="px-4 py-2 rounded-md bg-[var(--color-2)]/70 hover:bg-[var(--color-2)]/80 transition-colors ease-in-out duration-200 text-white w-full tag">
                   see more details
                 </button>
               </a>
             </div>
           </div>
         </div>
-      </div>
+      </div></a>
       <Modal />
     </>
   );
