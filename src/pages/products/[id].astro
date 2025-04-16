@@ -1,8 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const { id } = Astro.params;
+
 import ExpandedItem from "../../components/products/ExpandedItem.astro";
 import Footer from "../../components/cart/Footer.astro";
+import { Products } from "../../constants/catalog";
+export async function getStaticPaths() {
+    const { id } =await Astro.params;
+    return Products.map((product) => ({
+        params: { id: product.id.toString() },
+    }))
+
 ---
 <Layout>
     <ExpandedItem id={id} />
