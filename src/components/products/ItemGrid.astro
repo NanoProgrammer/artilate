@@ -15,7 +15,7 @@ import ItemProduct from "./ItemProduct.astro";
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[70vw] mx-auto mt-3">
             {Products.map((product) => {
             return (
-                <ItemProduct product={product} key={product.id} style={{ animationDelay: `${product.id * 0.075}s` }}/>
+                <ItemProduct product={product} key={product.id} />
             );
         })}
         </div>

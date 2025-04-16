@@ -6,3 +6,6 @@
       linear-gradient(225deg, #9a2de4, #d5008b, #e44b8a, #f38c62, #f7c77a)
         border-box;
   }
+  .pointer{
+    cursor: pointer;
+  }

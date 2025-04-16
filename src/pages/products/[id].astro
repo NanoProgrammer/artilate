@@ -1,21 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 const { id } = Astro.params;
-import { Products } from "../../constants/catalog.js";
+import ExpandedItem from "../../components/products/ExpandedItem.astro";
+import Footer from "../../components/cart/Footer.astro";
 ---
 <Layout>
-    <div>Product {id}</div>
-    {
-        Products.map((product) => {
-            if (id === product.id.toString()) {
-                return (
-                
-                    <div>
-                        <img src={product.image} alt={product.title} transition:name={`img-${product.id}`} class="w-56 h-auto max-h-[200px] object-cover rounded-lg border-2 border-[var(--color-1)]"/>
-                        <p>{product.description}</p>
-                    </div>
-                );
-            }
-        })
-    }
+    <ExpandedItem id={id} />
+    <Footer />
 </Layout>
