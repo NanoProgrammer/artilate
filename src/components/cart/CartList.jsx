@@ -7,7 +7,8 @@ export default function CartList() {
   const { cart, clearCart } = useContext(CartContext);
 
   return (
-    <div className="w-full flex flex-col lg:flex-row gap-10 items-start justify-between px-6">
+    <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 items-start justify-between px-6">
+
       <div className="flex-1">
         {cart.length > 0 ? (
           <div className="flex flex-col gap-4">
@@ -22,7 +23,7 @@ export default function CartList() {
             </button>
           </div>
         ) : (
-          <div className="h-[60vh] bg-white rounded-lg shadow-lg overflow-y-auto flex flex-col items-center justify-center p-6">
+          <div className="h-[70vh] bg-white rounded-lg shadow-lg overflow-y-auto flex flex-col items-center justify-center p-6">
             <h2 className="text-2xl font-bold">Shopping Cart</h2>
             <p className="text-gray-500 mt-2">Your cart is empty</p>
             
