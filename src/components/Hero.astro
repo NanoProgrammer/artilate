@@ -1,63 +1,83 @@
 ---
+// En Astro
 import ImgHero from "./ImgHero.jsx";
 ---
 
-<div class="h-screen  nebula mt-16">
+<div class="relative h-screen mt-16 nebula overflow-hidden">
   <ImgHero client:only />
-  <div
-    class="max-w-md md:max-w-2xl lg:max-w-xl absolute left-5 top-50 lg:top-[160px] lg:left-[375px] md:left-[180px]"
-  >
-    <h3 class="text-4xl lg:text-5xl text-center text-white max-w-md lg:ml-20 lg:mb-16 md:ml-10 main-title">
-      Discover the unique flavors that will delight your mouth.<h3></h3>
-      <div
-        class="absolute lg:top-[175px] lg:left-[110px] md:top-[125px] md:left-[70px] text-center left-10 top-40">
-        <p class="text-center text-white mb-6">
-          Experience the art of fine chocolate craftsmanship.
-        </p>
-        <a href="/products" class="">
-          <button
-            class={`px-4 py-2 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-colors ease-in-out duration-200 text-white relative z-1 shadow-xl tag cursor-pointer`}
-          >
-            shop
-          </button>
-        </a>
-      </div>
+
+  <!-- Overlay opcional -->
+  <div class="absolute inset-0  z-0"></div>
+
+  <!-- Contenido centrado -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
+    <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-md mb-6 animate-fadeInUp">
+      Discover the unique flavors that will delight your mouth.
     </h3>
-    <style>
-      h3 {
-        font-weight: 700;
-      }
-      .nebula {
-    animation: nebula 0.6s ease forwards;
-  }
-  
-  @keyframes nebula {
-    0% {
-      opacity: 0;
-      filter: blur(10px);
-      transform: scale(1.05);
-    }
-    100% {
-      opacity: 1;
-      filter: blur(0);
-      transform: scale(1);
-    }
-  }
-  .tag{
-    animation: dropTag 0.7s ease-in-out;
-  }
-  @keyframes dropTag {
-    0% {
-      opacity: 0;
-      transform: translateY(-10px) rotate(-5deg);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) rotate(0);
-    }
-  }
-  
-  
-    </style>
+
+    <p class="text-white text-base sm:text-lg md:text-xl max-w-[90%] sm:max-w-[80%] md:max-w-xl lg:max-w-2xl mb-6 animate-fadeInUp delay-100">
+      Experience the art of fine chocolate craftsmanship.
+    </p>
+
+    <a href="/products">
+      <button class="px-6 py-3 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-all duration-300 text-white shadow-xl tag animate-fadeInUp delay-200">
+        Shop
+      </button>
+    </a>
   </div>
+
+  <style>
+    .nebula {
+      animation: nebula 0.6s ease forwards;
+    }
+
+    @keyframes nebula {
+      0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+      }
+    }
+
+    .tag {
+      animation: dropTag 0.7s ease-in-out;
+    }
+
+    @keyframes dropTag {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px) rotate(-5deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+      }
+    }
+
+    .animate-fadeInUp {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .animate-fadeInUp.delay-100 {
+      animation-delay: 0.1s;
+    }
+
+    .animate-fadeInUp.delay-200 {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </div>
