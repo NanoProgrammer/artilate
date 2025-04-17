@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { ClientRouter } from "astro:transitions";
 import Header from '../components/Header.astro';
+import {CartProvider} from '../components/cart/context.jsx';
 ---
 <!doctype html>
 <html lang="en">
@@ -27,8 +28,10 @@ import Header from '../components/Header.astro';
 		<ClientRouter />
 	</head>
 	<body>
-		<Header />
+		<CartProvider>
+			<Header />
 		<slot />
+		</CartProvider>
 	</body>
 </html>
 

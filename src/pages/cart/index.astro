@@ -4,10 +4,18 @@ export const prerender = true;
 import Footer from "../../components/cart/Footer.astro";
 import CartListwithProvider from "../../components/cart/CartListwithProvider.jsx";
 ---
+
 <Layout>
-  <div class="m-6 flex flex-col ">
+  <div class="m-6 flex flex-col">
     <p class="text-4xl font-bold">Shopping Cart</p>
   </div>
-  <CartListwithProvider client:only/>
+
+  <div class="px-6 pb-12 flex flex-col lg:flex-row gap-10 justify-between mt-8">
+    <div class="w-full ">
+      <CartListwithProvider client:only="react" />
+    </div>
+
+  </div>
+
   <Footer />
 </Layout>
