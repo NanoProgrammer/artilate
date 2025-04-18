@@ -23,8 +23,8 @@ export default function ImgHero() {
   }, []);
 
   return (
-    <Suspense fallback={<div className="w-full h-[100vh] text-amber-700 text-3xl">...</div>}>
-      <div className="relative overflow-hidden w-full h-122">
+    <Suspense fallback={<div className="w-full h-full text-amber-700 text-3xl">...</div>}>
+      <div className="relative overflow-hidden w-full h-full">
       {/* Contenedor con overflow:hidden */}
       <img
         src="/assets/main-banner.webp"

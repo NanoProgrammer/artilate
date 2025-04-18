@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import './polyfills.js'; // Importa el polyfill
 
+
 import react from '@astrojs/react';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -16,4 +17,5 @@ export default defineConfig({
   },
 
   integrations: [react()],
+
 });

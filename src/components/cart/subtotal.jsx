@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import { CartContext } from './context';
 
 export default function Summary() {
@@ -7,6 +7,35 @@ export default function Summary() {
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shipping = 24;
   const total = subtotal + shipping;
+
+  const handleCheckout = async () => {
+    try {
+      const items = cart.map(item => ({
+        name: item.title,
+        price: Number(item.price),
+        quantity: item.quantity,
+      })).filter(item => !isNaN(item.price) && item.price > 0); // 👈 agrega esto
+      
+  
+      console.log('Items:', items);
+  
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items }),
+      });
+  
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('Stripe error:', data.error || 'Unknown error');
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+    }
+  };
+  
 
   return (
     <div className="bg-gray-50 p-6 rounded shadow-md w-full max-w-xs sticky top-20 h-fit">
@@ -28,10 +57,12 @@ export default function Summary() {
         <span>Total Price</span>
         <span>${total.toFixed(2)}</span>
       </div>
-      <button className="w-full bg-black text-white py-2 rounded hover:bg-gray-800">
+      <button
+        onClick={handleCheckout}
+        className="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+      >
         PROCEED TO CHECKOUT
       </button>
     </div>
   );
 }
-
