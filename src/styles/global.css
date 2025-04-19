@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap');
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Definición de variables CSS */
 :root {
@@ -10,24 +12,26 @@
     --color-4: #FFD000 ; /* Éxito */
     --color-5: #F2F2F2; /* Fondo tarjetas/UI */
     --color-6: #FFFFFF ; /* Fondo base */
+    --color-base-bg: var(--color-6); /* Define la variable para el fondo del body */
+    --color-primary: var(--color-1); /* Define la variable para el color primario del texto */
 
     /* Gradientes */
     --gradient-1: #9a2de4; /* Un tono más suave de púrpura */
---gradient-2: #d5008b; /* Un rosa más apagado */
---gradient-3: #e44b8a; /* Un rosa más tenue */
---gradient-4: #f38c62; /* Un naranja más apagado */
---gradient-5: #f7c77a; /* Un amarillo más suave */
+    --gradient-2: #d5008b; /* Un rosa más apagado */
+    --gradient-3: #e44b8a; /* Un rosa más tenue */
+    --gradient-4: #f38c62; /* Un naranja más apagado */
+    --gradient-5: #f7c77a; /* Un amarillo más suave */
 
     --font-sans: 'Inter', sans-serif;
-        --font-serif: 'Playfair Display', serif;
+    --font-serif: 'Playfair Display', serif;
 }
 /*
-Parte del header	Color sugerido	Clase Tailwind v4
-Fondo	Fondo UI	bg-[--color5]
-Texto (links/logo)	Blanco o Primario	text-white o text-[--color1]
-Link activo / hover	Complementario	hover:text-[--color3]
-Botón CTA	Primario + hover	bg-[--color1] hover:bg-[--color3] text-white
-Borde inferior (opcional)	Complementario	border-b border-[--color3]
+Parte del header     Color sugerido    Clase Tailwind v4
+Fondo     Fondo UI      bg-[--color5]
+Texto (links/logo)   Blanco o Primario    text-white o text-[--color1]
+Link activo / hover Complementario   hover:text-[--color3]
+Botón CTA    Primario + hover      bg-[--color1] hover:bg-[--color3] text-white
+Borde inferior (opcional)    Complementario   border-b border-[--color3]
 */
 
 * {

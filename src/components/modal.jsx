@@ -28,7 +28,7 @@ export default function Modal() {
   return (
     <>
       <div
-        className="modal fixed top-0 left-0 h-[100vh] w-[100vw] bg-[var(--color-1)]/80 flex justify-center items-center z-50 overflow-hidden"
+        className="modal fixed top-0 left-0 h-[100vh] w-[100vw] bg-color1/80 flex justify-center items-center z-50 overflow-hidden"
         onClick={handleModalClick}
       >
         <div
@@ -49,7 +49,7 @@ export default function Modal() {
           </div>
           <div className="flex flex-col sm:flex-row justify-between ml-35 sm:ml-0  mt-8 gap-4">
             <a href="/products" className="flex hov">
-              <div className="flex flex-row bg-[var(--color-4)]/60 rounded-md p-4 border-2 border-[var(--color-4)] hover:bg-[var(--color-4)]/80 transition-colors ease-in-out duration-200">
+              <div className="flex flex-row bg-color4/60 rounded-md p-4 border-2 border-color4 hover:bg-color4/80 transition-colors ease-in-out duration-200">
                 <div className="flex flex-col justify-center items-center w-24 text-center">
                   <p className="text-sm sm:text-base">Explore more</p>
                   <img
@@ -61,7 +61,7 @@ export default function Modal() {
               </div>
             </a>
             <a href="/cart" className="flex hov">
-              <div className="flex flex-row bg-[var(--color-2)]/60 rounded-md p-4 border-2 border-[var(--color-2)] hover:bg-[var(--color-2)]/80 transition-colors ease-in-out duration-200">
+              <div className="flex flex-row bg-color2/60 rounded-md p-4 border-2 border-color2 hover:bg-color2/80 transition-colors ease-in-out duration-200">
                 <div className="flex flex-col justify-center items-center w-24 text-center">
                   <p className="text-sm sm:text-base">Check the cart</p>
                   <img
@@ -73,7 +73,7 @@ export default function Modal() {
               </div>
             </a>
             <a href="/" className="flex hov">
-              <div className="flex flex-row bg-[var(--color-3)]/60 rounded-md p-4 border-2 border-[var(--color-3)] hover:bg-[var(--color-3)]/80 transition-colors ease-in-out duration-200">
+              <div className="flex flex-row bg-color3/60 rounded-md p-4 border-2 border-color3 hover:bg-color3/80 transition-colors ease-in-out duration-200">
                 <div className="flex flex-col justify-center items-center w-24 text-center">
                   <p className="text-sm sm:text-base">See home</p>
                   <img
