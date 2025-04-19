@@ -1,6 +1,7 @@
-# wrangler.toml
-name = "artilate" # Nombre de tu proyecto en Cloudflare Pages
-compatibility_date = "2023-10-10" # Fecha de compatibilidad para Cloudflare Workers
+name = "artilate-workers"
+compatibility_date = "2025-04-18"
+main = "./dist/_worker.js/index.js" # Ajusta el nombre del archivo si es diferente
 
-# Carpeta donde están los archivos estáticos generados
-pages_build_output_dir = "dist"
+routes = [
+  { pattern = "https://artilate.com/*", zone_id = "e8faa93bf68bfbe0a671e8909bdcb40f" }
+]

@@ -1,21 +1,16 @@
-// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
-import './polyfills.js'; // Importa el polyfill
-
-
 import react from '@astrojs/react';
-
-import tailwindcss from '@tailwindcss/vite';
+import './polyfills.js'; // si es necesario para algo
 
 export default defineConfig({
   site: 'https://artilate.com',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    mode: 'worker', // Asegúrate de tener esta opción o una configuración similar
+    // entryPoint: './src/entry-worker.js', // Podrías necesitar definir un punto de entrada
+  }),
   output: 'server',
-
-  vite: {plugins: [tailwindcss()],
-  },
-
-  integrations: [react()],
-
+  integrations: [
+    react(),
+  ]
 });

@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
+
 interface CheckoutSessionRequest {
   items: Array<{
     name: string;
@@ -7,6 +8,7 @@ interface CheckoutSessionRequest {
     quantity: number;
   }>;
 }
+
 const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
   apiVersion: '2025-03-31.basil',
 });
@@ -27,26 +29,26 @@ export const POST: APIRoute = async ({ request }) => {
           unit_amount: Math.round(Number(item.price) * 100) || 1, // por si viene inválido, evita que Stripe explote
         },
         quantity: item.quantity,
-        customer_email: undefined,
       })),
       success_url: 'http://artilate.com/success',
       cancel_url: 'http://artilate.com/cancel',
     });
-    
+
+    // Si usas KV para almacenar alguna sesión o dato, podrías hacerlo aquí:
+    if (import.meta.env.SESSION) {
+      await import.meta.env.SESSION.put('checkout_session', JSON.stringify(session));
+    }
 
     return new Response(JSON.stringify({ url: session.url }), { status: 200 });
   } catch (error) {
-    console.error('Stripe error:', error); // 👈 dejalo
+    console.error('Stripe error:', error); // 👈 déjalo para depuración
     const errorMessage =
       error instanceof Error
         ? error.message
         : typeof error === 'object' && error !== null && 'message' in error
-          ? (error as any).message
-          : 'Unknown error';
+        ? (error as any).message
+        : 'Unknown error';
   
     return new Response(JSON.stringify({ error: errorMessage }), { status: 500 });
   }
-  
-  
 };
-
