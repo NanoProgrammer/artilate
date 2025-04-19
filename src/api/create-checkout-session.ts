@@ -1,32 +1,29 @@
 import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
 
-interface CheckoutSessionRequest {
-  items: Array<{
-    name: string;
-    price: number;
-    quantity: number;
-  }>;
-}
-
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil',
 });
 
+export const GET: APIRoute = () => {
+  console.log('[GET] ❌ Someone hit this with GET');
+  return new Response('Method Not Allowed', { status: 405 });
+};
+
 export const POST: APIRoute = async ({ request }) => {
-  const { items } = await request.json() as CheckoutSessionRequest;
+  console.log('[POST] ✅ POST request received');
 
   try {
+    const { items }: { items: { name: string; price: number; quantity: number }[] } = await request.json();
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
-      line_items: items.map((item: any) => ({
+      line_items: items.map(item => ({
         price_data: {
-          currency: 'usd',
-          product_data: {
-            name: item.name,
-          },
-          unit_amount: Math.round(Number(item.price) * 100) || 1, // por si viene inválido, evita que Stripe explote
+          currency: 'cad',
+          product_data: { name: item.name },
+          unit_amount: Math.round(item.price * 100),
         },
         quantity: item.quantity,
       })),
@@ -34,21 +31,15 @@ export const POST: APIRoute = async ({ request }) => {
       cancel_url: 'http://artilate.com/cancel',
     });
 
-    // Si usas KV para almacenar alguna sesión o dato, podrías hacerlo aquí:
-    if (import.meta.env.SESSION) {
-      await import.meta.env.SESSION.put('checkout_session', JSON.stringify(session));
-    }
-
-    return new Response(JSON.stringify({ url: session.url }), { status: 200 });
+    return new Response(JSON.stringify({ url: session.url }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
   } catch (error) {
-    console.error('Stripe error:', error); // 👈 déjalo para depuración
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : typeof error === 'object' && error !== null && 'message' in error
-        ? (error as any).message
-        : 'Unknown error';
-  
-    return new Response(JSON.stringify({ error: errorMessage }), { status: 500 });
+    console.error('Stripe error:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 };

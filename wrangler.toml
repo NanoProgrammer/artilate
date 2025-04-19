@@ -1,7 +1,5 @@
-name = "artilate-workers"
+name = "artilate"
 compatibility_date = "2025-04-18"
-main = "./dist/_worker.js/index.js" # Ajusta el nombre del archivo si es diferente
 
-routes = [
-  { pattern = "https://artilate.com/*", zone_id = "e8faa93bf68bfbe0a671e8909bdcb40f" }
-]
+pages_build_output_dir = "./dist"  # Directorio de salida de los archivos estáticos generados
+
