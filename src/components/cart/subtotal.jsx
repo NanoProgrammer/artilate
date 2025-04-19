@@ -1,4 +1,4 @@
-import  { useContext } from 'react';
+import { useContext } from 'react';
 import { CartContext } from './context';
 
 export default function Summary() {
@@ -10,22 +10,29 @@ export default function Summary() {
 
   const handleCheckout = async () => {
     try {
-      const items = cart.map(item => ({
-        name: item.title,
-        price: Number(item.price),
-        quantity: item.quantity,
-      })).filter(item => !isNaN(item.price) && item.price > 0); // 👈 agrega esto
-      
-  
+      const items = cart
+        .map(item => ({
+          name: item.title,
+          price: Number(item.price),
+          quantity: item.quantity,
+        }))
+        .filter(item => !isNaN(item.price) && item.price > 0);
+
       console.log('Items:', items);
-  
+
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items }),
       });
-  
+
+      if (res.status === 405) {
+        console.error('❌ Tried to access API with GET or wrong method');
+        return;
+      }
+
       const data = await res.json();
+
       if (data.url) {
         window.location.href = data.url;
       } else {
@@ -35,7 +42,6 @@ export default function Summary() {
       console.error('Checkout error:', err);
     }
   };
-  
 
   return (
     <div className="bg-gray-50 p-6 rounded shadow-md w-full max-w-xs sticky top-20 h-fit">
