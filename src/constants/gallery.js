@@ -10,17 +10,5 @@ export const img = [
     { id: 9, img: '/assets/photo9.avif', description: 'A historic castle surrounded by lush greenery.' },
     { id: 10, img: '/assets/photo10.avif', description: 'A winding road through a picturesque countryside.' },
     { id: 11, img: '/assets/photo11.avif', description: 'A vibrant sunset over the ocean horizon.' },
-    { id: 12, img: '/assets/photo12.avif', description: 'A charming village with cobblestone streets and old houses.' },
-    { id: 13, img: '/assets/photo13.avif', description: 'A majestic waterfall cascading into a rocky pool.' },
-    { id: 14, img: '/assets/photo14.avif', description: 'A field of sunflowers under a bright summer sky.' },
-    { id: 15, img: '/assets/photo15.avif', description: 'A tranquil desert scene with rolling sand dunes.' },
-    { id: 16, img: '/assets/photo16.avif', description: 'A misty morning in a dense forest.' },
-    { id: 17, img: '/assets/photo17.avif', description: 'A vibrant coral reef teeming with marine life.' },
-    { id: 18, img: '/assets/photo18.avif', description: 'A snowy village illuminated by warm lights.' },
-    { id: 19, img: '/assets/photo19.avif', description: 'A dramatic cliffside overlooking the ocean.' },
-    { id: 20, img: '/assets/photo20.avif', description: 'A peaceful meadow with wildflowers in bloom.' },
-    { id: 21, img: '/assets/photo21.avif', description: 'A starry night sky over a quiet lake.' },
-    { id: 22, img: '/assets/photo22.avif', description: 'A rustic barn surrounded by autumn foliage.' },
-    { id: 23, img: '/assets/photo23.avif', description: 'A tropical island with palm trees and clear water.' },
-    { id: 24, img: '/assets/photo24.avif', description: 'A panoramic view of a mountain range at sunrise.' },
+    
 ];
