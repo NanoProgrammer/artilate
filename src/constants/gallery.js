@@ -1,0 +1,17 @@
+export const img = [
+    { img: '/assets/photo1.jpg', description: 'A beautiful landscape with mountains and a clear sky.' },
+    { img: '/assets/photo2.jpg', description: 'A serene beach with golden sand and turquoise water.' },
+    { img: '/assets/photo3.jpg', description: 'A bustling cityscape at night with glowing lights.' },
+    { img: '/assets/photo4.jpg', description: 'A dense forest with sunlight filtering through the trees.' },
+    { img: '/assets/photo5.jpg', description: 'A close-up of a vibrant red flower in bloom.' },
+    { img: '/assets/photo6.jpg', description: 'A snowy mountain peak under a bright blue sky.' },
+    { img: '/assets/photo7.jpg', description: 'A calm lake reflecting the surrounding trees and sky.' },
+    { img: '/assets/photo8.jpg', description: 'A colorful hot air balloon floating in the sky.' },
+    { img: '/assets/photo9.jpg', description: 'A historic castle surrounded by lush greenery.' },
+    { img: '/assets/photo10.jpg', description: 'A winding road through a picturesque countryside.' },
+    { img: '/assets/photo11.jpg', description: 'A vibrant sunset over the ocean horizon.' },
+    { img: '/assets/photo12.jpg', description: 'A charming village with cobblestone streets and old houses.' },
+    { img: '/assets/photo13.jpg', description: 'A majestic waterfall cascading into a rocky pool.' },
+    { img: '/assets/photo14.jpg', description: 'A field of sunflowers under a bright summer sky.' },
+    { img: '/assets/photo15.jpg', description: 'A tranquil desert scene with rolling sand dunes.' },
+];

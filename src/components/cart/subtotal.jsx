@@ -10,15 +10,21 @@ export default function Summary() {
 
   const handleCheckout = async () => {
     try {
-      const items = cart
-        .map(item => ({
-          name: item.title,
-          price: Number(item.price),
-          quantity: item.quantity,
-        }))
-        .filter(item => !isNaN(item.price) && item.price > 0);
+      const items = [
+        ...cart
+          .map(item => ({
+            name: item.title,
+            price: Number(item.price),
+            quantity: item.quantity,
+          }))
+          .filter(item => !isNaN(item.price) && item.price > 0),
 
-      console.log('Items:', items);
+        {
+          name: 'Shipping',
+          price: shipping,
+          quantity: 1,
+        }
+      ];
 
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
@@ -56,7 +62,7 @@ export default function Summary() {
       </div>
       <input
         type="text"
-        placeholder="Enter gift code"
+        placeholder="Enter your discount code"
         className="w-full px-3 py-2 mb-4 border rounded"
       />
       <div className="flex justify-between font-bold text-lg mb-4">

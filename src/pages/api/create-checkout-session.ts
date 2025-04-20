@@ -14,7 +14,11 @@ export const POST: APIRoute = async ({ request }) => {
   console.log('[POST] ✅ POST request received');
 
   try {
-    const { items }: { items: { name: string; price: number; quantity: number }[] } = await request.json();
+    const { items, email, address }: { 
+      items: { name: string; price: number; quantity: number }[]; 
+      email: string; 
+      address: string;
+    } = await request.json();
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
@@ -29,6 +33,13 @@ export const POST: APIRoute = async ({ request }) => {
       })),
       success_url: 'http://artilate.com/success',
       cancel_url: 'http://artilate.com/cancel',
+      metadata: {
+        email,
+        address,
+      },
+      shipping_address_collection: {
+        allowed_countries: ['US', 'CA'],
+      },
     });
 
     return new Response(JSON.stringify({ url: session.url }), {
