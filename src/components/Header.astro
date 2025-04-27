@@ -1,21 +1,21 @@
 <header class="text-white w-full h-24" id="main-header">
-  <div class="max-w-7xl m-auto grid grid-cols-3 items-center h-full gap-16">
+  <div class="max-w-7xl m-auto grid grid-cols-3 items-center h-full gap-4 md:gap-8">
     <!-- Columna izquierda: Enlaces de navegación -->
-    <nav class="flex justify-between items-center space-x-8 text-lg font-medium">
-      <a href="/products" class="transition hover:text-gray-300 text-xl">shop</a>
-      <a href="/#story" class="transition hover:text-gray-300 text-xl">our story</a>
+    <nav class="flex justify-between items-center space-x-4 md:space-x-8 text-sm md:text-md lg:text-lg font-medium">
+      <a href="/products" class="transition hover:text-gray-300 ">Shop</a>
+      <a href="/#story" class="transition hover:text-gray-300 ">Our Story</a>
     </nav>
 
     <!-- Columna central: Logo -->
     <div class="flex justify-center items-center">
       <a href="/" class="flex">
-        <img src="/assets/logo_blanco.png" alt="Artilate Logo" class="w-32 h-auto" />
+        <img src="/assets/logo_blanco.png" alt="Artilate Logo" class="w-24 md:w-32 h-auto" />
       </a>
     </div>
 
     <!-- Columna derecha: Enlaces de navegación -->
-    <nav class="flex justify-between items-center space-x-8 text-lg font-medium">
-      <a href="/gallery" class="transition hover:text-gray-300 text-xl">gallery</a>
+    <nav class="flex justify-between items-center space-x-8 text-sm md:text-md lg:text-lg font-medium">
+      <a href="/gallery" class="transition hover:text-gray-300 ">Gallery</a>
       <a href="/cart" class="transition ml-2">
         <img
           src="/assets/cart.svg"
@@ -46,5 +46,17 @@
 
   .hov:hover {
     filter: invert(90%) saturate(2953%) brightness(75%);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    
+
+    /* Ajustes para asegurar que los elementos se mantengan en una fila */
+    nav {
+      flex-wrap: nowrap; /* Evita que los elementos se rompan */
+    }
+
+
   }
 </style>
