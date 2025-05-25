@@ -1,15 +1,56 @@
 ---
 import ImgStory from './imgStory.jsx';
-
 ---
 
-<div id="story" class=" bg-color4/70 py-4 lg:px-8 border-t max-w-4xl mx-auto h-[100vh] flex lg:flex-row flex-col justify-center items-center text-center gap-4 px-8">
-    <ImgStory img="/assets/about-us.webp" client:only/>
-    <div class="max-w-md mx-auto" >
-        <h3 class="text-3xl font-bold mb-4 text-center text-color1">Our Story</h3>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid, sapiente rem. Nobis ratione, velit qui, similique ea saepe itaque deserunt magnam quia veritatis error alias voluptates illum quae, dolorum minima blanditiis impedit id repellendus laborum vel odio nemo quas iste. Molestiae ratione velit recusandae ut quidem repellat.
-    </p>
+<section id="story" class="bg-[color:var(--color-2)/40] py-16 px-4 lg:px-8 border-t border-[color:var(--color-1)] max-w-6xl mx-auto rounded-lg shadow-md">
+  <!-- Intro Story Section -->
+  <div class="flex flex-col lg:flex-row items-center gap-10 mb-16">
+    <ImgStory img="/assets/about-us.webp" client:only />
+    <div class="max-w-xl text-left">
+      <h3 class="text-4xl font-bold text-[color:var(--color-1)] mb-4">Our Story</h3>
+      <p class="text-white leading-relaxed">
+        At Artilate, we believe chocolate should tell a story — one of origin, craft, and passion.
+        What began as a family kitchen tradition has grown into an artisan chocolate company
+        rooted in ethical sourcing, innovation, and love for flavor. From bean to bonbon, we work
+        with care, detail, and joy.
+      </p>
     </div>
-</div>
+  </div>
 
+  <!-- Our Values -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-16">
+    <div class="bg-[color:var(--color-5)] text-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <h4 class="text-xl font-semibold mb-2 text-[color:var(--color-3)]">Craftsmanship</h4>
+      <p class="text-sm">
+        We take time to master each step of the process — from bean roasting to final tempering.
+      </p>
+    </div>
+    <div class="bg-[color:var(--color-5)] text-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <h4 class="text-xl font-semibold mb-2 text-[color:var(--color-3)]">Ethical Sourcing</h4>
+      <p class="text-sm">
+        Our cocoa comes directly from Colombian farmers we know and trust.
+      </p>
+    </div>
+    <div class="bg-[color:var(--color-5)] text-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <h4 class="text-xl font-semibold mb-2 text-[color:var(--color-3)]">Innovation</h4>
+      <p class="text-sm">
+        We blend creativity with tradition to surprise chocolate lovers and chefs alike.
+      </p>
+    </div>
+  </div>
 
+  <!-- Experience Section -->
+  <div class="bg-[color:var(--color-6)] p-8 rounded-lg text-white text-center max-w-3xl mx-auto">
+    <h4 class="text-2xl font-bold text-[color:var(--color-1)] mb-4">The Artilate Experience</h4>
+    <p class="text-sm leading-relaxed mb-6">
+      Whether you’re gifting someone special, stocking your café, or simply indulging,
+      Artilate chocolates are designed to elevate every moment. Explore bold flavors,
+      tropical inspirations, and silky textures crafted with love.
+    </p>
+    <a href="/products">
+      <button class="px-6 py-2 rounded-md bg-[color:var(--color-1)] hover:bg-[color:var(--color-3)] text-white transition duration-200">
+        Browse Chocolates
+      </button>
+    </a>
+  </div>
+</section>

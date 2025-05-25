@@ -1,38 +1,42 @@
-<footer class="bg-[var(--color-1)] text-white py-6 px-6 lg:px-10 border-t  shadow-md">
-    <div class="max-w-7xl flex flex-row items-center justify-between text-center lg:mx-24">
-        <div class="flex justify-center">
-            <div class="flex justify-center">
-                <a href="https://twitter.com/artilate_" class="flex mr-6 hov">
-                    <img src="/assets/x.svg" alt="Twitter" class="w-6 h-auto lg:w-7" style="filter: invert(100%) brightness(100%); transition: filter 0.3s ease;" />
-                </a>
-            </div>
-            <div class="flex justify-center">
-                <a href="https://www.instagram.com/artilate/" class="flex hov">
-                    <img src="/assets/ig.svg" alt="Instagram" class="w-6 h-auto lg:w-7" style="filter: invert(100%) brightness(100%); transition: filter 0.3s ease;" />
-                </a>
-            </div>
-            <div>
-                <a href="https://www.linkedin.com/company/artilate/" class="flex ml-6 hov">
-                    <img src="/assets/linkedin.svg" alt="linkedin" class="w-10 h-auto lg:w-12" style="filter: invert(100%) brightness(100%); transition: filter 0.3s ease;" />
-                </a>
-            </div>
-            <div class="flex justify-center">
-                <a href="https://twitter.com/artilate_" class="flex ml-3 hov">
-                    <img src="/assets/facebook.svg" alt="Facebook" class="w-7 h-auto lg:w-8" style="filter: invert(100%) brightness(100%); transition: filter 0.3s ease;" />
-                </a>
-            </div>
-        </div>
-        <p class="text-sm lg:text-lg">© Artilate 2023 | All rights reserved</p>
+<footer class="bg-[var(--color-6)] text-white py-6 px-6 lg:px-10 border-t border-[var(--color-3)] shadow-md">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-center gap-4 lg:gap-10">
+    
+    <!-- Social Media Links -->
+    <div class="flex items-center gap-6">
+      <a href="https://twitter.com/artilate_" class="hov flex items-center">
+        <img src="/assets/x.svg" alt="Twitter" class="h-5 w-auto" />
+      </a>
+      <a href="https://www.instagram.com/artilate/" class="hov flex items-center">
+        <img src="/assets/ig.svg" alt="Instagram" class="h-5 w-auto" />
+      </a>
+      <a href="https://www.facebook.com/artilate" class="hov flex items-center">
+        <img src="/assets/facebook.svg" alt="Facebook" class="h-6 w-auto" />
+      </a>
+    </div>
+
+    <!-- Legal -->
+    <p class="text-sm lg:text-base text-[color:var(--color-1)]">
+      © Artilate <span id="year"></span> | All rights reserved
+    </p>
+  </div>
 </footer>
 
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 <style>
-    .hov:hover{
-        filter: invert(36%) saturate(2953%)  brightness(100%);
-    }
-    footer{
-    color: white;
-    background-color: #0E0C15;
-    background-image: radial-gradient(white 1px, transparent 1px);
-    background-size: 32px 30px; /* Espaciado de las pepitas */
-    }
+  footer {
+    background-color: var(--color-6); /* #332E2B */
+  }
+
+  .hov img {
+    filter: invert(100%) brightness(100%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+
+  .hov:hover img {
+    filter: invert(36%) sepia(50%) saturate(1200%) hue-rotate(-10deg) brightness(100%);
+    transform: scale(1.1);
+  }
 </style>

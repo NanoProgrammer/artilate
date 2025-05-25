@@ -3,7 +3,7 @@
 import ImgHero from "./ImgHero.jsx";
 ---
 
-<div class="relative h-screen mt-16 nebula overflow-hidden">
+<div class="relative h-screen nebula overflow-hidden position-absolute top-0 left-0">
   <ImgHero client:only />
 
   <!-- Overlay opcional -->
@@ -20,10 +20,10 @@ import ImgHero from "./ImgHero.jsx";
     </p>
 
     <a href="/products">
-      <button class="px-6 py-3 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-all duration-300 text-white shadow-xl tag animate-fadeInUp ">
+      <button class="px-6 py-3 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-all duration-300 text-white shadow-xl tag btn-anim ">
         Shop
       </button>
-    </a>
+       </a>
   </div>
 
   <style>
@@ -79,5 +79,8 @@ import ImgHero from "./ImgHero.jsx";
         transform: translateY(0);
       }
     }
+
+ 
+
   </style>
 </div>

@@ -7,26 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ImgStory({ img }) {
   const imageRef = useRef(null);
 
-  useEffect(() => {
-    const imageElement = imageRef.current;
 
-    if (imageElement) {
-      gsap.fromTo(
-        imageElement,
-        { y: -80 },
-        {
-          y: 8,
-          duration: 0.4,
-          ease: "in-out",
-          scrollTrigger: {
-            trigger: imageElement,
-            start: "top 50%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }
-  }, []);
 
   return (
     <div
