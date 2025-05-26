@@ -35,7 +35,7 @@ const Header = () => {
             src="/assets/logo_blanco.png"
             alt="Logo"
             id="logo-img"
-            className="h-10 transition-all duration-300"
+            className="h-16 transition-all duration-300"
           />
           <p id="logo-text" className="text-lg transition-all duration-300"></p>
         </a>

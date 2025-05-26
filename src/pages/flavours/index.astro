@@ -1,0 +1,110 @@
+
+---
+const flavours = [
+  {
+    id: 1,
+    title: "Sea Salt Caramel",
+    description: "Smooth caramel with sea salt, enrobed in rich dark chocolate.",
+    image: "https://www.inspiredtaste.net/wp-content/uploads/2012/12/Salted-Chocolate-Covered-Caramels-Recipe-1200.jpg",
+  },
+  {
+    id: 2,
+    title: "Raspberry Delight",
+    description: "Tangy raspberry puree folded into creamy milk chocolate.",
+    image: "https://www.midgetmomma.com/wp-content/uploads/2016/02/Chocolate-Raspberry-Bites-1.jpg",
+  },
+  {
+    id: 3,
+    title: "Espresso Infusion",
+    description: "Bold espresso flavor inside smooth dark chocolate.",
+    image: "https://izzycooking.com/wp-content/uploads/2022/05/Chocolate-Coffee.jpg",
+  },
+  {
+    id: 4,
+    title: "Pistachio Dream",
+    description: "Creamy pistachio center in a white chocolate shell.",
+    image: "https://tatyanaseverydayfood.com/wp-content/uploads/2017/06/Chocolate-Pistachio-Profiteroles-1.jpg",
+  },
+  {
+    id: 5,
+    title: "Hazelnut Crunch",
+    description: "Roasted hazelnuts blended into velvety milk chocolate.",
+    image: "https://itsdelish.com/cdn/shop/products/Dark_Chocolate_Hazelnuts_1024x1024.jpg",
+  },
+  {
+    id: 6,
+    title: "Mint Breeze",
+    description: "Refreshing mint ganache in rich dark chocolate.",
+    image: "https://www.rocketgardens.co.uk/wp-content/uploads/2019/03/chocolate-mint.jpg",
+  },
+  {
+    id: 7,
+    title: "Orange Zest",
+    description: "Zesty orange peel swirled in smooth milk chocolate.",
+    image: "https://usacandyfactory.com.au/wp-content/uploads/2021/09/Terrys-Milk-Chocolate-Orange-Ball-157g-UK.jpg",
+  },
+  {
+    id: 8,
+    title: "Coconut Velvet",
+    description: "Toasted coconut flakes wrapped in creamy white chocolate.",
+    image: "https://www.giallozafferano.com/images/229-22997/Chocolate-coconut-bars_650x433_wm.jpg",
+  },
+  {
+    id: 9,
+    title: "Tropical Passion",
+    description: "Passionfruit and mango ganache in a dark chocolate shell.",
+    image: "https://www.mydeliciousblog.com/wp-content/uploads/2016/02/Orange-Infused-Chocolate-Covered-Fruit.jpg",
+  },
+];
+
+import Layout from "../../layouts/Layout.astro";
+---
+<Layout>
+<section class="py-16 px-4 max-w-7xl mx-auto mt-16">
+  <h1 class="text-4xl font-extrabold text-center text-[var(--color-3)] mb-14">Explore Our Flavours</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6">
+    {flavours.map((flavour, index) => {
+      const delay = `${index * 0.1}s`;
+      return (
+        <div
+          class="pt-8 border-t border-dotted border-[var(--color-4)] fade-in"
+          style={`animation-delay: ${delay};`}
+        >
+          <img
+            src={flavour.image}
+            alt={flavour.title}
+            class="w-full h-48 object-cover rounded-xl shadow-sm mb-4"
+            loading="lazy"
+          />
+          <h2 class="text-xl font-bold text-[var(--color-3)] mb-2">{flavour.title}</h2>
+          <p class="text-sm text-[var(--color-5)]">{flavour.description}</p>
+        </div>
+      );
+    })}
+  </div>
+</section>
+</Layout>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  img:hover {
+    transform: scale(1.03);
+  }
+</style>
