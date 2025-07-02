@@ -57,9 +57,11 @@ const flavours = [
   },
 ];
 
-import Layout from "../../layouts/Layout.astro";
+import LayoutProducts from "../../layouts/LayoutProducts.astro";
 ---
-<Layout>
+<LayoutProducts  title="Flavored Handmade Chocolates | Discover Unique Artilate Flavours"
+description="Explore Artilate’s signature handmade chocolate flavours, crafted with unique infusions like ginger, coffee, citrus and sea salt. Ethically sourced, made in Alberta."
+keywords="flavored chocolate, handmade chocolates, artisan truffles, ginger chocolate, citrus chocolate, coffee chocolate, infused chocolate, unique chocolate flavours, Alberta chocolate, Artilate chocolates">
 <section class="py-16 px-4 max-w-7xl mx-auto mt-16">
   <h1 class="text-4xl font-extrabold text-center text-[var(--color-3)] mb-14">Explore Our Flavours</h1>
 
@@ -84,7 +86,7 @@ import Layout from "../../layouts/Layout.astro";
     })}
   </div>
 </section>
-</Layout>
+</LayoutProducts>
 
 <style>
   .fade-in {

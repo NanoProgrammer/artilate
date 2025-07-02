@@ -1,8 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Gallery from "../../components/Gallery.jsx";
+import Gallery from "../../components/Gallery";
+import LayoutProducts from "../../layouts/LayoutProducts.astro";
+
+const title = "Galería de Cacao | Artilate Chocolate Artesanal";
+const description = "Descubre la historia detrás de cada grano. Explora nuestra galería de fotos del cacao colombiano, su cultivo, fermentación y selección para crear chocolates únicos en Alberta.";
+const keywords = "cacao colombiano, galería de cacao, cultivo de cacao, chocolate artesanal, proceso bean to bar, Artilate, chocolate de origen, fotos de cacao, chocolate de Colombia";
+const ogImage = "https://artilate.com/images/galeria-cacao-cover.jpg"; // reemplazá con una imagen real
 ---
 
-<Layout>
+
+<LayoutProducts title={title} description={description} keywords={keywords} ogImage={ogImage}>
     <Gallery client:only="react"/>
-</Layout>
+</LayoutProducts>

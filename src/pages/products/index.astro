@@ -1,8 +1,11 @@
 ---
 export const prerender = true;
 import ItemGrid from '../../components/products/ItemGrid.astro'
-import Layout from '../../layouts/Layout.astro';
+import LayoutProducts from '../../layouts/LayoutProducts.astro';
+const title = "Shop Handmade Chocolates | Artilate";
+const description = "Explore Artilate's handmade and single origin chocolates, crafted with care in Alberta. Ethical, flavorful, and unique.";
+const keywords = "handmade chocolates, artisan chocolate, gourmet chocolate, chocolate shop, Alberta chocolate";
 ---
-<Layout>
+<LayoutProducts title={title} description={description} keywords={keywords}>
     <ItemGrid />
-</Layout>
+</LayoutProducts>
