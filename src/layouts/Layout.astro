@@ -28,6 +28,16 @@ import {CartProvider} from '../components/cart/context.jsx';
 
 		<script src="https://analytics.ahrefs.com/analytics.js" data-key="an92Ngq+Kc8dbOJVIJJP4Q" async></script>
 		<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4898c9c7ac6347c5ada445bfa750a42b"}'></script>
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VH4GBK0XBK"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VH4GBK0XBK');
+          `}
+        </script>
 		<ClientRouter />
 	</head>
 	<body>
