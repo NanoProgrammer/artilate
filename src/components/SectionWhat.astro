@@ -1,0 +1,72 @@
+---
+type Props = {
+  title?: string;
+  lead?: string;
+  items?: { title: string; description: string }[];
+  imageSrc: string;
+  imageAlt: string;
+  reverse?: boolean;
+};
+
+const {
+  title = "What we do",
+  lead = "We create small-batch chocolates where tropical vibrance meets gourmet precision.",
+  items = [
+    { title: "Bean-to-Bar & Couverture", description: "Controlled roasting, conching and tempering." },
+    { title: "Gourmet Bonbons", description: "Seasonal fruit ganaches — maracuyá, mango, mora, pistachio." },
+    { title: "Bars & Gifts", description: "Elegant finishes and limited editions." },
+    { title: "Quality & Safety", description: "Microbiologist-led controls and 3rd-party testing." },
+  ],
+  imageSrc,
+  imageAlt,
+  reverse = true,
+} = Astro.props as Props;
+---
+
+<section id="what" class="bg-[var(--beige)] text-[var(--cacao)] py-6 sm:py-8">
+  <div class="container mx-auto px-4 grid gap-8 md:grid-cols-2 items-center">
+    {reverse && (
+      <figure class="rounded-2xl overflow-hidden max-h-[56svh] lg:max-h-[480px] max-w-sm ">
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-contain bg-transparent
+                 max-h-[56svh] lg:max-h-[530px]
+                 drop-shadow-[0_16px_38px_rgba(0,0,0,0.15)]"
+        />
+      </figure>
+    )}
+
+    <div class="space-y-3">
+      <h2 class="font-extrabold tracking-tight text-[clamp(1.4rem,3.2vw,2.1rem)]">
+        {title}
+      </h2>
+      <p class="text-[#3b2b24]">{lead}</p>
+
+      <ul class="grid gap-3">
+        {items.map((i) => (
+          <li class="border-l-[3px] border-[var(--gold)] pl-3">
+            <strong class="block mb-0.5">{i.title}</strong>
+            <span class="opacity-90">{i.description}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {!reverse && (
+      <figure class="rounded-2xl overflow-hidden">
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-contain bg-transparent
+                 max-h-[56vh] lg:max-h-[480px]
+                 drop-shadow-[0_16px_38px_rgba(0,0,0,0.15)]"
+        />
+      </figure>
+    )}
+  </div>
+</section>

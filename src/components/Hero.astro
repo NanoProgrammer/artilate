@@ -1,86 +1,119 @@
 ---
-// En Astro
-import ImgHero from "./ImgHero.jsx";
+// Hero totalmente responsive, desde cero
+// • 1 sola imagen (sin chip, sin fondos añadidos)
+// • Altura = 100svh − altura del header (variable)
+// • Sin píxeles fijos para alturas; solo svh/vw/rem/clamp
+// • Si no defines --header-h en el header, usa 9svh por defecto
+
+type Props = {
+  title?: string;
+  subtitle?: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  imageMainSrc: string;
+  imageMainAlt: string;
+  mediaSide?: "left" | "right";
+  badges?: string[];
+};
+
+const {
+  title = "Luxury artisan chocolates — crafted to linger.",
+  subtitle = "Colombian cacao, Alberta craftsmanship. Small-batch, ethically sourced, unapologetically gourmet.",
+  primaryCtaLabel = "Shop the collection",
+  primaryCtaHref = "#sell",
+  secondaryCtaLabel = "Our Story",
+  secondaryCtaHref = "#who",
+  imageMainSrc,
+  imageMainAlt,
+  mediaSide = "right",
+  badges = ["Small-batch", "Ethically sourced", "Made in Alberta"],
+} = Astro.props as Props;
+
+const mediaFirst = mediaSide === "left";
 ---
 
-<div class="relative h-screen nebula overflow-hidden position-absolute top-0 left-0">
-  <ImgHero client:only />
+<section id="top" aria-label="Hero" class="hero clean">
+  <div class="container grid">
+    {mediaFirst && (
+      <figure class="media" aria-hidden="false">
+        <img
+          src={imageMainSrc}
+          alt={imageMainAlt}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          sizes="(max-width: 1024px) 92vw, 22vw"
+        />
+      </figure>
+    )}
 
-  <!-- Overlay opcional -->
-  <div class="absolute inset-0  z-0"></div>
+    <div class={mediaFirst ? "copy left" : "copy"}>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Gold-forward flavour</p>
+      <h1 class="title">{title}</h1>
+      <p class="lead">{subtitle}</p>
 
-  <!-- Contenido centrado -->
-  <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10 max-w-7xl mx-auto">
-    <h3 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white drop-shadow-md mb-6 animate-fadeInUp">
-      Discover the unique flavors that will delight your mouth.
-    </h3>
+      {badges?.length > 0 && (
+        <ul class="badges">
+          {badges.map((b, i) => <li class="badge" >{b}</li>)}
+        </ul>
+      )}
 
-    <p class="text-white text-base sm:text-lg md:text-2xl  max-w-[90%] sm:max-w-[80%] md:max-w-xl lg:max-w-2xl mb-6 animate-fadeInUp delay-100">
-      Experience the art of fine chocolate craftsmanship.
-    </p>
+      <div class="actions">
+        <a href={primaryCtaHref} class="btn primary" aria-label="Shop the collection">
+          {primaryCtaLabel}
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href={secondaryCtaHref} class="btn ghost" aria-label="Read our story">{secondaryCtaLabel}</a>
+      </div>
+    </div>
 
-    <a href="/products">
-      <button class="px-6 py-3 rounded-md bg-[var(--color-1)] hover:bg-[var(--color-3)]/90 transition-all duration-300 text-white shadow-xl tag btn-anim ">
-        Shop
-      </button>
-       </a>
+    {!mediaFirst && (
+      <figure class="media" aria-hidden="false">
+        <img
+          src={imageMainSrc}
+          alt={imageMainAlt}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          sizes="(max-width: 1024px) 92vw, 22vw"
+        />
+      </figure>
+    )}
   </div>
+</section>
 
-  <style>
-    .nebula {
-      animation: nebula 0.6s ease forwards;
-    }
+<style>
+/***** ALTURA RESPONSIVE (sin px): 100svh − header *****/
+.hero.clean{ --hdr: var(--header-h, 9svh); /* defínelo en el header si quieres precisión */ }
+.hero.clean{ position:relative; isolation:isolate; min-block-size:calc(100svh - var(--hdr)); padding-block:clamp(1rem, 4svh, 2.5rem) }
 
-    @keyframes nebula {
-      0% {
-        opacity: 0;
-        filter: blur(10px);
-        transform: scale(1.05);
-      }
-      100% {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1);
-      }
-    }
+/***** GRID *****/
+.grid{ display:grid; gap:clamp(1rem,3svh,2rem); grid-template-columns:1.05fr .95fr; align-items:center }
+@media (width <= 1024px){ .grid{ grid-template-columns:1fr } }
 
-    .tag {
-      animation: dropTag 0.7s ease-in-out;
-    }
+/***** TEXTO *****/
+.eyebrow{ display:inline-flex; align-items:center; gap:.5rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; font-size:clamp(.78rem, 1.6vw, .9rem); margin:0 0 .45rem }
+.dot{ inline-size:.48rem; block-size:.48rem; border-radius:9999px; background:var(--gold) }
+.title{ font-weight:800; font-size:clamp(2rem, 4.2vw, 3.2rem); line-height:1.05; margin:0 0 .5rem }
+.lead{ color:var(--muted); max-inline-size:60ch; margin:0 0 .85rem }
+.badges{ display:flex; flex-wrap:wrap; gap:.55rem; margin:.35rem 0 0 }
+.badge{ font-size:clamp(.78rem,1.6vw,.9rem); padding:.35rem .7rem; border-radius:9999px; background:color-mix(in oklab, white 6%, transparent); border:1px solid rgba(212,163,115,.4); color:var(--text-warm) }
 
-    @keyframes dropTag {
-      0% {
-        opacity: 0;
-        transform: translateY(-10px) rotate(-5deg);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) rotate(0);
-      }
-    }
+/***** ACCIONES *****/
+.actions{ display:flex; flex-wrap:wrap; gap:.85rem; margin-top:1rem }
+.btn{ display:inline-flex; align-items:center; gap:.6rem; border-radius:9999px; min-block-size:clamp(40px, 5svh, 46px); padding:.85rem 1.15rem; font-weight:700 }
+.btn svg{ inline-size:1.05rem; block-size:1.05rem }
+.primary{ color:var(--text-warm); background:#6f3f16; border:1px solid #c58a4f; box-shadow:0 10px 24px rgba(0,0,0,.28) }
+.primary:hover{ background:#7f4a1c }
+.ghost{ color:var(--text-warm); border:1px solid rgba(212,163,115,.7); background:transparent }
+.ghost:hover{ background:rgba(212,163,115,.10) }
 
-    .animate-fadeInUp {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
+/***** IMAGEN: sin fondo, responsiva *****/
+.media{ display:grid; place-items:end center }
+.media img{ display:block; inline-size:min(24vw, 92%); block-size:auto; max-block-size:calc(100svh - var(--hdr) - 16svh); object-fit:contain; background:transparent; border-radius:1.1rem; box-shadow:0 1.2rem 2.2rem rgba(0,0,0,.34) }
+@media (width <= 1024px){ .media img{ inline-size:min(84vw, 92%); max-block-size:calc(100svh - var(--hdr) - 22svh) } }
 
-    .animate-fadeInUp.delay-100 {
-      animation-delay: 0.1s;
-    }
-
-    .animate-fadeInUp.delay-200 {
-      animation-delay: 0.2s;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
- 
-
-  </style>
-</div>
+.copy.left{ order:0 }
+</style>

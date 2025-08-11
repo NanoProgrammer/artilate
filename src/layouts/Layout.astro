@@ -1,58 +1,66 @@
 ---
-import '../styles/global.css';
-import { ClientRouter } from "astro:transitions";
-import Header from '../components/Header.jsx';
-import {CartProvider} from '../components/cart/context.jsx';
+import "../styles/global.css";
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  locale?: string;
+  siteName?: string;
+};
+const {
+  title = "Artilate — Luxury Artisan Chocolates",
+  description = "Small-batch, ethically sourced chocolates blending Colombian soul and Alberta craftsmanship.",
+  image = "/assets/og.png",
+  locale = "en_CA",
+  siteName = "Artilate",
+} = Astro.props as Props;
+
+const site = Astro.site ?? new URL(`${Astro.url.protocol}//${Astro.url.host}`);
+const canonicalUrl = new URL(Astro.url.pathname + Astro.url.search, site);
+
+const orgJsonLd = {
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  name: siteName,
+  url: site.href,
+  logo: new URL("/assets/logo-completo.png", site).href,
+  sameAs: ["https://instagram.com/artilate","https://facebook.com/artilate"]
+};
 ---
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Handmade Chocolates & Cacao Beans | Artilate Artisan Chocolate</title>
-		<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 
-		<meta name="description" content="Artilate offers handcrafted chocolates and roasted cacao beans made with ethical sourcing and single origin quality. Discover artisan chocolate near you and shop premium cacao today.">
-		<meta name="keywords" content="artisanal chocolate, artisan chocolate near me, handmade chocolates, handcrafted chocolate, cacao beans, roasted cacao beans, cocoa bean, single origin chocolate, gourmet chocolate, chocolate beans, chocolate gifts, Alberta chocolate, cacao seeds, chocolate made in Canada">
-		<meta name="author" content="Artilate" />
-
-		<!-- Open Graph / Facebook -->
-		<meta name="twitter:card" content="summary_large_image">
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://artilate.com/" />
-		<meta property="og:title" content="Handmade Chocolates & Cacao Beans | Artilate Artisan Chocolate" />
-		<meta property="og:description" content="Artilate offers handcrafted chocolates and roasted cacao beans made with ethical sourcing and single origin quality. Discover artisan chocolate near you and shop premium cacao today." />
-		<meta name="twitter:site" content="@artilate_" />
-
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
-
-		<script src="https://analytics.ahrefs.com/analytics.js" data-key="an92Ngq+Kc8dbOJVIJJP4Q" async></script>
-		<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4898c9c7ac6347c5ada445bfa750a42b"}'></script>
-
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VH4GBK0XBK"></script>
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-VH4GBK0XBK');
-          `}
-        </script>
-		<ClientRouter />
-	</head>
-	<body>
-		<CartProvider>
-			<Header client:visible/>
-			<slot />
-		</CartProvider>
-	</body>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={new URL(image, site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#111416" />
+    <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+    <slot name="head" />
+    <style>
+      /* fondo luxury con foil sutil global */
+      body::before{
+        content:"";position:fixed;inset:-20% -10% -10% -20%;z-index:-1;
+        background:
+          radial-gradient(60% 40% at 70% 60%, rgba(212,163,115,.12), transparent 60%),
+          linear-gradient(120deg, rgba(212,163,115,.10), rgba(255,255,255,.0) 40%, rgba(212,163,115,.10) 70%, rgba(255,255,255,.0));
+        mix-blend-mode:screen;opacity:.6;pointer-events:none;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only">Skip to content</a>
+    <slot />
+  </body>
 </html>
-
-<style is:global>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

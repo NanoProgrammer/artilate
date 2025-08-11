@@ -1,42 +1,20 @@
-<footer class="bg-[var(--color-6)] text-white py-6 px-6 lg:px-10 border-t border-[var(--color-3)] shadow-md">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-center gap-4 lg:gap-10">
-    
-    <!-- Social Media Links -->
-    <div class="flex items-center gap-6">
-      <a href="https://twitter.com/artilate_" class="hov flex items-center">
-        <img src="/assets/x.svg" alt="Twitter" class="h-5 w-auto" />
-      </a>
-      <a href="https://www.instagram.com/artilate/" class="hov flex items-center">
-        <img src="/assets/ig.svg" alt="Instagram" class="h-5 w-auto" />
-      </a>
-      <a href="https://www.facebook.com/artilate" class="hov flex items-center">
-        <img src="/assets/facebook.svg" alt="Facebook" class="h-6 w-auto" />
-      </a>
-    </div>
-
-    <!-- Legal -->
-    <p class="text-sm lg:text-base text-[color:var(--color-1)]">
-      © Artilate <span id="year"></span> | All rights reserved
-    </p>
+<footer class="footer">
+  <div class="container row">
+    <p class="small">&copy; {new Date().getFullYear()} Artilate. All rights reserved.</p>
+    <nav class="links">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@artilate.com&su=Artilate%20inquiry" target="_blank" rel="noopener">Email</a>
+      <a href="https://instagram.com/artilate" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://facebook.com/artilate" target="_blank" rel="noopener">Facebook</a>
+    </nav>
   </div>
 </footer>
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
 <style>
-  footer {
-    background-color: var(--color-6); /* #332E2B */
-  }
-
-  .hov img {
-    filter: invert(100%) brightness(100%);
-    transition: filter 0.3s ease, transform 0.3s ease;
-  }
-
-  .hov:hover img {
-    filter: invert(36%) sepia(50%) saturate(1200%) hue-rotate(-10deg) brightness(100%);
-    transform: scale(1.1);
-  }
+  .footer{border-top:1px solid rgba(212,163,115,.22);background:#0F1315;color:var(--text-warm);padding:1rem 0}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .small{font-size:.9rem;opacity:.9;margin:0}
+  .links{display:flex;gap:1rem}
+  .links a{opacity:.9}
+  .links a:hover{opacity:1;color:var(--gold)}
+  @media (max-width:700px){.row{flex-direction:column}}
 </style>

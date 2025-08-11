@@ -6,12 +6,15 @@
 /* Definición de variables CSS */
 :root {
     /* Colores */
---color-1: #7845BB;
-  --color-2: #6A4D91;
-  --color-3: #7D2EE6;
-  --color-4: #554766;
-  --color-5: #37343C;
-  --color-6: #2C2733;
+
+  --black-soft:#111416;            /* fondo principal luxe */
+  --text-warm:#F5F0E8;             /* texto cálido */
+  --beige:#EDE3D4;                 /* fondo claro secciones */
+  --cacao:#2B1B15;                 /* texto cacao */
+  --gold:#D4A373;                  /* dorado suave */
+  --gold-deep:#8C5E2E;             /* dorado profundo */
+  --copper:#B87333;                /* cobre */
+  --muted:#D9C8B4;                 /* texto secundario */
 
     --color-base-bg: var(--color-6); /* Define la variable para el fondo del body */
     --color-primary: var(--color-1); /* Define la variable para el color primario del texto */
@@ -52,110 +55,19 @@ Borde inferior (opcional)    Complementario   border-b border-[--color3]
     }
 }
 
-/* Definición de clases utilitarias personalizadas */
-@layer utilities {
-    .gradient-custom {
-        background-image: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4), var(--gradient-5));
-    }
+*{box-sizing:border-box}
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;   /* <- evita scroll horizontal global */
 }
+* { box-sizing: border-box; }
+img, svg, video { max-width: 100%; height: auto; display: block; }
 
-   .btn-anim {
-  position: relative;
-  overflow: hidden;
-  background: #111;
-  color: white;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 0;
-}
-
-/* Fondo animado */
-.btn-anim::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: #2A063F; /* color nuevo */
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  z-index: -1;
-}
-
-/* Animación al hacer hover */
-.btn-anim:hover::before {
-  transform: translateY(0%);
-}
-
-   .btn-anim2 {
-  position: relative;
-  overflow: hidden;
-  background: #1E40ffdd;
-  color: white;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 0;
-}
-
-/* Fondo animado */
-.btn-anim2::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: #1E40eeff; /* color nuevo */
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  z-index: -1;
-}
-
-/* Animación al hacer hover */
-.btn-anim2:hover::before {
-  transform: translateY(0%);
-}
-
-@keyframes progressBar {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-progress {
-  animation: progressBar 3s linear forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
-}
-
-body.header-shrink #header-inner {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-body.header-shrink #logo-img {
-  height: 52px;
-}
-
-body.header-shrink #logo-text {
-  font-size: 1rem;
-}
+body{background:var(--black-soft);color:var(--text-warm);font:16px/1.55 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{width:min(1100px,92%);margin-inline:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+::selection{background:rgba(212,163,115,.28)}

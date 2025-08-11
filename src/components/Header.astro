@@ -1,118 +1,44 @@
+---
+interface NavLink { href: string; label: string }
+const links: NavLink[] = [
+  { href: "#who", label: "Who we are" },
+  { href: "#what", label: "What we do" },
+  { href: "#ethics", label: "Our ethics" },
+  { href: "#sell", label: "Shop" },
+];
+---
 
-
-<!-- Sticky Header -->
-<header id="main-header" class="fixed top-0 z-50 bg-[var(--color-1)] text-white transition-all duration-300 w-full shadow-sm shadow-[var(--color-1)]">
- <!-- Top Info Bar -->
-<div id="top-info" class="w-full bg-[var(--color-6)] text-white text-xs text-center py-1 tracking-wide uppercase transition-all duration-300">
-  Located in Calgary | We ship Canada wide
-</div> 
-  
-  <div id="header-inner" class="max-w-7xl max-h-[68px] mx-auto flex justify-between items-center px-4 py-5 transition-all duration-300">
-
-    <!-- Logo -->
-    <a href="/">
-    <div id="logo-container" class="flex items-center space-x-2 transition-all duration-300">
-      <img id="logo-img" src="/assets/logo_blanco.png" alt="Logo" class="mt-1 h-16 transition-all duration-300" />
-      <p id="logo-text" class="text-xl transition-all duration-300"></p>
-    </div>
+<header class="site-header" role="banner">
+  <div class="container row">
+    <a href="#top" aria-label="Artilate — Home" class="brand">
+      <span class="crest" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+          <path d="M12 3c-3.5 2.2-6 5.4-6 8.6 0 3.6 2.7 6.4 6 8.4 3.3-2 6-4.8 6-8.4 0-3.2-2.5-6.4-6-8.6z"/>
+          <path d="M12 4.5V20"/>
+        </svg>
+      </span>
+      <span class="word">Artilate</span>
     </a>
 
-    <!-- Navigation -->
-    <nav class="flex items-center space-x-6 text-sm md:text-base font-medium relative">
-      <a href="/products" class="hover:text-[var(--color-3)] transition">Shop</a>
-      <a href="/flavours" class="hover:text-[var(--color-3)] transition">Flavour Menu</a>
-
-      <!-- Dropdown -->
-<div id="about-dropdown" class="relative">
-  <button id="about-trigger" class="hover:text-[var(--color-3)] transition">About Us ▾</button>
-  <div
-    id="about-menu"
-    class="absolute top-full left-0 mt-2 w-40 bg-[var(--color-5)] text-white rounded shadow-lg opacity-0 invisible transition-opacity duration-200 z-10"
-  >
-    <a href="/gallery" class="block px-4 py-2 hover:bg-[var(--color-4)]">Gallery</a>
-    <a href="/#story" class="block px-4 py-2 hover:bg-[var(--color-4)]">Our Story</a>
-  </div>
-</div>
-
-
-
-      <!-- Icons -->
-      <div class="border-l h-5 border-white/30 mx-2"></div>
-      <div class="flex items-center space-x-3">
-        <a href="/cart" class="relative hover:text-[var(--color-3)]">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6M17 13l1.2 6M6 19a1 1 0 102 0 1 1 0 00-2 0zm12 0a1 1 0 102 0 1 1 0 00-2 0z"/>
-          </svg>
-        </a>
-      </div>
+    <nav class="nav" aria-label="Primary">
+      {links.map(l => <a href={l.href} class="link">{l.label}</a>)}
+      <a href="#contact" class="cta">Contact</a>
     </nav>
   </div>
 </header>
 
 <style>
-  :root {
-    --color-1: #D57023;
-    --color-2: #AA6A39;
-    --color-3: #FF6F00;
-    --color-4: #805B40;
-    --color-5: #554539;
-    --color-6: #332E2B;
-  }
-
-  body.header-shrink #top-info {
-    opacity: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  body.header-shrink #header-inner {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  body.header-shrink #logo-img {
-    height: 40px;
-  }
-
-  body.header-shrink #logo-text {
-    font-size: 1rem;
-  }
+  .site-header{position:sticky;top:0;z-index:50;background:rgba(17,20,22,.68);backdrop-filter:blur(10px);border-bottom:1px solid rgba(212,163,115,.22)}
+  .row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+  .brand{display:inline-flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+  .crest{display:grid;place-items:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(212,163,115,.6);
+    background: radial-gradient(120% 120% at 30% 30%, rgba(212,163,115,.18), transparent 60%);}
+  .crest svg{width:18px;height:18px;color:var(--gold)}
+  .nav{display:flex;align-items:center;gap:1rem}
+  .link{opacity:.92;padding:.35rem .4rem;border-radius:10px}
+  .link:hover{opacity:1;background:rgba(212,163,115,.10)}
+  .cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.6rem 1rem;border-radius:9999px;
+    color:var(--text-warm);background:#6f3f16;border:1px solid #c58a4f;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  .cta:hover{background:#7f4a1c}
+  @media (max-width:900px){.nav .link{display:none}}
 </style>
-
-<script>
-  window.addEventListener("scroll", function () {
-    const body = document.body;
-    if (window.scrollY > 60 && !body.classList.contains("header-shrink")) {
-      body.classList.add("header-shrink");
-
-    }
-  });
-
-  const trigger = document.getElementById('about-trigger') as HTMLElement | null;
-const menu = document.getElementById('about-menu') as HTMLElement | null;
-const dropdown = document.getElementById('about-dropdown') as HTMLElement | null;
-
-let hoverTimeout: ReturnType<typeof setTimeout>;
-
-function showMenu(): void {
-  if (!menu) return;
-  clearTimeout(hoverTimeout);
-  menu.classList.remove('opacity-0', 'invisible');
-  menu.classList.add('opacity-100', 'visible');
-}
-
-function hideMenu(): void {
-  if (!menu) return;
-  hoverTimeout = setTimeout(() => {
-    menu!.classList.remove('opacity-100', 'visible');
-    menu!.classList.add('opacity-0', 'invisible');
-  }, 200);
-}
-
-if (dropdown) {
-  dropdown.addEventListener('mouseenter', showMenu);
-  dropdown.addEventListener('mouseleave', hideMenu);
-}
-
-</script>

@@ -1,37 +1,91 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-export const prerender = true;
 import Hero from "../components/Hero.astro";
-import FeaturedPrudcuts from "../components/FeaturedProducts.astro";
-import Ourstory from "../components/Ourstory.astro";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import SectionWho from "../components/SectionWho.astro";
+import SectionWhat from "../components/SectionWhat.astro";
+import SectionEthics from "../components/SectionEthics.astro";
+import SectionSell from "../components/SectionSell.astro";
+import SectionContact from "../components/SectionContact.astro";
+
+const title = "Artilate — Premium Artisan Chocolates";
+const description =
+  "Artisan chocolates crafted in Alberta with tropical Colombian soul. Gourmet flavours, ethical sourcing, and small-batch quality.";
+const image = "/assets/og.png"; // ruta a tu imagen OG
+const locale = "en_CA";
+const siteName = "Artilate";
 ---
 
-<Layout>
-  <div class="vanish-modal">
-    <Hero />
-    <hr class="max-w-4xl mx-auto"/>
-    <FeaturedPrudcuts />
-    <Ourstory />
-    <Footer />
-  </div>
-</Layout>
+<Layout
+  title={title}
+  description={description}
+  image={image}
+  locale={locale}
+  siteName={siteName}
+>
+  <Header />
 
-<style is:global>
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-serif);
-    font-weight: 600;
-  }
-  body,
-  p,
-  li,
-  span,
-  a,
-  button {
-    font-family: var(--font-sans);
-  }
-</style>
+  <main>
+  <Hero
+  title="From Bean to Bonbon — Crafted with Passion"
+  subtitle="Our chocolates blend tropical Colombian cacao with Alberta craftsmanship, in small batches for unmatched quality."
+  primaryCtaLabel="Shop Now"
+  primaryCtaHref="#sell"
+  secondaryCtaLabel="Our Story"
+  secondaryCtaHref="#who"
+  imageMainSrc="/assets/product-main.jpeg"
+  imageMainAlt="Box of glossy artisan bonbons"
+  mediaSide="right"
+  badges={["Small-batch", "Ethically sourced", "Made in Alberta"]}
+/>
+
+    <SectionWho
+  imageSrc="/assets/process-tempering.avif"
+  imageAlt="Tempering dark chocolate on marble"
+  reverse={false}
+/>
+
+    <SectionWhat
+  imageSrc="/assets/what-we-do-bonbons.jpeg"
+  imageAlt="Handmaking chocolate bonbons"
+  reverse={true}
+/>
+
+    <SectionEthics />
+  <SectionSell
+  products={[
+    {
+      image: "/assets/bonbon-maracuya.jpeg",
+      alt: "Passion fruit bonbon",
+      title: "Bonbon — Maracuyá",
+      blurb: "Tangy ganache inside glossy dark chocolate.",
+      href: "/product/bonbon-maracuya",
+      price: "$16.50",
+      tag: "Bestseller",
+    },
+    {
+      image: "/assets/bar-espresso.jpeg",
+      alt: "dark bar",
+      title: "Bar with dried fruits",
+      blurb: "Deep cacao with dried fruits.",
+      href: "/product/bar-espresso",
+      price: "$9",
+      tag: "New",
+    },
+    {
+      image: "/assets/bonbon-pistachio.jpeg",
+      alt: "Pistachio bonbon",
+      title: "Bonbon — Pistachio",
+      blurb: "Silky pistachio ganache, dark couverture.",
+      href: "/product/bonbon-pistachio",
+      price: "$3.50",
+    },
+  ]}
+/>
+
+    <SectionContact />
+  </main>
+
+  <Footer />
+</Layout>
