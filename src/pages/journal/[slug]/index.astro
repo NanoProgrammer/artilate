@@ -1,0 +1,240 @@
+---
+export const prerender = true;
+
+import Layout from "../../../layouts/Layout.astro";
+import { getAllSlugs, getPostBySlug, urlFor } from "../../../lib/sanity";
+import { PortableText } from "astro-portabletext";
+import { formatDate, formatDateISO } from "../../../utils/formatters";
+
+export async function getStaticPaths() {
+  try {
+    const slugData = await getAllSlugs();
+    if (!slugData || slugData.length === 0) return [];
+    return slugData
+      .filter((post: Post) => post?.slug?.current)
+      .map((post: Post) => ({ params: { slug: post.slug.current } }));
+  } catch (error) {
+    console.error('Error getting static paths:', error);
+    return [];
+  }
+}
+
+interface Post {
+  _id: string
+  title: string
+  slug: { current: string }
+  excerpt?: string
+  body?: any[]
+  mainImage?: { asset?: { url: string; _id: string }, alt?: string, hotspot?: any, crop?: any }
+  publishedAt: string
+  _updatedAt?: string
+  author?: { name?: string, bio?: string, image?: { asset?: { url: string } } }
+  categories?: Array<{ _id: string, title: string, slug: { current: string } }>
+  tags?: Array<{ _id: string, title: string, slug: { current: string } }>
+  estimatedReadingTime?: number
+  featured?: boolean
+}
+
+const { slug } = Astro.params;
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+let post: Post | null = null;
+try {
+  post = await getPostBySlug(slug);
+  if (!post) return new Response(null, { status: 404, statusText: 'Post not found' });
+} catch (e) {
+  console.error('Error fetching post:', e);
+  return new Response(null, { status: 500, statusText: 'Server Error' });
+}
+
+// SEO
+const seoTitle = post.title;
+const seoDescription = post.excerpt || `Read ${post.title} on our journal`;
+const seoImage = post.mainImage?.asset?.url ? urlFor(post.mainImage).width(1200).height(630).url() : '';
+
+// JSON-LD
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  description: post.excerpt || "",
+  image: seoImage,
+  datePublished: post.publishedAt,
+  dateModified: post._updatedAt || post.publishedAt,
+  author: { "@type": "Person", name: post.author?.name || "Artilate" },
+  publisher: { "@type": "Organization", name: "Artilate" }
+};
+---
+
+<Layout title={seoTitle} description={seoDescription} image={seoImage}>
+  <main class="relative min-h-screen bg-neutral-900 overflow-hidden">
+    <!-- BG blobs -->
+    <div class="pointer-events-none select-none absolute inset-0 opacity-5">
+      <div class="absolute -top-16 -left-16 w-[28rem] h-[28rem] rounded-full bg-violet-800 blur-3xl"></div>
+      <div class="absolute top-1/3 right-1/4 w-[30rem] h-[30rem] rounded-full bg-emerald-700 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-[34rem] h-[34rem] rounded-full bg-amber-600 blur-3xl"></div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress" class="fixed top-0 left-0 h-1 w-0 bg-amber-500/90 z-40"></div>
+
+    <article class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <!-- Breadcrumb -->
+      <nav class="mb-6">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-stone-400">
+          <li><a href="/" class="hover:text-amber-300">Home</a></li>
+          <li class="text-stone-600">/</li>
+          <li><a href="/journal" class="hover:text-amber-300">Journal</a></li>
+          <li class="text-stone-600">/</li>
+          <li class="text-stone-200 line-clamp-1">{post.title}</li>
+        </ol>
+      </nav>
+
+      <!-- Categories -->
+      {post.categories && post.categories.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-5">
+          {post.categories.map((category) => (
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border border-neutral-700/80 bg-neutral-900/70 text-stone-300">{category.title}</span>
+          ))}
+        </div>
+      )}
+
+      <!-- Title & Excerpt -->
+      <header class="mb-8">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-br from-stone-50 via-amber-100 to-amber-500 bg-clip-text text-transparent leading-tight tracking-tight">{post.title}</h1>
+        {post.excerpt && (<p class="text-xl text-stone-300/90 leading-relaxed mb-6">{post.excerpt}</p>)}
+
+        <!-- Meta + Share -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 border-y border-neutral-800 gap-4">
+          <div class="flex items-center">
+            {post.author?.image?.asset?.url && (
+              <img src={urlFor(post.author.image).width(56).height(56).url()} alt={post.author.name || 'Author'} class="w-14 h-14 rounded-full object-cover mr-4 ring-1 ring-neutral-800" loading="lazy" />
+            )}
+            <div>
+              <p class="font-semibold text-stone-100">{post.author?.name || 'Artilate'}</p>
+              <div class="flex flex-wrap items-center gap-2 text-sm text-stone-400">
+                <time datetime={formatDateISO(post.publishedAt)}>{formatDate(post.publishedAt)}</time>
+                {post.estimatedReadingTime && (<span aria-hidden>•</span>)}
+                {post.estimatedReadingTime && (<span>{post.estimatedReadingTime} min read</span>)}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-stone-700 text-stone-200 hover:border-amber-600 hover:text-amber-300 transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.633 7.997c.013.176.013.353.013.53 0 5.402-4.111 11.632-11.632 11.632-2.312 0-4.46-.675-6.263-1.834.322.038.631.05.966.05a8.22 8.22 0 005.1-1.756 4.106 4.106 0 01-3.833-2.85c.25.037.5.062.763.062.363 0 .726-.05 1.064-.138a4.1 4.1 0 01-3.29-4.024v-.05c.55.3 1.19.487 1.869.512A4.094 4.094 0 013.72 6.25c0-.763.2-1.458.55-2.067a11.65 11.65 0 008.451 4.287 4.626 4.626 0 01-.1-.939 4.096 4.096 0 017.088-2.803 8.066 8.066 0 002.6-.989 4.11 4.11 0 01-1.8 2.26 8.221 8.221 0 002.36-.637 8.825 8.825 0 01-2.186 2.245z"/></svg>
+              Share
+            </a>
+            <button id="copy-link" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-stone-700 text-stone-200 hover:border-emerald-600 hover:text-emerald-300 transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8a5 5 0 015-5h4a1 1 0 010 2H8a3 3 0 100 6h4a1 1 0 010 2H8A5 5 0 013 8zm18 8a5 5 0 01-5 5h-4a1 1 0 110-2h4a3 3 0 100-6h-4a1 1 0 110-2h4a5 5 0 015 5z"/></svg>
+              Copy link
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Featured image -->
+      {post.mainImage?.asset?.url && (
+        <figure class="mb-10 overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/60">
+          <div class="relative w-full aspect-[16/8]">
+            <img src={urlFor(post.mainImage).width(1400).height(700).url()} alt={post.mainImage.alt || post.title} class="w-full h-full object-cover" loading="eager" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+          </div>
+          {post.mainImage.alt && (<figcaption class="px-4 py-3 text-center text-sm text-stone-400 border-t border-neutral-800">{post.mainImage.alt}</figcaption>)}
+        </figure>
+      )}
+
+      <!-- Article content (Tailwind-only, sin <style>) -->
+      <div class="
+        text-stone-200
+        [&_*]:break-words
+        [&>p]:my-4 [&>p]:leading-8 [&>p]:text-stone-300
+        [&>a]:underline [&>a]:decoration-amber-500/60 [&>a:hover]:text-amber-300
+        [&>h2]:mt-9 [&>h2]:mb-3 [&>h2]:text-2xl md:[&>h2]:text-3xl [&>h2]:font-extrabold [&>h2]:text-stone-50
+        [&>h3]:mt-7 [&>h3]:mb-2 [&>h3]:text-xl md:[&>h3]:text-2xl [&>h3]:font-extrabold [&>h3]:text-stone-50
+        [&>h4]:mt-5 [&>h4]:mb-2 [&>h4]:text-lg [&>h4]:font-semibold [&>h4]:text-stone-50
+        [&>blockquote]:my-6 [&>blockquote]:p-4 md:[&>blockquote]:p-5 [&>blockquote]:bg-neutral-900/60 [&>blockquote]:border [&>blockquote]:border-neutral-700 [&>blockquote]:rounded-xl [&>blockquote]:text-stone-200 [&>blockquote]:border-l-4 [&>blockquote]:border-l-amber-500/50
+        [&>ul]:pl-5 [&>ul]:my-4 [&>ul]:list-disc
+        [&>ol]:pl-5 [&>ol]:my-4 [&>ol]:list-decimal
+        [&>li]:my-1
+        [&>hr]:my-8 [&>hr]:border-neutral-700
+        [&>table]:w-full [&>table]:border-collapse [&>table]:my-4
+        [&>th]:border [&>th]:border-neutral-700 [&>th]:px-3 [&>th]:py-2 [&>th]:bg-neutral-900/70 [&>th]:text-stone-50
+        [&>td]:border [&>td]:border-neutral-700 [&>td]:px-3 [&>td]:py-2
+        [&>pre]:bg-neutral-900/70 [&>pre]:p-4 [&>pre]:rounded-xl [&>pre]:overflow-x-auto [&>pre]:border [&>pre]:border-neutral-700
+        [&>code]:bg-neutral-800/80 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded
+        ">
+        {post.body && post.body.length > 0 ? (
+          <PortableText value={post.body} />
+        ) : (
+          <div class="text-center py-12 rounded-2xl border border-neutral-800 bg-neutral-900/60 text-stone-300">
+            This article content is being updated. Please check back soon!
+          </div>
+        )}
+      </div>
+
+      <!-- Tags -->
+      {post.tags && post.tags.length > 0 && (
+        <div class="mt-12 pt-8 border-t border-neutral-800">
+          <h4 class="text-lg font-semibold text-stone-100 mb-4">Tags</h4>
+          <div class="flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span class="inline-flex items-center px-3 py-1 text-sm font-medium rounded-full border border-neutral-700/80 bg-neutral-900/70 text-stone-300">#{tag.title}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Author bio -->
+      {post.author?.bio && (
+        <div class="mt-12 pt-8 border-t border-neutral-800">
+          <div class="flex items-start gap-4">
+            {post.author.image?.asset?.url && (
+              <img src={urlFor(post.author.image).width(64).height(64).url()} alt={post.author.name || 'Author'} class="w-16 h-16 rounded-full object-cover ring-1 ring-neutral-800" loading="lazy" />
+            )}
+            <div>
+              <h4 class="text-lg font-semibold text-stone-100 mb-2">About {post.author.name || 'the Author'}</h4>
+              <p class="text-stone-300/90 leading-relaxed">{post.author.bio}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- Back -->
+      <div class="mt-12 pt-8 border-t border-neutral-800">
+        <a href="/journal" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-stone-700 text-stone-200 hover:border-amber-600 hover:text-amber-300 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          Back to Journal
+        </a>
+      </div>
+    </article>
+
+    <!-- Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+
+    <!-- Small scripts -->
+    <script is:inline>
+      // progress
+      const progress = document.getElementById('progress')
+      const onScroll = () => {
+        const h = document.documentElement
+        const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight)
+        progress.style.width = (scrolled * 100).toFixed(2) + '%'
+      }
+      document.addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
+
+      // copy link
+      const copyBtn = document.getElementById('copy-link')
+      copyBtn?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href)
+          copyBtn.textContent = 'Link copied!'
+          setTimeout(() => (copyBtn.textContent = 'Copy link'), 1500)
+        } catch (e) {}
+      })
+    </script>
+  </main>
+</Layout>

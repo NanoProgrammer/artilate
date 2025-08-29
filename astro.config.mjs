@@ -12,5 +12,11 @@ export default defineConfig({
   output: 'server',
   integrations: [
     react(),
-  ]
+  ],
+  vite: {
+    define: {
+      // Para Alpine.js si lo usas
+      'process.env': process.env
+    }
+  }
 });

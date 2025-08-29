@@ -1,20 +1,494 @@
+---
+interface FooterLink {
+  href: string;
+  label: string;
+}
+
+interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+
+const footerSections: FooterSection[] = [
+  {
+    title: "Products",
+    links: [
+      { href: "/collection/chocolate-bars", label: "Chocolate Bars" },
+      { href: "/collection/bonbons", label: "Bonbons" },
+      { href: "/collection/couverture", label: "Couverture" },
+      { href: "/collection/gift-collections", label: "Gift Collections" },
+      { href: "/collection/seasonal", label: "Seasonal Specials" },
+    ]
+  },
+  {
+    title: "Experience",
+    links: [
+      { href: "/about/our-story", label: "Our Story" },
+      { href: "/about/process", label: "Bean-to-Bar Process" },
+      { href: "/about/origins", label: "Colombian Origins" },
+      { href: "/about/sustainability", label: "Sustainability" },
+      { href: "/journal", label: "Journal" },
+    ]
+  },
+  {
+    title: "Connect",
+    links: [
+      { href: "/contact", label: "Contact Us" },
+      { href: "/find-us", label: "Find Locations" },
+      { href: "/wholesale", label: "Wholesale" },
+      { href: "/events", label: "Events" },
+    ]
+  }
+];
+
+const socialLinks = [
+  {
+    href: "https://instagram.com/artilate",
+    label: "Instagram",
+    icon: "instagram"
+  },
+  {
+    href: "https://facebook.com/artilate",
+    label: "Facebook", 
+    icon: "facebook"
+  },
+  {
+    href: "mailto:hello@artilate.com",
+    label: "Email",
+    icon: "email"
+  }
+];
+
+const legalLinks = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" },
+  { href: "/shipping", label: "Shipping Policy" },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
 <footer class="footer">
-  <div class="container row">
-    <p class="small">&copy; {new Date().getFullYear()} Artilate. All rights reserved.</p>
-    <nav class="links">
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@artilate.com&su=Artilate%20inquiry" target="_blank" rel="noopener">Email</a>
-      <a href="https://instagram.com/artilate" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://facebook.com/artilate" target="_blank" rel="noopener">Facebook</a>
-    </nav>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <!-- Brand Section -->
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">
+            <div class="logo-symbol">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="8" r="3"></circle>
+                <path d="m12 11 0 10"></path>
+                <path d="m8 21 8-8"></path>
+                <path d="m16 21-8-8"></path>
+              </svg>
+            </div>
+            <span class="logo-text">Artilate</span>
+          </a>
+          
+          <p class="footer-description">
+            Artisanal bean-to-bar chocolate crafted with ethically sourced Colombian cacao. 
+            Every bar tells the story of our farmers and the art of chocolate making.
+          </p>
+          
+          <div class="footer-socials">
+            {socialLinks.map(social => (
+              <a 
+                href={social.href} 
+                class="social-link" 
+                aria-label={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {social.icon === 'instagram' && (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                )}
+                {social.icon === 'facebook' && (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  </svg>
+                )}
+                {social.icon === 'email' && (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Footer Columns -->
+        {footerSections.map(section => (
+          <div class="footer-column">
+            <h3 class="footer-title">{section.title}</h3>
+            <ul class="footer-links">
+              {section.links.map(link => (
+                <li>
+                  <a href={link.href} class="footer-link">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p class="copyright">&copy; {currentYear} Artilate Chocolate. All rights reserved.</p>
+        <nav class="footer-legal" aria-label="Legal">
+          {legalLinks.map(link => (
+            <a href={link.href} class="legal-link">{link.label}</a>
+          ))}
+        </nav>
+      </div>
+    </div>
   </div>
 </footer>
 
 <style>
-  .footer{border-top:1px solid rgba(212,163,115,.22);background:#0F1315;color:var(--text-warm);padding:1rem 0}
-  .row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-  .small{font-size:.9rem;opacity:.9;margin:0}
-  .links{display:flex;gap:1rem}
-  .links a{opacity:.9}
-  .links a:hover{opacity:1;color:var(--gold)}
-  @media (max-width:700px){.row{flex-direction:column}}
+  .footer {
+    background: #141618;
+    border-top: 1px solid rgba(212, 163, 115, 0.1);
+    padding: 80px 0 32px;
+  
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #D4A373, transparent);
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 64px;
+  }
+
+  /* Brand Section */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #FAFAF9;
+    width: fit-content;
+    transition: transform 0.2s ease;
+  }
+
+  .footer-logo:hover {
+    transform: scale(1.02);
+  }
+
+  .logo-symbol {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #D4A373 0%, #F59E0B 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(212, 163, 115, 0.25);
+  }
+
+  .logo-symbol::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #141618;
+    border-radius: 10px;
+  }
+
+  .logo-symbol svg {
+    width: 24px;
+    height: 24px;
+    color: #D4A373;
+    z-index: 1;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .footer-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(250, 250, 249, 0.8);
+    max-width: 320px;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+    background: rgba(212, 163, 115, 0.08);
+    border: 1px solid rgba(212, 163, 115, 0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgba(250, 250, 249, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    background: rgba(212, 163, 115, 0.15);
+    border-color: rgba(212, 163, 115, 0.3);
+    color: #D4A373;
+    transform: translateY(-2px);
+  }
+
+  /* Footer Columns */
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #D4A373;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-link {
+    color: rgba(250, 250, 249, 0.8);
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    position: relative;
+    padding-left: 0;
+  }
+
+  .footer-link:hover {
+    color: #FAFAF9;
+    padding-left: 8px;
+  }
+
+  /* Footer Bottom */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid rgba(212, 163, 115, 0.08);
+  }
+
+  .copyright {
+    font-size: 14px;
+    color: rgba(250, 250, 249, 0.6);
+    margin: 0;
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 32px;
+  }
+
+  .legal-link {
+    color: rgba(250, 250, 249, 0.6);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+  }
+
+  .legal-link:hover {
+    color: #D4A373;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .footer-grid {
+      gap: 48px;
+    }
+
+    .container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+      margin-bottom: 20px;
+    }
+
+    .footer-content {
+      gap: 48px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      padding: 60px 0 24px;
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .footer-legal {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer {
+      padding: 48px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .footer-content {
+      gap: 40px;
+    }
+
+    .footer-socials {
+      justify-content: center;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo-symbol {
+      width: 44px;
+      height: 44px;
+    }
+
+    .logo-symbol svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+    }
+
+    .footer-description {
+      text-align: center;
+      max-width: 100%;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .footer {
+      padding: 40px 0 16px;
+    }
+
+    .footer-content {
+      gap: 32px;
+    }
+
+    .footer-grid {
+      gap: 24px;
+    }
+
+    .footer-brand {
+      gap: 16px;
+    }
+
+    .footer-socials {
+      gap: 8px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .footer-legal {
+      gap: 12px;
+    }
+
+    .legal-link,
+    .copyright {
+      font-size: 13px;
+    }
+  }
 </style>

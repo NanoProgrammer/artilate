@@ -1,0 +1,233 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { getAllPosts, getFeaturedPosts, getAllCategories, urlFor } from '../../lib/sanity.ts'
+import { formatDate } from '../../utils/formatters'
+
+interface Post {
+  _id: string
+  title: string
+  slug: { current: string }
+  excerpt?: string
+  mainImage?: { asset: { url: string }, alt?: string }
+  publishedAt: string
+  author?: { name: string, image?: { asset: { url: string } } }
+  categories?: Array<{ title: string, slug: { current: string } }>
+  estimatedReadingTime?: number
+  featured?: boolean
+}
+
+let posts: Post[] = []
+let featuredPosts: Post[] = []
+let categories: any[] = []
+let error = ''
+
+try {
+  const allPosts = await getAllPosts()
+  const featured = await getFeaturedPosts(2)
+  const cats = await getAllCategories()
+  posts = allPosts || []
+  featuredPosts = featured || []
+  categories = cats || []
+} catch (e) {
+  console.error('Error in journal index:', e)
+  error = 'Error loading posts'
+}
+
+const seoData = {
+  title: 'Journal — Artilate Handcrafted Chocolates',
+  description: 'Stories of craft, cocoa, and community. News, process, and flavour journeys from Alberta to Colombia.'
+}
+---
+
+<Layout {...seoData}>
+  <main class="relative min-h-screen bg-neutral-900 overflow-hidden">
+    <!-- BG blobs -->
+    <div class="pointer-events-none select-none absolute inset-0 opacity-5">
+      <div class="absolute -top-16 -left-16 w-[28rem] h-[28rem] rounded-full bg-violet-800 blur-3xl"></div>
+      <div class="absolute top-1/3 right-1/4 w-[30rem] h-[30rem] rounded-full bg-emerald-700 blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-[34rem] h-[34rem] rounded-full bg-amber-600 blur-3xl"></div>
+    </div>
+
+    <!-- Hero -->
+    <section class="relative px-6 pt-28 pb-10">
+      <div class="max-w-6xl mx-auto text-center">
+        <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-amber-600/40 bg-amber-700/10 text-amber-300 mb-6">
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l3.386 3.386a1 1 0 01-1.414 1.414l-3.386-3.386zM14 8a6 6 0 11-12 0 6 6 0 0112 0z" clip-rule="evenodd"/></svg>
+          <span class="text-sm font-medium">Stories, craft & cocoa science</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-bold mb-5 bg-gradient-to-br from-stone-50 via-amber-100 to-amber-500 bg-clip-text text-transparent tracking-tight">Journal</h1>
+        <p class="text-lg md:text-xl text-stone-300 max-w-2xl mx-auto leading-relaxed">Insights from our bean-to-bar kitchen in Alberta — sourcing, flavour design, and the people behind Artilate.</p>
+
+        <!-- Search -->
+        <div class="mt-8 max-w-2xl mx-auto">
+          <label for="post-search" class="sr-only">Search posts</label>
+          <div class="relative">
+            <input id="post-search" type="search" placeholder="Search: origin, tempering, bonbons, Colombia…" class="w-full rounded-2xl bg-neutral-900/70 border border-neutral-800 px-5 py-4 text-stone-100 placeholder-stone-400 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-600/40" />
+            <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l3.386 3.386a1 1 0 01-1.414 1.414l-3.386-3.386zM14 8a6 6 0 11-12 0 6 6 0 0112 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <p class="mt-2 text-stone-400 text-sm">Tip: try “temper”, “Airdrie”, “caramel”, or a category.</p>
+        </div>
+
+        <!-- Category filter -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-2" id="cat-filter">
+          <button data-cat="all" class="px-4 py-2 rounded-full text-sm font-medium border border-stone-700 bg-neutral-900/70 text-stone-200 hover:border-amber-600/60 hover:text-amber-300 aria-selected:!border-amber-600 aria-selected:!text-amber-300" aria-selected="true">All</button>
+          {categories?.map((c) => (
+            <button data-cat={c?.slug?.current} class="px-4 py-2 rounded-full text-sm font-medium border border-stone-700 bg-neutral-900/70 text-stone-300 hover:border-emerald-600/60 hover:text-emerald-300">{c?.title}</button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Error -->
+    {error && (
+      <section class="px-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="rounded-2xl border border-red-900/50 bg-red-900/10 text-red-200 p-4 mb-10">{error}</div>
+        </div>
+      </section>
+    )}
+
+    <!-- Featured -->
+    {featuredPosts.length > 0 && (
+      <section class="relative px-6 pb-10">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold text-stone-50 mb-6">Featured</h2>
+          <div id="featured-grid" class="grid gap-6 md:grid-cols-2">
+            {featuredPosts.map((post) => (
+              <article class="group relative overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/60 backdrop-blur-sm hover:border-amber-600/40 transition-all duration-300"
+                data-title={post.title}
+                data-excerpt={post.excerpt || ''}
+                data-cats={(post.categories || []).map((x:any)=>x.title).join(', ')}>
+                {post.mainImage?.asset?.url && (
+                  <a href={`/journal/${post.slug.current}`} class="block">
+                    <div class="relative w-full aspect-[16/9] overflow-hidden">
+                      <img src={urlFor(post.mainImage).width(1200).height(675).url()} alt={post.mainImage.alt || post.title} loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent"></div>
+                      {post.categories && (
+                        <div class="absolute left-4 bottom-4 flex flex-wrap gap-2">
+                          {post.categories.slice(0,3).map((category) => (
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border border-neutral-700/80 bg-neutral-900/70 text-stone-200">{category.title}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </a>
+                )}
+                <div class="p-6">
+                  <div class="flex flex-wrap items-center gap-2 text-sm text-stone-400 mb-3">
+                    <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                    {post.estimatedReadingTime && (<span aria-hidden>•</span>)}
+                    {post.estimatedReadingTime && (<span>{post.estimatedReadingTime} min read</span>)}
+                  </div>
+                  <h3 class="text-xl md:text-2xl font-semibold text-stone-50 mb-3">
+                    <a href={`/journal/${post.slug.current}`} class="bg-gradient-to-r from-stone-50 via-amber-100 to-amber-500 bg-clip-text text-transparent hover:from-amber-100 hover:to-amber-400 transition-colors">{post.title}</a>
+                  </h3>
+                  {post.excerpt && (<p class="text-stone-300/90 line-clamp-3">{post.excerpt}</p>)}
+                  <div class="mt-5">
+                    <a href={`/journal/${post.slug.current}`} class="inline-flex items-center gap-2 rounded-xl px-4 py-2 border border-stone-700 text-stone-200 hover:border-amber-600 hover:text-amber-300 transition-colors">
+                      Read more
+                      <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 11-1.414-1.414L13.586 10H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- All Posts -->
+    <section class="relative px-6 pb-24">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-stone-50">All Posts</h2>
+          <div class="text-stone-400 text-sm hidden sm:block" id="post-count">{posts.length} items</div>
+        </div>
+
+        {posts.length === 0 ? (
+          <div class="text-center py-16 rounded-3xl border border-neutral-800 bg-neutral-900/60 text-stone-300">
+            No posts yet. Publish your first story in Sanity Studio.
+          </div>
+        ) : (
+          <div id="post-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <article
+                class="group overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/60 backdrop-blur-sm hover:border-emerald-600/40 transition-all duration-300"
+                data-title={post.title}
+                data-excerpt={post.excerpt || ''}
+                data-cats={(post.categories || []).map((x:any)=>x.title).join(', ')}>
+                {post.mainImage?.asset?.url && (
+                  <a href={`/journal/${post.slug.current}`} class="block">
+                    <div class="relative w-full aspect-[16/10] overflow-hidden">
+                      <img src={urlFor(post.mainImage).width(800).height(500).url()} alt={post.mainImage.alt || post.title} loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent"></div>
+                    </div>
+                  </a>
+                )}
+                <div class="p-5">
+                  <div class="flex flex-wrap items-center gap-2 text-sm text-stone-400 mb-2">
+                    <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                    {post.estimatedReadingTime && (<span aria-hidden>•</span>)}
+                    {post.estimatedReadingTime && (<span>{post.estimatedReadingTime} min</span>)}
+                  </div>
+                  <h3 class="text-lg font-semibold text-stone-50 mb-2">
+                    <a href={`/journal/${post.slug.current}`} class="hover:text-amber-300 transition-colors">{post.title}</a>
+                  </h3>
+                  {post.excerpt && (<p class="text-stone-300/90 text-sm line-clamp-2">{post.excerpt}</p>)}
+                  {post.categories && post.categories.length > 0 && (
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      {post.categories.slice(0, 3).map((category) => (
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium border border-neutral-700/80 bg-neutral-900/70 text-stone-300">{category.title}</span>
+                      ))}
+                    </div>
+                  )}
+                  {post.author && (
+                    <div class="mt-5 flex items-center text-sm text-stone-400">
+                      {post.author.image?.asset?.url && (
+                        <img src={urlFor(post.author.image).width(28).height(28).url()} alt={post.author.name} class="w-7 h-7 rounded-full mr-2" />
+                      )}
+                      <span>{post.author.name}</span>
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Filter logic (no :has ni :contains) -->
+    <script is:inline>
+      const $ = (s) => document.querySelector(s)
+      const $$ = (s) => Array.from(document.querySelectorAll(s))
+      const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '')
+      const input = $('#post-search')
+      const countEl = $('#post-count')
+
+      function getCards() {
+        return [
+          ...$$('#post-grid article'),
+          ...$$('#featured-grid article')
+        ]
+      }
+
+      function filter() {
+        const q = norm(input?.value?.trim())
+        let visible = 0
+        getCards().forEach((card) => {
+          const hay = `${card.dataset.title} ${card.dataset.excerpt} ${card.dataset.cats}`
+          const show = !q || q.length < 2 || norm(hay).includes(q)
+          card.style.display = show ? '' : 'none'
+          if (show) visible++
+        })
+        if (countEl) countEl.textContent = `${visible} item${visible === 1 ? '' : 's'}`
+      }
+
+      input && input.addEventListener('input', filter)
+      filter()
+    </script>
+  </main>
+</Layout>

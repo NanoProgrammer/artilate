@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout>
+  <div class="relative flex flex-col items-center justify-between min-h-screen px-4 sm:px-8 lg:px-12 mb-32">
+    <!-- Floating BG premium -->
+    <div class="pointer-events-none select-none absolute inset-0 opacity-10">
+      <div class="absolute -top-32 -left-24 w-[25rem] h-[25rem] rounded-full bg-gradient-to-br from-amber-600 to-yellow-500 blur-3xl"></div>
+      <div class="absolute top-1/3 right-1/4 w-[20rem] h-[20rem] rounded-full bg-gradient-to-br from-emerald-700 to-violet-800 blur-2xl"></div>
+      <div class="absolute bottom-0 right-16 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-stone-50 to-amber-200 blur-2xl"></div>
+    </div>
+
+    <!-- Hero -->
+    <div class="mx-auto mt-20 mb-16 text-center relative z-10">
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 bg-gradient-to-br from-stone-50 via-amber-100 to-amber-500 bg-clip-text text-transparent tracking-tight drop-shadow-[0_0_18px_rgba(255,255,255,0.25)]">
+        About Us
+      </h1>
+      <p class="text-base md:text-lg lg:text-xl text-stone-200 max-w-2xl mx-auto leading-relaxed">
+        Premium bean-to-bar chocolates crafted in Alberta with Colombian cacao, science, and artistry.
+      </p>
+    </div>
+
+    <!-- Story -->
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-24">
+      <div class="w-full max-w-[28rem] h-[20rem] md:max-w-full md:w-[32rem] md:h-[24rem] rotate-3 transform rounded-2xl bg-violet-900/30 hover:rotate-0 transition-transform duration-500 ease-out fly shadow-xl shadow-amber-900/30">
+        <img src="/about.jpg" alt="about" class="w-full h-full object-cover rounded-2xl" />
+      </div>
+      <div class="w-full max-w-[32rem] ">
+        <h2 class="text-3xl md:text-5xl font-bold mb-5 bg-gradient-to-br from-stone-50 via-amber-100 to-amber-500 bg-clip-text text-transparent tracking-tight">
+          Our Story
+        </h2>
+        <p class="text-base md:text-lg text-stone-200 leading-relaxed"> 
+          Artilate was born in Airdrie, Alberta, to connect Canadian chocolate lovers with the true essence of Colombian cacao. 
+          With a background in microbiology and food safety, our founder Ingrit Johanna Jaimes blends precision, passion, and heritage in every creation. 
+          From bean to bar, each chocolate is crafted in small batches, with ethical sourcing at its core.
+        </p>
+      </div>
+    </div>
+
+    <!-- How It Started -->
+    <div class="flex flex-col gap-16 mb-24 w-full">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-br from-stone-50 to-amber-200 bg-clip-text text-transparent tracking-tight drop-shadow-[0_0_25px_rgba(251,191,36,0.4)]">
+        How It Started
+      </h2>
+
+      <!-- Block 1 -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 lg:mx-auto lg:mb-8">
+        <div class="max-w-[30rem] order-2 lg:order-1">
+          <p class="text-base md:text-lg text-stone-200 leading-relaxed"> 
+            Artilate’s journey began with cacao farmers in the mountains of Santander, Colombia. 
+            Families like Zoneidy’s welcomed us into their plantations, where tradition and dedication shaped the cacao that inspires every bar we create today.
+          </p>
+        </div>
+        <div class="relative order-1 lg:order-2">
+          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl bg-emerald-700 -rotate-6 hover:-rotate-3 transition-transform ease-linear shadow-lg shadow-emerald-900/40"></div>
+          <div class="absolute h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rotate-[12deg] bottom-0 rounded-xl bg-amber-600 -z-10"></div>
+        </div>
+      </div>
+
+      <!-- Block 2 -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 lg:mx-auto lg:mb-12">
+        <div class="relative">
+          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl bg-violet-800 rotate-6 hover:rotate-3 transition-transform ease-linear shadow-lg shadow-violet-900/40"></div>
+          <div class="absolute h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] -rotate-[12deg] bottom-0 rounded-xl bg-emerald-700 -z-10"></div>
+        </div>
+        <div class="max-w-[30rem]">
+          <p class="text-base md:text-lg text-stone-200 leading-relaxed"> 
+            What started as experiments in a Calgary kitchen evolved into a bean-to-bar chocolate brand recognized for quality. 
+            From our very first booth at Crossroads Farmers Market, Artilate has grown while staying true to its values: passion, precision, and respect for tradition.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="flex flex-col items-center gap-12 mb-24">
+      <h2 class="text-3xl md:text-5xl font-bold mb-5 bg-gradient-to-br from-stone-50 to-amber-200 bg-clip-text text-transparent tracking-tight text-center drop-shadow-xl">
+        Meet Our Team
+      </h2>
+      <div class="flex flex-col md:flex-row gap-12">
+        <!-- Person 1 -->
+        <div class="flex flex-col items-center text-center max-w-[16rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
+          <div class="w-32 h-32 rounded-full bg-amber-600 flex items-center justify-center mb-4 shadow-md shadow-amber-900/40">
+            <i class="fas fa-user text-2xl text-neutral-900"></i>
+          </div>
+          <h3 class="text-xl font-bold text-stone-50">Ingrit Johanna Jaimes</h3>
+          <p class="text-amber-400 font-medium">Founder & Head Chocolatier</p>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Microbiologist and chocolatier, blending science and Colombian heritage into every handcrafted bar.
+          </p>
+        </div>
+        <!-- Person 2 -->
+        <div class="flex flex-col items-center text-center max-w-[16rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
+          <div class="w-32 h-32 rounded-full bg-emerald-700 flex items-center justify-center mb-4 shadow-md shadow-emerald-900/40">
+            <i class="fas fa-user text-2xl text-neutral-900"></i>
+          </div>
+          <h3 class="text-xl font-bold text-stone-50">Rafael Hernández</h3>
+          <p class="text-amber-400 font-medium">Operations & Strategy</p>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Ensures Artilate balances artisanal passion with business vision and growth.
+          </p>
+        </div>
+        <!-- Person 3 -->
+        <div class="flex flex-col items-center text-center max-w-[16rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
+          <div class="w-32 h-32 rounded-full bg-violet-800 flex items-center justify-center mb-4 shadow-md shadow-violet-900/40">
+            <i class="fas fa-seedling text-2xl text-neutral-900"></i>
+          </div>
+          <h3 class="text-xl font-bold text-stone-50">Zoneidy & Family</h3>
+          <p class="text-amber-400 font-medium">Cacao Farmers</p>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Our partners in Santander, Colombia, cultivating cacao with passion and tradition.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Button -->
+    <div class="mt-8">
+      <a href="/contact" class="inline-flex items-center px-8 py-4 rounded-full font-semibold 
+        bg-gradient-to-r from-amber-500 to-amber-600 text-neutral-900 
+        shadow-lg shadow-amber-900/40 hover:scale-105 transition-transform duration-300">
+        Contact Us
+      </a>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+    .fly {
+      display: inline-block;
+      will-change: transform;
+      rotate: 6deg;
+      animation: float 3s ease-in-out infinite alternate;
+      transition: rotate 450ms ease-in-out;
+    }
+    .fly:hover {
+      rotate: 3deg;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fly { animation: none; }
+    }
+  </style>
+</Layout>

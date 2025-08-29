@@ -1,66 +1,271 @@
 ---
-import "../styles/global.css";
+// src/layouts/Layout.astro
+// SEO local avanzado para Artilate (TS correcto + componentes)
 
-type Props = {
-  title?: string;
-  description?: string;
-  image?: string;
-  locale?: string;
-  siteName?: string;
-};
+import '../styles/global.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+type HreflangLink = { hreflang: string; href: string }
+type PreloadFont = { href: string; type?: 'font/woff2' | 'font/woff' }
+type PreloadImage = { href: string; as?: 'image'; fetchpriority?: 'high' | 'low' }
+interface Crumb { href: string; name: string }
+
+interface Props {
+  // Básico
+  title?: string
+  description?: string
+  image?: string
+
+  // Localización/idiomas
+  locale?: string
+  /** Códigos, ej: ['fr-CA'] (si no tienes URLs dedicadas) */
+  alternates?: string[]
+  /** Lista completa de hreflang con URL por idioma (recomendado) */
+  alternatesLinks?: HreflangLink[]
+  xDefault?: string
+
+  // Robots
+  noindex?: boolean
+  nocache?: boolean
+
+  // OG/Twitter enriquecido
+  ogType?: 'website' | 'article' | 'product'
+  author?: string
+  publishDate?: string
+  modifiedDate?: string
+
+  // Migas
+  breadcrumbs?: Crumb[]
+
+  // Paginación
+  prevUrl?: string
+  nextUrl?: string
+
+  // Cargas críticas
+  preloadFonts?: PreloadFont[]
+  preloadImages?: PreloadImage[]
+
+  // Esquemas extra por página
+  schemaExtras?: Record<string, unknown>
+
+  // Canonical explícito (opcional)
+  canonical?: string
+}
+
 const {
-  title = "Artilate — Luxury Artisan Chocolates",
-  description = "Small-batch, ethically sourced chocolates blending Colombian soul and Alberta craftsmanship.",
-  image = "/assets/og.png",
-  locale = "en_CA",
-  siteName = "Artilate",
-} = Astro.props as Props;
+  title = 'Artilate — Handcrafted Chocolates in Alberta',
+  description = 'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced cacao, handcrafted flavours, local delivery & events.',
+  image = '/og/og-default.jpg',
 
-const site = Astro.site ?? new URL(`${Astro.url.protocol}//${Astro.url.host}`);
-const canonicalUrl = new URL(Astro.url.pathname + Astro.url.search, site);
+  locale = 'en-CA',
+  alternates = ['fr-CA'],
+  alternatesLinks = [] as HreflangLink[],
+  xDefault = 'en-CA',
 
-const orgJsonLd = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  name: siteName,
-  url: site.href,
-  logo: new URL("/assets/logo-completo.png", site).href,
-  sameAs: ["https://instagram.com/artilate","https://facebook.com/artilate"]
-};
+  noindex = false,
+  nocache = false,
+
+  ogType = 'website',
+  author = 'Artilate',
+  publishDate,
+  modifiedDate,
+
+  breadcrumbs = [] as Crumb[],
+
+  prevUrl = '',
+  nextUrl = '',
+
+  preloadFonts = [] as PreloadFont[],
+  preloadImages = [] as PreloadImage[],
+
+  schemaExtras = {},
+
+  canonical: canonicalProp,
+} = Astro.props as Props
+
+// Canonical robusto (funciona con o sin `site` en astro.config)
+const canonical =
+  canonicalProp ??
+  (Astro.site
+    ? new URL(Astro.url.pathname + Astro.url.search, Astro.site).toString()
+    : Astro.url.toString())
+
+const robots = noindex ? 'noindex, nofollow' : 'index, follow'
+const googlebot = noindex ? 'noindex, nofollow, nosnippet' : 'index, follow, max-snippet:-1, max-image-preview:large'
+const pragmaCache = nocache ? 'no-cache' : undefined
+
+// hreflang alternates: si no se pasan URLs específicas, reutiliza canonical
+const resolvedAlternates: HreflangLink[] =
+  alternatesLinks.length > 0
+    ? alternatesLinks
+    : alternates.map((h) => ({ hreflang: h, href: canonical }))
+
+// JSON-LD: migas
+const breadcrumbLd: Record<string, unknown> | null =
+  (breadcrumbs?.length ?? 0) > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((c: Crumb, i: number) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.name,
+          item: c.href,
+        })),
+      }
+    : null
+
+// Constantes negocio (LOCAL SEO)
+const SITE = {
+  name: 'Artilate',
+  legalName: 'Artilate Chocolates Ltd.',
+  slogan: 'Handcrafted Chocolates • Alberta',
+  phone: '+1-403-555-0123',
+  email: 'hello@artilate.ca',
+  logo: '/brand/logo.svg',
+  sameAs: [
+    'https://www.instagram.com/artilate',
+    'https://www.facebook.com/artilate',
+    'https://www.tiktok.com/@artilate',
+  ],
+  address: {
+    streetAddress: '—', // opcional
+    addressLocality: 'Airdrie',
+    addressRegion: 'AB',
+    postalCode: 'T4B',
+    addressCountry: 'CA',
+  },
+  geo: { latitude: 51.2927, longitude: -114.0134 }, // Airdrie aprox
+  serviceArea: ['Calgary', 'Airdrie', 'Edmonton', 'Okotoks', 'Cochrane', 'Rocky View County'],
+  hours: 'Mo-Fr 10:00-18:00',
+  currency: 'CAD',
+} as const
+
+// JSON-LD base
+const localBusinessLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': canonical + '#business',
+  name: SITE.name,
+  legalName: SITE.legalName,
+  description,
+  url: canonical,
+  image,
+  telephone: SITE.phone,
+  email: SITE.email,
+  logo: SITE.logo,
+  slogan: SITE.slogan,
+  priceRange: '$$',
+  address: { '@type': 'PostalAddress', ...SITE.address },
+  geo: { '@type': 'GeoCoordinates', ...SITE.geo },
+  areaServed: SITE.serviceArea.map((a) => ({ '@type': 'AdministrativeArea', name: a })),
+  sameAs: SITE.sameAs,
+  openingHours: [SITE.hours],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Chocolates & Bonbons',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Filled Bonbons' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Bean-to-Bar Bars' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Seasonal Boxes' } },
+    ],
+  },
+  ...schemaExtras,
+}
+
+const webSiteLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: canonical,
+  name: SITE.name,
+  publisher: { '@type': 'Organization', name: SITE.legalName, logo: SITE.logo },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: canonical.replace(/\/$/, '') + '/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+}
 ---
 
-<html lang="en" class="scroll-smooth">
+<html lang={locale} class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl.href} />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-    <meta property="og:locale" content={locale} />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={siteName} />
+    <meta name="robots" content={robots} />
+    <meta name="googlebot" content={googlebot} />
+    {pragmaCache && <meta http-equiv="Cache-Control" content={pragmaCache} />}
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={xDefault} href={canonical} />
+    {resolvedAlternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl.href} />
-    <meta property="og:image" content={new URL(image, site).href} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content={locale} />
+    {resolvedAlternates.map((alt) => (
+      <meta property="og:locale:alternate" content={alt.hreflang} />
+    ))}
+    {publishDate && <meta property="article:published_time" content={publishDate} />}
+    {modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#111416" />
-    <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="author" content={author} />
+
+    <!-- Pagination (SEO) -->
+    {prevUrl && <link rel="prev" href={prevUrl} />}
+    {nextUrl && <link rel="next" href={nextUrl} />}
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    {preloadFonts.map((f) => (
+      <link rel="preload" as="font" href={f.href} type={f.type ?? 'font/woff2'} crossorigin />
+    ))}
+    {preloadImages.map((i) => (
+      <link rel="preload" as={i.as ?? 'image'} href={i.href} fetchpriority={i.fetchpriority ?? 'high'} />
+    ))}
+    <meta name="theme-color" content="#0E0E0E" />
+
+    <!-- JSON-LD base -->
+    <script type="application/ld+json">{JSON.stringify(localBusinessLd)}</script>
+    <script type="application/ld+json">{JSON.stringify(webSiteLd)}</script>
+    {breadcrumbLd && <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>}
+<!-- En el <head> de tu Layout.astro -->
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Slot extra por página -->
     <slot name="head" />
-    <style>
-      /* fondo luxury con foil sutil global */
-      body::before{
-        content:"";position:fixed;inset:-20% -10% -10% -20%;z-index:-1;
-        background:
-          radial-gradient(60% 40% at 70% 60%, rgba(212,163,115,.12), transparent 60%),
-          linear-gradient(120deg, rgba(212,163,115,.10), rgba(255,255,255,.0) 40%, rgba(212,163,115,.10) 70%, rgba(255,255,255,.0));
-        mix-blend-mode:screen;opacity:.6;pointer-events:none;
-      }
-    </style>
   </head>
-  <body>
-    <a href="#main" class="sr-only focus:not-sr-only">Skip to content</a>
-    <slot />
+
+  <body class="min-h-screen bg-neutral-900 text-stone-50 antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-amber-500 text-neutral-900 px-3 py-1 rounded">
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main" class="min-h-[60vh]">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Slot para inyectar JSON-LD específicos (Product/FAQ/Service) -->
+    <slot name="jsonld" />
   </body>
 </html>

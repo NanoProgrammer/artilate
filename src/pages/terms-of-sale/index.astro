@@ -1,0 +1,154 @@
+---
+// src/pages/terms-of-sale.astro
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout
+  title="Terms of Sale — Artilate Handcrafted Chocolates"
+  description="Terms and conditions for purchasing Artilate's premium handcrafted chocolates. Clear policies for a smooth shopping experience in Alberta."
+>
+  <main class="terms-page">
+    <div class="container">
+      <!-- Hero -->
+      <header class="hero">
+        <h1 class="page-title">Terms of Sale</h1>
+        <p class="page-description">Clear and fair conditions for your chocolate journey.</p>
+        <p class="last-update">Last updated: August 28, 2025</p>
+      </header>
+
+      <!-- Terms Sections -->
+      <section class="terms-list">
+        <article class="terms-card">
+          <div class="number">1</div>
+          <div>
+            <h2>Product Information & Quality</h2>
+            <p>All Artilate chocolates are handcrafted in small batches with premium cacao.</p>
+          </div>
+        </article>
+        <article class="terms-card">
+          <div class="number">2</div>
+          <div>
+            <h2>Orders & Payment</h2>
+            <p>Orders are processed within 1–2 business days. Payment is required at checkout.</p>
+          </div>
+        </article>
+        <article class="terms-card">
+          <div class="number">3</div>
+          <div>
+            <h2>Shipping & Delivery</h2>
+            <p>Local delivery in Alberta and Canada-wide shipping with insulated packaging.</p>
+          </div>
+        </article>
+        <article class="terms-card">
+          <div class="number">4</div>
+          <div>
+            <h2>Returns & Satisfaction</h2>
+            <p>Contact us within 48h of delivery for concerns. Perishable items are case-by-case.</p>
+          </div>
+        </article>
+        <article class="terms-card">
+          <div class="number">5</div>
+          <div>
+            <h2>Contact & Support</h2>
+            <p>Email: admin@artilate.com &nbsp; | &nbsp; Hours: Mon–Fri, 10AM–6PM MT</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- CTA -->
+      <div class="cta">
+        <a href="/shop" class="primary-btn">Shop Now</a>
+      </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .terms-page {
+    min-height: 100vh;
+    background: var(--cacao-black);
+    color: var(--warm-ivory);
+    position: relative;
+    padding: 6rem 1.5rem 4rem;
+    overflow: hidden;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  .hero { text-align: center; margin-bottom: 4rem; }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--gold);
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(212,163,115,0.3);
+  }
+  .page-description { color: var(--warm-gray); font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .last-update { font-size: 0.9rem; color: var(--warm-gray); }
+
+  .terms-list { display: grid; gap: 2rem; margin-bottom: 4rem; }
+  .terms-card {
+    display: flex; gap: 1.5rem;
+    border: 1px solid rgba(212,163,115,0.15);
+    background: rgba(20,22,24,0.6);
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  .terms-card:hover { border-color: rgba(212,163,115,0.4); transform: translateY(-4px); }
+  .number {
+    width: 3rem; height: 3rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg,var(--gold),var(--amber));
+    color: var(--cacao-black);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .terms-card h2 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+    color: var(--warm-ivory);
+    font-size: 1.3rem;
+  }
+  .terms-card p { color: var(--warm-gray); }
+
+  .cta { text-align: center; margin-top: 2rem; }
+  .primary-btn {
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--cacao-black);
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .primary-btn:hover { transform: translateY(-3px); }
+
+  /* Particles */
+  .particles { position: absolute; inset: 0; pointer-events: none; }
+  .particle {
+    position: absolute; width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+  }
+  .p1 { top: 20%; left: 10%; animation-delay: 0s; }
+  .p2 { top: 70%; left: 80%; animation-delay: 2s; }
+  .p3 { top: 40%; left: 60%; animation-delay: 4s; }
+  .p4 { top: 85%; left: 25%; animation-delay: 1s; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.2); opacity: 0.6; }
+  }
+</style>
