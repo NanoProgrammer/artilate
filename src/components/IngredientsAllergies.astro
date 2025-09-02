@@ -1,0 +1,634 @@
+---
+// src/components/IngredientsAllergies.astro
+---
+
+<section class="ingredients-section">
+  <div class="container">
+    <div class="ingredients-content">
+      <!-- Left side: Ingredients -->
+      <div class="ingredients-side fade-in-left">
+        <div class="section-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>Premium Ingredients</span>
+        </div>
+
+        <h2 class="section-title">
+          Nature's Finest <span class="title-accent">Ingredients</span>
+        </h2>
+
+        <p class="section-description">
+          Every bonbon and chocolate bar begins with carefully selected Colombian cacao beans,
+          real fruit (purée or pieces), and high-quality dairy and nuts —
+          never just “flavor”.
+        </p>
+
+        <!-- Ingredients showcase -->
+        <div class="ingredients-showcase">
+          <!-- Cacao -->
+          <div class="ingredient-item">
+            <div class="ingredient-visual">
+              <div class="ingredient-icon" aria-hidden="true">
+                <!-- Cacao pod SVG (más distintivo) -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 12c0-4 3.6-7 6-7s6 3 6 7-3.6 7-6 7-6-3-6-7z"/>
+                  <path d="M12 5v14M9 9c1 .8 2 .8 3 0M9 15c1 .8 2 .8 3 0"/>
+                  <path d="M7 7l-2-2M17 7l2-2"/>
+                </svg>
+              </div>
+              <div class="image-placeholder small">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                </svg>
+                <span>Colombian Cacao</span>
+              </div>
+            </div>
+            <div class="ingredient-info">
+              <h3 class="ingredient-title">Colombian Cacao</h3>
+              <p class="ingredient-desc">Single-origin beans from mountain farms, delivering complex flavor notes and exceptional quality.</p>
+            </div>
+          </div>
+
+          <!-- Dairy -->
+          <div class="ingredient-item">
+            <div class="ingredient-visual">
+              <div class="ingredient-icon" aria-hidden="true">
+                <!-- Milk carton SVG (más claro) -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 7l3-3h4l3 3v12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V7z"/>
+                  <path d="M9 10h6"/>
+                </svg>
+              </div>
+              <div class="image-placeholder small">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                </svg>
+                <span>Dairy</span>
+              </div>
+            </div>
+            <div class="ingredient-info">
+              <h3 class="ingredient-title">Dairy</h3>
+              <p class="ingredient-desc">Premium cream and butter for rich, smooth ganaches and dulce de leche fillings.</p>
+            </div>
+          </div>
+
+          <!-- Real Fruit & Naturals -->
+          <div class="ingredient-item">
+            <div class="ingredient-visual">
+              <div class="ingredient-icon" aria-hidden="true">
+                <!-- Passion fruit cross-section SVG (semillas visibles) -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="8.5"/>
+                  <circle cx="12" cy="12" r="5" stroke-width="1.4" opacity=".9"/>
+                  <g fill="currentColor" stroke="none">
+                    <circle cx="10.3" cy="10.3" r=".8"/><circle cx="13.6" cy="10.1" r=".8"/><circle cx="11.1" cy="13" r=".8"/><circle cx="14.2" cy="12.7" r=".8"/><circle cx="9.2" cy="12.3" r=".8"/>
+                  </g>
+                </svg>
+              </div>
+              <div class="image-placeholder small">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                </svg>
+                <span>Real Fruit</span>
+              </div>
+            </div>
+            <div class="ingredient-info">
+              <h3 class="ingredient-title">Real Fruit & Naturals</h3>
+              <p class="ingredient-desc">
+                We use real fruit (e.g., passion fruit purée), Colombian coffee, pistachio paste,
+                hazelnut praliné, and natural vanilla — never “flavor only”.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Allergen Information -->
+      <div class="allergen-side fade-in-right">
+        <div class="allergen-card">
+          <div class="allergen-header">
+            <div class="allergen-badge">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 12l2 2 4-4"/>
+                <circle cx="12" cy="12" r="9"/>
+              </svg>
+              <span>Safety First</span>
+            </div>
+
+            <h3 class="allergen-title">Allergen Information</h3>
+            <p class="allergen-description">
+              Made in a HACCP-certified facility with strict allergen controls and full traceability.
+              <br><strong>No soy lecithin — made with sunflower lecithin.</strong>
+            </p>
+          </div>
+
+          <!-- Allergen warnings -->
+          <div class="allergen-warnings">
+            <div class="warning-section">
+              <h4 class="warning-title">Contains / Contient:</h4>
+              <div class="allergen-tags">
+                <div class="allergen-tag contains">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12h8"/>
+                  </svg>
+                  <span>Milk / Lait</span>
+                </div>
+                <div class="allergen-tag contains">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12h8"/>
+                  </svg>
+                  <span>Hazelnuts / Noisettes</span>
+                </div>
+                <div class="allergen-tag contains">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12h8"/>
+                  </svg>
+                  <span>Pistachios / Pistaches</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="warning-section">
+              <h4 class="warning-title">May Contain / Peut contenir:</h4>
+              <div class="allergen-tags">
+                <div class="allergen-tag may-contain">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v4l2 2"/>
+                  </svg>
+                  <span>Peanuts / Arachides</span>
+                </div>
+                <div class="allergen-tag may-contain">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v4l2 2"/>
+                  </svg>
+                  <span>Other tree nuts / D’autres noix</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Safety certifications -->
+          <div class="certifications">
+            <h4 class="cert-title">Our Certifications</h4>
+            <div class="cert-grid">
+              <div class="cert-item">
+                <div class="cert-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <circle cx="12" cy="12" r="9"/>
+                  </svg>
+                </div>
+                <span>HACCP Certified</span>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <circle cx="12" cy="12" r="9"/>
+                  </svg>
+                </div>
+                <span>CFIA Compliant</span>
+              </div>
+              <div class="cert-item">
+                <div class="cert-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <circle cx="12" cy="12" r="9"/>
+                  </svg>
+                </div>
+                <span>Full Traceability</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact for allergies -->
+          <div class="allergen-contact">
+            <p class="contact-text">
+              Have specific allergies or dietary concerns?
+              <a href="/contact" class="contact-link">Contact us</a>
+              for detailed ingredient information.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background decorations -->
+  <div class="bg-decoration" aria-hidden="true">
+    <div class="deco-circle circle-1"></div>
+    <div class="deco-circle circle-2"></div>
+    <div class="deco-line line-1"></div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --cacao: #0A0B0D;
+    --ivory: #FAFAF9;
+    --gold: #D4A373;
+    --amber: #F59E0B;
+    --muted: rgba(250,250,249,.8);
+  }
+
+  .ingredients-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--cacao) 0%, #0C0D0F 100%);
+    color: var(--ivory);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ingredients-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Left side - Ingredients */
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212,163,115,.15);
+    border: 1px solid rgba(212,163,115,.3);
+    color: var(--gold);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: .5rem;
+    line-height: 1.2;
+  }
+
+  .title-accent {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--amber);
+  }
+
+  .section-description {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: .5rem;
+  }
+
+  .ingredients-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .ingredient-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .ingredient-visual {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ingredient-icon {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cacao);
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(212,163,115,.3);
+  }
+
+  .image-placeholder {
+    width: 80px;
+    height: 80px;
+    background: rgba(212,163,115,.1);
+    border: 1px solid rgba(212,163,115,.2);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    color: var(--muted);
+  }
+
+  .image-placeholder.small {
+    width: 80px;
+    height: 80px;
+  }
+
+  .image-placeholder span {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .ingredient-info {
+    flex: 1;
+  }
+
+  .ingredient-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--ivory);
+  }
+
+  .ingredient-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Right side - Allergen Info */
+  .allergen-card {
+    background: rgba(20,22,24,.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212,163,115,.2);
+    border-radius: 20px;
+    padding: 2rem;
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .allergen-header {
+    margin-bottom: 2rem;
+  }
+
+  .allergen-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,158,11,.15);
+    border: 1px solid rgba(245,158,11,.3);
+    color: var(--amber);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .allergen-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--ivory);
+  }
+
+  .allergen-description {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .allergen-warnings {
+    margin-bottom: 2rem;
+  }
+
+  .warning-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .warning-title {
+    font-weight: 700;
+    color: var(--ivory);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .allergen-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .allergen-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .allergen-tag.contains {
+    background: rgba(239,68,68,.15);
+    border: 1px solid rgba(239,68,68,.3);
+    color: #FCA5A5;
+  }
+
+  .allergen-tag.may-contain {
+    background: rgba(245,158,11,.15);
+    border: 1px solid rgba(245,158,11,.3);
+    color: #FCD34D;
+  }
+
+  .certifications {
+    margin-bottom: 1.5rem;
+  }
+
+  .cert-title {
+    font-weight: 700;
+    color: var(--ivory);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .cert-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .cert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(34,197,94,.15);
+    border-radius: 6px;
+    color: #4ADE80;
+  }
+
+  .allergen-contact {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212,163,115,.2);
+  }
+
+  .contact-text {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .contact-link {
+    color: var(--amber);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+  }
+
+  .contact-link:hover {
+    color: var(--gold);
+  }
+
+  /* Background decorations */
+  .bg-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .deco-circle {
+    position: absolute;
+    border: 1px solid rgba(212,163,115,.1);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+
+  .circle-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    right: -5%;
+    animation: float 15s ease-in-out infinite;
+  }
+
+  .circle-2 {
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    left: -5%;
+    animation: float 12s ease-in-out infinite reverse;
+  }
+
+  .deco-line {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.2;
+  }
+
+  .line-1 {
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%) rotate(15deg);
+    animation: float 10s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .ingredients-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .allergen-card {
+      position: relative;
+      top: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ingredients-section {
+      padding: 4rem 0;
+    }
+
+    .container {
+      padding: 0 1.25rem;
+    }
+
+    .ingredients-content {
+      gap: 2rem;
+    }
+
+    .allergen-card {
+      padding: 1.5rem;
+    }
+
+    .ingredient-item {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+    }
+
+    .ingredient-visual {
+      align-self: center;
+    }
+
+    .allergen-tags {
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,235 @@
+---
+// src/components/QualityCards.astro
+---
+
+<section class="quality-section">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <h2 class="section-title">Crafted with <span class="title-accent">Excellence</span></h2>
+      <p class="section-description">
+        Every piece reflects our commitment to quality — hand-finished details, limited runs, and prompt delivery.
+      </p>
+    </div>
+
+    <div class="quality-grid">
+      <!-- Hand-Painted -->
+      <article class="quality-card scroll-reveal">
+        <div class="card-visual">
+          <div class="card-icon" aria-hidden="true">
+            <!-- Brush SVG -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 7.5l2 2"/>
+              <path d="M4 20c1.6-.9 2.8-1.9 3.5-3.5.3-.7.5-1.5.5-2.3L14 8.2l3.8 3.8-6 6c-.8 0-1.6.2-2.3.5C5.9 19.2 4.9 20.4 4 22"/>
+              <path d="M14 8.2l2.8-2.8a2 2 0 0 1 2.8 0l.3.3a2 2 0 0 1 0 2.8L17.8 11"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Hand-Painted</h3>
+          <p class="card-description">
+            Cocoa-butter colors applied by hand for subtle marbling, gradients, and unique finishes in every bonbon.
+          </p>
+        </div>
+      </article>
+
+      <!-- Small Batches -->
+      <article class="quality-card scroll-reveal">
+        <div class="card-visual">
+          <div class="card-icon" aria-hidden="true">
+            <!-- Small kettle / pot with steam -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="9" width="16" height="8" rx="2"/>
+              <path d="M6 9V7a2 2 0 0 1 2-2h4"/>
+              <path d="M9 5c0-1 .8-2 1.8-2"/>
+              <path d="M13 5c0-1 .8-2 1.8-2"/>
+              <path d="M4 13h16"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Small Batches</h3>
+          <p class="card-description">
+            Limited-run production for better temper, consistent texture, and fresher flavor profiles.
+          </p>
+        </div>
+      </article>
+
+      <!-- Under a Week Shipment -->
+      <article class="quality-card scroll-reveal">
+        <div class="card-visual">
+          <div class="card-icon" aria-hidden="true">
+            <!-- Box + clock -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8l9-5 9 5-9 5-9-5z"/>
+              <path d="M21 8v6a2 2 0 0 1-1 1.7l-8 4.3-8-4.3A2 2 0 0 1 3 14V8"/>
+              <circle cx="17.5" cy="12.5" r="3.5"/>
+              <path d="M17.5 11v1.6l1.2.7"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">Ships in Under a Week</h3>
+          <p class="card-description">
+            Fast dispatch windows to keep your chocolates fresh — typically within 3–6 business days.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="find-us-footer">
+  <a href="/find-us" class="primary-btn">Visit Our Location</a>
+</div>
+</section>
+
+<style>
+  .find-us-footer {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .find-us-btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    text-decoration: none;
+    color: var(--cacao);
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    box-shadow: 0 6px 18px rgba(212,163,115,.25);
+    transition: all .3s ease;
+  }
+
+  .find-us-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(212,163,115,.35);
+  }
+  :root {
+    --cacao: #0A0B0D;
+    --ivory: #FAFAF9;
+    --gold: #D4A373;
+    --amber: #F59E0B;
+    --muted: rgba(250,250,249,.8);
+  }
+
+  .quality-section {
+    padding: 6rem 0;
+    background: var(--cacao);
+    color: var(--ivory);
+    position: relative;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .title-accent {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-description {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .quality-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  /* Card: less clickable, premium, calm */
+  .quality-card {
+    background: linear-gradient(180deg, rgba(20,22,24,.65), rgba(20,22,24,.5));
+    border: 1px solid rgba(212,163,115,.16);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+    cursor: default;
+  }
+
+  .quality-card:hover {
+    border-color: rgba(212,163,115,.28);
+    box-shadow: 0 10px 28px rgba(0,0,0,.18);
+    transform: translateY(-2px);
+  }
+
+  .card-visual {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(120px 60px at 50% 30%, rgba(212,163,115,.18), transparent 60%);
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    color: var(--ivory);
+    border: 1px solid rgba(212,163,115,.3);
+    background:
+      linear-gradient(135deg, rgba(212,163,115,.12), rgba(245,158,11,.08));
+    box-shadow: inset 0 0 0 1px rgba(250,250,249,.06);
+  }
+
+  .card-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .card-content {
+    padding: 1.5rem 1.5rem 1.75rem;
+    text-align: center;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: .2px;
+  }
+
+  .card-description {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .quality-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .quality-section { padding: 4rem 0; }
+    .container { padding: 0 1.25rem; }
+    .quality-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .card-visual { height: 110px; }
+  }
+</style>

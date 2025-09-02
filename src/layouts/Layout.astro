@@ -56,7 +56,7 @@ interface Props {
 const {
   title = 'Artilate — Handcrafted Chocolates in Alberta',
   description = 'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced cacao, handcrafted flavours, local delivery & events.',
-  image = '/og/og-default.jpg',
+  image = '/assets/og.png',
 
   locale = 'en-CA',
   alternates = ['fr-CA'],
@@ -250,6 +250,7 @@ const webSiteLd: Record<string, unknown> = {
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <!-- Slot extra por página -->
     <slot name="head" />
+    <link rel="icon" href="/assets/logo-completo.png" />
   </head>
 
   <body class="min-h-screen bg-neutral-900 text-stone-50 antialiased">

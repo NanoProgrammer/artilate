@@ -1,91 +1,107 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import Hero from "../components/Hero.astro";
-import SectionWho from "../components/SectionWho.astro";
-import SectionWhat from "../components/SectionWhat.astro";
-import SectionEthics from "../components/SectionEthics.astro";
-import SectionSell from "../components/SectionSell.astro";
-import SectionContact from "../components/SectionContact.astro";
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro'
+import Hero from '../components/Hero.astro'
+import QualityCards from '../components/QualityCards.astro'
+import IngredientsAllergies from '../components/IngredientsAllergies.astro'
+import FlavoursCarousel from '../components/FlavoursCarousel.astro'
+import FeaturedProducts from '../components/FeaturedProducts.astro'
+import Testimonials from '../components/Testimonials.astro'
+import ProcessSteps from '../components/ProcessSteps.astro'
+import WorkEthics from '../components/WorkEthics.astro'
+import Newsletter from '../components/Newsletter.astro'
 
-const title = "Artilate — Premium Artisan Chocolates";
-const description =
-  "Artisan chocolates crafted in Alberta with tropical Colombian soul. Gourmet flavours, ethical sourcing, and small-batch quality.";
-const image = "/assets/og.png"; // ruta a tu imagen OG
-const locale = "en_CA";
-const siteName = "Artilate";
+const seoData = {
+  title: 'Artilate — Handcrafted Chocolates from Colombian Cacao',
+  description: 'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced Colombian cacao, handcrafted in small batches with scientific precision.',
+  ogType: 'website' as const,
+  schemaExtras: {
+    '@type': ['LocalBusiness', 'FoodEstablishment'],
+    servesCuisine: 'Artisanal Chocolates',
+    menu: '/shop',
+    hasMenu: {
+      '@type': 'Menu',
+      name: 'Chocolate Selection',
+      hasMenuSection: [
+        { '@type': 'MenuSection', name: 'Bonbons', hasMenuItem: [
+          { '@type': 'MenuItem', name: 'Classic Box of 9', offers: { '@type': 'Offer', price: '25', priceCurrency: 'CAD' }},
+          { '@type': 'MenuItem', name: 'Tropical Box of 9', offers: { '@type': 'Offer', price: '25', priceCurrency: 'CAD' }}
+        ]},
+        { '@type': 'MenuSection', name: 'Chocolate Bars', hasMenuItem: [
+          { '@type': 'MenuItem', name: 'Dark with Pistachio (40g)', offers: { '@type': 'Offer', price: '6', priceCurrency: 'CAD' }}
+        ]}
+      ]
+    }
+  }
+}
 ---
 
-<Layout
-  title={title}
-  description={description}
-  image={image}
-  locale={locale}
- 
->
-
-
-  
-  <Hero
-  title="From Bean to Bonbon — Crafted with Passion"
-  subtitle="Our chocolates blend tropical Colombian cacao with Alberta craftsmanship, in small batches for unmatched quality."
-  primaryCtaLabel="Shop Now"
-  primaryCtaHref="#sell"
-  secondaryCtaLabel="Our Story"
-  secondaryCtaHref="#who"
-  imageMainSrc="/assets/product-main.jpeg"
-  imageMainAlt="Box of glossy artisan bonbons"
-  mediaSide="right"
-  badges={["Small-batch", "Ethically sourced", "Made in Alberta"]}
-/>
-
-    <SectionWho
-  imageSrc="/assets/process-tempering.avif"
-  imageAlt="Tempering dark chocolate on marble"
-  reverse={false}
-/>
-
-    <SectionWhat
-  imageSrc="/assets/what-we-do-bonbons.jpeg"
-  imageAlt="Handmaking chocolate bonbons"
-  reverse={true}
-/>
-
-    <SectionEthics />
-  <SectionSell
-  products={[
-    {
-      image: "/assets/bonbon-maracuya.jpeg",
-      alt: "Passion fruit bonbon",
-      title: "Bonbon — Maracuyá",
-      blurb: "Tangy ganache inside glossy dark chocolate.",
-      href: "/product/bonbon-maracuya",
-      price: "$16.50",
-      tag: "Bestseller",
-    },
-    {
-      image: "/assets/bar-espresso.jpeg",
-      alt: "dark bar",
-      title: "Bar with dried fruits",
-      blurb: "Deep cacao with dried fruits.",
-      href: "/product/bar-espresso",
-      price: "$9",
-      tag: "New",
-    },
-    {
-      image: "/assets/bonbon-pistachio.jpeg",
-      alt: "Pistachio bonbon",
-      title: "Bonbon — Pistachio",
-      blurb: "Silky pistachio ganache, dark couverture.",
-      href: "/product/bonbon-pistachio",
-      price: "$3.50",
-    },
-  ]}
-/>
-
-    <SectionContact />
-
-  
-
+<Layout {...seoData}>
+  <Hero />
+  <QualityCards />
+  <IngredientsAllergies />
+  <FlavoursCarousel />
+  <FeaturedProducts />
+  <Testimonials />
+  <ProcessSteps />
+  <WorkEthics />
+  <Newsletter />
 </Layout>
+
+<style>
+  /* Global homepage styles */
+  :global(.scroll-reveal) {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  :global(.scroll-reveal.revealed) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  :global(.fade-in-left) {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  :global(.fade-in-left.revealed) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  :global(.fade-in-right) {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  :global(.fade-in-right.revealed) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with animation classes
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('.scroll-reveal, .fade-in-left, .fade-in-right');
+    animatedElements.forEach(el => observer.observe(el));
+  });
+</script>

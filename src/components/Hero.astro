@@ -1,133 +1,202 @@
 ---
-// Hero totalmente responsive, desde cero
-// • 1 sola imagen (sin chip, sin fondos añadidos)
-// • Altura = 100svh − altura del header (variable)
-// • Sin píxeles fijos para alturas; solo svh/vw/rem/clamp
-// • Si no defines --header-h en el header, usa 9svh por defecto
-
-type Props = {
-  title?: string;
-  subtitle?: string;
-  primaryCtaLabel?: string;
-  primaryCtaHref?: string;
-  secondaryCtaLabel?: string;
-  secondaryCtaHref?: string;
-  imageMainSrc: string;
-  imageMainAlt: string;
-  mediaSide?: "left" | "right";
-  badges?: string[];
-};
-
-const {
-  title = "Luxury artisan chocolates — crafted to linger.",
-  subtitle = "Colombian cacao, Alberta craftsmanship. Small-batch, ethically sourced, unapologetically gourmet.",
-  primaryCtaLabel = "Shop the collection",
-  primaryCtaHref = "#sell",
-  secondaryCtaLabel = "Our Story",
-  secondaryCtaHref = "#who",
-  imageMainSrc,
-  imageMainAlt,
-  mediaSide = "right",
-  badges = ["Small-batch", "Ethically sourced", "Made in Alberta"],
-} = Astro.props as Props;
-
-const mediaFirst = mediaSide === "left";
+// src/components/Hero.astro
 ---
 
-<section id="top" aria-label="Hero" class="hero clean">
-  <div class="container grid">
-    {mediaFirst && (
-      <figure class="media" aria-hidden="false">
-        <img
-          src={imageMainSrc}
-          alt={imageMainAlt}
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-          sizes="(max-width: 1024px) 92vw, 22vw"
-        />
-      </figure>
-    )}
+<section class="hero">
+  <div class="hero-background">
+    <!-- VIDEO DE FONDO (WebM + fallback MOV). NO loop; lo controlamos por JS -->
+    <video class="hero-video" muted playsinline preload="auto">
+      <source src="/bg_passionfrut.webm" type="video/webm" />
+      <source src="/bg_passionfrut.mov"  type="video/quicktime" />
+    </video>
 
-    <div class={mediaFirst ? "copy left" : "copy"}>
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Gold-forward flavour</p>
-      <h1 class="title">{title}</h1>
-      <p class="lead">{subtitle}</p>
+    <div class="hero-gradient"></div>
 
-      {badges?.length > 0 && (
-        <ul class="badges">
-          {badges.map((b, i) => <li class="badge" >{b}</li>)}
-        </ul>
-      )}
+    <div class="chocolate-particles" aria-hidden="true">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+      <div class="particle particle-6"></div>
+    </div>
+  </div>
 
-      <div class="actions">
-        <a href={primaryCtaHref} class="btn primary" aria-label="Shop the collection">
-          {primaryCtaLabel}
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href={secondaryCtaHref} class="btn ghost" aria-label="Read our story">{secondaryCtaLabel}</a>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge scroll-reveal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>Handcrafted Excellence</span>
+        </div>
+
+        <h1 class="hero-title scroll-reveal">
+          From Colombian <span class="title-highlight">Cacao</span> to Your Table
+        </h1>
+
+        <p class="hero-description scroll-reveal">
+          Premium bean-to-bar chocolates and filled bonbons made in Alberta.
+          Ethically sourced Colombian cacao, handcrafted in small batches with scientific precision.
+        </p>
+
+        <div class="hero-actions scroll-reveal">
+          <a href="/shop" class="primary-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            Shop Collection
+          </a>
+          <a href="/find-us" class="secondary-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Visit Our Locations
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-in-right">
+        <div class="hero-image-container">
+          <div class="hero-image">
+            <div class="image-placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="9" cy="9" r="2"/>
+                <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+              </svg>
+              <span>Hero Chocolate Image</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    {!mediaFirst && (
-      <figure class="media" aria-hidden="false">
-        <img
-          src={imageMainSrc}
-          alt={imageMainAlt}
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-          sizes="(max-width: 1024px) 92vw, 22vw"
-        />
-      </figure>
-    )}
-  </div>
-  <div class="relative flex items-center justify-center h-screen overflow-hidden bg-black">
-  <!-- Explosión de color -->
-  <div class="absolute w-[60vw] h-[60vw] rounded-full 
-              bg-gradient-radial from-amber-400/70 via-orange-500/50 to-transparent 
-              blur-3xl animate-ping">
   </div>
 
-  <!-- Contenido -->
-  <div class="relative z-10 text-center text-white">
-    <h1 class="text-6xl font-bold">Brands Builders</h1>
-    <p class="mt-4 text-xl">Growth Partner Agency</p>
+  <div class="hero-crack" aria-hidden="true">
+    <svg viewBox="0 0 1200 60" class="crack-svg">
+      <path class="crack-line" d="M0,30 Q300,20 600,30 T1200,25" stroke="url(#heroGradient)" stroke-width="2" fill="none"/>
+      <defs>
+        <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"  style="stop-color:#D4A373;stop-opacity:0"/>
+          <stop offset="30%" style="stop-color:#D4A373;stop-opacity:.6"/>
+          <stop offset="50%" style="stop-color:#F59E0B;stop-opacity:1"/>
+          <stop offset="70%" style="stop-color:#D4A373;stop-opacity:.6"/>
+          <stop offset="100%"style="stop-color:#D4A373;stop-opacity:0"/>
+        </linearGradient>
+      </defs>
+    </svg>
   </div>
-</div>
-
 </section>
 
 <style>
-/***** ALTURA RESPONSIVE (sin px): 100svh − header *****/
-.hero.clean{ --hdr: var(--header-h, 9svh); /* defínelo en el header si quieres precisión */ }
-.hero.clean{ position:relative; isolation:isolate; min-block-size:calc(100svh - var(--hdr)); padding-block:clamp(1rem, 4svh, 2.5rem) }
+  :root{ --cacao:#0A0B0D; --ivory:#FAFAF9; --gold:#D4A373; --amber:#F59E0B; --muted:rgba(250,250,249,.8); }
 
-/***** GRID *****/
-.grid{ display:grid; gap:clamp(1rem,3svh,2rem); grid-template-columns:1.05fr .95fr; align-items:center }
-@media (width <= 1024px){ .grid{ grid-template-columns:1fr } }
+  .hero{ position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; background:var(--cacao); color:var(--ivory); }
 
-/***** TEXTO *****/
-.eyebrow{ display:inline-flex; align-items:center; gap:.5rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; font-size:clamp(.78rem, 1.6vw, .9rem); margin:0 0 .45rem }
-.dot{ inline-size:.48rem; block-size:.48rem; border-radius:9999px; background:var(--gold) }
-.title{ font-weight:800; font-size:clamp(2rem, 4.2vw, 3.2rem); line-height:1.05; margin:0 0 .5rem }
-.lead{ color:var(--muted); max-inline-size:60ch; margin:0 0 .85rem }
-.badges{ display:flex; flex-wrap:wrap; gap:.55rem; margin:.35rem 0 0 }
-.badge{ font-size:clamp(.78rem,1.6vw,.9rem); padding:.35rem .7rem; border-radius:9999px; background:color-mix(in oklab, white 6%, transparent); border:1px solid rgba(212,163,115,.4); color:var(--text-warm) }
+  .hero-background{ position:absolute; inset:0; overflow:hidden;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(212,163,115,.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 70%, rgba(245,158,11,.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(10,11,13,.9) 0%, transparent 100%);
+  }
 
-/***** ACCIONES *****/
-.actions{ display:flex; flex-wrap:wrap; gap:.85rem; margin-top:1rem }
-.btn{ display:inline-flex; align-items:center; gap:.6rem; border-radius:9999px; min-block-size:clamp(40px, 5svh, 46px); padding:.85rem 1.15rem; font-weight:700 }
-.btn svg{ inline-size:1.05rem; block-size:1.05rem }
-.primary{ color:var(--text-warm); background:#6f3f16; border:1px solid #c58a4f; box-shadow:0 10px 24px rgba(0,0,0,.28) }
-.primary:hover{ background:#7f4a1c }
-.ghost{ color:var(--text-warm); border:1px solid rgba(212,163,115,.7); background:transparent }
-.ghost:hover{ background:rgba(212,163,115,.10) }
+  /* VIDEO protagónico: filtros SIEMPRE aplicados a TODO el video */
+  .hero-video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+    filter: saturate(1.45) contrast(1.12) brightness(1.06);
+    transform: scale(1.03);
+    transition: transform .6s ease;
+  }
+  /* Al congelar, sólo un micro-zoom extra (el filtro ya estaba activo antes) */
+  .hero-video.is-frozen{ transform: scale(1.035); }
 
-/***** IMAGEN: sin fondo, responsiva *****/
-.media{ display:grid; place-items:end center }
-.media img{ display:block; inline-size:min(24vw, 92%); block-size:auto; max-block-size:calc(100svh - var(--hdr) - 16svh); object-fit:contain; background:transparent; border-radius:1.1rem; box-shadow:0 1.2rem 2.2rem rgba(0,0,0,.34) }
-@media (width <= 1024px){ .media img{ inline-size:min(84vw, 92%); max-block-size:calc(100svh - var(--hdr) - 22svh) } }
+  /* overlay algo más suave para que el video luzca */
+  .hero-gradient{ position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,11,13,.60) 0%, rgba(10,11,13,.40) 100%); z-index:1; }
 
-.copy.left{ order:0 }
+  .container{ max-width:1280px; margin:0 auto; padding:0 2rem; position:relative; z-index:2; }
+  .hero-content{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; min-height:80vh; }
+
+  .hero-badge{ display:inline-flex; align-items:center; gap:8px; background:rgba(212,163,115,.15); border:1px solid rgba(212,163,115,.3); color:var(--gold); padding:8px 16px; border-radius:999px; font-weight:600; font-size:.9rem; margin-bottom:1.5rem; backdrop-filter:blur(8px); }
+  .hero-title{ font-family:'Playfair Display',serif; font-size:clamp(2.5rem,6vw,4rem); font-weight:700; line-height:1.1; margin-bottom:1.5rem; text-shadow:0 4px 20px rgba(212,163,115,.2); }
+  .title-highlight{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero-description{ font-size:1.2rem; line-height:1.7; color:var(--muted); margin-bottom:2.5rem; max-width:500px; }
+  .hero-actions{ display:flex; gap:1rem; flex-wrap:wrap; }
+
+  .primary-btn,.secondary-btn{ border-radius:12px; padding:16px 32px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; }
+  .primary-btn{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); color:var(--cacao); box-shadow:0 8px 32px rgba(212,163,115,.3), 0 2px 16px rgba(0,0,0,.1); }
+  .primary-btn::before{ content:''; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); transition:left .6s ease; }
+  .primary-btn:hover::before{ left:100%; }
+  .primary-btn:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(212,163,115,.4), 0 4px 20px rgba(0,0,0,.15); }
+  .secondary-btn{ background:rgba(212,163,115,.08); color:var(--ivory); border:1px solid rgba(212,163,115,.22); backdrop-filter:blur(8px); }
+  .secondary-btn:hover{ border-color:rgba(212,163,115,.4); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
+
+  .hero-visual{ position:relative; height:600px; }
+  .hero-image-container{ position:relative; width:100%; height:100%; }
+  .hero-image{ width:400px; height:500px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:24px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4), 0 8px 32px rgba(212,163,115,.1); }
+  .image-placeholder{ width:100%; height:100%; background:linear-gradient(135deg, rgba(212,163,115,.15) 0%, rgba(245,158,11,.1) 100%); border:1px solid rgba(212,163,115,.2); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; color:var(--muted); text-align:center; }
+
+  .hero-crack{ position:absolute; bottom:0; left:0; right:0; height:60px; pointer-events:none; }
+  .crack-svg{ width:100%; height:100%; }
+  .crack-line{ stroke-dasharray:2000; stroke-dashoffset:2000; animation:drawCrack 3s ease-out 1s forwards; }
+
+  /* Partículas decorativas (opcionales) */
+  .chocolate-particles{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .particle{ position:absolute; width:4px; height:4px; background:var(--gold); border-radius:50%; opacity:.4; animation:float 8s ease-in-out infinite; }
+  .particle-1{ top:20%; left:15%; animation-delay:0s; } .particle-2{ top:70%; left:85%; animation-delay:1s; }
+  .particle-3{ top:40%; left:10%; animation-delay:2s; } .particle-4{ top:80%; left:70%; animation-delay:3s; }
+  .particle-5{ top:15%; left:90%; animation-delay:4s; } .particle-6{ top:60%; left:30%; animation-delay:5s; }
+
+  @keyframes float{ 0%,100%{ transform:translateY(0) scale(1); opacity:.4; } 50%{ transform:translateY(-30px) scale(1.5); opacity:.8; } }
+  @keyframes drawCrack{ to{ stroke-dashoffset:0; } }
+
+  @media (max-width:1024px){ .hero-content{ grid-template-columns:1fr; gap:3rem; text-align:center; } .hero-visual{ height:400px; } .hero-image{ width:300px; height:380px; } }
+  @media (max-width:768px){ .container{ padding:0 1.25rem; } .hero-actions{ justify-content:center; } .primary-btn,.secondary-btn{ width:100%; max-width:280px; justify-content:center; } .hero-visual{ height:300px; } .hero-image{ width:250px; height:300px; } }
 </style>
+
+<script lang="ts">
+(() => {
+  // Evita doble init si Astro hidrata varias veces
+  // @ts-ignore
+  if ((window).__heroVideoInit) return;
+  // @ts-ignore
+  (window).__heroVideoInit = true;
+
+  const el = document.querySelector('.hero-video');
+  if (!(el instanceof HTMLVideoElement)) return;
+  const v = el;
+
+  const startAfterDelay = () => {
+    setTimeout(async () => {
+      try { await v.play(); } catch {/* autoplay bloqueado: ignorar */}
+    }, 300); // delay 0.3 s
+  };
+
+  if (v.readyState >= 2) startAfterDelay();
+  else v.addEventListener('canplay', startAfterDelay, { once: true });
+
+  // Congelar al terminar (sin loop)
+  const freeze = () => {
+    try {
+      v.pause();
+      if (!isNaN(v.duration) && isFinite(v.duration)) {
+        v.currentTime = Math.max(0, v.duration - 0.03); // busca al último frame
+      }
+    } catch {/* noop */}
+    v.classList.add('is-frozen');
+  };
+
+  // Safari a veces no dispara 'ended' fiable; usa timeupdate como respaldo
+  let frozen = false;
+  v.addEventListener('ended', () => { if (!frozen) { frozen = true; freeze(); } }, { once: true });
+  v.addEventListener('timeupdate', () => {
+    if (!frozen && v.duration && (v.duration - v.currentTime) < 0.05) {
+      frozen = true; freeze();
+    }
+  });
+})();
+</script>

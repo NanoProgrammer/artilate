@@ -1,0 +1,194 @@
+---
+import VerticalTestimonialCarousel from './VerticalTestimonialCarousel.jsx';
+---
+
+<section class="relative overflow-hidden bg-[#0A0B0D] text-[#FAFAF9]">
+  <!-- Two fixed columns: left content (50vw), right sticky carousel (50vw) -->
+  <div
+    class="grid min-h-screen w-screen
+           grid-cols-1
+           lg:grid-cols-[50vw_50vw]"
+  >
+    <!-- LEFT: Headline + 3 mini testimonials + CTA, then Process Steps -->
+   <div class="relative px-5 py-14 sm:px-8 md:px-10 lg:px-12 lg:py-20">
+
+
+  <!-- SVG decorativo premium (cocoa curve) -->
+  <svg aria-hidden="true" class="pointer-events-none absolute -top-6 right-6 h-16 w-16 opacity-20"
+       viewBox="0 0 64 64" fill="none">
+    <path d="M10 38c14-10 30-10 44 0" stroke="url(#grad1)" stroke-width="2"/>
+    <path d="M18 22c6 6 22 6 28 0" stroke="url(#grad1)" stroke-width="2" opacity=".6"/>
+    <defs>
+      <linearGradient id="grad1" x1="0" y1="0" x2="64" y2="64">
+        <stop offset="0" stop-color="#D4A373"/><stop offset="1" stop-color="#F59E0B"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Encabezado conciso -->
+  <header class="max-w-2xl">
+    <p class="mb-3 text-sm font-semibold tracking-widest text-amber-400/90">TESTIMONIALS</p>
+    <h2 class="mb-3 font-serif text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-tight">
+      What Our <span class="bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">Customers</span> Say
+    </h2>
+    <p class="text-lg text-white/80">
+      From Colombian cacao to Alberta tables — small-batch quality, modern craft, and flavours people talk about.
+    </p>
+  </header>
+
+  <!-- Contenido ampliado (sin tarjetas de personas) -->
+  <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+    <div>
+      <h3 class="mb-3 font-serif text-xl font-semibold">Why people rave</h3>
+      <ul class="space-y-3 text-white/85">
+        <li class="flex gap-3">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="mt-1 h-4 w-4">
+            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+          Honest ingredients and clean labels.
+        </li>
+        <li class="flex gap-3">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="mt-1 h-4 w-4">
+            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+          Hand-painted finishes that feel like art.
+        </li>
+        <li class="flex gap-3">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="mt-1 h-4 w-4">
+            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+          Balanced flavours — bright, creamy, precise.
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="mb-3 font-serif text-xl font-semibold">Signature flavours</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Passion Fruit</span>
+        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Huila Coffee</span>
+        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Pistachio</span>
+        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Hazelnut Caramel</span>
+        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Prairie Berry</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- CTA -->
+      <div class="mt-8">
+        <a
+          href="/shop"
+          class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-pink-500 px-5 py-2.5 
+                 text-sm font-semibold text-[#0A0B0D] shadow-[0_8px_24px_rgba(245,158,11,.35)] transition hover:brightness-105"
+        >
+          Buy Now
+          <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Section 2: Process -->
+      <section id="process" class="mt-16 border-t border-[#D4A373]/10 pt-10">
+        <h3 class="font-serif text-[clamp(1.6rem,3vw,2.2rem)] font-semibold">Our Artisan Process</h3>
+
+        <div class="mt-8 flex flex-col gap-10 lg:gap-12">
+          <!-- Step -->
+          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
+                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">01</div>
+            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+              <div class="sticky top-6">
+                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
+                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]
+                            shadow-[0_10px_30px_rgba(0,0,0,.25),_inset_0_1px_0_rgba(250,250,249,.06)]">
+                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
+                    <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D4A373"/></linearGradient></defs>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="url(#g1)" stroke-width="3" />
+                    <path d="M50 20 L50 50 L70 70" stroke="url(#g1)" stroke-width="4" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h4 class="mb-2 font-serif text-xl font-semibold">Tempering</h4>
+                <p class="text-white/80">Scientific temperature control for perfect crystallisation—glossy finish, crisp snap, silky mouthfeel.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step -->
+          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
+                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">02</div>
+            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+              <div class="sticky top-6">
+                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
+                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
+                    <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D4A373"/></linearGradient></defs>
+                    <path d="M20 80 Q30 20 50 50 Q70 20 80 80" stroke="url(#g2)" stroke-width="4" fill="none"/>
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h4 class="mb-2 font-serif text-xl font-semibold">Painting</h4>
+                <p class="text-white/80">Hand-painted cocoa-butter gradients and subtle marbling—every bonbon is unique.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step -->
+          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
+                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">03</div>
+            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+              <div class="sticky top-6">
+                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
+                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
+                    <defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4A373"/><stop offset="100%" stop-color="#F59E0B"/></linearGradient></defs>
+                    <ellipse cx="50" cy="70" rx="32" ry="18" fill="url(#g3)" opacity=".35"/>
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h4 class="mb-2 font-serif text-xl font-semibold">Filling</h4>
+                <p class="text-white/80">Colombian–Canadian flavour pairings: passion fruit, Huila coffee, prairie berry, pistachio, hazelnut caramel.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step -->
+          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
+                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">04</div>
+            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
+              <div class="sticky top-6">
+                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
+                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
+                    <defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D4A373"/></linearGradient></defs>
+                    <rect x="25" y="40" width="50" height="30" rx="5" fill="none" stroke="url(#g4)" stroke-width="3"/>
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h4 class="mb-2 font-serif text-xl font-semibold">Packing</h4>
+                <p class="text-white/80">Premium, protective packaging. Typically ships in under 7 days across Alberta and Canada.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT: Sticky vertical carousel (always visible) -->
+    <div class="relative z-20 border-l border-[#D4A373]/10 bg-gradient-to-br from-[#141618]/90 to-[#0A0B0D]">
+      <div class="sticky top-0 flex h-screen items-center justify-center p-4 sm:p-6">
+        <VerticalTestimonialCarousel client:load />
+      </div>
+    </div>
+  </div>
+</section>
