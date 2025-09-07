@@ -3,7 +3,7 @@ import Layout from '../../../layouts/Layout.astro'
 
 const sp = Astro.url.searchParams
 const orderId = sp.get('order') ?? sp.get('orderId') ?? sp.get('oid') ?? '—'
-
+export const prerender = true;
 const seoData = {
   title: 'Order Confirmed — Artilate Handcrafted Chocolates',
   description: `Thank you! Your order ${orderId !== '—' ? '#' + orderId : ''} was received. We’re preparing your handcrafted chocolates in Alberta.`,

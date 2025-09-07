@@ -2,7 +2,7 @@
 // src/pages/shop/[id].astro
 import Layout from "../../../layouts/Layout.astro";
 import ContextProduct from "../../../components/shop/contextProduct.jsx";
-
+export const prerender = true;
 const { id } = Astro.params;
 
 /** Minimal catalog (extend freely). Keys must match product slugs/links used across the site */
@@ -423,6 +423,13 @@ const CATALOG = {
     images: ["/images/snacks/thin-bar-almond.jpg"],
   },
 };
+
+export function getStaticPaths() {
+  return Object.keys(CATALOG).map((id) => ({
+    params: { id },              // genera /shop/dark-75-pistachio, etc.
+    props: { product: CATALOG[id] }, // pasa el producto como prop
+  }));
+}
 
 const product = CATALOG[id] ?? null;
 
