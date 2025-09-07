@@ -1,13 +1,20 @@
 ---
-// src/components/Hero.astro
+/* src/components/Hero.astro (responsive + header aware) */
 ---
 
-<section class="hero">
+<section class="hero" style="--header-h:84px">
   <div class="hero-background">
-    <!-- VIDEO DE FONDO (WebM + fallback MOV). NO loop; lo controlamos por JS -->
-    <video class="hero-video" muted playsinline preload="auto">
+    <!-- VIDEO de fondo: en mobile usamos metadata + poster para performance -->
+    <video
+      class="hero-video"
+      muted
+      playsinline
+      preload="metadata"
+      poster="/bg_passionfrut_poster.jpg"
+    >
       <source src="/bg_passionfrut.webm" type="video/webm" />
-      <source src="/bg_passionfrut.mov"  type="video/quicktime" />
+      <!-- SUGERENCIA: usa mp4 (H.264) en vez de .mov para mejor autoplay -->
+      <source src="/bg_passionfrut.mp4" type="video/mp4" />
     </video>
 
     <div class="hero-gradient"></div>
@@ -74,11 +81,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>    
   </div>
 
   <div class="hero-crack" aria-hidden="true">
-    <svg viewBox="0 0 1200 60" class="crack-svg">
+    <svg viewBox="0 0 1200 60" class="crack-svg" preserveAspectRatio="none">
       <path class="crack-line" d="M0,30 Q300,20 600,30 T1200,25" stroke="url(#heroGradient)" stroke-width="2" fill="none"/>
       <defs>
         <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -94,9 +101,24 @@
 </section>
 
 <style>
-  :root{ --cacao:#0A0B0D; --ivory:#FAFAF9; --gold:#D4A373; --amber:#F59E0B; --muted:rgba(250,250,249,.8); }
+  :root{
+    --cacao:#0A0B0D; --ivory:#FAFAF9; --gold:#D4A373; --amber:#F59E0B; --muted:rgba(250,250,249,.8);
+  }
 
-  .hero{ position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; background:var(--cacao); color:var(--ivory); }
+  /* HEADER OFFSET + SAFE AREAS */
+  .hero{
+    position:relative;
+    /* ocupa viewport real restando header; svh corrige el 100vh en mobile */
+    min-height: calc(100svh - var(--header-h));
+    padding-top: calc(var(--header-h) + max(env(safe-area-inset-top), 0px));
+    display:flex; align-items:center;
+    overflow:hidden; background:var(--cacao); color:var(--ivory);
+  }
+
+  /* En móvil tu header usa 74px, así que reducimos var */
+  @media (max-width: 480px){
+    .hero{ --header-h:74px; }
+  }
 
   .hero-background{ position:absolute; inset:0; overflow:hidden;
     background:
@@ -105,57 +127,102 @@
       radial-gradient(ellipse at 50% 100%, rgba(10,11,13,.9) 0%, transparent 100%);
   }
 
-  /* VIDEO protagónico: filtros SIEMPRE aplicados a TODO el video */
   .hero-video{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
-    filter: saturate(1.45) contrast(1.12) brightness(1.06);
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;
+    z-index:0;
+    filter: saturate(1.35) contrast(1.1) brightness(1.05);
     transform: scale(1.03);
     transition: transform .6s ease;
   }
-  /* Al congelar, sólo un micro-zoom extra (el filtro ya estaba activo antes) */
   .hero-video.is-frozen{ transform: scale(1.035); }
+  /* Si usuario prefiere menos movimiento: pausa video y partículas */
+  @media (prefers-reduced-motion: reduce){
+    .hero-video{ display:none; }
+    .particle{ animation:none !important; }
+  }
 
-  /* overlay algo más suave para que el video luzca */
-  .hero-gradient{ position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,11,13,.60) 0%, rgba(10,11,13,.40) 100%); z-index:1; }
+  .hero-gradient{ position:absolute; inset:0;
+    /* un poco más transparente para que luzca el video en desktop */
+    background:linear-gradient(135deg, rgba(10,11,13,.55) 0%, rgba(10,11,13,.38) 100%);
+    z-index:1;
+  }
 
-  .container{ max-width:1280px; margin:0 auto; padding:0 2rem; position:relative; z-index:2; }
-  .hero-content{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; min-height:80vh; }
+  .container{ max-width:1280px; margin:0 auto; padding:0 clamp(1rem, 4vw, 2rem); position:relative; z-index:2; width:100%; }
+  .hero-content{
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: clamp(1.5rem, 3.5vw, 4rem);
+    align-items:center;
+    min-height: clamp(60vh, 78svh, 86vh);
+  }
 
-  .hero-badge{ display:inline-flex; align-items:center; gap:8px; background:rgba(212,163,115,.15); border:1px solid rgba(212,163,115,.3); color:var(--gold); padding:8px 16px; border-radius:999px; font-weight:600; font-size:.9rem; margin-bottom:1.5rem; backdrop-filter:blur(8px); }
-  .hero-title{ font-family:'Playfair Display',serif; font-size:clamp(2.5rem,6vw,4rem); font-weight:700; line-height:1.1; margin-bottom:1.5rem; text-shadow:0 4px 20px rgba(212,163,115,.2); }
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(212,163,115,.15); border:1px solid rgba(212,163,115,.3); color:var(--gold);
+    padding:8px 14px; border-radius:999px; font-weight:600; font-size:.9rem; margin-bottom:1rem;
+    backdrop-filter:blur(8px);
+  }
+  .hero-title{ font-family:'Playfair Display',serif; font-size: clamp(2rem, 6vw, 4rem); font-weight:700; line-height:1.1; margin-bottom:1rem; text-shadow:0 4px 20px rgba(212,163,115,.2); }
   .title-highlight{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-  .hero-description{ font-size:1.2rem; line-height:1.7; color:var(--muted); margin-bottom:2.5rem; max-width:500px; }
-  .hero-actions{ display:flex; gap:1rem; flex-wrap:wrap; }
+  .hero-description{ font-size: clamp(1rem, 2.2vw, 1.2rem); line-height:1.7; color:var(--muted); margin-bottom:1.75rem; max-width: 52ch; }
+  .hero-actions{ display:flex; gap:.9rem; flex-wrap:wrap; }
 
-  .primary-btn,.secondary-btn{ border-radius:12px; padding:16px 32px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; }
+  .primary-btn,.secondary-btn{
+    border-radius:12px; padding:14px 22px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; font-size: clamp(.95rem, 2vw, 1rem);
+  }
   .primary-btn{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); color:var(--cacao); box-shadow:0 8px 32px rgba(212,163,115,.3), 0 2px 16px rgba(0,0,0,.1); }
   .primary-btn::before{ content:''; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); transition:left .6s ease; }
   .primary-btn:hover::before{ left:100%; }
-  .primary-btn:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(212,163,115,.4), 0 4px 20px rgba(0,0,0,.15); }
+  .primary-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 40px rgba(212,163,115,.4), 0 4px 20px rgba(0,0,0,.15); }
+
   .secondary-btn{ background:rgba(212,163,115,.08); color:var(--ivory); border:1px solid rgba(212,163,115,.22); backdrop-filter:blur(8px); }
   .secondary-btn:hover{ border-color:rgba(212,163,115,.4); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
 
-  .hero-visual{ position:relative; height:600px; }
+  .hero-visual{ position:relative; height: clamp(360px, 48vw, 600px); }
   .hero-image-container{ position:relative; width:100%; height:100%; }
-  .hero-image{ width:400px; height:500px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:24px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4), 0 8px 32px rgba(212,163,115,.1); }
-  .image-placeholder{ width:100%; height:100%; background:linear-gradient(135deg, rgba(212,163,115,.15) 0%, rgba(245,158,11,.1) 100%); border:1px solid rgba(212,163,115,.2); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; color:var(--muted); text-align:center; }
+  .hero-image{
+    width: clamp(240px, 36vw, 420px);
+    aspect-ratio: 4 / 5;
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    border-radius:24px; overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.4), 0 8px 32px rgba(212,163,115,.1);
+  }
+  .image-placeholder{
+    width:100%; height:100%;
+    background:linear-gradient(135deg, rgba(212,163,115,.15) 0%, rgba(245,158,11,.1) 100%);
+    border:1px solid rgba(212,163,115,.2);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; color:var(--muted); text-align:center;
+  }
 
-  .hero-crack{ position:absolute; bottom:0; left:0; right:0; height:60px; pointer-events:none; }
+  .hero-crack{ position:absolute; bottom:0; left:0; right:0; height: clamp(36px, 6vw, 60px); pointer-events:none; }
   .crack-svg{ width:100%; height:100%; }
   .crack-line{ stroke-dasharray:2000; stroke-dashoffset:2000; animation:drawCrack 3s ease-out 1s forwards; }
+  @keyframes drawCrack{ to{ stroke-dashoffset:0; } }
 
-  /* Partículas decorativas (opcionales) */
   .chocolate-particles{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
   .particle{ position:absolute; width:4px; height:4px; background:var(--gold); border-radius:50%; opacity:.4; animation:float 8s ease-in-out infinite; }
   .particle-1{ top:20%; left:15%; animation-delay:0s; } .particle-2{ top:70%; left:85%; animation-delay:1s; }
   .particle-3{ top:40%; left:10%; animation-delay:2s; } .particle-4{ top:80%; left:70%; animation-delay:3s; }
   .particle-5{ top:15%; left:90%; animation-delay:4s; } .particle-6{ top:60%; left:30%; animation-delay:5s; }
-
   @keyframes float{ 0%,100%{ transform:translateY(0) scale(1); opacity:.4; } 50%{ transform:translateY(-30px) scale(1.5); opacity:.8; } }
-  @keyframes drawCrack{ to{ stroke-dashoffset:0; } }
 
-  @media (max-width:1024px){ .hero-content{ grid-template-columns:1fr; gap:3rem; text-align:center; } .hero-visual{ height:400px; } .hero-image{ width:300px; height:380px; } }
-  @media (max-width:768px){ .container{ padding:0 1.25rem; } .hero-actions{ justify-content:center; } .primary-btn,.secondary-btn{ width:100%; max-width:280px; justify-content:center; } .hero-visual{ height:300px; } .hero-image{ width:250px; height:300px; } }
+  /* TABLET ↓: una columna, centrado, CTAs ancho cómodo */
+  @media (max-width: 1024px){
+    .hero-content{ grid-template-columns: 1fr; gap: clamp(1.25rem, 2.5vw, 3rem); text-align:center; min-height: auto; }
+    .hero-visual{ order: -1; height: clamp(300px, 45vw, 420px); }
+    .hero-actions{ justify-content:center; }
+  }
+
+  /* MÓVIL ↓ */
+  @media (max-width: 768px){
+    .hero-gradient{ background:linear-gradient(135deg, rgba(10,11,13,.65) 0%, rgba(10,11,13,.55) 100%); }
+    .primary-btn,.secondary-btn{ width: min(100%, 320px); justify-content:center; }
+  }
+
+  /* EXTRA SMALL */
+  @media (max-width: 420px){
+    .hero-actions{ gap:.75rem; }
+  }
 </style>
 
 <script lang="ts">
@@ -166,31 +233,32 @@
   // @ts-ignore
   (window).__heroVideoInit = true;
 
-  const el = document.querySelector('.hero-video');
-  if (!(el instanceof HTMLVideoElement)) return;
-  const v = el;
+  const v = document.querySelector('.hero-video') ;
+  if (!v) return;
+
+  // Si el usuario prefiere menos movimiento, no arrancamos el video
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
 
   const startAfterDelay = () => {
     setTimeout(async () => {
       try { await v.play(); } catch {/* autoplay bloqueado: ignorar */}
-    }, 300); // delay 0.3 s
+    }, 250);
   };
 
   if (v.readyState >= 2) startAfterDelay();
   else v.addEventListener('canplay', startAfterDelay, { once: true });
 
-  // Congelar al terminar (sin loop)
   const freeze = () => {
     try {
       v.pause();
       if (!isNaN(v.duration) && isFinite(v.duration)) {
-        v.currentTime = Math.max(0, v.duration - 0.03); // busca al último frame
+        v.currentTime = Math.max(0, v.duration - 0.03);
       }
     } catch {/* noop */}
     v.classList.add('is-frozen');
   };
 
-  // Safari a veces no dispara 'ended' fiable; usa timeupdate como respaldo
   let frozen = false;
   v.addEventListener('ended', () => { if (!frozen) { frozen = true; freeze(); } }, { once: true });
   v.addEventListener('timeupdate', () => {
@@ -198,5 +266,10 @@
       frozen = true; freeze();
     }
   });
+
+  // iOS a veces necesita "touch" para iniciar; si falla, caemos a poster
+  setTimeout(() => {
+    if (v.paused) v.setAttribute('poster', v.getAttribute('poster') || '/bg_passionfrut_poster.jpg');
+  }, 2000);
 })();
 </script>

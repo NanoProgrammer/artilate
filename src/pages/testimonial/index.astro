@@ -1,0 +1,579 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// Datos expandidos de testimonios
+const TESTIMONIALS = [
+  {
+    name: "Maria Gonzalez",
+    role: "Chocolate Enthusiast",
+    location: "Calgary, AB",
+    text: "The passion fruit bonbons are divine. Colombian heritage in every bite—shine, snap, and silk. Artilate is my go-to gift for special occasions.",
+    rating: 5,
+    avatar: "MG",
+    color: "from-amber-500 to-orange-500"
+  },
+  {
+    name: "James Mitchell",
+    role: "Corporate Buyer",
+    location: "Edmonton, AB",
+    text: "Elegant packaging and flawless temper. Our clients now associate our brand with Artilate's premium craft. The presentation is world-class.",
+    rating: 5,
+    avatar: "JM",
+    color: "from-blue-500 to-cyan-500"
+  },
+  {
+    name: "Sofia Rodriguez",
+    role: "Food Blogger",
+    location: "Vancouver, BC",
+    text: "From glossy shells to vibrant fillings, every box is a story worth posting. This is chocolate as art that speaks to the soul.",
+    rating: 5,
+    avatar: "SR",
+    color: "from-pink-500 to-purple-500"
+  },
+  {
+    name: "David Chen",
+    role: "Restaurant Owner",
+    location: "Toronto, ON",
+    text: "Balanced ganaches, refined finishes, and consistent artistry—Artilate elevates our dessert program to Michelin-level standards.",
+    rating: 5,
+    avatar: "DC",
+    color: "from-green-500 to-teal-500"
+  },
+  {
+    name: "Isabella Martinez",
+    role: "Gift Shop Owner",
+    location: "Airdrie, AB",
+    text: "They sell themselves—shimmering finishes catch the eye, Colombian flavour keeps customers returning. Our bestseller by far.",
+    rating: 5,
+    avatar: "IM",
+    color: "from-indigo-500 to-purple-500"
+  },
+  {
+    name: "Michael Foster",
+    role: "Wine Sommelier",
+    location: "Victoria, BC",
+    text: "Complex harmonies rival fine wines—bright fruit, silky cream, deep cocoa. Guests constantly request pairing recommendations.",
+    rating: 5,
+    avatar: "MF",
+    color: "from-red-500 to-pink-500"
+  },
+  {
+    name: "Ana Gutierrez",
+    role: "Event Planner",
+    location: "Calgary, AB",
+    text: "Colombian soul with Canadian precision—Artilate is the chocolate moment our luxury events needed. Guests are mesmerized.",
+    rating: 5,
+    avatar: "AG",
+    color: "from-yellow-500 to-orange-500"
+  },
+  {
+    name: "Carmen Delgado",
+    role: "Pastry Chef",
+    location: "Winnipeg, MB",
+    text: "From temper to finish, the technical bar is world-class. As a professional, I deeply appreciate the craftsmanship in every piece.",
+    rating: 5,
+    avatar: "CD",
+    color: "from-emerald-500 to-teal-500"
+  },
+  {
+    name: "Elena Collins",
+    role: "Luxury Retailer",
+    location: "Montreal, QC",
+    text: "The moment customers open the box, they know this is something extraordinary. Each bonbon is a small masterpiece.",
+    rating: 5,
+    avatar: "EC",
+    color: "from-purple-500 to-indigo-500"
+  },
+  {
+    name: "Thomas Liu",
+    role: "Food Enthusiast",
+    location: "Vancouver, BC",
+    text: "Best artisanal chocolate I've experienced outside of Europe. The passion fruit filling is absolutely incredible!",
+    rating: 5,
+    avatar: "TL",
+    color: "from-cyan-500 to-blue-500"
+  }
+];
+
+const QUICK_REVIEWS = [
+  { text: "Hand-painted marbling—every bonbon feels unique and special.", author: "Laura K., Art Collector" },
+  { text: "Shine and snap like fine glass, flavors that dance on the tongue.", author: "Roberto S., Chef" },
+  { text: "Gift-ready boxes with gold foil logo - presentation is everything.", author: "Patricia M., Corporate Buyer" },
+  { text: "Flavours that rival wine pairings - sophisticated and complex.", author: "Alexandre T., Sommelier" },
+  { text: "Colombian heritage in every bite, a true artisanal experience.", author: "Esperanza R., Food Critic" },
+  { text: "The texture is perfect - smooth ganache with crispy shell.", author: "Marcus J., Chocolatier" },
+  { text: "World-class craftsmanship with attention to every detail.", author: "Nicole P., Pastry Chef" },
+  { text: "These bonbons are pure edible art in every sense.", author: "François M., Culinary Director" }
+];
+
+const heroTitle = "What Our Customers Say";
+const heroDesc = "From Calgary to Vancouver—sommeliers, chefs, and gift curators share how Artilate's bean-to-bonbon craft transforms every moment.";
+---
+
+<Layout
+  title="Testimonials — Artilate"
+  description="Customer testimonials for Artilate's handcrafted chocolates: premium bonbons, elegant packaging, and flavour stories."
+  breadcrumbs={[
+    { href: "/", name: "Home" },
+    { href: "/testimonial", name: "Testimonials" },
+  ]}
+>
+  <!-- ========================= HERO ========================= -->
+  <section class="relative isolate overflow-hidden bg-[#0A0B0D] text-[#FAFAF9]">
+    <div
+      class="pointer-events-none absolute inset-0 -z-10
+             [background:radial-gradient(1200px_600px_at_20%_30%,rgba(212,163,115,0.08),transparent_60%)]
+             [background-blend-mode:screen]"
+    ></div>
+
+    <div class="mx-auto max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
+      <div class="text-center mb-16">
+        <p class="text-xs uppercase tracking-[0.25em] text-white/60 mb-4">Testimonials</p>
+        <h1 class="font-serif text-[clamp(2.2rem,5vw,3.8rem)] font-bold leading-tight mb-6">
+          {heroTitle.replace("Customers", "")}
+          <span class="bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">
+            Customers
+          </span>
+          Say
+        </h1>
+        <p class="text-white/80 max-w-3xl mx-auto text-lg">
+          {heroDesc}
+        </p>
+        
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="#horizontal-carousel"
+             class="inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-6 py-3 text-sm text-[#F6EADB] hover:bg-[#D4A373]/20 transition-all">
+            Explore stories
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l6 7-6 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="/contact"
+             class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-6 py-3 text-sm text-white/90 hover:bg-white/[0.08] transition-all">
+            Become a partner
+          </a>
+        </div>
+      </div>
+
+      <!-- Featured Large Testimonial -->
+      <div class="max-w-5xl mx-auto">
+        <div class="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-white/10 shadow-2xl">
+          <div class="absolute -top-6 -left-6 text-8xl text-[#D4A373]/20 font-serif select-none">"</div>
+          <blockquote class="relative text-2xl lg:text-3xl font-serif text-center leading-relaxed mb-8 z-10">
+            The passion fruit bonbons are divine. Colombian heritage in every bite—shine, snap, and silk. This isn't just chocolate, it's edible art that tells a story of tradition and innovation.
+          </blockquote>
+          <div class="flex items-center justify-center gap-6">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4A373] to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              MG
+            </div>
+            <div class="text-center">
+              <p class="font-semibold text-xl">Maria Gonzalez</p>
+              <p class="text-white/60 text-lg">Chocolate Enthusiast • Calgary, AB</p>
+              <div class="text-[#D4A373] mt-2 text-lg">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= CARRUSEL HORIZONTAL MEJORADO ========================= -->
+  <section id="horizontal-carousel" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+    <div class="mx-auto max-w-[120rem] px-6 lg:px-12 py-14 lg:py-20">
+      <div class="mb-8 flex items-end justify-between">
+        <h2 class="font-serif text-[clamp(1.8rem,4vw,3rem)] font-semibold">Customer Stories</h2>
+        <div class="flex items-center gap-3 text-sm text-white/60">
+          <span class="inline-block h-2 w-2 rounded-full bg-[#D4A373] animate-pulse"></span> 
+          Auto-scrolling every 3 seconds
+        </div>
+      </div>
+
+      <div
+        x-data="enhancedHCarousel()"
+        class="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0B0E11]/60 backdrop-blur-sm shadow-2xl"
+      >
+        <div class="relative p-6">
+          <div 
+            class="flex transition-transform duration-700 ease-out will-change-transform" 
+            x-ref="track" 
+            :style="trackStyle"
+          >
+            {TESTIMONIALS.map((t, i) => (
+              <div class="w-full md:w-1/2 xl:w-1/3 shrink-0 px-4">
+                <article class="group h-full rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-6 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-white/20 hover:bg-white/10">
+                  <div class="flex items-start justify-between gap-4 mb-6">
+                    <div class="flex items-start gap-4">
+                      <div class={`w-14 h-14 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform`}>
+                        {t.avatar}
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-white group-hover:text-[#D4A373] transition-colors">{t.name}</h3>
+                        <p class="text-sm text-white/60">{t.role}</p>
+                        <p class="text-xs text-white/50">{t.location}</p>
+                      </div>
+                    </div>
+                    <div class="text-[#D4A373] text-lg" aria-hidden="true">{"★".repeat(t.rating)}</div>
+                  </div>
+                  <blockquote class="text-white/90 leading-relaxed relative">
+                    <span class="absolute -top-2 -left-3 text-3xl text-[#D4A373]/30 font-serif">"</span>
+                    <span class="relative z-10 pl-4">{t.text}</span>
+                  </blockquote>
+                </article>
+              </div>
+            ))}
+          </div>
+
+          <!-- Gradient overlays for seamless infinite scroll effect -->
+          <div class="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0B0E11]/60 to-transparent z-10"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0B0E11]/60 to-transparent z-10"></div>
+        </div>
+
+        <!-- Progress indicators -->
+        <div class="flex justify-center pb-6 gap-2">
+          <template x-for="(slide, index) in slides" x-key="index">
+            <div 
+              class="h-1 rounded-full transition-all duration-300 cursor-pointer"
+              :class="currentSlide === index ? 'w-8 bg-[#D4A373]' : 'w-3 bg-white/30 hover:bg-white/50'"
+              @click="goToSlide(index)"
+            ></div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= CARRUSEL VERTICAL + TESTIMONIOS EN MASONRY ========================= -->
+  <section class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+    <div class="mx-auto max-w-[120rem] px-6 lg:px-12 py-14 lg:py-20">
+      <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] items-start">
+        
+        <!-- Carrusel Vertical Mejorado -->
+        <div x-data="enhancedVCarousel()" class="relative">
+          <h3 class="font-serif text-2xl font-semibold mb-6">Quick Reviews</h3>
+          <div class="relative max-h-96 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm shadow-xl">
+            <div class="p-6">
+              <div 
+                class="space-y-4 transition-transform duration-500 ease-out will-change-transform" 
+                x-ref="container" 
+                :style="containerStyle"
+              >
+                {QUICK_REVIEWS.map((review, i) => (
+                  <div class="bg-gradient-to-r from-white/15 to-white/8 rounded-xl p-4 border border-white/10 backdrop-blur-sm hover:from-white/20 hover:to-white/12 transition-all duration-300">
+                    <p class="text-sm text-white/95 mb-2 leading-relaxed">"{review.text}"</p>
+                    <p class="text-xs text-white/60 font-medium">— {review.author}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <!-- Fade overlays -->
+            <div class="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0A0B0D] via-[#0A0B0D]/50 to-transparent"></div>
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0A0B0D] via-[#0A0B0D]/50 to-transparent"></div>
+          </div>
+        </div>
+
+        <!-- Layout tipo Masonry con testimonios únicos -->
+        <div>
+          <h3 class="font-serif text-2xl font-semibold mb-6">Featured Experiences</h3>
+          <div class="space-y-6">
+            
+            <!-- Speech bubble grande -->
+            <article class="relative bg-gradient-to-br from-[#D4A373]/20 to-[#D4A373]/10 backdrop-blur-sm rounded-2xl p-8 border border-[#D4A373]/30 shadow-xl">
+              <div class="absolute -top-3 left-12 w-6 h-6 bg-gradient-to-br from-[#D4A373]/20 to-[#D4A373]/10 border-t border-l border-[#D4A373]/30 rotate-45"></div>
+              <blockquote class="text-white/95 mb-6 font-serif text-xl leading-relaxed italic">
+                "The moment I opened the box, I knew this was something extraordinary. Each bonbon is like a small work of art that speaks to your soul."
+              </blockquote>
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#D4A373] to-amber-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                  EC
+                </div>
+                <div>
+                  <p class="font-semibold text-lg text-white">Elena Collins</p>
+                  <p class="text-white/70 text-sm">Luxury Retailer • Montreal, QC</p>
+                  <div class="text-[#D4A373] mt-1">★★★★★</div>
+                </div>
+              </div>
+            </article>
+
+            <div class="grid gap-6 md:grid-cols-2">
+              <!-- Card compacta con rating prominente -->
+              <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 text-center group hover:-translate-y-1">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                  5.0
+                </div>
+                <p class="text-white/90 mb-3 leading-relaxed">
+                  "Best artisanal chocolate outside of Europe. The passion fruit filling is absolutely incredible!"
+                </p>
+                <div class="text-sm">
+                  <p class="font-medium text-white">Thomas Liu</p>
+                  <p class="text-white/60 text-xs">Food Enthusiast • Vancouver, BC</p>
+                </div>
+              </div>
+
+              <!-- Quote style con diseño único -->
+              <div class="relative bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-1">
+                <div class="absolute -top-2 -left-2 text-4xl text-[#D4A373]/40 font-serif select-none">"</div>
+                <blockquote class="text-white/90 mb-4 pl-6 leading-relaxed">
+                  We use Artilate for all our corporate gifts. The quality is unmatched and clients are consistently impressed.
+                </blockquote>
+                <footer class="pl-6">
+                  <cite class="font-semibold not-italic text-white">Rachel Winters</cite>
+                  <p class="text-white/60 text-sm">Marketing Director • Vancouver, BC</p>
+                </footer>
+              </div>
+            </div>
+
+            <!-- Testimonial largo con foto placeholder -->
+            <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <div class="flex items-start gap-6 mb-6">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                  NP
+                </div>
+                <div class="flex-1">
+                  <h4 class="font-semibold text-xl text-white">Nicolas Petit</h4>
+                  <p class="text-white/70">Chocolate Connoisseur • Ottawa, ON</p>
+                  <div class="text-[#D4A373] text-lg mt-2">★★★★★</div>
+                </div>
+              </div>
+              <p class="text-white/90 leading-relaxed text-lg">
+                As someone who has traveled extensively through Belgium and Switzerland tasting chocolates, I can confidently say Artilate produces world-class bonbons. The attention to detail, from the perfect temper to the creative flavor combinations, is absolutely exceptional.
+              </p>
+            </div>
+
+            <!-- Badges y tags -->
+            <div class="flex flex-wrap gap-3 justify-center">
+              <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-sm hover:bg-white/15 transition-all">Glossy temper</span>
+              <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/15 px-4 py-2 text-sm text-[#F6EADB] backdrop-blur-sm hover:bg-[#D4A373]/20 transition-all">Gold accents</span>
+              <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-sm hover:bg-white/15 transition-all">Fruit-forward</span>
+              <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-sm hover:bg-white/15 transition-all">Gift-ready</span>
+              <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-sm hover:bg-white/15 transition-all">Local delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= ESTADÍSTICAS Y SOCIAL PROOF ========================= -->
+  <section class="relative bg-[#0A0B0D] py-16">
+    <div class="mx-auto max-w-[120rem] px-6 lg:px-12">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div class="text-center group hover:-translate-y-2 transition-transform duration-300">
+          <div class="text-5xl font-bold bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent mb-3">500+</div>
+          <p class="text-white/80 text-lg">Happy Customers</p>
+        </div>
+        <div class="text-center group hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 100ms;">
+          <div class="text-5xl font-bold bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent mb-3">4.9</div>
+          <p class="text-white/80 text-lg">Average Rating</p>
+        </div>
+        <div class="text-center group hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 200ms;">
+          <div class="text-5xl font-bold bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent mb-3">98%</div>
+          <p class="text-white/80 text-lg">Would Recommend</p>
+        </div>
+        <div class="text-center group hover:-translate-y-2 transition-transform duration-300" style="transition-delay: 300ms;">
+          <div class="text-5xl font-bold bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent mb-3">15+</div>
+          <p class="text-white/80 text-lg">Years of Craft</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= FORM: ADD YOUR TESTIMONIAL (MEJORADO) ========================= -->
+  <section id="add-testimonial" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+    <div class="mx-auto max-w-[120rem] px-6 lg:px-12 py-14 lg:py-20">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h2 class="font-serif text-[clamp(1.8rem,4vw,3rem)] font-semibold mb-4">Share Your Experience</h2>
+        <p class="text-white/80 text-lg">Join our community of chocolate lovers and share your Artilate story with fellow connoisseurs.</p>
+        <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-4 py-2 text-sm text-[#F6EADB]">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          No account required
+        </div>
+      </div>
+
+      
+      
+      <div class="mt-12 text-center">
+        <p class="text-white/60 text-sm">
+          Selected testimonials are featured monthly. Thank you for sharing your Artilate experience!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= LOGOS / SOCIAL PROOF BAR ========================= -->
+  <section aria-label="Ratings and Reviews Platforms" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+    <div class="mx-auto max-w-[120rem] px-6 lg:px-12 py-10 lg:py-16">
+      <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm p-8 shadow-2xl">
+        <p class="text-center text-lg text-white/80 mb-8 font-medium">Loved and reviewed across platforms</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <!-- Google -->
+          <div class="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#0B0E11]/80 backdrop-blur-sm px-6 py-6 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group">
+            <svg class="h-8 w-8 group-hover:scale-110 transition-transform" viewBox="0 0 533.5 544.3">
+              <path fill="#4285F4" d="M533.5 278.4c0-18.5-1.7-36.3-4.9-53.5H272v101.2h146.9c-6.3 34.1-25.2 63-53.8 82.3v68h86.7c50.7-46.7 81.7-115.6 81.7-198z"/>
+              <path fill="#34A853" d="M272 544.3c73.9 0 135.9-24.5 181.1-66.1l-86.7-68c-24.1 16.2-55 25.8-94.5 25.8-72.6 0-134.2-48.9-156.3-114.5h-89.5v71.9C70.7 486.6 165.4 544.3 272 544.3z"/>
+              <path fill="#FBBC05" d="M115.7 321.6c-5.6-16.8-8.9-34.8-8.9-53.2s3.2-36.4 8.9-53.2v-71.9H26.2C9.4 172.4 0 207.1 0 244.5s9.4 72.1 26.2 101.4l89.5-71.9z"/>
+              <path fill="#EA4335" d="M272 107.7c39.1 0 74.2 13.4 101.8 39.7l76.3-76.3C407.8 25.7 345.8 0 272 0 165.4 0 70.7 57.7 26.2 142.6l89.5 71.9C137.8 156.6 199.4 107.7 272 107.7z"/>
+            </svg>
+            <div class="text-center">
+              <p class="font-semibold text-white">Google</p>
+              <p class="text-xs text-white/60">4.9/5 • 120+ reviews</p>
+            </div>
+          </div>
+          
+          <!-- Facebook -->
+          <div class="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#0B0E11]/80 backdrop-blur-sm px-6 py-6 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group">
+            <svg class="h-8 w-8 text-[#1877F2] group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.34 2 1.86 6.48 1.86 12.07c0 4.88 3.57 8.93 8.23 9.8v-6.93H7.9v-2.87h2.2V9.41c0-2.17 1.3-3.37 3.28-3.37.95 0 1.94.17 1.94.17v2.14h-1.09c-1.07 0-1.4.66-1.4 1.33v1.6h2.38l-.38 2.87h-2v6.93c4.66-.87 8.23-4.92 8.23-9.8z"/>
+            </svg>
+            <div class="text-center">
+              <p class="font-semibold text-white">Facebook</p>
+              <p class="text-xs text-white/60">4.8/5 • 85+ reviews</p>
+            </div>
+          </div>
+          
+          <!-- Yelp -->
+          <div class="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#0B0E11]/80 backdrop-blur-sm px-6 py-6 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group">
+            <svg class="h-8 w-8 text-[#D32323] group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9.9 2.2 9 10.6c-.1.9.8 1.6 1.7 1.3l.4-.1 6.7-2.4c1.3-.5 1.2-2.4-.2-2.7L10.9 2c-.5-.1-1 .1-1 .2zM17.6 13.5l-6.2 2.7c-.8.3-1 1.4-.3 2l.3.2 4.9 4.1c1 .8 2.5-.1 2.2-1.3l-1.1-6.6c-.1-.6-.7-1.1-1.3-1.1zM7.3 13.4 2.2 9.7c-1-.7-.6-2.3.7-2.5l6.6-1c.9-.2 1.6.8 1.2 1.6l-3 5.9c-.3.6-1 .8-1.4.7z"/>
+            </svg>
+            <div class="text-center">
+              <p class="font-semibold text-white">Yelp</p>
+              <p class="text-xs text-white/60">4.7/5 • 45+ reviews</p>
+            </div>
+          </div>
+          
+          <!-- Instagram -->
+          <div class="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-[#0B0E11]/80 backdrop-blur-sm px-6 py-6 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group">
+            <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10zm6.5-.8a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4zM12 9a3 3 0 100 6 3 3 0 000-6z"/>
+              </svg>
+            </div>
+            <div class="text-center">
+              <p class="font-semibold text-white">Instagram</p>
+              <p class="text-xs text-white/60">2.5K+ followers</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <p class="text-white/70 text-sm">
+            Join thousands of satisfied customers sharing their Artilate experience
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= SCRIPTS (Alpine.js) ========================= -->
+  <script is:inline>
+    // Enhanced Horizontal Carousel
+    function enhancedHCarousel() {
+      return {
+        currentSlide: 0,
+        totalSlides: 0,
+        perView: 3,
+        trackStyle: "",
+        slides: [],
+        autoplayInterval: null,
+        
+        init() {
+          const track = this.$refs.track;
+          const totalItems = track.children.length;
+          
+          this.updatePerView();
+          this.totalSlides = Math.max(1, totalItems - this.perView + 1);
+          this.slides = Array.from({ length: this.totalSlides }, (_, i) => i);
+          this.updateTrackStyle();
+          this.startAutoplay();
+          
+          // Handle resize
+          window.addEventListener('resize', () => {
+            this.updatePerView();
+            this.totalSlides = Math.max(1, totalItems - this.perView + 1);
+            this.slides = Array.from({ length: this.totalSlides }, (_, i) => i);
+            if (this.currentSlide >= this.totalSlides) {
+              this.currentSlide = 0;
+            }
+            this.updateTrackStyle();
+          });
+          
+          // Pause on hover
+          this.$el.addEventListener('mouseenter', () => this.stopAutoplay());
+          this.$el.addEventListener('mouseleave', () => this.startAutoplay());
+        },
+        
+        updatePerView() {
+          if (window.matchMedia("(min-width: 1280px)").matches) {
+            this.perView = 3;
+          } else if (window.matchMedia("(min-width: 768px)").matches) {
+            this.perView = 2;
+          } else {
+            this.perView = 1;
+          }
+        },
+        
+        updateTrackStyle() {
+          const cardWidth = 100 / this.perView;
+          this.trackStyle = `transform: translateX(-${this.currentSlide * cardWidth}%)`;
+        },
+        
+        goToSlide(index) {
+          this.currentSlide = index;
+          this.updateTrackStyle();
+        },
+        
+        next() {
+          this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+          this.updateTrackStyle();
+        },
+        
+        startAutoplay() {
+          this.stopAutoplay();
+          this.autoplayInterval = setInterval(() => {
+            this.next();
+          }, 3100);
+        },
+        
+        stopAutoplay() {
+          if (this.autoplayInterval) {
+            clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
+          }
+        }
+      }
+    }
+
+    // Enhanced Vertical Carousel
+    function enhancedVCarousel() {
+      return {
+        currentIndex: 0,
+        containerStyle: "",
+        itemHeight: 0,
+        
+        init() {
+          const container = this.$refs.container;
+          const items = container.children;
+          
+          // Calculate item height including margin
+          setTimeout(() => {
+            if (items.length > 0) {
+              const firstItem = items[0];
+              const style = window.getComputedStyle(firstItem);
+              const marginBottom = parseFloat(style.marginBottom);
+              this.itemHeight = firstItem.offsetHeight + marginBottom;
+            }
+          }, 100);
+          
+          // Start autoplay
+          setInterval(() => {
+            this.currentIndex = (this.currentIndex + 1) % items.length;
+            this.containerStyle = `transform: translateY(-${this.currentIndex * this.itemHeight}px)`;
+          }, 2100);
+        }
+      }
+    }
+
+    // Thank you message
+    function showThankYou() {
+      alert('¡Gracias por compartir tu experiencia! Tu testimonio será revisado y podría ser destacado próximamente. (Este es un formulario de demostración)');
+    }
+  </script>
+</Layout>

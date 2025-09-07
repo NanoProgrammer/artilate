@@ -22,12 +22,14 @@
     "astro": "^5.7.4",
     "astro-portabletext": "^0.11.2",
     "date-fns": "^4.1.0",
+    "lucide-react": "^0.542.0",
     "motion": "^12.23.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.5.0",
     "sanity": "^4.6.0",
     "stripe": "^18.0.0",
+    "tailwind": "^2.2.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

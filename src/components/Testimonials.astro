@@ -1,194 +1,375 @@
 ---
-import VerticalTestimonialCarousel from './VerticalTestimonialCarousel.jsx';
+/**
+ * ArtilateSections.astro
+ * 
+ * • Section 1/5: "What Our Customers Say" — premium carousel showing 3 testimonials at once (responsive: 1/2/3).
+ * • Section 2–5/5: 4 artisan process steps, each in its own section, alternating image/text sides.
+ * • Gold accents (#D4A373), cacao dark theme, soft shadows, subtle gradients.
+ * • Image placeholders that occupy full space and say "Image of …".
+ * • No JSX helpers in frontmatter; only data objects.
+ */
+
+const testimonials = [
+  {
+    name: "Maria Gonzalez",
+    role: "Chocolate Enthusiast",
+    location: "Calgary, AB",
+    text:
+      "The passion fruit bonbons are divine. You can taste the Colombian heritage in every bite—quality is unmatched. Artilate brings Colombia’s mountains to Alberta’s tables.",
+  },
+  {
+    name: "James Mitchell",
+    role: "Corporate Buyer",
+    location: "Edmonton, AB",
+    text:
+      "Perfect for our client gifts. Elegant packaging, hand-painted artistry, and consistently outstanding quality. Our clients now associate our brand with Artilate.",
+  },
+  {
+    name: "Sofia Rodriguez",
+    role: "Food Blogger",
+    location: "Vancouver, BC",
+    text:
+      "Artilate bridges Colombian tradition with Canadian craftsmanship. From glossy temper to vibrant fillings, every box is a story worth posting.",
+  },
+  {
+    name: "David Chen",
+    role: "Restaurant Owner",
+    location: "Toronto, ON",
+    text:
+      "Small-batch precision with fine-dining soul. Balanced ganaches and an elegant finish—Artilate elevates our dessert program.",
+  },
+  {
+    name: "Isabella Martinez",
+    role: "Gift Shop Owner",
+    location: "Airdrie, AB",
+    text:
+      "They sell themselves. Shimmering finishes catch the eye; Colombian flavour keeps customers coming back. A premium gift staple.",
+  },
+  {
+    name: "Michael Foster",
+    role: "Wine Sommelier",
+    location: "Victoria, BC",
+    text:
+      "Complex harmonies that rival fine wines—bright fruit, silky creams, deep cocoa. Artilate sparks conversations at tastings.",
+  },
+  {
+    name: "Luisa Hernandez",
+    role: "Chocolate Lover",
+    location: "Regina, SK",
+    text:
+      "The passion fruit bonbons are divine. You can taste the Colombian heritage in every bite—quality is unmatched. Artilate brings Colombia’s mountains to Saskatchewan’s tables.",
+  },
+  {
+    name: "Alejandro Ramirez",
+    role: "Culinary Artist",
+    location: "Montreal, QC",
+    text:
+      "Artilate's chocolates are a culinary masterpiece. The passion fruit flavor is a true reflection of Colombian culture. I highly recommend them to anyone looking for a unique chocolate experience.",
+  },
+];
+
+const steps = [
+  {
+    no: "01",
+    id: "step-1",
+    title: "Tempering",
+    text:
+      "Scientific precision for glossy, crisp, silky chocolate. Stable crystals ensure shine and snap in every shell.",
+    placeholder: "Image of tempering chocolate on marble with thermometer",
+  },
+  {
+    no: "02",
+    id: "step-2",
+    title: "Painting",
+    text:
+      "Cocoa-butter artistry with airbrushes and palettes. Every bonbon is a miniature painting—subtle gradients and marbling.",
+    placeholder: "Image of hand-painting bonbon molds with cocoa butter",
+  },
+  {
+    no: "03",
+    id: "step-3",
+    title: "Filling",
+    text:
+      "Ganaches, pralinés, and caramels that marry Colombian fruit with Canadian craft: passion fruit, Huila coffee, prairie berry.",
+    placeholder: "Image of piping fruit ganache into bonbon shells",
+  },
+  {
+    no: "04",
+    id: "step-4",
+    title: "Packing",
+    text:
+      "Protective, elegant boxes with gold foil logos. Built to arrive pristine across Alberta and Canada—ready to gift.",
+    placeholder: "Image of premium chocolate box with gold foil logo",
+  },
+];
 ---
 
-<section class="relative overflow-hidden bg-[#0A0B0D] text-[#FAFAF9]">
-  <!-- Two fixed columns: left content (50vw), right sticky carousel (50vw) -->
-  <div
-    class="grid min-h-screen w-screen
-           grid-cols-1
-           lg:grid-cols-[50vw_50vw]"
-  >
-    <!-- LEFT: Headline + 3 mini testimonials + CTA, then Process Steps -->
-   <div class="relative px-5 py-14 sm:px-8 md:px-10 lg:px-12 lg:py-20">
+<!-- ========================== SECTION 1/5: TESTIMONIALS ========================== -->
+<section id="testimonials" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+  <!-- Premium glow background -->
+  <div class="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(1000px_500px_at_20%_30%,rgba(212,163,115,0.08),transparent_60%)] [background-blend-mode:screen]"></div>
 
-
-  <!-- SVG decorativo premium (cocoa curve) -->
-  <svg aria-hidden="true" class="pointer-events-none absolute -top-6 right-6 h-16 w-16 opacity-20"
-       viewBox="0 0 64 64" fill="none">
-    <path d="M10 38c14-10 30-10 44 0" stroke="url(#grad1)" stroke-width="2"/>
-    <path d="M18 22c6 6 22 6 28 0" stroke="url(#grad1)" stroke-width="2" opacity=".6"/>
-    <defs>
-      <linearGradient id="grad1" x1="0" y1="0" x2="64" y2="64">
-        <stop offset="0" stop-color="#D4A373"/><stop offset="1" stop-color="#F59E0B"/>
-      </linearGradient>
-    </defs>
-  </svg>
-
-  <!-- Encabezado conciso -->
-  <header class="max-w-2xl">
-    <p class="mb-3 text-sm font-semibold tracking-widest text-amber-400/90">TESTIMONIALS</p>
-    <h2 class="mb-3 font-serif text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold leading-tight">
-      What Our <span class="bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">Customers</span> Say
-    </h2>
-    <p class="text-lg text-white/80">
-      From Colombian cacao to Alberta tables — small-batch quality, modern craft, and flavours people talk about.
-    </p>
-  </header>
-
-  <!-- Contenido ampliado (sin tarjetas de personas) -->
-  <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
-    <div>
-      <h3 class="mb-3 font-serif text-xl font-semibold">Why people rave</h3>
-      <ul class="space-y-3 text-white/85">
-        <li class="flex gap-3">
-          <svg aria-hidden="true" viewBox="0 0 24 24" class="mt-1 h-4 w-4">
-            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-          </svg>
-          Honest ingredients and clean labels.
-        </li>
-        <li class="flex gap-3">
-          <svg aria-hidden="true" viewBox="0 0 24 24" class="mt-1 h-4 w-4">
-            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-          </svg>
-          Hand-painted finishes that feel like art.
-        </li>
-        <li class="flex gap-3">
-          <svg aria-hidden="true" viewBox="0 0 24 24" class="mt-1 h-4 w-4">
-            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-          </svg>
-          Balanced flavours — bright, creamy, precise.
-        </li>
-      </ul>
+  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
+    <!-- Headline -->
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="text-xs tracking-[0.25em] uppercase text-white/60">Testimonials</p>
+      <h2 class="mt-2 font-serif text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight">
+        What Our <span class="bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">Customers</span> Say
+      </h2>
+      <p class="mt-4 text-white/80">
+        From Calgary to Vancouver—sommeliers, chefs, and gift curators share how Artilate’s bean‑to‑bonbon craft changes the moment.
+      </p>
     </div>
 
-    <div>
-      <h3 class="mb-3 font-serif text-xl font-semibold">Signature flavours</h3>
-      <div class="flex flex-wrap gap-2">
-        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Passion Fruit</span>
-        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Huila Coffee</span>
-        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Pistachio</span>
-        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Hazelnut Caramel</span>
-        <span class="rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-sm text-white/90">Prairie Berry</span>
+    <!-- Carousel (3 visible on desktop, responsive to 1/2/3) -->
+    <div class="mt-12 relative overflow-hidden">
+      <div data-c-root class="relative">
+        <div data-c-track class="flex transition-transform duration-700 ease-out will-change-transform">
+          {testimonials.map((t) => (
+            <div class="w-full md:w-1/2 xl:w-1/3 shrink-0 px-3">
+              <article class="h-full rounded-xl border border-white/10 bg-[#0B0E11]/80 p-6 shadow-[0_18px_50px_rgba(0,0,0,.45)] backdrop-blur transition hover:-translate-y-1">
+                <div class="flex items-start gap-4">
+                  <!-- Avatar placeholder -->
+                  <div class="size-12 rounded-full bg-[linear-gradient(135deg,rgba(212,163,115,.20),rgba(245,158,11,.12))] ring-1 ring-white/10 grid place-items-center text-[10px] uppercase text-white/70">IMG</div>
+                  <div class="min-w-0">
+                    <h3 class="text-sm font-semibold">{t.name}</h3>
+                    <p class="text-[11px] text-white/60">{t.role} — {t.location}</p>
+                  </div>
+                </div>
+                <p class="mt-4 text-sm md:text-base text-white/90">{t.text}</p>
+                <div class="mt-3 text-[#D4A373]" aria-hidden="true">★★★★★</div>
+              </article>
+            </div>
+          ))}
+        </div>
+
+        <!-- Dots -->
+        <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
+          {testimonials.map((_, i) => (
+            <span class="h-1.5 w-4 rounded-full bg-white/20 data-[active=true]:bg-[#D4A373]" data-c-dot data-index={i}></span>
+          ))}
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
 
       <!-- CTA -->
-      <div class="mt-8">
-        <a
-          href="/shop"
-          class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-pink-500 px-5 py-2.5 
-                 text-sm font-semibold text-[#0A0B0D] shadow-[0_8px_24px_rgba(245,158,11,.35)] transition hover:brightness-105"
-        >
-          Buy Now
-          <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M13 5l7 7-7 7" />
+      <div class="mt-12 flex justify-center">
+        <a href="/testimonial" class="inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-5 py-2 text-sm font-medium text-[#F6EADB] shadow-[inset_0_1px_0_rgba(255,255,255,.06)] transition hover:bg-[#D4A373]/20">
+          See all testimonials
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M5 12h14M13 5l6 7-6 7" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
-      </div>
-
-      <!-- Section 2: Process -->
-      <section id="process" class="mt-16 border-t border-[#D4A373]/10 pt-10">
-        <h3 class="font-serif text-[clamp(1.6rem,3vw,2.2rem)] font-semibold">Our Artisan Process</h3>
-
-        <div class="mt-8 flex flex-col gap-10 lg:gap-12">
-          <!-- Step -->
-          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
-                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">01</div>
-            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-              <div class="sticky top-6">
-                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
-                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]
-                            shadow-[0_10px_30px_rgba(0,0,0,.25),_inset_0_1px_0_rgba(250,250,249,.06)]">
-                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
-                    <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D4A373"/></linearGradient></defs>
-                    <circle cx="50" cy="50" r="38" fill="none" stroke="url(#g1)" stroke-width="3" />
-                    <path d="M50 20 L50 50 L70 70" stroke="url(#g1)" stroke-width="4" stroke-linecap="round" />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h4 class="mb-2 font-serif text-xl font-semibold">Tempering</h4>
-                <p class="text-white/80">Scientific temperature control for perfect crystallisation—glossy finish, crisp snap, silky mouthfeel.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step -->
-          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
-                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">02</div>
-            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-              <div class="sticky top-6">
-                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
-                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
-                    <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D4A373"/></linearGradient></defs>
-                    <path d="M20 80 Q30 20 50 50 Q70 20 80 80" stroke="url(#g2)" stroke-width="4" fill="none"/>
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h4 class="mb-2 font-serif text-xl font-semibold">Painting</h4>
-                <p class="text-white/80">Hand-painted cocoa-butter gradients and subtle marbling—every bonbon is unique.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step -->
-          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
-                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">03</div>
-            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-              <div class="sticky top-6">
-                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
-                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
-                    <defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4A373"/><stop offset="100%" stop-color="#F59E0B"/></linearGradient></defs>
-                    <ellipse cx="50" cy="70" rx="32" ry="18" fill="url(#g3)" opacity=".35"/>
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h4 class="mb-2 font-serif text-xl font-semibold">Filling</h4>
-                <p class="text-white/80">Colombian–Canadian flavour pairings: passion fruit, Huila coffee, prairie berry, pistachio, hazelnut caramel.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step -->
-          <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-            <div class="sticky top-6 self-start font-serif text-4xl font-bold leading-none
-                        bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">04</div>
-            <div class="grid grid-cols-[auto_1fr] items-start gap-4 md:gap-6">
-              <div class="sticky top-6">
-                <div class="flex size-24 items-center justify-center rounded-2xl border border-[#D4A373]/25 
-                            bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-                  <svg viewBox="0 0 100 100" class="size-16" aria-hidden="true">
-                    <defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D4A373"/></linearGradient></defs>
-                    <rect x="25" y="40" width="50" height="30" rx="5" fill="none" stroke="url(#g4)" stroke-width="3"/>
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h4 class="mb-2 font-serif text-xl font-semibold">Packing</h4>
-                <p class="text-white/80">Premium, protective packaging. Typically ships in under 7 days across Alberta and Canada.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- RIGHT: Sticky vertical carousel (always visible) -->
-    <div class="relative z-20 border-l border-[#D4A373]/10 bg-gradient-to-br from-[#141618]/90 to-[#0A0B0D]">
-      <div class="sticky top-0 flex h-screen items-center justify-center p-4 sm:p-6">
-        <VerticalTestimonialCarousel client:load />
       </div>
     </div>
   </div>
 </section>
+
+<!-- ========================== SECTION 2/5: STEP 1 ========================== -->
+<section id="step-1" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+      <!-- Placeholder image -->
+      <div class="relative">
+        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+          <div>
+            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
+            <div class="mt-1 font-medium">Image of tempering chocolate on marble with thermometer</div>
+          </div>
+        </div>
+        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">01</div>
+        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
+          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
+        </svg>
+      </div>
+
+      <!-- Text content -->
+      <div>
+        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
+          Artilate Craft
+        </div>
+        <h3 class="font-serif text-2xl font-semibold">Tempering</h3>
+        <p class="mt-3 text-white/80">Scientific precision for glossy, crisp, silky chocolate. Stable crystals ensure shine and snap in every shell.</p>
+        <div class="mt-4 flex flex-wrap gap-3 text-white/75">
+          <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Precision</span>
+          <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Timing</span>
+          <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l4 7 7 1-5 5 2 7-8-4-8 4 2-7-5-5 7-1 4-7z"/></svg> Craft</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== SECTION 3/5: STEP 2 (flipped) ========================== -->
+<section id="step-2" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:[&>div:first-child]:order-2">
+      <!-- Placeholder image -->
+      <div class="relative">
+        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+          <div>
+            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
+            <div class="mt-1 font-medium">Image of hand-painting bonbon molds with cocoa butter</div>
+          </div>
+        </div>
+        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">02</div>
+        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
+          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
+        </svg>
+      </div>
+
+      <!-- Text content + vertical mini-quote carousel (placeholders) -->
+      <div>
+        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
+          Artilate Craft
+        </div>
+        <h3 class="font-serif text-2xl font-semibold">Painting</h3>
+        <p class="mt-3 text-white/80">Cocoa-butter artistry with airbrushes and palettes. Every bonbon is a miniature painting—subtle gradients and marbling.</p>
+
+        <!-- Vertical quote carousel -->
+        <div class="mt-5 relative w-full max-w-md overflow-hidden rounded-xl border border-white/10 bg-white/[0.035] p-3">
+          <ul data-vert class="space-y-3 transition-transform duration-500 ease-out will-change-transform">
+            <li class="rounded-lg border border-white/10 bg-[#0B0E11]/80 p-3 text-sm text-white/85">“Image of painterly chocolate shells drying on racks.”</li>
+            <li class="rounded-lg border border-white/10 bg-[#0B0E11]/80 p-3 text-sm text-white/85">“Image of airbrush gun with gold cocoa butter.”</li>
+            <li class="rounded-lg border border-white/10 bg-[#0B0E11]/80 p-3 text-sm text-white/85">“Image of marble pattern tests on sample molds.”</li>
+          </ul>
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[#0A0B0D] to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== SECTION 4/5: STEP 3 ========================== -->
+<section id="step-3" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+      <!-- Placeholder image -->
+      <div class="relative">
+        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+          <div>
+            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
+            <div class="mt-1 font-medium">Image of piping fruit ganache into bonbon shells</div>
+          </div>
+        </div>
+        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">03</div>
+        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
+          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
+        </svg>
+      </div>
+
+      <!-- Text content -->
+      <div>
+        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
+          Artilate Craft
+        </div>
+        <h3 class="font-serif text-2xl font-semibold">Filling</h3>
+        <p class="mt-3 text-white/80">Ganaches, pralinés, and caramels that marry Colombian fruit with Canadian craft: passion fruit, Huila coffee, prairie berry.</p>
+        <ul class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <li class="rounded-xl border border-white/10 bg-white/[0.035] p-3 text-sm"><span class="text-[#D4A373]">•</span> Fruit-forward ganaches</li>
+          <li class="rounded-xl border border-white/10 bg-white/[0.035] p-3 text-sm"><span class="text-[#D4A373]">•</span> Layered textures</li>
+          <li class="rounded-xl border border-white/10 bg-white/[0.035] p-3 text-sm"><span class="text-[#D4A373]">•</span> Balanced acidity & sweetness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== SECTION 5/5: STEP 4 (flipped) ========================== -->
+<section id="step-4" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
+  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:[&>div:first-child]:order-2">
+      <!-- Placeholder image -->
+      <div class="relative">
+        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
+          <div>
+            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
+            <div class="mt-1 font-medium">Image of premium chocolate box with gold foil logo</div>
+          </div>
+        </div>
+        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">04</div>
+        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
+          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
+        </svg>
+      </div>
+
+      <!-- Text content -->
+      <div>
+        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
+          Artilate Craft
+        </div>
+        <h3 class="font-serif text-2xl font-semibold">Packing</h3>
+        <p class="mt-3 text-white/80">Protective, elegant boxes with gold foil logos. Built to arrive pristine across Alberta and Canada—ready to gift.</p>
+        <ol class="mt-4 space-y-3">
+          <li class="flex items-start gap-3"><div class="mt-1 size-2 rounded-full bg-[#D4A373]"></div><p class="text-sm text-white/85"><span class="font-semibold">1–2 days</span> • Curing & QC</p></li>
+          <li class="flex items-start gap-3"><div class="mt-1 size-2 rounded-full bg-[#D4A373]"></div><p class="text-sm text-white/85"><span class="font-semibold">+1 day</span> • Protective packing</p></li>
+          <li class="flex items-start gap-3"><div class="mt-1 size-2 rounded-full bg-[#D4A373]"></div><p class="text-sm text-white/85"><span class="font-semibold">Ship</span> • Expedited across Canada</p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== SCRIPTS ========================== -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ====== Responsive 3-up carousel ======
+    const root = document.querySelector('[data-c-root]');
+    const track = document.querySelector('[data-c-track]');
+    const dots = document.querySelectorAll('[data-c-dot]');
+    if (root && track) {
+      const cards = Array.from(track.children);
+      let idx = 0;
+      let perView = 3; // default
+
+      const computePerView = () => {
+        // 1 on <640, 2 on >=768, 3 on >=1280
+        if (window.matchMedia('(min-width:1280px)').matches) perView = 3;
+        else if (window.matchMedia('(min-width:768px)').matches) perView = 2;
+        else perView = 1;
+      };
+
+      const update = () => {
+        computePerView();
+        const cardW = root.clientWidth / perView;
+        track.style.transform = `translateX(-${idx * cardW}px)`;
+        dots.forEach((d, i) => d.setAttribute('data-active', String(i === idx)));
+      };
+
+      const next = () => {
+        // advance by 1 card; loop seamlessly
+        idx = (idx + 1) % cards.length;
+        update();
+      };
+
+      // Resize handling
+      const ro = new ResizeObserver(update);
+      ro.observe(root);
+      window.addEventListener('orientationchange', update);
+
+      // Autoplay
+      setInterval(next, 3500);
+      update();
+    }
+
+    // ====== Vertical mini carousel in Step 2 ======
+    const vert = document.querySelector('[data-vert]');
+    if (vert) {
+      let i = 0;
+      const first = vert.children[0];
+      const gap = parseFloat(getComputedStyle(vert).rowGap || '0');
+      const step = first ? first.getBoundingClientRect().height + gap : 0;
+      setInterval(() => {
+        i = (i + 1) % vert.children.length;
+        vert.style.transform = `translateY(-${i * step}px)`;
+      }, 2200);
+    }
+  });
+</script>

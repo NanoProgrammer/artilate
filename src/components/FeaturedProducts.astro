@@ -1,50 +1,214 @@
 ---
-import Card from "./Card.astro";
-import { Products } from "../constants/catalog.js";
+const items = {
+  leftSpotlight: {
+    name: "Classic Box — 9",
+    slug: "classic-box-9",
+    img: "/images/bonbons/classic-9.jpg",
+    tag: "Best Seller",
+  },
+  topLeft: {
+    name: "70% Raspberry Bliss",
+    slug: "dark-70-raspberry",
+    img: "/images/bars/raspberry-bar.jpg",
+    tag: "Fruit Infused",
+  },
+  topRightGradient: {
+    name: "Ribboned Celebration Set",
+    slug: "ribboned-celebration-set",
+    img: "/images/gifts/celebration-collection.jpg",
+    tag: "Gifting",
+  },
+  bottomLeft: {
+    name: "Nut Lover Box — 5",
+    slug: "nut-lover-5",
+    img: "/images/bonbons/nut-5.jpg",
+    tag: "Nut Lover",
+  },
+  bottomRightGradient: {
+    name: "Luxe Bonbons — 16",
+    slug: "luxe-bonbons-16",
+    img: "/images/gifts/luxe-16.jpg",
+    tag: "Hand-painted",
+  },
+};
+
 ---
 
-<div 
-  class="container mx-auto py-8 px-4 lg:max-w-4xl bg-[color:var(--color-2)/40] rounded-lg shadow-lg"
-  style="filter: var(--filter-color-2)"
->
-  <h2
-    class="text-3xl font-bold mb-4 text-center text-[color:var(--color-1)/80]"
-    style="filter: var(--filter-color-1)"
-  >
-    Featured Products
-  </h2>
-  <p
-    class="text-md text-center text-[color:var(--color-1)/80] mb-8"
-    style="filter: var(--filter-color-1)"
-  >
-    See the most recent products of our collection
-  </p>
+<div class="py-12 px-6 lg:px-16 xl:px-32 bg-[color:var(--cacao,#0A0B0D)] rounded-2xl shadow-lg">
+  <h2 class="title-accent mx-auto mb-10 lg:mb-16 text-center">Featured Products</h2>
 
-  <div class="flex flex-wrap justify-center items-center gap-8">
-    {
-      Products.slice(0, 4).map(product => (
-        <Card
-          imgUrl={product.image}
-          title={product.title}
-          description={product.description}
-          id={product.id}
-          price={product.price}
-        />
-      ))
-    }
-  </div>
+  <div class="flex flex-col lg:flex-row justify-center gap-6 lg:gap-8 max-w-7xl mx-auto">
+    <!-- IZQUIERDA (Spotlight) -->
+    <div class="w-full lg:w-[30%] h-[46svh] lg:h-[80svh] relative rounded-xl border border-stone-100/15 bg-stone-900/40 backdrop-blur p-4 overflow-hidden">
+      <span class="badge">{items.leftSpotlight.tag}</span>
+      <h3 class="card-title pr-12">{items.leftSpotlight.name}</h3>
 
-  <div class="flex flex-col items-center justify-center mt-12">
-    <h3 class="text-2xl font-bold mb-4 text-center text-white" style="filter: var(--filter-color-6)">
-      Want to see more products?
-    </h3>
-    <a href="/products">
-      <button
-        class="px-6 py-2 rounded-md bg-[color:var(--color-3)] hover:bg-[color:var(--color-4)] text-white transition duration-200"
-        style="filter: var(--filter-color-3)"
-      >
-        More Products
-      </button>
-    </a>
+      <!-- IMG centrada -->
+      <img
+        src={items.leftSpotlight.img}
+        alt={items.leftSpotlight.name}
+        class="card-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%]"
+      />
+
+      <!-- CTA overlay abajo-izquierda -->
+      <div class="card-cta">
+        <a href={`/shop/${items.leftSpotlight.slug}`} class="btn-primary">Shop now
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- DERECHA (2 filas) -->
+    <div class="w-full lg:w-[70%] flex flex-col gap-6 lg:gap-8">
+      <!-- Fila superior -->
+      <div class="flex flex-col sm:flex-row gap-6 lg:gap-8 h-[46svh] lg:h-[40svh]">
+        <!-- Top-left (imagen a la DERECHA en >=sm) -->
+        <div class="relative w-full sm:w-3/5 rounded-xl border border-stone-100/15 bg-stone-900/40 backdrop-blur p-4 overflow-hidden">
+          <div class="relative z-20 max-w-[60%] pr-3">
+            <span class="badge">{items.topLeft.tag}</span>
+            <h3 class="card-title">{items.topLeft.name}</h3>
+          </div>
+
+          <img
+            src={items.topLeft.img}
+            alt={items.topLeft.name}
+            class="card-img absolute
+                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[80%]
+                   sm:left-auto sm:right-3 sm:translate-x-0 sm:w-[58%]
+                   md:right-5 md:w-[56%] lg:right-6 lg:w-[54%]"
+          />
+
+          <div class="card-cta">
+            <a href={`/shop/${items.topLeft.slug}`} class="btn-secondary">View product
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Top-right (GRADIENT) imagen a la derecha -->
+        <div class="relative w-full sm:w-2/5 rounded-xl border border-stone-100/15 bg-gradient-to-br from-violet-300 via-violet-600 to-purple-900 p-4 overflow-hidden">
+          <div class="relative z-20 max-w-[60%] pr-3 text-white">
+            <span class="badge-light">{items.topRightGradient.tag}</span>
+            <h3 class="card-title text-white">{items.topRightGradient.name}</h3>
+          </div>
+
+          <img
+            src={items.topRightGradient.img}
+            alt={items.topRightGradient.name}
+            class="card-img absolute
+                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[78%]
+                   sm:left-auto sm:right-3 sm:translate-x-0 sm:w-[66%]
+                   md:right-4 md:w-[64%]"
+          />
+
+          <div class="card-cta">
+            <a href={`/shop/${items.topRightGradient.slug}`} class="btn-light">View product
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila inferior -->
+      <div class="flex flex-col sm:flex-row gap-6 lg:gap-8 h-[46svh] lg:h-[40svh]">
+        <!-- Bottom-left (imagen a la DERECHA) -->
+        <div class="relative w-full sm:w-2/5 rounded-xl border border-stone-100/15 bg-stone-900/40 backdrop-blur p-4 overflow-hidden">
+          <div class="relative z-20 max-w-[60%] pr-3">
+            <span class="badge">{items.bottomLeft.tag}</span>
+            <h3 class="card-title">{items.bottomLeft.name}</h3>
+          </div>
+
+          <img
+            src={items.bottomLeft.img}
+            alt={items.bottomLeft.name}
+            class="card-img absolute
+                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[82%]
+                   sm:left-auto sm:right-3 sm:translate-x-0 sm:w-[68%]
+                   md:right-5 md:w-[66%]"
+          />
+
+          <div class="card-cta">
+            <a href={`/shop/${items.bottomLeft.slug}`} class="btn-secondary">View product
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom-right (GRADIENT) imagen a la derecha -->
+        <div class="relative w-full sm:w-3/5 rounded-xl border border-stone-100/15 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-400 p-4 overflow-hidden">
+          <div class="relative z-20 max-w-[60%] pr-3 text-white">
+            <span class="badge-light">{items.bottomRightGradient.tag}</span>
+            <h3 class="card-title text-white">{items.bottomRightGradient.name}</h3>
+          </div>
+
+          <img
+            src={items.bottomRightGradient.img}
+            alt={items.bottomRightGradient.name}
+            class="card-img absolute
+                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[76%]
+                   sm:left-auto sm:right-4 sm:translate-x-0 sm:w-[58%]
+                   md:right-6 md:w-[56%]"
+          />
+
+          <div class="card-cta">
+            <a href={`/shop/${items.bottomRightGradient.slug}`} class="btn-light">View product
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<style>
+  .title-accent{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,5vw,3.5rem);
+    font-weight:600; text-shadow:0 2px 5px rgba(212,163,115,.3);
+    opacity:0; transform:translateY(20px);
+    animation:slideUp .6s ease-out .2s forwards;
+  }
+  @keyframes slideUp{to{opacity:1; transform:none}}
+
+  /* Badges */
+  .badge{
+    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[0.7rem] font-bold
+           bg-stone-100/10 text-stone-200 border border-stone-100/15;
+  }
+  .badge-light{
+    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[0.7rem] font-bold
+           bg-white/15 text-white border border-white/25;
+  }
+
+  /* Títulos y botones */
+  .card-title{ @apply mt-2 font-serif text-[1.05rem] sm:text-[1.15rem] leading-snug; }
+  .btn-primary{
+    @apply inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-semibold
+           bg-gradient-to-br from-amber-400 to-amber-600 text-stone-900
+           shadow-[0_10px_35px_rgba(245,158,11,.3)]
+           transition-transform duration-300 hover:-translate-y-0.5;
+  }
+  .btn-secondary{
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-semibold
+           bg-amber-500/15 text-amber-200 border border-amber-500/25
+           hover:bg-amber-500/25 transition-colors duration-300;
+  }
+  .btn-light{
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-semibold
+           bg-white/90 text-stone-900 hover:bg-white transition-colors duration-300;
+  }
+
+  /* Imagen flotante */
+  .card-img{
+    @apply object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
+           transition-transform duration-700 ease-out hover:scale-[1.04] z-10;
+  }
+
+  /* CTA fijo abajo-izquierda */
+  .card-cta{
+    position:absolute; left:1rem; bottom:1rem; z-index:30;
+    display:inline-flex; align-items:center; gap:.5rem;
+    backdrop-filter: blur(8px);
+  }
+</style>

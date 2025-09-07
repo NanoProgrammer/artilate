@@ -1,0 +1,71 @@
+---
+// src/pages/shop.astro
+import Layout from '../../layouts/Layout.astro'
+import Hero from '../../components/shop/Hero.astro'
+import Products from '../../components/shop/products'
+
+
+
+// SEO optimizado para Alberta, Canada
+const seoData = {
+  title: "Premium Handcrafted Chocolates | Artilate Alberta",
+  description: "Discover Artilate's collection of premium bean-to-bar chocolates and artisanal bonbons. Handcrafted in Alberta with ethically sourced Colombian cacao. Shop online for local delivery in Calgary, Airdrie, Edmonton.",
+  image: "/assets/shop-hero-og.jpg",
+  breadcrumbs: [
+    { href: "/", name: "Home" },
+    { href: "/shop", name: "Shop" }
+  ],
+  schemaExtras: {
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Premium Chocolate Collection',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Product',
+            name: 'Nut Bonbons Collection',
+            description: 'Premium filled bonbons with hazelnuts, almonds, pistachios and walnuts'
+          },
+          availability: 'https://schema.org/InStock',
+          priceCurrency: 'CAD',
+          priceRange: '$30.00-$38.00'
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Product',
+            name: 'Bean-to-Bar Chocolate Bars',
+            description: 'Single-origin Colombian chocolate bars from 45% to 85% cacao'
+          },
+          availability: 'https://schema.org/InStock',
+          priceCurrency: 'CAD',
+          priceRange: '$16.00-$20.00'
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Product',
+            name: 'Specialty Dietary Collections',
+            description: 'Nut-free, dairy-free, and gluten-free chocolate options'
+          },
+          availability: 'https://schema.org/InStock',
+          priceCurrency: 'CAD',
+          priceRange: '$28.00-$39.00'
+        }
+      ]
+    }
+  }
+};
+---
+
+<Layout 
+  {...seoData}
+  preloadImages={[
+    { href: "/assets/shop-hero-bg.jpg", fetchpriority: "high" }
+  ]}
+>
+  <Hero />
+  <Products client:load/>
+</Layout>
+

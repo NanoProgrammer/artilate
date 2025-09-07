@@ -1,12 +1,21 @@
----
-// src/pages/shop/[id].astro
-import Layout from "../../../layouts/Layout.astro";
-import ContextProduct from "../../../components/shop/contextProduct.jsx";
+export type CatalogItem = {
+  id: string;
+  name: string;
+  price: number;           // CAD (unidades)
+  category: "Premium Dark" | "Fruit Infused" | "Nut Collection" | "Bonbons" | "Gifting" | "Limited" | "Snacks";
+  tag?: string;
+  shortDesc?: string;
+  longDesc?: string;
+  chips?: string[];
+  cacao?: string;
+  weight?: string;
+  dietary?: string[];
+  ingredients?: string;
+  allergens?: string;
+  images: string[];
+};
 
-const { id } = Astro.params;
-
-/** Minimal catalog (extend freely). Keys must match product slugs/links used across the site */
-const CATALOG = {
+export const CATALOG: Record<string, CatalogItem> = {
   /* ───────────────── BARS ───────────────── */
   "dark-75-pistachio": {
     id: "dark-75-pistachio",
@@ -424,59 +433,7 @@ const CATALOG = {
   },
 };
 
-const product = CATALOG[id] ?? null;
-
-// SEO
-const title = product
-  ? `${product.name} | Artilate`
-  : "Product not found | Artilate";
-const description = product?.shortDesc ?? "Explore Artilate chocolates.";
-const image = product?.images?.[0] ?? "/assets/shop-hero-og.jpg";
-
-const breadcrumbs = [
-  { href: "/", name: "Home" },
-  { href: "/shop", name: "Shop" },
-  ...(product ? [{ href: `/shop/${id}`, name: product.name }] : []),
-];
----
-
-<Layout title={title} description={description} image={image} breadcrumbs={breadcrumbs}>
-  {
-    product ? (
-      <ContextProduct client:load product={product} />
-    ) : (
-      <section class="mx-auto max-w-5xl px-4 py-24 text-center text-zinc-200">
-        <h1 class="mb-3 text-3xl font-extrabold">Product not found</h1>
-        <p class="mb-6 text-zinc-400">
-          We couldn’t locate that item. Try browsing the shop instead.
-        </p>
-        <a href="/shop" class="inline-flex items-center gap-2 rounded-lg bg-amber-400 px-4 py-2 font-extrabold text-zinc-900">
-          Back to shop
-        </a>
-      </section>
-    )
-  }
-
-  <slot name="jsonld">
-    {product && (
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: product.name,
-          description: product.shortDesc,
-          image: product.images,
-          category: product.category,
-          brand: { "@type": "Brand", name: "Artilate" },
-          offers: {
-            "@type": "Offer",
-            availability: "https://schema.org/InStock",
-            priceCurrency: "CAD",
-            price: product.price,
-            url: `https://artilate.ca/shop/${product.id}`,
-          },
-        })}
-      </script>
-    )}
-  </slot>
-</Layout>
+/* (Opcional) mapa de precios en centavos para Stripe */
+export const PRICE_MAP_CENTS: Record<string, number> = Object.fromEntries(
+  Object.values(CATALOG).map((p) => [p.id, Math.round(p.price * 100)])
+);

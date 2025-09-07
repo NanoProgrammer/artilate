@@ -14,59 +14,62 @@ const flavours = [
 ];
 ---
 
-<section class="relative bg-[#0A0B0D] text-slate-50 py-8 lg:py-16">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+<section id="flavours" class="flavours-section relative bg-[#0A0B0D] text-slate-50"
+  style="--header-h:84px">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header -->
-    <header class="mx-auto max-w-2xl text-center mb-12">
-      <h2 class="font-serif text-[2rem] lg:text-[2.8rem] font-bold leading-tight reveal-up">
-        Our <span class="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">Signature Fillings</span>
+    <header class="mx-auto max-w-2xl text-center mb-8 md:mb-12">
+      <h2 class="font-serif text-[1.75rem] sm:text-[2rem] lg:text-[2.6rem] xl:text-[2.8rem] font-bold leading-tight reveal-up">
+        Our <span class="title-accent">Signature Fillings</span>
       </h2>
-      <p class="mt-1.5 text-[0.95rem] leading-relaxed text-slate-300 reveal-up" style="--d:1">
+      <p class="mt-2 text-[0.95rem] leading-relaxed text-slate-300 reveal-up" style="--d:1">
         Five hand-painted bonbon fillings. Image-forward, concise copy.
       </p>
     </header>
 
     <!-- Carrusel -->
-    <div class="relative mt-6">
-      <!-- Flechas SIEMPRE visibles -->
+    <div class="relative mt-4 sm:mt-6">
+      <!-- Flechas -->
       <button
         id="prevBtn"
         aria-label="Previous"
         aria-controls="rail"
         disabled
-        class="grid place-items-center absolute left-2 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-400 backdrop-blur hover:bg-amber-500/20 disabled:opacity-45 z-20 reveal-left"
-        style="--d:2"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        class="nav-btn left-1 sm:left-2 reveal-left"
+        style="--d:2">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <button
         id="nextBtn"
         aria-label="Next"
         aria-controls="rail"
-        class="grid place-items-center absolute right-2 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-400 backdrop-blur hover:bg-amber-500/20 disabled:opacity-45 z-20 reveal-right"
-        style="--d:2"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+        class="nav-btn right-1 sm:right-2 reveal-right"
+        style="--d:2">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
       </button>
 
       <!-- Fades laterales -->
-      <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-slate-950 to-transparent z-10"></div>
-      <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-slate-950 to-transparent z-10"></div>
+      <div class="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-10 bg-gradient-to-r from-[#0A0B0D] to-transparent z-10"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-10 bg-gradient-to-l from-[#0A0B0D] to-transparent z-10"></div>
 
-      <!-- Rail con scroll horizontal estilizado -->
+      <!-- Rail -->
       <div
         id="rail"
-        class="styled-scroll flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 [-webkit-overflow-scrolling:touch] reveal-up"
+        class="styled-scroll flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 [-webkit-overflow-scrolling:touch] reveal-up"
         style="--d:1"
         tabindex="0"
+        role="region"
+        aria-roledescription="carousel"
         aria-label="Signature fillings carousel"
       >
         {flavours.map((f, i) => (
           <article
-            class="card relative flex max-h-[70vh] min-w-[88%] flex-none snap-start flex-col overflow-hidden rounded-2xl border border-amber-500/15 bg-slate-900/60 backdrop-blur md:min-w-[74%] lg:min-w-[42%] xl:min-w-[30%] reveal-up"
+            class="card group relative flex min-w-[92%] xs:min-w-[88%] sm:min-w-[72%] md:min-w-[58%] lg:min-w-[44%] xl:min-w-[32%] 2xl:min-w-[28%]
+                           flex-none snap-start flex-col overflow-hidden rounded-2xl border border-amber-500/15 bg-slate-900/60 backdrop-blur
+                           reveal-up focus-within:ring-2 focus-within:ring-amber-400/60"
             style={`--d:${i + 2}`}
           >
-            <figure class="relative h-[55vh] min-h-[240px] w-full overflow-hidden border-b border-amber-500/10">
+            <figure class="relative w-full overflow-hidden border-b border-amber-500/10">
               <picture>
                 <source srcset={f.img.replace(".jpg", ".avif")} type="image/avif" />
                 <source srcset={f.img.replace(".jpg", ".webp")} type="image/webp" />
@@ -76,7 +79,7 @@ const flavours = [
                   loading="lazy"
                   decoding="async"
                   width="1200" height="800"
-                  class="h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform hover:scale-[1.04]"
+                  class="h-[48vh] sm:h-[46vh] md:h-[40vh] lg:h-[34vh] xl:h-[32vh] w-full object-cover transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.04]"
                 />
               </picture>
               <figcaption class="pointer-events-none absolute inset-0 flex items-start justify-end p-2">
@@ -85,20 +88,27 @@ const flavours = [
                 </span>
               </figcaption>
             </figure>
-            <div class="grid gap-1.5 p-3">
-              <h3 class="font-serif text-[1.05rem] leading-tight">{f.name}</h3>
-              <p class="text-[0.95rem] leading-snug text-slate-300">{f.desc}</p>
+            <div class="grid gap-1.5 p-3 sm:p-4">
+              <h3 class="font-serif text-[1.05rem] sm:text-[1.15rem] leading-tight">{f.name}</h3>
+              <p class="text-[0.93rem] sm:text-[0.97rem] leading-snug text-slate-300">{f.desc}</p>
+              <a href={`/product/${f.slug}`} class="mt-1 inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 focus-outline">
+                View details
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </div>
           </article>
         ))}
       </div>
 
       <!-- Dots -->
-      <div id="dots" class="mt-3 flex justify-center gap-2 reveal-up" style="--d:2">
+      <div id="dots" class="mt-3 flex justify-center gap-2 reveal-up" style="--d:2" role="tablist" aria-label="Carousel pagination">
         {flavours.map((_, i) => (
           <button
-            class={"h-2.5 w-2.5 rounded-full bg-amber-500/35 transition-transform " + (i === 0 ? "scale-125 bg-amber-400" : "")}
+            class={"dot " + (i === 0 ? "is-active" : "")}
             data-i={i}
+            role="tab"
+            aria-selected={i === 0 ? "true" : "false"}
+            aria-controls="rail"
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
@@ -107,11 +117,43 @@ const flavours = [
   </div>
 </section>
 
-<!-- CSS mínimo: estilo del scrollbar + reveals -->
-<style is:global>
+<style>
+  /* ===== Header-aware + spacing ===== */
+  .flavours-section{
+    padding-top: clamp(1rem, 2.5vw, 2rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+    scroll-margin-top: var(--header-h);
+  }
+  @media (max-width:480px){
+    .flavours-section{ --header-h:74px; }
+  }
+
+  /* ===== Titles ===== */
+  .title-accent {
+    background: linear-gradient(135deg, var(--gold, #D4A373) 0%, var(--amber, #F59E0B) 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* ===== Nav buttons ===== */
+  .nav-btn{
+    position:absolute; top:50%; transform: translateY(-50%);
+    height: 44px; width: 44px;
+    display:grid; place-items:center;
+    border-radius: 999px;
+    border: 1px solid rgba(245,158,11,.22);
+    background: rgba(245,158,11,.10);
+    color: #F59E0B; backdrop-filter: blur(8px);
+    transition: all .25s ease; z-index: 20;
+    touch-action: manipulation;
+  }
+  .nav-btn:hover{ background: rgba(245,158,11,.18); }
+  .nav-btn:disabled{ opacity:.45; pointer-events:none; }
+
+  /* ===== Scrollbar styling ===== */
   .styled-scroll{
     scrollbar-width: thin;
     scrollbar-color: rgba(212,163,115,.55) transparent;
+    overflow-y: hidden;
   }
   .styled-scroll::-webkit-scrollbar{ height: 10px; }
   .styled-scroll::-webkit-scrollbar-track{
@@ -125,13 +167,18 @@ const flavours = [
   }
   .styled-scroll::-webkit-scrollbar-thumb:hover{ filter: brightness(1.05); }
 
-  /* ====== REVEALS globales coherentes con el sitio ====== */
-  :root{
-    --ease: cubic-bezier(.16,1,.3,1);
+  /* ===== Dots ===== */
+  .dot{
+    height: 10px; width: 10px;
+    border-radius: 999px; background: rgba(245,158,11,.35);
+    transition: transform .2s ease, background .2s ease;
   }
+  .dot.is-active{ transform: scale(1.25); background: #F59E0B; }
+
+  /* ===== Reveals (coherentes con tu sitio) ===== */
+  :root{ --ease: cubic-bezier(.16,1,.3,1); }
   .reveal-up, .reveal-left, .reveal-right{
-    opacity: 0;
-    will-change: transform, opacity, filter;
+    opacity: 0; will-change: transform, opacity, filter;
     transition: opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);
     transition-delay: calc(var(--d, 0) * 90ms);
     filter: blur(2px);
@@ -139,18 +186,16 @@ const flavours = [
   .reveal-up{ transform: translateY(18px) scale(.985); }
   .reveal-left{ transform: translateX(-22px); }
   .reveal-right{ transform: translateX(22px); }
-  .is-visible{
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-  #rail{
-    overflow-y: hidden;
+  .is-visible{ opacity:1; transform:none; filter:none; }
+
+  /* ===== Reduce motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    .reveal-up,.reveal-left,.reveal-right{ transition:none; filter:none; opacity:1; transform:none; }
   }
 </style>
 
 <script is:inline>
-  // ====== Carrusel (tu lógica existente) ======
+  // ===== Util =====
   const rail = document.getElementById('rail');
   const prev = document.getElementById('prevBtn');
   const next = document.getElementById('nextBtn');
@@ -158,40 +203,72 @@ const flavours = [
   const dots = Array.from(dotsEl?.querySelectorAll('button') || []);
 
   function stepSize() {
-    const card = rail.querySelector('.card');
-    if (!card) return rail.clientWidth;
-    const gap = parseFloat(getComputedStyle(rail).gap || 0);
+    // Tamaño de una card + gap
+    const card = rail?.querySelector('.card');
+    if (!rail || !card) return 0;
+    const gap = parseFloat(getComputedStyle(rail).gap || '0');
     return card.getBoundingClientRect().width + gap;
   }
-  function go(dir) { rail.scrollBy({ left: dir * stepSize(), behavior: 'smooth' }); }
+
+  function go(dir) {
+    const step = stepSize() || rail.clientWidth;
+    rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+
+  function clampIndex(i, max) { return Math.max(0, Math.min(i, max)); }
+
+  function indexFromScroll() {
+    const step = stepSize();
+    if (!step) return 0;
+    return Math.round(rail.scrollLeft / step);
+  }
 
   function updateUI() {
-    const w = stepSize() || 1;
-    const i = Math.round(rail.scrollLeft / w);
+    const step = stepSize() || 1;
+    const total = Math.max(0, (rail.children.length || 1) - 1);
+    const i = clampIndex(Math.round(rail.scrollLeft / step), total);
     dots.forEach((d, k) => {
-      d.classList.toggle('scale-125', k === i);
-      d.classList.toggle('bg-amber-400', k === i);
-      d.classList.toggle('bg-amber-500/35', k !== i);
+      const active = k === i;
+      d.classList.toggle('is-active', active);
+      d.setAttribute('aria-selected', active ? 'true' : 'false');
     });
     prev.disabled = rail.scrollLeft <= 1;
     next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 1;
   }
 
+  // Botones
   prev?.addEventListener('click', () => go(-1));
   next?.addEventListener('click', () => go(1));
+
+  // Scroll y resize
   rail?.addEventListener('scroll', () => requestAnimationFrame(updateUI));
   window.addEventListener('resize', updateUI);
+
+  // Dots
   dots.forEach((d, k) => d.addEventListener('click', () => {
-    rail.scrollTo({ left: k * stepSize(), behavior: 'smooth' });
+    const step = stepSize() || rail.clientWidth;
+    rail.scrollTo({ left: k * step, behavior: 'smooth' });
   }));
+
+  // Keyboard (izq/der sobre el rail)
+  rail?.addEventListener('keydown', (ev) => {
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); go(1); }
+    if (ev.key === 'ArrowLeft')  { ev.preventDefault(); go(-1); }
+  });
+
+  // ResizeObserver para recalcular en cambios de layout
+  if ('ResizeObserver' in window && rail){
+    const ro = new ResizeObserver(() => updateUI());
+    ro.observe(rail);
+    Array.from(rail.children).forEach(el => ro.observe(el));
+  }
 
   updateUI();
 
-  // ====== Animaciones de entrada (scroll reveal) ======
+  // ===== Animaciones de entrada (scroll reveal) =====
   (function initReveals(){
     const els = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
     if (!els.length) return;
-
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
         if (e.isIntersecting) {
@@ -200,7 +277,6 @@ const flavours = [
         }
       }
     }, { root: null, threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-
     els.forEach(el => io.observe(el));
   })();
 </script>
