@@ -1,158 +1,200 @@
 ---
 const items = {
-  leftSpotlight: {
-    name: "Classic Box — 9",
-    slug: "classic-box-9",
-    img: "/images/bonbons/classic-9.jpg",
-    tag: "Best Seller",
-  },
-  topLeft: {
-    name: "70% Raspberry Bliss",
-    slug: "dark-70-raspberry",
-    img: "/images/bars/raspberry-bar.jpg",
-    tag: "Fruit Infused",
-  },
-  topRightGradient: {
-    name: "Ribboned Celebration Set",
-    slug: "ribboned-celebration-set",
-    img: "/images/gifts/celebration-collection.jpg",
-    tag: "Gifting",
-  },
-  bottomLeft: {
-    name: "Nut Lover Box — 5",
-    slug: "nut-lover-5",
-    img: "/images/bonbons/nut-5.jpg",
-    tag: "Nut Lover",
-  },
-  bottomRightGradient: {
-    name: "Luxe Bonbons — 16",
-    slug: "luxe-bonbons-16",
-    img: "/images/gifts/luxe-16.jpg",
-    tag: "Hand-painted",
-  },
+  leftSpotlight: { name: "Classic Box — 9", slug: "classic-box-9", img: "/images/bonbons/classic-9.jpg", tag: "Best Seller" },
+  topLeft: { name: "70% Raspberry Bliss", slug: "dark-70-raspberry", img: "/images/bars/raspberry-bar.jpg", tag: "Fruit Infused" },
+  topRightGradient: { name: "Ribboned Celebration Set", slug: "ribboned-celebration-set", img: "/images/gifts/celebration-collection.jpg", tag: "Gifting" },
+  bottomLeft: { name: "Nut Lover Box — 5", slug: "nut-lover-5", img: "/images/bonbons/nut-5.jpg", tag: "Nut Lover" },
+  bottomRightGradient: { name: "Luxe Bonbons — 16", slug: "luxe-bonbons-16", img: "/images/gifts/luxe-16.jpg", tag: "Hand-painted" },
 };
-
 ---
 
-<div class="py-12 px-6 lg:px-16 xl:px-32 bg-[color:var(--cacao,#0A0B0D)] rounded-2xl shadow-lg">
-  <h2 class="title-accent mx-auto mb-10 lg:mb-16 text-center">Featured Products</h2>
+<div class="py-8 px-4 sm:py-10 sm:px-6 lg:py-12 lg:px-16 xl:px-32 bg-[color:var(--cacao,#0A0B0D)] rounded-2xl shadow-lg">
+  <!-- título -->
+  <h2
+    class="mx-auto mb-6 sm:mb-8 lg:mb-16 text-center font-serif font-semibold tracking-tight
+           text-[clamp(1.75rem,4.5vw,3.5rem)] text-stone-50
+           [text-shadow:0_2px_5px_rgba(212,163,115,.3)]">
+    Featured Products
+  </h2>
 
-  <div class="flex flex-col lg:flex-row justify-center gap-6 lg:gap-8 max-w-7xl mx-auto">
-    <!-- IZQUIERDA (Spotlight) -->
-    <div class="w-full lg:w-[30%] h-[46svh] lg:h-[80svh] relative rounded-xl border border-stone-100/15 bg-stone-900/40 backdrop-blur p-4 overflow-hidden">
-      <span class="badge">{items.leftSpotlight.tag}</span>
-      <h3 class="card-title pr-12">{items.leftSpotlight.name}</h3>
+  <div class="flex flex-col lg:flex-row justify-center gap-3 sm:gap-4 lg:gap-8 max-w-7xl mx-auto">
+    <!-- IZQUIERDA -->
+    <div
+      class="relative isolate w-full lg:w-[30%] flex flex-col
+             rounded-xl border border-stone-100/15 bg-stone-900/40 p-3 sm:p-4 overflow-hidden
+             min-h-[400px] sm:min-h-[450px] md:min-h-[500px]
+             lg:h-[80svh] lg:min-h-0">
+      <div class="z-30 max-w-[95%] sm:max-w-[92%] lg:max-w-[70%]">
+        <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[0.65rem] sm:text-[0.7rem] font-bold
+                     bg-stone-100/10 text-stone-200 border border-stone-100/15">
+          {items.leftSpotlight.tag}
+        </span>
+        <h3 class="mt-1.5 sm:mt-2 font-serif text-[1rem] sm:text-[1.05rem] lg:text-[1.15rem] leading-snug pr-4 sm:pr-6 lg:pr-8 text-stone-50">
+          {items.leftSpotlight.name}
+        </h3>
+      </div>
 
-      <!-- IMG centrada -->
       <img
         src={items.leftSpotlight.img}
         alt={items.leftSpotlight.name}
-        class="card-img absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%]"
-      />
+        class="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,.45)] sm:drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
+               transition-transform duration-700 ease-out
+               mx-auto my-4 w-[90%] max-h-[200px] sm:my-6 sm:w-[86%] sm:max-h-[240px]
+               lg:absolute lg:inset-0 lg:m-auto lg:w-[85%] lg:max-h-none lg:hover:scale-[1.04]" />
 
-      <!-- CTA overlay abajo-izquierda -->
-      <div class="card-cta">
-        <a href={`/shop/${items.leftSpotlight.slug}`} class="btn-primary">Shop now
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <div class="mt-auto lg:absolute lg:left-4 lg:bottom-4 inline-flex items-center gap-2 z-40">
+        <a href={`/shop/${items.leftSpotlight.slug}`}
+           class="inline-flex items-center gap-1.5 sm:gap-2 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base font-semibold
+                  bg-gradient-to-br from-amber-400 to-amber-600 text-stone-900
+                  shadow-[0_8px_25px_rgba(245,158,11,.25)] sm:shadow-[0_10px_35px_rgba(245,158,11,.3)]
+                  transition-transform duration-300 hover:-translate-y-0.5">
+          Shop now
+          <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
 
-    <!-- DERECHA (2 filas) -->
-    <div class="w-full lg:w-[70%] flex flex-col gap-6 lg:gap-8">
-      <!-- Fila superior -->
-      <div class="flex flex-col sm:flex-row gap-6 lg:gap-8 h-[46svh] lg:h-[40svh]">
-        <!-- Top-left (imagen a la DERECHA en >=sm) -->
-        <div class="relative w-full sm:w-3/5 rounded-xl border border-stone-100/15 bg-stone-900/40 backdrop-blur p-4 overflow-hidden">
-          <div class="relative z-20 max-w-[60%] pr-3">
-            <span class="badge">{items.topLeft.tag}</span>
-            <h3 class="card-title">{items.topLeft.name}</h3>
+    <!-- DERECHA -->
+    <div class="w-full lg:w-[70%] flex flex-col gap-4 lg:gap-8">
+      <!-- fila sup -->
+      <div class="flex flex-col sm:flex-row gap-4 lg:gap-8">
+        <!-- top-left -->
+        <div
+          class="relative isolate w-full sm:w-3/5 flex flex-col
+                 rounded-xl border border-stone-100/15 bg-stone-900/40 p-3 sm:p-4 overflow-hidden
+                 min-h-[380px] sm:min-h-[420px] md:min-h-[480px]
+                 lg:h-[40svh] lg:min-h-0">
+          <div class="z-30 max-w-[95%] sm:max-w-[92%] lg:max-w-[60%] pr-2 sm:pr-3">
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[0.65rem] sm:text-[0.7rem] font-bold
+                         bg-stone-100/10 text-stone-200 border border-stone-100/15">
+              {items.topLeft.tag}
+            </span>
+            <h3 class="mt-1.5 sm:mt-2 font-serif text-[1rem] sm:text-[1.05rem] lg:text-[1.15rem] leading-snug text-stone-50">
+              {items.topLeft.name}
+            </h3>
           </div>
 
           <img
             src={items.topLeft.img}
             alt={items.topLeft.name}
-            class="card-img absolute
-                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[80%]
-                   sm:left-auto sm:right-3 sm:translate-x-0 sm:w-[58%]
-                   md:right-5 md:w-[56%] lg:right-6 lg:w-[54%]"
-          />
+            class="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,.45)] sm:drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
+                   transition-transform duration-700 ease-out
+                   mx-auto my-4 w-[85%] max-h-[200px] sm:my-0 sm:absolute sm:right-2 sm:top-1/2 sm:-translate-y-1/2 sm:w-[68%] sm:max-h-[240px]
+                   md:right-3 md:w-[64%] lg:right-6 lg:w-[54%] lg:hover:scale-[1.04] lg:max-h-none" />
 
-          <div class="card-cta">
-            <a href={`/shop/${items.topLeft.slug}`} class="btn-secondary">View product
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="mt-auto sm:absolute sm:left-3 sm:bottom-3 lg:left-4 lg:bottom-4 inline-flex items-center gap-2 z-40">
+            <a href={`/shop/${items.topLeft.slug}`}
+               class="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base font-semibold
+                      bg-amber-500/15 text-amber-200 border border-amber-500/25
+                      hover:bg-amber-500/25 transition-colors duration-300">
+              View product
+              <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- Top-right (GRADIENT) imagen a la derecha -->
-        <div class="relative w-full sm:w-2/5 rounded-xl border border-stone-100/15 bg-gradient-to-br from-violet-300 via-violet-600 to-purple-900 p-4 overflow-hidden">
-          <div class="relative z-20 max-w-[60%] pr-3 text-white">
-            <span class="badge-light">{items.topRightGradient.tag}</span>
-            <h3 class="card-title text-white">{items.topRightGradient.name}</h3>
+        <!-- top-right gradient -->
+        <div
+          class="relative isolate w-full sm:w-2/5 flex flex-col
+                 rounded-xl border border-stone-100/15 bg-gradient-to-br from-violet-300 via-violet-600 to-purple-900 p-3 sm:p-4 overflow-hidden
+                 min-h-[380px] sm:min-h-[420px] md:min-h-[480px]
+                 lg:h-[40svh] lg:min-h-0">
+          <div class="z-30 max-w-[95%] sm:max-w-[92%] lg:max-w-[62%] pr-2 sm:pr-3 text-white">
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[0.65rem] sm:text-[0.7rem] font-bold
+                         bg-white/15 text-white border border-white/25">
+              {items.topRightGradient.tag}
+            </span>
+            <h3 class="mt-1.5 sm:mt-2 font-serif text-[1rem] sm:text-[1.05rem] lg:text-[1.15rem] leading-snug text-white">
+              {items.topRightGradient.name}
+            </h3>
           </div>
 
           <img
             src={items.topRightGradient.img}
             alt={items.topRightGradient.name}
-            class="card-img absolute
-                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[78%]
-                   sm:left-auto sm:right-3 sm:translate-x-0 sm:w-[66%]
-                   md:right-4 md:w-[64%]"
-          />
+            class="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,.45)] sm:drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
+                   transition-transform duration-700 ease-out
+                   mx-auto my-4 w-[85%] max-h-[200px] sm:my-0 sm:absolute sm:right-2 sm:top-1/2 sm:-translate-y-1/2 sm:w-[70%] sm:max-h-[240px]
+                   md:right-3 md:w-[66%] lg:right-4 lg:w-[62%] lg:hover:scale-[1.04] lg:max-h-none" />
 
-          <div class="card-cta">
-            <a href={`/shop/${items.topRightGradient.slug}`} class="btn-light">View product
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="mt-auto sm:absolute sm:left-3 sm:bottom-3 lg:left-4 lg:bottom-4 inline-flex items-center gap-2 z-40">
+            <a href={`/shop/${items.topRightGradient.slug}`}
+               class="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base font-semibold
+                      bg-white/90 text-stone-900 hover:bg-white transition-colors duration-300">
+              View product
+              <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Fila inferior -->
-      <div class="flex flex-col sm:flex-row gap-6 lg:gap-8 h-[46svh] lg:h-[40svh]">
-        <!-- Bottom-left (imagen a la DERECHA) -->
-        <div class="relative w-full sm:w-2/5 rounded-xl border border-stone-100/15 bg-stone-900/40 backdrop-blur p-4 overflow-hidden">
-          <div class="relative z-20 max-w-[60%] pr-3">
-            <span class="badge">{items.bottomLeft.tag}</span>
-            <h3 class="card-title">{items.bottomLeft.name}</h3>
+      <!-- fila inf -->
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-8">
+        <!-- bottom-left -->
+        <div
+          class="relative isolate w-full sm:w-2/5 flex flex-col
+                 rounded-xl border border-stone-100/15 bg-stone-900/40 p-3 sm:p-4 overflow-hidden
+                 min-h-[380px] sm:min-h-[420px] md:min-h-[480px]
+                 lg:h-[40svh] lg:min-h-0">
+          <div class="z-30 max-w-[95%] sm:max-w-[92%] lg:max-w-[60%] pr-2 sm:pr-3">
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[0.65rem] sm:text-[0.7rem] font-bold
+                         bg-stone-100/10 text-stone-200 border border-stone-100/15">
+              {items.bottomLeft.tag}
+            </span>
+            <h3 class="mt-1.5 sm:mt-2 font-serif text-[1rem] sm:text-[1.05rem] lg:text-[1.15rem] leading-snug text-stone-50">
+              {items.bottomLeft.name}
+            </h3>
           </div>
 
           <img
             src={items.bottomLeft.img}
             alt={items.bottomLeft.name}
-            class="card-img absolute
-                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[82%]
-                   sm:left-auto sm:right-3 sm:translate-x-0 sm:w-[68%]
-                   md:right-5 md:w-[66%]"
-          />
+            class="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,.45)] sm:drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
+                   transition-transform duration-700 ease-out
+                   mx-auto my-4 w-[85%] max-h-[200px] sm:my-0 sm:absolute sm:right-2 sm:top-1/2 sm:-translate-y-1/2 sm:w-[68%] sm:max-h-[240px]
+                   md:right-3 md:w-[64%] lg:right-4 lg:w-[60%] lg:hover:scale-[1.04] lg:max-h-none" />
 
-          <div class="card-cta">
-            <a href={`/shop/${items.bottomLeft.slug}`} class="btn-secondary">View product
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="mt-auto sm:absolute sm:left-3 sm:bottom-3 lg:left-4 lg:bottom-4 inline-flex items-center gap-2 z-40">
+            <a href={`/shop/${items.bottomLeft.slug}`}
+               class="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base font-semibold
+                      bg-amber-500/15 text-amber-200 border border-amber-500/25
+                      hover:bg-amber-500/25 transition-colors duration-300">
+              View product
+              <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- Bottom-right (GRADIENT) imagen a la derecha -->
-        <div class="relative w-full sm:w-3/5 rounded-xl border border-stone-100/15 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-400 p-4 overflow-hidden">
-          <div class="relative z-20 max-w-[60%] pr-3 text-white">
-            <span class="badge-light">{items.bottomRightGradient.tag}</span>
-            <h3 class="card-title text-white">{items.bottomRightGradient.name}</h3>
+        <!-- bottom-right gradient -->
+        <div
+          class="relative isolate w-full sm:w-3/5 h-auto flex flex-col
+                 rounded-xl border border-stone-100/15 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-400 p-3 sm:p-4 overflow-hidden
+                 min-h-[380px] sm:min-h-[420px] md:min-h-[480px]
+                 lg:h-[40svh] lg:min-h-0">
+          <div class="z-30 max-w-[95%] sm:max-w-[92%] lg:max-w-[60%] pr-2 sm:pr-3 text-white">
+            <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[0.65rem] sm:text-[0.7rem] font-bold
+                         bg-white/15 text-white border border-white/25">
+              {items.bottomRightGradient.tag}
+            </span>
+            <h3 class="mt-1.5 sm:mt-2 font-serif text-[1rem] sm:text-[1.05rem] lg:text-[1.15rem] leading-snug text-white">
+              {items.bottomRightGradient.name}
+            </h3>
           </div>
 
           <img
             src={items.bottomRightGradient.img}
             alt={items.bottomRightGradient.name}
-            class="card-img absolute
-                   left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[76%]
-                   sm:left-auto sm:right-4 sm:translate-x-0 sm:w-[58%]
-                   md:right-6 md:w-[56%]"
-          />
+            class="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,.45)] sm:drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
+                   transition-transform duration-700 ease-out
+                   mx-auto my-4 w-[85%] max-h-[200px] sm:my-0 sm:absolute sm:right-3 sm:top-1/2 sm:-translate-y-1/2 sm:w-[64%] sm:max-h-[240px]
+                   md:right-4 md:w-[60%] lg:right-6 lg:w-[56%] lg:hover:scale-[1.04] lg:max-h-none" />
 
-          <div class="card-cta">
-            <a href={`/shop/${items.bottomRightGradient.slug}`} class="btn-light">View product
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="mt-auto sm:absolute sm:left-3 sm:bottom-3 lg:left-4 lg:bottom-4 inline-flex items-center gap-2 z-40">
+            <a href={`/shop/${items.bottomRightGradient.slug}`}
+               class="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 text-sm sm:text-base font-semibold
+                      bg-white/90 text-stone-900 hover:bg-white transition-colors duration-300">
+              View product
+              <svg width="14" height="14" class="sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
@@ -160,55 +202,3 @@ const items = {
     </div>
   </div>
 </div>
-
-<style>
-  .title-accent{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2rem,5vw,3.5rem);
-    font-weight:600; text-shadow:0 2px 5px rgba(212,163,115,.3);
-    opacity:0; transform:translateY(20px);
-    animation:slideUp .6s ease-out .2s forwards;
-  }
-  @keyframes slideUp{to{opacity:1; transform:none}}
-
-  /* Badges */
-  .badge{
-    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[0.7rem] font-bold
-           bg-stone-100/10 text-stone-200 border border-stone-100/15;
-  }
-  .badge-light{
-    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[0.7rem] font-bold
-           bg-white/15 text-white border border-white/25;
-  }
-
-  /* Títulos y botones */
-  .card-title{ @apply mt-2 font-serif text-[1.05rem] sm:text-[1.15rem] leading-snug; }
-  .btn-primary{
-    @apply inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-semibold
-           bg-gradient-to-br from-amber-400 to-amber-600 text-stone-900
-           shadow-[0_10px_35px_rgba(245,158,11,.3)]
-           transition-transform duration-300 hover:-translate-y-0.5;
-  }
-  .btn-secondary{
-    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-semibold
-           bg-amber-500/15 text-amber-200 border border-amber-500/25
-           hover:bg-amber-500/25 transition-colors duration-300;
-  }
-  .btn-light{
-    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2.5 font-semibold
-           bg-white/90 text-stone-900 hover:bg-white transition-colors duration-300;
-  }
-
-  /* Imagen flotante */
-  .card-img{
-    @apply object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,.45)]
-           transition-transform duration-700 ease-out hover:scale-[1.04] z-10;
-  }
-
-  /* CTA fijo abajo-izquierda */
-  .card-cta{
-    position:absolute; left:1rem; bottom:1rem; z-index:30;
-    display:inline-flex; align-items:center; gap:.5rem;
-    backdrop-filter: blur(8px);
-  }
-</style>
