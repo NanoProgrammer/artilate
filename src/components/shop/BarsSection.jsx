@@ -1,6 +1,7 @@
 // src/components/shop/BarsSection.jsx
 import React, { useState, useEffect } from "react";
 import { Plus, ArrowRight, Check } from "lucide-react";
+import { useCart } from "../cart/context";
 
 /**
  * Toast — floating notification (auto-hides)
@@ -136,18 +137,10 @@ export default function BarsSection({ onAdd }) {
   const [toastMessage, setToastMessage] = useState("");
 
   // Local demo cart (only used if no onAdd is provided)
-  const [localCart, setLocalCart] = useState([]);
-  const addLocal = (item) => {
-    setLocalCart((prev) => {
-      const hit = prev.find((p) => p.id === item.id);
-      if (hit) return prev.map((p) => (p.id === item.id ? { ...p, quantity: p.quantity + 1 } : p));
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  };
-
+  
   const bars = [
     {
-      id: "bar-pistachio-75",
+      id: "dark-75-pistachio",
       name: "75% Pistachio Crunch",
       description:
         "Intense dark chocolate with roasted Sicilian pistachios and sea salt crystals.",
@@ -159,7 +152,7 @@ export default function BarsSection({ onAdd }) {
       image: "/images/bars/pistachio-bar.jpg",
     },
     {
-      id: "bar-raspberry-70",
+      id: "dark-70-raspberry",
       name: "70% Raspberry Bliss",
       description:
         "Rich dark chocolate infused with freeze-dried raspberries and rose petals.",
@@ -171,7 +164,7 @@ export default function BarsSection({ onAdd }) {
       image: "/images/bars/raspberry-bar.jpg",
     },
     {
-      id: "bar-mixed-nuts-65",
+      id: "dark-65-mixed-nuts",
       name: "65% Mixed Nuts Delight",
       description:
         "Smooth dark chocolate loaded with almonds, hazelnuts, and walnuts.",
@@ -201,10 +194,9 @@ export default function BarsSection({ onAdd }) {
       blur3: "rgba(245, 124, 0, 0.18)",
     },
   };
-
+const {addItem} = useCart()
   const handleAdd = (bar) => {
-    if (onAdd) onAdd(bar);
-    else addLocal(bar);
+    addItem(bar, 1);
 
     setToastMessage(`${bar.name} was added to your cart.`);
     setShowToast(true);
@@ -217,6 +209,7 @@ export default function BarsSection({ onAdd }) {
   return (
     <>
       <section
+      id="chocolate-bars"
         className="bars-section content-center"
         style={{
           background: "#0A0B0D",

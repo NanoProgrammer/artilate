@@ -1,6 +1,7 @@
 // src/components/shop/SnacksSections.jsx
 import React, { useEffect, useState } from "react";
 import { Plus, ArrowRight, Check } from "lucide-react";
+import { useCart } from "../cart/context";
 
 /* --------------------------- Toast (same style) --------------------------- */
 const Toast = ({ open, onClose, message }) => {
@@ -132,19 +133,7 @@ const Toast = ({ open, onClose, message }) => {
 export default function SnacksSections({ onAdd }) {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-
-  // Local demo cart if no onAdd provided
-  const [localCart, setLocalCart] = useState([]);
-  const addLocal = (item) => {
-    setLocalCart((prev) => {
-      const hit = prev.find((p) => p.id === item.id);
-      if (hit)
-        return prev.map((p) =>
-          p.id === item.id ? { ...p, quantity: p.quantity + 1 } : p
-        );
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  };
+  const {addItem} = useCart()
 
   const items = [
     {
@@ -198,8 +187,7 @@ export default function SnacksSections({ onAdd }) {
   const go = (href) => (window.location.href = href);
 
   const handleAdd = (item) => {
-    if (onAdd) onAdd(item);
-    else addLocal(item);
+    addItem(item, 1);
 
     setToastMessage(`${item.name} was added to your cart.`);
     setShowToast(true);

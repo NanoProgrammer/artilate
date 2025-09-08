@@ -16,9 +16,10 @@ const navItems: NavItem[] = [
       { href: "/about", label: "Our Story" },
       { href: "/about/process", label: "Bean-to-Bar Process" },
       { href: "/about/sustainability", label: "Sustainability" },
+      { href: "/contact", label: "Contact" },
     ]
   },
-  { href: "/shop", label: "Shop" },
+  { href: "/testimonial", label: "Testimonial" },
   { href: "/journal", label: "Journal" },
   { href: "/find-us", label: "Find Us" },
   { href: "/wholesale", label: "Wholesale" },
@@ -28,7 +29,7 @@ const navItems: NavItem[] = [
 // Mobile list (cart via header icon)
 const navItemsResponsive: NavItem[] = [
   { href: "/about", label: "About" },
-  { href: "/shop", label: "Shop" },
+  { href: "/contact", label: "Contact" },
   { href: "/journal", label: "Journal" },
   { href: "/find-us", label: "Find Us" },
   { href: "/wholesale", label: "Wholesale" },
@@ -72,11 +73,9 @@ const navItemsResponsive: NavItem[] = [
 
         <!-- Right-side actions: Contact + Cart (icon-only, NO count) -->
         <div class="nav-actions">
-          <a href="/contact" class="contact-btn" aria-label="Contact">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            <span>Contact</span>
+          <a href="/shop" class="contact-btn" aria-label="Contact">
+        
+            <span>Shop Now</span>
           </a>
 
           <a href="/cart" class="cart-icon-link" aria-label="Open cart">
@@ -114,7 +113,7 @@ const navItemsResponsive: NavItem[] = [
           </li>
         ))}
         <li style="margin-top:1.25rem;">
-          <a href="/contact" class="mobile-contact-btn">Contact</a>
+          <a href="/shop" class="mobile-contact-btn">Shop</a>
         </li>
       </ul>
     </div>

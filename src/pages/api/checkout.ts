@@ -116,40 +116,28 @@ export const POST: APIRoute = async ({ request }) => {
       allow_promotion_codes: true,
       automatic_tax: { enabled: false },
       success_url: `${siteUrl}/order/success`,
-      cancel_url: `${siteUrl}/cart`,
+      cancel_url: `${siteUrl}/order/cancel`,
       metadata: meta,
       payment_intent_data: { metadata: meta },
       shipping_options: [
     // Alberta
     {
       shipping_rate_data: {
-        display_name: "Xpresspost – Alberta",
+        display_name: "Canada Post – Alberta",
         type: "fixed_amount",
-        fixed_amount: { amount: 1200, currency: "CAD" },
+        fixed_amount: { amount: 1400, currency: "CAD" },
         delivery_estimate: {
-          minimum: { unit: "business_day", value: 1 },
-          maximum: { unit: "business_day", value: 2 },
+          minimum: { unit: "business_day", value: 3 },
+          maximum: { unit: "business_day", value: 5 },
         },
       },
     },
     // Provincias vecinas
     {
       shipping_rate_data: {
-        display_name: "Xpresspost – Western Canada",
+        display_name: "Xpresspost – Alberta Canada",
         type: "fixed_amount",
-        fixed_amount: { amount: 1800, currency: "CAD" },
-        delivery_estimate: {
-          minimum: { unit: "business_day", value: 2 },
-          maximum: { unit: "business_day", value: 3 },
-        },
-      },
-    },
-    // Resto de Canadá
-    {
-      shipping_rate_data: {
-        display_name: "Tracked Packet – Nationwide",
-        type: "fixed_amount",
-        fixed_amount: { amount: 2200, currency: "CAD" },
+        fixed_amount: { amount: 2000, currency: "CAD" },
         delivery_estimate: {
           minimum: { unit: "business_day", value: 2 },
           maximum: { unit: "business_day", value: 3 },

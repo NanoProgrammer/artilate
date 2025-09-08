@@ -289,7 +289,7 @@ export default function GiftsSections() {
 
   return (
     <>
-      <section className="rounded-2xl bg-[#0A0B0D] px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+      <section className="rounded-2xl bg-[#0A0B0D] px-4 pb-12 pt-8 sm:px-6 lg:px-8" id="gift-collections">
         <div className="mx-auto max-w-6xl">
           <header className="mb-8 text-center">
             <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-extrabold tracking-widest text-amber-300">

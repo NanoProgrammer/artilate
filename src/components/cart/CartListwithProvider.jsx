@@ -242,33 +242,7 @@ function CartListInner() {
 
               <hr className="my-4 border-white/10" />
 
-              {/* Captura opcional para enviar como metadata */}
-              <div className="space-y-3">
-                <div>
-                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Email (optional)
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                    Address (optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Street, City, ZIP"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none"
-                  />
-                </div>
-              </div>
+             
 
               <div className="mt-4 flex items-center justify-between text-[15px]">
                 <span className="font-extrabold text-zinc-200">Total</span>

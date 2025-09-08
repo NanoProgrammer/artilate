@@ -182,7 +182,7 @@ export default function LimitedEdition() {
 
   return (
     <>
-      <section className="rounded-2xl bg-[#0A0B0D] px-4 pb-14 pt-10 sm:px-6 lg:px-8">
+      <section id="limited-edition" className="rounded-2xl bg-[#0A0B0D] px-4 pb-14 pt-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <header className="mb-8 text-center">
             <p className="mb-2 text-sm font-semibold tracking-widest text-amber-400">
