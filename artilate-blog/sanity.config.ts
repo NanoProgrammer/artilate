@@ -16,4 +16,16 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+   cors: {
+    credentials: true,
+    origin: [
+      'http://localhost:3333',
+      'https://artilate-blog.netlify.app',
+      // Agrega cualquier otro dominio que necesites
+    ]
+  },
+  api: {
+    projectId: '6iiz87f6',
+    dataset: 'production'
+  }
 })
