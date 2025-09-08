@@ -9,7 +9,7 @@ export default defineConfig({
 
   projectId: '6iiz87f6',
   dataset: 'production',
-  basePath: '/',
+  basePath: '/artilate-blog',
 
   plugins: [structureTool(), visionTool()],
 
