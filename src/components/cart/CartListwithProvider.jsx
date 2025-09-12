@@ -127,43 +127,51 @@ function CartListInner() {
   }, [cart]);
 
   const checkout = async () => {
-    try {
-      setLoading(true);
-      setErr("");
+  try {
+    setLoading(true);
+    setErr("");
 
-      // 🔐 Cliente envía solo id + quantity. El precio real lo calcula el servidor.
-      const payload = {
-        items: cart.map((p) => ({ id: p.id, quantity: p.quantity || 1 })),
-        email: email || undefined,
-        address: address || undefined,
-      };
+    const payload = {
+      items: cart.map((p) => ({ id: p.id, quantity: p.quantity || 1 })),
+      email: email || undefined,
+      address: address || undefined,
+    };
 
-      // ⚠️ Si tu endpoint todavía espera { name, price, quantity }, usa esto:
-      // const payload = {
-      //   items: cart.map((p) => ({ name: p.name, price: p.price, quantity: p.quantity || 1 })),
-      //   email: email || undefined,
-      //   address: address || undefined,
-      // };
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data?.url) {
-        throw new Error(data?.error || "Checkout failed");
-      }
-
-      window.location.href = data.url; // redirige a Stripe
-    } catch (e) {
-      console.error(e);
-      setErr(e instanceof Error ? e.message : "Checkout failed");
-    } finally {
-      setLoading(false);
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data?.url) {
+      throw new Error(data?.error || "Checkout failed");
     }
-  };
+
+    // 🔹 Dispara conversión de Google Ads con valor del carrito
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "conversion", {
+        send_to: "AW-1729392461/jNCzCLx3gJkbEIaysbZA",
+        value: Number(subtotal || 0),   // valor en CAD
+        currency: "CAD",
+        // opcional: si tienes un id de orden propio, puedes enviarlo:
+        // transaction_id: "<tu-id-de-transaccion>"
+      });
+    }
+
+    // Pequeño delay para asegurar que el evento se envía antes de salir a Stripe
+    setTimeout(() => {
+      window.location.href = data.url;
+    }, 200);
+
+  } catch (e) {
+    console.error(e);
+    setErr(e instanceof Error ? e.message : "Checkout failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   if (!cart.length) {
     return (
