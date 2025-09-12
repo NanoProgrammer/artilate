@@ -150,19 +150,26 @@ function CartListInner() {
 
     // 🔹 Dispara conversión de Google Ads con valor del carrito
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      const callback = function () {
+        // solo redirige cuando se haya enviado el evento
+        window.location.href = data.url;
+      };
+
       window.gtag("event", "conversion", {
-        send_to: "AW-1729392461/jNCzCLx3gJkbEIaysbZA",
-        value: Number(subtotal || 0),   // valor en CAD
+        send_to: "AW-17293924614/jNCzCLX3gJkbEIaysbZA",
+        value: Number(subtotal || 0), // valor total en CAD
         currency: "CAD",
-        // opcional: si tienes un id de orden propio, puedes enviarlo:
-        // transaction_id: "<tu-id-de-transaccion>"
+        // transaction_id: "<tu-id-de-transaccion>" // opcional
+        event_callback: callback,
       });
+
+      // fallback por si el callback no se ejecuta (máx. 1s de espera)
+      setTimeout(callback, 1000);
+      return;
     }
 
-    // Pequeño delay para asegurar que el evento se envía antes de salir a Stripe
-    setTimeout(() => {
-      window.location.href = data.url;
-    }, 200);
+    // 🔹 Si no existe gtag, redirige normal
+    window.location.href = data.url;
 
   } catch (e) {
     console.error(e);
@@ -171,6 +178,7 @@ function CartListInner() {
     setLoading(false);
   }
 };
+
 
 
   if (!cart.length) {
