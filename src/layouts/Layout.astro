@@ -197,7 +197,6 @@ const webSiteLd: Record<string, unknown> = {
     <meta name="robots" content={robots} />
     <meta name="googlebot" content={googlebot} />
     {pragmaCache && <meta http-equiv="Cache-Control" content={pragmaCache} />}
-
     <!-- Canonical & hreflang -->
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={xDefault} href={canonical} />
@@ -251,6 +250,16 @@ const webSiteLd: Record<string, unknown> = {
     <!-- Slot extra por página -->
     <slot name="head" />
     <link rel="icon" href="/assets/logo-completo.png" />
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17293924614"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17293924614');
+</script>
   </head>
 
   <body class="min-h-screen bg-neutral-900 text-stone-50 antialiased">
