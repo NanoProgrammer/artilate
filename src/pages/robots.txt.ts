@@ -4,7 +4,7 @@ import type { APIRoute } from "astro";
 export const GET: APIRoute = async () => {
   const site =
     import.meta.env.PUBLIC_SITE_URL?.replace(/\/+$/, "") ||
-    "https://example.com";
+    "https://artilate.com";
 
   const isPreview =
     import.meta.env.PUBLIC_ROBOTS_NOINDEX === "1" ||
