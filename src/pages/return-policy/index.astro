@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro'
+export const prerender = true;
+const seoData = {
+  title: 'Return & Shipping Policy — Artilate Handcrafted Chocolates Alberta',
+  description: 'Learn about Artilate’s return, refund, and shipping policy. Clear terms for perishable chocolate products, designed to protect both our customers and our craft.'
+}
+---
+
+<Layout {...seoData}>
+  <main class="page">
+    <div class="container">
+      <div class="content">
+        <!-- Crack -->
+        <div class="crack" aria-hidden="true">
+          <svg viewBox="0 0 800 200" class="crack-svg">
+            <path class="crack-line" d="M50,100 Q200,80 300,100 T500,120 Q600,110 750,100" stroke="url(#g-pp)" stroke-width="3" fill="none"/>
+            <path class="crack-line s" d="M100,90 Q250,105 400,95 T650,85" stroke="url(#g-pp)" stroke-width="2" fill="none"/>
+            <path class="crack-line t" d="M200,110 Q350,125 500,115 T700,105" stroke="url(#g-pp)" stroke-width="1.5" fill="none"/>
+            <defs>
+              <linearGradient id="g-pp" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#D4A373;stop-opacity:0"/>
+                <stop offset="20%" style="stop-color:#D4A373;stop-opacity:.8"/>
+                <stop offset="50%" style="stop-color:#F59E0B;stop-opacity:1"/>
+                <stop offset="80%" style="stop-color:#D4A373;stop-opacity:.8"/>
+                <stop offset="100%" style="stop-color:#D4A373;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <h1 class="title">Return & Shipping Policy</h1>
+        <p class="lead">Because Artilate chocolates are handcrafted and perishable, we cannot accept general returns. However, if something isn’t right, we promise to make it right.</p>
+
+        <section class="cards">
+          <article class="card">
+            <h2 class="h2">No Returns on Perishables</h2>
+            <p>Due to food safety regulations, we do not accept returns of opened or unopened chocolate products. This protects the quality of our small‑batch craft and ensures customer safety.</p>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Quality Guarantee (48 Hours)</h2>
+            <ul class="list">
+              <li>If your order arrives <strong>damaged, defective, or incorrect</strong>, please notify us within <strong>48 hours</strong> of receipt.</li>
+              <li>Provide photos of the outer box, inner packaging, and product, plus your order number.</li>
+              <li>We will offer a <strong>replacement, store credit, or refund</strong> depending on the case. Refunds are only issued if the error was ours.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Shipping Fees</h2>
+            <ul class="list">
+              <li>Shipping costs are <strong>non‑refundable</strong> unless the issue was our error.</li>
+              <li>If a package is returned due to <strong>wrong/incomplete address</strong> or being <strong>unclaimed</strong>, we can re‑ship at the buyer’s expense.</li>
+              <li>In warm weather, we use insulation and ice packs, but <strong>we are not responsible for melting</strong> once the carrier delivers to the provided address.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Order Changes & Cancellations</h2>
+            <p>We begin preparing orders quickly. Please email <a class="link" href="mailto:admin@artilate.com">admin@artilate.com</a> within <strong>2 hours</strong> of purchase if you need to modify or cancel. After production/shipping begins, changes may not be possible.</p>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Processing & Delivery</h2>
+            <ul class="list">
+              <li><strong>Processing time:</strong> 1–2 business days (Mon–Thu). In summer, we ship Mon–Wed only to avoid weekend delays.</li>
+              <li><strong>Delivery times:</strong> Depend on carrier and province; estimates provided at checkout.</li>
+              <li><strong>Carrier delays:</strong> Outside our control, but we will assist case by case.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Refund Timeline</h2>
+            <ul class="list">
+              <li>Approved refunds are processed to the original payment method.</li>
+              <li>Banks may take <strong>5–10 business days</strong> to display the refund.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Local Pickup & Market Purchases</h2>
+            <p>Please check items at pickup or booth purchase. Once products leave our care, we cannot accept responsibility for temperature or handling issues. Report quality problems within <strong>24–48 hours</strong>.</p>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Legal Notice</h2>
+            <p>This policy applies to purchases in Canada and is governed by the laws of Alberta and Canada. It does not affect your statutory rights under consumer protection legislation.</p>
+          </article>
+
+          <article class="card">
+            <h2 class="h2">Contact</h2>
+            <p>Questions or concerns? We’re here to help:</p>
+            <p>
+              <a class="link" href="mailto:admin@artilate.com">admin@artilate.com</a>
+            </p>
+            <p class="small">Last updated: September 2025</p>
+          </article>
+        </section>
+
+        <div class="actions">
+          <a href="/shop" class="primary-btn">Shop Chocolates</a>
+          <a href="/" class="secondary-btn">Back Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    :root{--bg:#0A0B0D;--fg:#FAFAF9;--gold:#D4A373;--amber:#F59E0B;--muted:rgba(250,250,249,.8)}
+    body{background:var(--bg);color:var(--fg);line-height:1.6;overflow-x:hidden}
+    .container{max-width:1280px;margin:0 auto;padding:0 2rem}
+    .page{min-height:90vh;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;
+      background:radial-gradient(ellipse at 30% 20%,rgba(91,33,182,.08) 0%,transparent 50%),
+               radial-gradient(ellipse at 70% 80%,rgba(245,158,11,.06) 0%,transparent 50%)}
+    .content{position:relative;z-index:2;max-width:860px;margin:0 auto}
+    .crack{margin-bottom:1rem;opacity:0;animation:ap .9s ease-out .4s forwards}
+    .crack-svg{width:100%;max-width:600px;height:120px}
+    .crack-line{stroke-dasharray:1000;stroke-dashoffset:1000;animation:dr 1.8s ease-out .7s forwards}
+    .crack-line.s{animation-delay:.5s;opacity:.7}.crack-line.t{animation-delay:.4s;opacity:.4}
+    @keyframes ap{to{opacity:1}}@keyframes dr{to{stroke-dashoffset:0}}
+    .title{font-family:serif;font-weight:700;font-size:clamp(2rem,5vw,3.5rem);text-shadow:0 4px 20px rgba(212,163,115,.3);
+      opacity:0;transform:translateY(20px);animation:sl .7s ease-out 1s forwards}
+    .lead{font-size:1.125rem;color:var(--muted);max-width:700px;margin:0 auto 1.4rem;opacity:0;transform:translateY(20px);animation:sl .7s ease-out 1.2s forwards}
+    @keyframes sl{to{opacity:1;transform:translateY(0)}}
+    .cards{margin:10px auto 18px;text-align:left}
+    .card{border:1px solid rgba(212,163,115,.22);background:rgba(20,22,24,.6);backdrop-filter:blur(8px);
+      border-radius:16px;padding:20px;margin-bottom:12px}
+    .h2{margin:.2rem 0 .6rem;font-family:serif}
+    .list{padding-left:1.1rem;list-style:disc;color:var(--muted)}
+    .small{color:#c9c9c9;font-size:.9rem;margin-top:.5rem}
+    .link{color:rgba(212,163,115,.9);text-decoration:none;border-bottom:1px solid rgba(212,163,115,.3)}
+    .link:hover{color:var(--gold);border-color:var(--gold)}
+    .actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:8px;margin-bottom:2rem;
+      opacity:0;transform:translateY(20px);animation:sl .7s ease-out 1.35s forwards}
+    .primary-btn,.secondary-btn{border-radius:12px;padding:14px 28px;font-weight:600;text-decoration:none;display:inline-flex;
+      align-items:center;gap:10px;transition:all .35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+    .primary-btn{background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);color:#0A0B0D;
+      box-shadow:0 8px 32px rgba(212,163,115,.3),0 2px 16px rgba(0,0,0,.1)}
+    .primary-btn::before{content:'';position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .6s ease}
+    .primary-btn:hover::before{left:100%}.primary-btn:hover{transform:translateY(-3px);
+      box-shadow:0 12px 40px rgba(212,163,115,.4),0 4px 20px rgba(0,0,0,.15)}
+    .secondary-btn{background:rgba(212,163,115,.08);color:var(--fg);border:1px solid rgba(212,163,115,.22);backdrop-filter:blur(8px)}
+    .secondary-btn:hover{border-color:rgba(212,163,115,.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    @media (max-width:820px){.container{padding:0 1.25rem}.primary-btn,.secondary-btn{width:100%;max-width:280px;justify-content:center}}
+  </style>
+</Layout>
