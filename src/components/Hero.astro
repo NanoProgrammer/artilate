@@ -1,21 +1,22 @@
 ---
 /* src/components/Hero.astro (responsive + header aware) */
+
 ---
 
 <section class="hero" style="--header-h:84px">
   <div class="hero-background">
     <!-- VIDEO de fondo: en mobile usamos metadata + poster para performance -->
     <video
-      class="hero-video"
-      muted
-      playsinline
-      preload="metadata"
-      poster="/bg_passionfrut_poster.jpg"
-    >
-      <source src="/bg_passionfrut.webm" type="video/webm" />
-      <!-- SUGERENCIA: usa mp4 (H.264) en vez de .mov para mejor autoplay -->
-      <source src="/bg_passionfrut.mp4" type="video/mp4" />
-    </video>
+  class="hero-video"
+  autoplay
+  muted
+  playsinline
+  preload="metadata"
+  poster="/bg_passionfrut_poster.jpg"
+>
+  <source src="/bg_passionfrut.webm" type="video/webm" />
+  <source src="/bg_passionfrut.mp4" type="video/mp4" />
+</video>
 
     <div class="hero-gradient"></div>
 
@@ -132,7 +133,7 @@
     z-index:0;
     filter: saturate(1.35) contrast(1.1) brightness(1.05);
     transform: scale(1.03);
-    transition: transform .6s ease;
+    transition: transform .1s ease;
   }
   .hero-video.is-frozen{ transform: scale(1.035); }
   /* Si usuario prefiere menos movimiento: pausa video y partículas */
@@ -227,6 +228,14 @@
 
 <script lang="ts">
 (() => {
+  onMount(() => {
+  const video = document.querySelector('.hero-video');
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) video.load();
+  });
+  observer.observe(video);
+});
+
   // Evita doble init si Astro hidrata varias veces
   // @ts-ignore
   if ((window).__heroVideoInit) return;
