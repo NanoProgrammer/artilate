@@ -1,5 +1,6 @@
 ---
-export const prerender = true;
+export const prerender = false;
+import {renderPortableText } from "../../../components/PortableTextRenderer";
 
 import Layout from "../../../layouts/Layout.astro";
 import { getAllSlugs, getPostBySlug, urlFor } from "../../../lib/sanity";
@@ -147,33 +148,15 @@ const articleSchema = {
       )}
 
       <!-- Article content (Tailwind-only, sin <style>) -->
-      <div class="
-        text-stone-200
-        [&_*]:break-words
-        [&>p]:my-4 [&>p]:leading-8 [&>p]:text-stone-300
-        [&>a]:underline [&>a]:decoration-amber-500/60 [&>a:hover]:text-amber-300
-        [&>h2]:mt-9 [&>h2]:mb-3 [&>h2]:text-2xl md:[&>h2]:text-3xl [&>h2]:font-extrabold [&>h2]:text-stone-50
-        [&>h3]:mt-7 [&>h3]:mb-2 [&>h3]:text-xl md:[&>h3]:text-2xl [&>h3]:font-extrabold [&>h3]:text-stone-50
-        [&>h4]:mt-5 [&>h4]:mb-2 [&>h4]:text-lg [&>h4]:font-semibold [&>h4]:text-stone-50
-        [&>blockquote]:my-6 [&>blockquote]:p-4 md:[&>blockquote]:p-5 [&>blockquote]:bg-neutral-900/60 [&>blockquote]:border [&>blockquote]:border-neutral-700 [&>blockquote]:rounded-xl [&>blockquote]:text-stone-200 [&>blockquote]:border-l-4 [&>blockquote]:border-l-amber-500/50
-        [&>ul]:pl-5 [&>ul]:my-4 [&>ul]:list-disc
-        [&>ol]:pl-5 [&>ol]:my-4 [&>ol]:list-decimal
-        [&>li]:my-1
-        [&>hr]:my-8 [&>hr]:border-neutral-700
-        [&>table]:w-full [&>table]:border-collapse [&>table]:my-4
-        [&>th]:border [&>th]:border-neutral-700 [&>th]:px-3 [&>th]:py-2 [&>th]:bg-neutral-900/70 [&>th]:text-stone-50
-        [&>td]:border [&>td]:border-neutral-700 [&>td]:px-3 [&>td]:py-2
-        [&>pre]:bg-neutral-900/70 [&>pre]:p-4 [&>pre]:rounded-xl [&>pre]:overflow-x-auto [&>pre]:border [&>pre]:border-neutral-700
-        [&>code]:bg-neutral-800/80 [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded
-        ">
-        {post.body && post.body.length > 0 ? (
-          <PortableText value={post.body} />
-        ) : (
-          <div class="text-center py-12 rounded-2xl border border-neutral-800 bg-neutral-900/60 text-stone-300">
-            This article content is being updated. Please check back soon!
-          </div>
-        )}
-      </div>
+      <div class="text-stone-200 prose prose-invert max-w-none">
+  {post.body && post.body.length > 0 ? (
+    <Fragment set:html={renderPortableText(post.body)} />
+  ) : (
+    <div class="text-center py-12 rounded-2xl border border-neutral-800 bg-neutral-900/60 text-stone-300">
+      This article content is being updated. Please check back soon!
+    </div>
+  )}
+</div>
 
       <!-- Tags -->
       {post.tags && post.tags.length > 0 && (
