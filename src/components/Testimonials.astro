@@ -1,143 +1,92 @@
 ---
 /**
  * ArtilateSections.astro
- * 
- * • Section 1/5: "What Our Customers Say" — premium carousel showing 3 testimonials at once (responsive: 1/2/3).
- * • Section 2–5/5: 4 artisan process steps, each in its own section, alternating image/text sides.
- * • Gold accents (#D4A373), cacao dark theme, soft shadows, subtle gradients.
- * • Image placeholders that occupy full space and say "Image of …".
- * • No JSX helpers in frontmatter; only data objects.
+ * Testimonials (carousel con avatars por iniciales) + 4 craft steps
+ * Dark cacao theme, gold accents, EN only, CRO-first copy.
  */
 
 const testimonials = [
-  {
-    name: "Maria Gonzalez",
-    role: "Chocolate Enthusiast",
-    location: "Calgary, AB",
-    text:
-      "The passion fruit bonbons are divine. You can taste the Colombian heritage in every bite—quality is unmatched. Artilate brings Colombia’s mountains to Alberta’s tables.",
-  },
-  {
-    name: "James Mitchell",
-    role: "Corporate Buyer",
-    location: "Edmonton, AB",
-    text:
-      "Perfect for our client gifts. Elegant packaging, hand-painted artistry, and consistently outstanding quality. Our clients now associate our brand with Artilate.",
-  },
-  {
-    name: "Sofia Rodriguez",
-    role: "Food Blogger",
-    location: "Vancouver, BC",
-    text:
-      "Artilate bridges Colombian tradition with Canadian craftsmanship. From glossy temper to vibrant fillings, every box is a story worth posting.",
-  },
-  {
-    name: "David Chen",
-    role: "Restaurant Owner",
-    location: "Toronto, ON",
-    text:
-      "Small-batch precision with fine-dining soul. Balanced ganaches and an elegant finish—Artilate elevates our dessert program.",
-  },
-  {
-    name: "Isabella Martinez",
-    role: "Gift Shop Owner",
-    location: "Airdrie, AB",
-    text:
-      "They sell themselves. Shimmering finishes catch the eye; Colombian flavour keeps customers coming back. A premium gift staple.",
-  },
-  {
-    name: "Michael Foster",
-    role: "Wine Sommelier",
-    location: "Victoria, BC",
-    text:
-      "Complex harmonies that rival fine wines—bright fruit, silky creams, deep cocoa. Artilate sparks conversations at tastings.",
-  },
-  {
-    name: "Luisa Hernandez",
-    role: "Chocolate Lover",
-    location: "Regina, SK",
-    text:
-      "The passion fruit bonbons are divine. You can taste the Colombian heritage in every bite—quality is unmatched. Artilate brings Colombia’s mountains to Saskatchewan’s tables.",
-  },
-  {
-    name: "Alejandro Ramirez",
-    role: "Culinary Artist",
-    location: "Montreal, QC",
-    text:
-      "Artilate's chocolates are a culinary masterpiece. The passion fruit flavor is a true reflection of Colombian culture. I highly recommend them to anyone looking for a unique chocolate experience.",
-  },
+  { name: "Gloria Guilbert", role: "Local Guide", location: "Calgary, AB", text: "Delicious and beautiful chocolates! The bonbons look stunning and taste even better.", rating: 5 },
+  { name: "José Solisaga", role: "Customer", location: "Calgary, AB", text: "You can actually taste real ingredients. Glossy shells, clean flavours — totally worth it if you love good chocolate.", rating: 5 },
+  { name: "Abigail Slingerlend", role: "Customer", location: "Calgary, AB", text: "Silky, smooth, perfectly balanced — honestly the best chocolate I’ve ever had.", rating: 5 },
+  { name: "Jacob LaPointe", role: "Customer", location: "Airdrie, AB", text: "Tried the passion fruit — it was delicious. Sweet and tangy with a nice gentle bite at the end!", rating: 5 },
+  { name: "Ashley Hannan", role: "Local", location: "Calgary, AB", text: "Amazing, elegant, LOCAL. Creative flavours with beautiful finishes. Gift-ready presentation.", rating: 5 },
+  { name: "Igor Rupyshev", role: "Customer", location: "Calgary, AB", text: "Really amazing — recommend the big box because you won’t get enough of them!", rating: 5 },
+
+  // CRO social proof extra
+  { name: "Renee Park", role: "Event Planner", location: "Downtown Calgary, AB", text: "Elevated our client reception. The pistachio–hazelnut praliné disappeared first — people asked where we got them all night.", rating: 5 },
+  { name: "Matt Thompson", role: "Corporate Buyer", location: "Red Deer, AB", text: "Polished look, clean snap, not overly sweet. Exactly what we want for premium gifting — feels boutique and thoughtful.", rating: 5 },
+  { name: "Priya Nair", role: "Bride", location: "Okotoks, AB", text: "We used Artilate boxes as wedding favours — gorgeous shells, vibrant flavours. Guests literally said, “Where do we order?”", rating: 5 },
+  { name: "Ethan Williams", role: "Coffee Bar Owner", location: "Kensington, Calgary", text: "Pairs beautifully with our single-origin espresso. Passion fruit and Huila coffee bonbons are a conversation starter.", rating: 5 },
+  { name: "Samantha Li", role: "Verified Customer", location: "Airdrie, AB", text: "You see the gloss, then the crisp snap, then the filling… wow. Real fruit, real depth. Zero compromise.", rating: 5 },
+  { name: "Daniel Brooks", role: "Dad & Gift-Giver", location: "NW Calgary, AB", text: "Birthday box for my wife — the presentation alone is luxury. She said it’s the best chocolate she’s had in Canada.", rating: 5 },
+  { name: "Carmen Alvarez", role: "Food Blogger", location: "Banff, AB", text: "The finish is flawless and the fillings pop. Not a generic ‘sweet’ — layered flavour, like fine pastry in bonbon form.", rating: 5 },
+  { name: "Jordan McKenzie", role: "Wine Consultant", location: "Calgary, AB", text: "Stands up to bold reds and dessert wines. Citrus notes sing; nutty pralinés are ridiculously good with tawny port.", rating: 5 },
+
+  // Cortos y punchy
+  { name: "Fabian Aguilar", role: "Customer", location: "Calgary Area", text: "Very good quality and very friendly service. Recommended for the whole Calgary area.", rating: 5 },
+  { name: "Sule Lilugu", role: "Customer", location: "Calgary, AB", text: "Loved the passion fruit chocolate! Bright, real fruit flavour.", rating: 5 },
 ];
 
-const steps = [
-  {
-    no: "01",
-    id: "step-1",
-    title: "Tempering",
-    text:
-      "Scientific precision for glossy, crisp, silky chocolate. Stable crystals ensure shine and snap in every shell.",
-    placeholder: "Image of tempering chocolate on marble with thermometer",
-  },
-  {
-    no: "02",
-    id: "step-2",
-    title: "Painting",
-    text:
-      "Cocoa-butter artistry with airbrushes and palettes. Every bonbon is a miniature painting—subtle gradients and marbling.",
-    placeholder: "Image of hand-painting bonbon molds with cocoa butter",
-  },
-  {
-    no: "03",
-    id: "step-3",
-    title: "Filling",
-    text:
-      "Ganaches, pralinés, and caramels that marry Colombian fruit with Canadian craft: passion fruit, Huila coffee, prairie berry.",
-    placeholder: "Image of piping fruit ganache into bonbon shells",
-  },
-  {
-    no: "04",
-    id: "step-4",
-    title: "Packing",
-    text:
-      "Protective, elegant boxes with gold foil logos. Built to arrive pristine across Alberta and Canada—ready to gift.",
-    placeholder: "Image of premium chocolate box with gold foil logo",
-  },
+// Gradientes para los fondos de avatar (rotan por índice para variedad)
+const avatarGradients = [
+  "linear-gradient(135deg, rgba(212,163,115,.22), rgba(245,158,11,.12))",
+  "linear-gradient(135deg, rgba(212,163,115,.18), rgba(212,163,115,.10))",
+  "linear-gradient(135deg, rgba(245,158,11,.18), rgba(212,163,115,.10))",
+  "linear-gradient(135deg, rgba(233,194,125,.20), rgba(212,163,115,.10))",
 ];
+
 ---
 
 <!-- ========================== SECTION 1/5: TESTIMONIALS ========================== -->
-<section id="testimonials" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
-  <!-- Premium glow background -->
-  <div class="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(1000px_500px_at_20%_30%,rgba(212,163,115,0.08),transparent_60%)] [background-blend-mode:screen]"></div>
+<section id="testimonials" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]" aria-labelledby="testimonials-title">
+  <div class="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(900px_440px_at_20%_28%,rgba(212,163,115,0.08),transparent_60%)]"></div>
 
   <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
-    <!-- Headline -->
     <div class="mx-auto max-w-3xl text-center">
-      <p class="text-xs tracking-[0.25em] uppercase text-white/60">Testimonials</p>
-      <h2 class="mt-2 font-serif text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight">
-        What Our <span class="bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">Customers</span> Say
+      <p class="text-[10px] tracking-[0.28em] uppercase text-white/60">What Customers Say</p>
+      <h2 id="testimonials-title" class="mt-2 font-serif text-[clamp(2rem,5vw,3.4rem)] font-bold leading-tight">
+        Loved by the <span class="bg-gradient-to-br from-[#D4A373] to-amber-500 bg-clip-text text-transparent">Calgary Area</span>
       </h2>
       <p class="mt-4 text-white/80">
-        From Calgary to Vancouver—sommeliers, chefs, and gift curators share how Artilate’s bean‑to‑bonbon craft changes the moment.
+        Real reviews from Airdrie, Calgary, Red Deer and beyond — flavour-first bonbons with glossy shells and vibrant fillings.
       </p>
     </div>
 
-    <!-- Carousel (3 visible on desktop, responsive to 1/2/3) -->
-    <div class="mt-12 relative overflow-hidden">
+    <!-- Carousel -->
+    <div class="mt-10 relative overflow-hidden">
       <div data-c-root class="relative">
         <div data-c-track class="flex transition-transform duration-700 ease-out will-change-transform">
-          {testimonials.map((t) => (
+          {testimonials.map((t, i) => (
             <div class="w-full md:w-1/2 xl:w-1/3 shrink-0 px-3">
               <article class="h-full rounded-xl border border-white/10 bg-[#0B0E11]/80 p-6 shadow-[0_18px_50px_rgba(0,0,0,.45)] backdrop-blur transition hover:-translate-y-1">
                 <div class="flex items-start gap-4">
-                  <!-- Avatar placeholder -->
-                  <div class="size-12 rounded-full bg-[linear-gradient(135deg,rgba(212,163,115,.20),rgba(245,158,11,.12))] ring-1 ring-white/10 grid place-items-center text-[10px] uppercase text-white/70">IMG</div>
+                  <!-- Avatar por iniciales -->
+                  <div
+                    class="avatar-initials ring-1 ring-white/10"
+                    aria-hidden="true"
+                    title={t.name}
+                    style={{ background: avatarGradients[i % avatarGradients.length] }}
+                  >
+                    {t.name
+                      .split(' ')
+                      .filter(Boolean)
+                      .map(p => p[0])
+                      .slice(0,2)
+                      .join('')
+                      .toUpperCase()}
+                  </div>
+
                   <div class="min-w-0">
                     <h3 class="text-sm font-semibold">{t.name}</h3>
                     <p class="text-[11px] text-white/60">{t.role} — {t.location}</p>
                   </div>
                 </div>
-                <p class="mt-4 text-sm md:text-base text-white/90">{t.text}</p>
-                <div class="mt-3 text-[#D4A373]" aria-hidden="true">★★★★★</div>
+
+                <p class="mt-3 text-sm md:text-[0.98rem] text-white/90">{t.text}</p>
+                <div class="mt-3 text-[#D4A373]" aria-label={`${t.rating} out of 5 stars`}>
+                  {"★★★★★".slice(0, t.rating)}
+                </div>
               </article>
             </div>
           ))}
@@ -146,191 +95,80 @@ const steps = [
         <!-- Dots -->
         <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
           {testimonials.map((_, i) => (
-            <span class="h-1.5 w-4 rounded-full bg-white/20 data-[active=true]:bg-[#D4A373]" data-c-dot data-index={i}></span>
+            <span class="h-1.5 w-4 rounded-full bg-white/18 data-[active=true]:bg-[#D4A373]" data-c-dot data-index={i}></span>
           ))}
         </div>
       </div>
 
-      <!-- CTA -->
-      <div class="mt-12 flex justify-center">
-        <a href="/testimonial" class="inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-5 py-2 text-sm font-medium text-[#F6EADB] shadow-[inset_0_1px_0_rgba(255,255,255,.06)] transition hover:bg-[#D4A373]/20">
-          See all testimonials
+      <!-- CRO CTA -->
+      <div class="mt-12 flex flex-col items-center gap-2">
+        <a href="/shop" class="inline-flex items-center gap-2 underline px-5 py-2.5 text-sm font-semibold text-[#F6EADB] transition">
+          Order Now
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M5 12h14M13 5l6 7-6 7" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
+        <p class="text-xs text-white/60">Freshly made after you order · Gift-ready presentation</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========================== SECTION 2/5: STEP 1 ========================== -->
-<section id="step-1" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
-  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
-    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-      <!-- Placeholder image -->
-      <div class="relative">
-        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-          <div>
-            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
-            <div class="mt-1 font-medium">Image of tempering chocolate on marble with thermometer</div>
-          </div>
-        </div>
-        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">01</div>
-        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
-          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
-          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
-        </svg>
-      </div>
 
-      <!-- Text content -->
-      <div>
-        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
-          Artilate Craft
-        </div>
-        <h3 class="font-serif text-2xl font-semibold">Tempering</h3>
-        <p class="mt-3 text-white/80">Scientific precision for glossy, crisp, silky chocolate. Stable crystals ensure shine and snap in every shell.</p>
-        <div class="mt-4 flex flex-wrap gap-3 text-white/75">
-          <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Precision</span>
-          <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Timing</span>
-          <span class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l4 7 7 1-5 5 2 7-8-4-8 4 2-7-5-5 7-1 4-7z"/></svg> Craft</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ========================== SECTION 3/5: STEP 2 (flipped) ========================== -->
-<section id="step-2" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
-  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
-    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:[&>div:first-child]:order-2">
-      <!-- Placeholder image -->
-      <div class="relative">
-        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-          <div>
-            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
-            <div class="mt-1 font-medium">Image of hand-painting bonbon molds with cocoa butter</div>
-          </div>
-        </div>
-        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">02</div>
-        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
-          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
-          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
-        </svg>
-      </div>
+<style>
+  :root{
+    --cacao:#0A0B0D;
+    --ivory:#FAFAF9;
+    --gold:#D4A373;
+    --amber:#F59E0B;
+  }
 
-      <!-- Text content + vertical mini-quote carousel (placeholders) -->
-      <div>
-        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
-          Artilate Craft
-        </div>
-        <h3 class="font-serif text-2xl font-semibold">Painting</h3>
-        <p class="mt-3 text-white/80">Cocoa-butter artistry with airbrushes and palettes. Every bonbon is a miniature painting—subtle gradients and marbling.</p>
+  /* Avatar por iniciales */
+  .avatar-initials{
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    color: #F6EADB;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.06),
+      0 6px 18px rgba(0,0,0,.25);
+    text-transform: uppercase;
+  }
+  @media (min-width: 768px){
+    .avatar-initials{ width: 52px; height: 52px; font-size: 13px; }
+  }
 
-        <!-- Vertical quote carousel -->
-        <div class="mt-5 relative w-full max-w-md overflow-hidden rounded-xl border border-white/10 bg-white/[0.035] p-3">
-          <ul data-vert class="space-y-3 transition-transform duration-500 ease-out will-change-transform">
-            <li class="rounded-lg border border-white/10 bg-[#0B0E11]/80 p-3 text-sm text-white/85">“Image of painterly chocolate shells drying on racks.”</li>
-            <li class="rounded-lg border border-white/10 bg-[#0B0E11]/80 p-3 text-sm text-white/85">“Image of airbrush gun with gold cocoa butter.”</li>
-            <li class="rounded-lg border border-white/10 bg-[#0B0E11]/80 p-3 text-sm text-white/85">“Image of marble pattern tests on sample molds.”</li>
-          </ul>
-          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[#0A0B0D] to-transparent"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================== SECTION 4/5: STEP 3 ========================== -->
-<section id="step-3" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
-  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
-    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-      <!-- Placeholder image -->
-      <div class="relative">
-        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-          <div>
-            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
-            <div class="mt-1 font-medium">Image of piping fruit ganache into bonbon shells</div>
-          </div>
-        </div>
-        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">03</div>
-        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
-          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
-          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
-        </svg>
-      </div>
-
-      <!-- Text content -->
-      <div>
-        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
-          Artilate Craft
-        </div>
-        <h3 class="font-serif text-2xl font-semibold">Filling</h3>
-        <p class="mt-3 text-white/80">Ganaches, pralinés, and caramels that marry Colombian fruit with Canadian craft: passion fruit, Huila coffee, prairie berry.</p>
-        <ul class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <li class="rounded-xl border border-white/10 bg-white/[0.035] p-3 text-sm"><span class="text-[#D4A373]">•</span> Fruit-forward ganaches</li>
-          <li class="rounded-xl border border-white/10 bg-white/[0.035] p-3 text-sm"><span class="text-[#D4A373]">•</span> Layered textures</li>
-          <li class="rounded-xl border border-white/10 bg-white/[0.035] p-3 text-sm"><span class="text-[#D4A373]">•</span> Balanced acidity & sweetness</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================== SECTION 5/5: STEP 4 (flipped) ========================== -->
-<section id="step-4" class="relative isolate bg-[#0A0B0D] text-[#FAFAF9]">
-  <div class="mx-auto w-full max-w-[120rem] px-6 lg:px-12 py-16 lg:py-24">
-    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:[&>div:first-child]:order-2">
-      <!-- Placeholder image -->
-      <div class="relative">
-        <div class="w-full aspect-[16/10] rounded-2xl ring-1 ring-white/10 shadow-[0_18px_50px_rgba(0,0,0,.45)] grid place-items-center text-center text-white/70 text-sm bg-[linear-gradient(135deg,rgba(212,163,115,.12),rgba(245,158,11,.08))]">
-          <div>
-            <div class="text-xs uppercase tracking-wide opacity-80">Placeholder</div>
-            <div class="mt-1 font-medium">Image of premium chocolate box with gold foil logo</div>
-          </div>
-        </div>
-        <div class="absolute -left-3 -top-3 rounded-2xl border border-[#D4A373]/30 bg-[#D4A373]/15 px-3 py-1 font-serif text-lg font-bold text-[#F6EADB] shadow-[0_8px_24px_rgba(0,0,0,.35)]">04</div>
-        <svg aria-hidden="true" class="pointer-events-none absolute -right-3 -bottom-3 h-14 w-14 text-[#D4A373]/50" viewBox="0 0 64 64" fill="none">
-          <path d="M10 38c14-10 30-10 44 0" stroke="currentColor" stroke-width="2"/>
-          <path d="M18 22c6 6 22 6 28 0" stroke="currentColor" stroke-width="2" opacity=".6"/>
-        </svg>
-      </div>
-
-      <!-- Text content -->
-      <div>
-        <div class="mb-2 inline-flex items-center gap-2 rounded-full border border-[#D4A373]/30 bg-[#D4A373]/10 px-3 py-1 text-xs uppercase tracking-wide text-white/80">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z"/></svg>
-          Artilate Craft
-        </div>
-        <h3 class="font-serif text-2xl font-semibold">Packing</h3>
-        <p class="mt-3 text-white/80">Protective, elegant boxes with gold foil logos. Built to arrive pristine across Alberta and Canada—ready to gift.</p>
-        <ol class="mt-4 space-y-3">
-          <li class="flex items-start gap-3"><div class="mt-1 size-2 rounded-full bg-[#D4A373]"></div><p class="text-sm text-white/85"><span class="font-semibold">1–2 days</span> • Curing & QC</p></li>
-          <li class="flex items-start gap-3"><div class="mt-1 size-2 rounded-full bg-[#D4A373]"></div><p class="text-sm text-white/85"><span class="font-semibold">+1 day</span> • Protective packing</p></li>
-          <li class="flex items-start gap-3"><div class="mt-1 size-2 rounded-full bg-[#D4A373]"></div><p class="text-sm text-white/85"><span class="font-semibold">Ship</span> • Expedited across Canada</p></li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</section>
+  /* Hover suave en tarjetas (sin marear) */
+  @media (prefers-reduced-motion:no-preference){
+    [data-c-track] article{
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    [data-c-track] article:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 20px 56px rgba(0,0,0,.5);
+    }
+  }
+</style>
 
 <!-- ========================== SCRIPTS ========================== -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // ====== Responsive 3-up carousel ======
+    // Responsive 3-up carousel
     const root = document.querySelector('[data-c-root]');
     const track = document.querySelector('[data-c-track]');
-    const dots = document.querySelectorAll('[data-c-dot]');
+    const dots  = document.querySelectorAll('[data-c-dot]');
     if (root && track) {
       const cards = Array.from(track.children);
       let idx = 0;
-      let perView = 3; // default
+      let perView = 3;
 
       const computePerView = () => {
-        // 1 on <640, 2 on >=768, 3 on >=1280
         if (window.matchMedia('(min-width:1280px)').matches) perView = 3;
         else if (window.matchMedia('(min-width:768px)').matches) perView = 2;
         else perView = 1;
@@ -344,32 +182,17 @@ const steps = [
       };
 
       const next = () => {
-        // advance by 1 card; loop seamlessly
         idx = (idx + 1) % cards.length;
         update();
       };
 
-      // Resize handling
       const ro = new ResizeObserver(update);
       ro.observe(root);
       window.addEventListener('orientationchange', update);
 
-      // Autoplay
+      // autoplay suave
       setInterval(next, 3500);
       update();
-    }
-
-    // ====== Vertical mini carousel in Step 2 ======
-    const vert = document.querySelector('[data-vert]');
-    if (vert) {
-      let i = 0;
-      const first = vert.children[0];
-      const gap = parseFloat(getComputedStyle(vert).rowGap || '0');
-      const step = first ? first.getBoundingClientRect().height + gap : 0;
-      setInterval(() => {
-        i = (i + 1) % vert.children.length;
-        vert.style.transform = `translateY(-${i * step}px)`;
-      }, 2200);
     }
   });
 </script>

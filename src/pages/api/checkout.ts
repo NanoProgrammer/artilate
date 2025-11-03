@@ -123,27 +123,17 @@ export const POST: APIRoute = async ({ request }) => {
     // Alberta
     {
       shipping_rate_data: {
-        display_name: "Canada Post – Alberta",
+        display_name: "shipping",
         type: "fixed_amount",
-        fixed_amount: { amount: 1400, currency: "CAD" },
+        fixed_amount: { amount: 1000, currency: "CAD" },
         delivery_estimate: {
           minimum: { unit: "business_day", value: 3 },
           maximum: { unit: "business_day", value: 5 },
         },
       },
     },
-    // Provincias vecinas
-    {
-      shipping_rate_data: {
-        display_name: "Xpresspost – Alberta Canada",
-        type: "fixed_amount",
-        fixed_amount: { amount: 2000, currency: "CAD" },
-        delivery_estimate: {
-          minimum: { unit: "business_day", value: 2 },
-          maximum: { unit: "business_day", value: 3 },
-        },
-      },
-    },
+  
+    
   ],
 
     });

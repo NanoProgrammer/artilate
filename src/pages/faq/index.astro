@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 export const prerender = true;
+
 const seoData = {
   title: 'FAQ — Artilate Handcrafted Chocolates (Alberta)',
   description: 'Answers about delivery in Alberta, shipping across Canada, allergens, storage, custom & corporate orders, and more.',
@@ -13,10 +14,15 @@ const faqs = [
   { q:'Can I change or cancel my order?', a:'We can modify or cancel before dispatch. Email us with your order number as soon as possible.' },
   { q:'What payment methods do you accept?', a:'Visa, Mastercard, American Express, and Interac e-Transfer (Canada). Discount codes at checkout.' },
   { q:'What taxes are charged?', a:'Applicable Canadian taxes based on destination. For Alberta, GST (5%).' },
-  { q:'Where do you deliver locally?', a:'Calgary, Airdrie, Edmonton, Cochrane, and nearby areas. Windows appear at checkout by postal code.' },
-  { q:'Do you offer free local delivery?', a:'Yes, for orders over $99 in Calgary/Airdrie (thresholds may vary in promos/holidays).' },
-  { q:'How should I store my chocolates?', a:'Cool, dry place 16–20°C, ≤50% RH. Avoid sunlight/odours. Refrigerate only if label indicates.' },
-  { q:'Allergens & cross-contact', a:'Facility handles milk, soy (lecithin), peanuts, tree nuts, wheat (gluten), eggs, sesame, sulphites. Always read labels.' }
+  { q:'Where do you deliver locally?', a:'Calgary, Airdrie, Edmonton, Cochrane, and nearby areas. Delivery windows appear at checkout by postal code.' },
+
+  // UPDATED: free delivery -> paid local delivery
+  { q:'Do you offer local delivery?', a:'Yes. Local delivery is available with a small fee shown at checkout based on your postal code and selected window. Free pickup is always available at Crossroads Farmers Market (Calgary).' },
+
+  { q:'How should I store my chocolates?', a:'Keep in a cool, dry place (16–20°C, ≤50% RH). Avoid sunlight and strong odours. Refrigerate only if the label indicates.' },
+
+  // UPDATED: allergens narrowed to your actual declarations
+  { q:'Allergens & cross-contact', a:'Products are made in a facility that handles tree nuts, soy (lecithin), and milk. While we clean carefully, cross-contact may occur. Always read the product label for the specific flavour.' }
 ]
 ---
 
@@ -44,7 +50,7 @@ const faqs = [
         <h1 class="error-title">Frequently Asked Questions</h1>
         <p class="error-description">Everything about local delivery, shipping, allergens, storage, and custom orders.</p>
 
-        <!-- Lista FAQ con “glass” cards -->
+        <!-- FAQ list -->
         <section class="faq-list">
           {faqs.map((item) => (
             <details class="faq-item">
@@ -91,13 +97,13 @@ const faqs = [
     .crack-line{ stroke-dasharray:1000; stroke-dashoffset:1000; animation:drawCrack 2s ease-out .8s forwards; }
     .crack-line.secondary{ animation-delay:.7s; opacity:.7 } .crack-line.tertiary{ animation-delay:.4s; opacity:.4 }
     @keyframes crackAppear{ to{ opacity:1 } } @keyframes drawCrack{ to{ stroke-dashoffset:0 } }
+
     .error-title{ font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:600; margin-bottom:.75rem;
       text-shadow:0 4px 20px rgba(212,163,115,.3); opacity:0; transform:translateY(20px); animation:slideUp .8s ease-out 1.2s forwards; }
     .error-description{ font-size:1.125rem; color:var(--warm-gray); max-width:620px; margin:0 auto 1.75rem; line-height:1.7;
       opacity:0; transform:translateY(20px); animation:slideUp .8s ease-out 1.5s forwards; }
     @keyframes slideUp{ to{ opacity:1; transform:translateY(0) } }
 
-    /* FAQ glass cards */
     .faq-list{ margin: 10px auto 28px; text-align:left; }
     .faq-item{ border:1px solid rgba(212,163,115,.2); background:rgba(20,22,24,.6); backdrop-filter:blur(8px); border-radius:16px; padding:18px 20px; margin-bottom:12px; transition:border-color .3s ease, transform .3s ease, background .3s ease; }
     .faq-item:hover{ border-color:rgba(212,163,115,.4); transform:translateY(-2px); }
@@ -119,6 +125,7 @@ const faqs = [
     .particle{ position:absolute; width:6px; height:6px; background:var(--gold); border-radius:50%; opacity:.3; animation:float 6s ease-in-out infinite; }
     .particle-1{ top:20%; left:10% } .particle-2{ top:60%; left:85% } .particle-3{ top:80%; left:20% } .particle-4{ top:30%; left:70% } .particle-5{ top:10%; left:60% } .particle-6{ top:70%; left:40% }
     @keyframes float{ 0%,100%{ transform:translateY(0) scale(1); opacity:.3 } 50%{ transform:translateY(-20px) scale(1.2); opacity:.6 } }
+
     @media (max-width:768px){ .container{ padding:0 1.25rem } .primary-btn,.secondary-btn{ width:100%; max-width:280px; justify-content:center } }
   </style>
 </Layout>

@@ -22,17 +22,19 @@ import Layout from '../../layouts/Layout.astro'
     </div>
 
     <!-- Story -->
-    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-24">
-      <div class="w-full max-w-[28rem] h-[20rem] md:max-w-full md:w-[32rem] md:h-[24rem] rotate-3 transform rounded-2xl bg-violet-900/30 hover:rotate-0 transition-transform duration-500 ease-out fly shadow-xl shadow-amber-900/30">
-        <img src="/about.jpg" alt="about" class="w-full h-full object-cover rounded-2xl" />
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-24 w-full">
+      <!-- Foto principal del puesto -->
+      <div class="w-full max-w-[28rem] h-[20rem] md:max-w-full md:w-[32rem] md:h-[24rem] rotate-3 transform rounded-2xl bg-violet-900/30 hover:rotate-0 transition-transform duration-500 ease-out fly shadow-xl shadow-amber-900/30 overflow-hidden">
+        <img src="/about.webp" alt="Artilate booth at the market" class="w-full h-full object-cover rounded-2xl" />
       </div>
-      <div class="w-full max-w-[32rem] ">
+
+      <div class="w-full max-w-[32rem]">
         <h2 class="text-3xl md:text-5xl font-bold mb-5 bg-gradient-to-br from-stone-50 via-amber-100 to-amber-500 bg-clip-text text-transparent tracking-tight">
           Our Story
         </h2>
-        <p class="text-base md:text-lg text-stone-200 leading-relaxed"> 
-          Artilate was born in Airdrie, Alberta, to connect Canadian chocolate lovers with the true essence of Colombian cacao. 
-          With a background in microbiology and food safety, our founder Ingrit Johanna Jaimes blends precision, passion, and heritage in every creation. 
+        <p class="text-base md:text-lg text-stone-200 leading-relaxed">
+          Artilate was born in Airdrie, Alberta, to connect Canadian chocolate lovers with the true essence of Colombian cacao.
+          With a background in microbiology and food safety, our founder Ingrit Johanna Jaimes blends precision, passion, and heritage in every creation.
           From bean to bar, each chocolate is crafted in small batches, with ethical sourcing at its core.
         </p>
       </div>
@@ -44,31 +46,48 @@ import Layout from '../../layouts/Layout.astro'
         How It Started
       </h2>
 
-      <!-- Block 1 -->
+      <!-- Block 1: Selfie + Niágara -->
       <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 lg:mx-auto lg:mb-8">
         <div class="max-w-[30rem] order-2 lg:order-1">
-          <p class="text-base md:text-lg text-stone-200 leading-relaxed"> 
-            Artilate’s journey began with cacao farmers in the mountains of Santander, Colombia. 
-            Families like Zoneidy’s welcomed us into their plantations, where tradition and dedication shaped the cacao that inspires every bar we create today.
+          <p class="text-base md:text-lg text-stone-200 leading-relaxed">
+            Artilate’s journey began with a dream—linking our Colombian roots to Alberta. Travel and learning shaped our craft and our commitment to quality and transparency.
           </p>
         </div>
         <div class="relative order-1 lg:order-2">
-          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl bg-emerald-700 -rotate-6 hover:-rotate-3 transition-transform ease-linear shadow-lg shadow-emerald-900/40"></div>
+          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl overflow-hidden -rotate-6 hover:-rotate-3 transition-transform ease-linear shadow-lg shadow-emerald-900/40">
+            <img src="/IMG_9959.webp" alt="Ingrit traveling and learning" class="w-full h-full object-cover" />
+          </div>
           <div class="absolute h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rotate-[12deg] bottom-0 rounded-xl bg-amber-600 -z-10"></div>
         </div>
       </div>
 
-      <!-- Block 2 -->
+      <!-- Block 2: Puesto con Rafael -->
       <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 lg:mx-auto lg:mb-12">
         <div class="relative">
-          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl bg-violet-800 rotate-6 hover:rotate-3 transition-transform ease-linear shadow-lg shadow-violet-900/40"></div>
+          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl overflow-hidden rotate-6 hover:rotate-3 transition-transform ease-linear shadow-lg shadow-violet-900/40">
+            <img src="/IMG_0089.webp" alt="Market day at Artilate booth" class="w-full h-full object-cover" />
+          </div>
           <div class="absolute h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] -rotate-[12deg] bottom-0 rounded-xl bg-emerald-700 -z-10"></div>
         </div>
         <div class="max-w-[30rem]">
-          <p class="text-base md:text-lg text-stone-200 leading-relaxed"> 
-            What started as experiments in a Calgary kitchen evolved into a bean-to-bar chocolate brand recognized for quality. 
-            From our very first booth at Crossroads Farmers Market, Artilate has grown while staying true to its values: passion, precision, and respect for tradition.
+          <p class="text-base md:text-lg text-stone-200 leading-relaxed">
+            What started as small experiments became a bean-to-bar brand at Calgary’s markets—growing with our community while keeping our craft honest and meticulous.
           </p>
+        </div>
+      </div>
+
+      <!-- Block 3: Cacao en finca -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 lg:mx-auto">
+        <div class="max-w-[30rem] order-2 lg:order-2">
+          <p class="text-base md:text-lg text-stone-200 leading-relaxed">
+            Our cacao partners in Colombia inspire our flavors and values. Direct relationships mean better quality, fairness, and stories that live in every bonbon.
+          </p>
+        </div>
+        <div class="relative order-1 lg:order-1">
+          <div class="h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rounded-xl overflow-hidden -rotate-3 hover:rotate-0 transition-transform ease-linear shadow-lg shadow-amber-900/40">
+            <img src="/IMG_3999.webp" alt="Ingrit with cacao farmers holding cacao pods" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute h-[16rem] w-[20rem] md:h-[18rem] md:w-[22rem] rotate-[10deg] bottom-0 rounded-xl bg-amber-500 -z-10"></div>
         </div>
       </div>
     </div>
@@ -80,9 +99,9 @@ import Layout from '../../layouts/Layout.astro'
       </h2>
       <div class="flex flex-col md:flex-row gap-12">
         <!-- Person 1 -->
-        <div class="flex flex-col items-center text-center max-w-[16rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
-          <div class="w-32 h-32 rounded-full bg-amber-600 flex items-center justify-center mb-4 shadow-md shadow-amber-900/40">
-            <i class="fas fa-user text-2xl text-neutral-900"></i>
+        <div class="flex flex-col items-center text-center max-w-[18rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
+          <div class="w-36 h-36 rounded-full overflow-hidden mb-4 shadow-md shadow-amber-900/40">
+            <img src="/ingrit.png" alt="Ingrit in QA attire" class="w-full h-full object-cover" />
           </div>
           <h3 class="text-xl font-bold text-stone-50">Ingrit Johanna Jaimes</h3>
           <p class="text-amber-400 font-medium">Founder & Head Chocolatier</p>
@@ -90,26 +109,16 @@ import Layout from '../../layouts/Layout.astro'
             Microbiologist and chocolatier, blending science and Colombian heritage into every handcrafted bar.
           </p>
         </div>
+
         <!-- Person 2 -->
-        <div class="flex flex-col items-center text-center max-w-[16rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
-          <div class="w-32 h-32 rounded-full bg-emerald-700 flex items-center justify-center mb-4 shadow-md shadow-emerald-900/40">
-            <i class="fas fa-user text-2xl text-neutral-900"></i>
+        <div class="flex flex-col items-center text-center max-w-[18rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
+          <div class="w-36 h-36 rounded-full overflow-hidden mb-4 shadow-md shadow-emerald-900/40">
+            <img src="/rafael.webp" alt="Rafael at Artilate booth" class="w-full h-full object-cover" />
           </div>
           <h3 class="text-xl font-bold text-stone-50">Rafael Hernández</h3>
           <p class="text-amber-400 font-medium">Operations & Strategy</p>
           <p class="text-stone-300 text-sm leading-relaxed">
             Ensures Artilate balances artisanal passion with business vision and growth.
-          </p>
-        </div>
-        <!-- Person 3 -->
-        <div class="flex flex-col items-center text-center max-w-[16rem] p-6 rounded-xl backdrop-blur-lg bg-white/5 border border-amber-200/20 shadow-lg hover:scale-105 transition-transform">
-          <div class="w-32 h-32 rounded-full bg-violet-800 flex items-center justify-center mb-4 shadow-md shadow-violet-900/40">
-            <i class="fas fa-seedling text-2xl text-neutral-900"></i>
-          </div>
-          <h3 class="text-xl font-bold text-stone-50">Zoneidy & Family</h3>
-          <p class="text-amber-400 font-medium">Cacao Farmers</p>
-          <p class="text-stone-300 text-sm leading-relaxed">
-            Our partners in Santander, Colombia, cultivating cacao with passion and tradition.
           </p>
         </div>
       </div>
@@ -126,22 +135,9 @@ import Layout from '../../layouts/Layout.astro'
   </div>
 
   <style>
-    @keyframes float {
-      0%   { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
-    }
-    .fly {
-      display: inline-block;
-      will-change: transform;
-      rotate: 6deg;
-      animation: float 3s ease-in-out infinite alternate;
-      transition: rotate 450ms ease-in-out;
-    }
-    .fly:hover {
-      rotate: 3deg;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .fly { animation: none; }
-    }
+    @keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-6px); } }
+    .fly { display:inline-block; will-change:transform; rotate:6deg; animation:float 3s ease-in-out infinite alternate; transition:rotate 450ms ease-in-out; }
+    .fly:hover { rotate:3deg; }
+    @media (prefers-reduced-motion: reduce) { .fly { animation: none; } }
   </style>
 </Layout>

@@ -1,0 +1,14 @@
+---
+import IngredientsAllergies from '../../components/IngredientsAllergies.astro'
+import Layout from '../../layouts/Layout.astro'
+const seoData = {
+  title: 'Artilate — Ingredients & Allergies',
+  description: 'Learn about the ingredients used in Artilate chocolates and find out if there are any allergies or sensitivities.',
+  ogType: 'website' as const,
+}
+---
+<Layout {...seoData}>
+
+  <IngredientsAllergies />
+  
+</Layout>
