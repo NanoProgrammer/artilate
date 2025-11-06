@@ -97,14 +97,14 @@ export default function ProductDetail({ product }) {
           {/* Grid: gallery + info */}
           <div className="grid grid-cols-12 gap-6 lg:gap-8">
             {/* Gallery */}
-            <div className="col-span-12 lg:col-span-6">
+            <div className="col-span-12 lg:col-span-6 scale-90">
               <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50">
                 <div className="relative aspect-[4/3] sm:aspect-[16/11]">
                   {active && (
                     <SafeImg
                       src={active}
                       alt={product.name}
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="absolute inset-0 h-full w-full scale-[1.3] object-contain"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />

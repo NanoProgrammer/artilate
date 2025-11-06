@@ -1,509 +1,139 @@
-// src/components/shop/BarsSection.jsx
+// src/components/shop/BarsSection.jsx  (CHOCOLATE BARS)
 import React, { useState, useEffect } from "react";
 import { Plus, ArrowRight, Check } from "lucide-react";
 import { useCart } from "../cart/context";
 
-/**
- * Toast — floating notification (auto-hides)
- */
+/* Toast */
 const Toast = ({ open, onClose, message }) => {
-  useEffect(() => {
-    if (!open) return;
-    const id = setTimeout(onClose, 3500);
-    return () => clearTimeout(id);
-  }, [open, onClose]);
-
+  useEffect(() => { if (!open) return; const id = setTimeout(onClose, 3500); return () => clearTimeout(id); }, [open, onClose]);
   if (!open) return null;
-
   return (
     <>
-      <div
-        role="status"
-        aria-live="polite"
-        className="toast"
-        style={{
-          position: "fixed",
-          bottom: "48px",
-          right: "32px",
-          zIndex: 100,
-          borderRadius: "16px",
-          padding: "16px 18px",
-          background: "rgba(15,15,15,0.95)",
-          border: "1px solid rgba(212,163,115,0.4)",
-          boxShadow:
-            "0 30px 60px -15px rgba(0,0,0,.4), 0 0 0 1px rgba(212,163,115,.2), 0 8px 32px rgba(212,163,115,.15)",
-          width: "min(92vw, 360px)",
-          transform: "translateY(-8px)",
-          animation: "toastIn .28s cubic-bezier(.16,1,.3,1) forwards",
-        }}
-      >
-        <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-          <div
-            aria-hidden="true"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 999,
-              display: "grid",
-              placeItems: "center",
-              background:
-                "linear-gradient(135deg, rgba(34,197,94,.2), rgba(16,185,129,.25))",
-              border: "1px solid rgba(34,197,94,.4)",
-              boxShadow: "0 4px 12px rgba(34,197,94,.2)",
-              marginTop: 2,
-              flexShrink: 0,
-            }}
-          >
-            <Check size={18} color="#34d399" />
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <h4
-              style={{
-                margin: 0,
-                color: "#F5F5F4",
-                fontWeight: 800,
-                fontSize: 15,
-              }}
-            >
-              Added to cart
-            </h4>
-            <p
-              style={{
-                margin: "6px 0 12px",
-                color: "#E5E7EB",
-                fontSize: 13,
-                lineHeight: 1.5,
-              }}
-            >
-              {message}
-            </p>
-
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <a
-                href="/cart"
-                onClick={onClose}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "10px 14px",
-                  borderRadius: 12,
-                  fontWeight: 800,
-                  fontSize: 13,
-                  textDecoration: "none",
-                  background:
-                    "linear-gradient(135deg, #D4A373 0%, #F59E0B 100%)",
-                  color: "#0A0B0D",
-                  boxShadow: "0 6px 20px rgba(212,163,115,.25)",
-                }}
-              >
-                View cart <ArrowRight size={14} />
-              </a>
-              <button
-                onClick={onClose}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "rgba(229,231,235,.9)",
-                  fontWeight: 600,
-                  fontSize: 12,
-                  cursor: "pointer",
-                }}
-              >
-                Continue shopping
-              </button>
+      <div role="status" aria-live="polite" className="fixed bottom-12 right-8 z-[100] w-[min(92vw,360px)] rounded-2xl border border-amber-300/40 bg-zinc-900/95 p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,.45),0_0_0_1px_rgba(212,163,115,.18)] animate-[toastIn_.25s_cubic-bezier(.16,1,.3,1)_forwards]">
+        <div className="flex items-start gap-3">
+          <div className="grid h-8 w-8 place-items-center rounded-full border border-emerald-400/40 bg-emerald-400/15"><Check className="h-4 w-4 text-emerald-400" /></div>
+          <div className="min-w-0 flex-1">
+            <h4 className="text-[14px] font-extrabold text-zinc-100">Added to cart</h4>
+            <p className="mt-1 text-[12.5px] leading-relaxed text-zinc-200">{message}</p>
+            <div className="mt-2 flex items-center gap-2">
+              <a href="/cart" onClick={onClose} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_6px_20px_rgba(212,163,115,.25)]">View cart <ArrowRight className="h-3.5 w-3.5" /></a>
+              <button onClick={onClose} className="text-xs font-semibold text-zinc-300 hover:text-zinc-100">Continue shopping</button>
             </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes toastIn {
-          from { opacity: 0; transform: translateY(-8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+      <style>{`@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}`}</style>
     </>
   );
 };
 
-/**
- * BarsSection — self-contained demo.
- * NOTE: If you already have a CartContext, pass an `onAdd` prop that adds the item to your real cart.
- */
-export default function BarsSection({ onAdd }) {
+export default function BarsSection() {
+  const { addItem } = useCart();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  // Local demo cart (only used if no onAdd is provided)
-  
   const bars = [
     {
-      id: "dark-75-pistachio",
-      name: "75% Pistachio Crunch",
-      description:
-        "Intense dark chocolate with roasted Sicilian pistachios and sea salt crystals.",
-      price: 24,
-      slug: "dark-75-pistachio",
-      category: "PREMIUM DARK",
-      features: ["Sicilian Pistachios", "Sea Salt", "Bean-to-Bar"],
+      id: "milk-37-pistachio",
+      name: "37% Milky Pistachio Bar",
+      description: "Creamy 37% milk chocolate studded with pieces of pistachios and a whisper of sea salt.",
+      price: 8,
+      slug: "milk-37-pistachio",
+      category: "MILKY",
+      features: ["pieces of pistachios", "Creamy 37%", "Bean-to-bar"],
       colorTheme: "pistachio",
-      image: "/images/bars/pistachio-bar.jpg",
+      image: "/images/bars/milk-pistachio.webp",
     },
     {
-      id: "dark-70-raspberry",
-      name: "70% Raspberry Bliss",
-      description:
-        "Rich dark chocolate infused with freeze-dried raspberries and rose petals.",
-      price: 22,
-      slug: "dark-70-raspberry",
-      category: "FRUIT INFUSED",
-      features: ["Freeze-Dried Fruit", "Rose Petals", "Vegan"],
+      id: "milk-37-rasp-crumble",
+      name: "37% Milky Raspberry Crumble",
+      description: "Silky 37% milk chocolate with raspberry crumble bits for a bright, crunchy finish.",
+      price: 8,
+      slug: "milk-37-raspberry-crumble",
+      category: "MILKY",
+      features: ["Raspberry crumble", "Creamy 37%", "Kid-friendly"],
       colorTheme: "raspberry",
-      image: "/images/bars/raspberry-bar.jpg",
+      image: "/images/bars/milk-raspberry-crumble.webp",
     },
     {
-      id: "dark-65-mixed-nuts",
-      name: "65% Mixed Nuts Delight",
-      description:
-        "Smooth dark chocolate loaded with almonds, hazelnuts, and walnuts.",
-      price: 20,
-      slug: "dark-65-mixed-nuts",
-      category: "NUT COLLECTION",
-      features: ["Three-Nut Blend", "Artisan Made", "Ethically Sourced"],
+      id: "dark-60-pistachio",
+      name: "60% Dark Pistachio Bar",
+      description: "Balanced 60% dark chocolate layered with pieces of pistachios—nutty, lightly sweet, satisfying.",
+      price: 11,
+      slug: "dark-60-pistachio",
+      category: "DARK",
+      features: ["60% dark", "pieces of pistachios", "Vegan"],
       colorTheme: "nuts",
-      image: "/images/bars/mixed-nuts-bar.jpg",
+      image: "/images/bars/dark-pistachio.webp",
     },
   ];
 
   const themeMap = {
-    pistachio: {
-      blur1: "rgba(139, 195, 74, 0.15)",
-      blur2: "rgba(76, 175, 80, 0.12)",
-      blur3: "rgba(104, 159, 56, 0.18)",
-    },
-    raspberry: {
-      blur1: "rgba(233, 30, 99, 0.15)",
-      blur2: "rgba(240, 98, 146, 0.12)",
-      blur3: "rgba(194, 24, 91, 0.18)",
-    },
-    nuts: {
-      blur1: "rgba(255, 152, 0, 0.15)",
-      blur2: "rgba(255, 183, 77, 0.12)",
-      blur3: "rgba(245, 124, 0, 0.18)",
-    },
+    pistachio: { blur1: "rgba(139,195,74,.15)", blur2: "rgba(76,175,80,.12)", blur3: "rgba(104,159,56,.18)" },
+    raspberry: { blur1: "rgba(233,30,99,.15)", blur2: "rgba(240,98,146,.12)", blur3: "rgba(194,24,91,.18)" },
+    nuts: { blur1: "rgba(255,152,0,.15)", blur2: "rgba(255,183,77,.12)", blur3: "rgba(245,124,0,.18)" },
   };
-const {addItem} = useCart()
-  const handleAdd = (bar) => {
-    addItem(bar, 1);
 
+  const handleAdd = (bar) => {
+    addItem({ id: bar.id, name: bar.name, price: bar.price, image: bar.image, slug: bar.slug, type: "bar" }, 1);
     setToastMessage(`${bar.name} was added to your cart.`);
     setShowToast(true);
   };
-
-  const openProduct = (slug) => {
-    window.location.href = `/shop/${slug}`;
-  };
+  const openProduct = (slug) => (window.location.href = `/shop/${slug}`);
 
   return (
     <>
-      <section
-      id="chocolate-bars"
-        className="bars-section content-center"
-        style={{
-          background: "#0A0B0D",
-          padding: "64px 0 96px",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Background glow */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.3,
-            background: `
-              radial-gradient(ellipse 600px 400px at 20% 30%, rgba(212,163,115,0.06) 0%, transparent 50%),
-              radial-gradient(ellipse 500px 600px at 80% 70%, rgba(245,158,11,0.04) 0%, transparent 50%)
-            `,
-          }}
-        />
-
-        <div
-          className="container content-center"
-          style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}
-        >
-          {/* Header */}
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "8px 14px",
-                borderRadius: 999,
-                background: "rgba(212,163,115,0.08)",
-                border: "1px solid rgba(212,163,115,0.15)",
-                marginBottom: 18,
-              }}
-            >
-              <span
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: 999,
-                  background: "#F59E0B",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: 12,
-                  fontWeight: 800,
-                  letterSpacing: 1.5,
-                  color: "#F59E0B",
-                }}
-              >
-                PREMIUM COLLECTION
-              </span>
-            </div>
-
-            <h2
-              style={{
-                color: "#F5F5F4",
-                fontWeight: 800,
-                fontSize: "clamp(28px, 4.2vw, 40px)",
-                margin: "0 0 8px",
-              }}
-            >
-              Artisan Chocolate Bars
-            </h2>
-            <p
-              style={{
-                color: "#A1A1AA",
-                maxWidth: 760,
-                margin: "0 auto",
-                fontSize: 16,
-                lineHeight: 1.7,
-              }}
-            >
-              Handcrafted from ethically sourced cacao — each bar is a small-batch expression of flavor and craft.
+      <section id="chocolate-bars" className="relative overflow-hidden bg-[#0A0B0D] py-16">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30" style={{
+          background: `
+            radial-gradient(ellipse 600px 400px at 20% 30%, rgba(212,163,115,0.06) 0%, transparent 50%),
+            radial-gradient(ellipse 500px 600px at 80% 70%, rgba(245,158,11,0.04) 0%, transparent 50%)
+          `
+        }} />
+        <div className="relative z-[1] mx-auto max-w-6xl px-4 sm:px-6">
+          <header className="mb-8 text-center">
+            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-extrabold tracking-widest text-amber-300">
+              PREMIUM COLLECTION
             </p>
-          </div>
+            <h2 className="text-[26px] font-extrabold tracking-tight text-zinc-100 sm:text-[30px]">Artisan Chocolate Bars</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-[14px] text-zinc-400">Handcrafted from ethically sourced cacao — each bar is a small-batch expression of flavor and craft.</p>
+          </header>
 
-          {/* Grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 24,
-              maxWidth: 1120,
-              margin: "0 auto",
-            }}
-          >
-            {bars.map((bar, i) => {
+          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2 lg:max-w-5xl lg:grid-cols-3">
+            {bars.map((bar) => {
               const t = themeMap[bar.colorTheme] || themeMap.nuts;
               return (
-                <article
-                  key={bar.id}
-                  style={{
-                    position: "relative",
-                    overflow: "hidden",
-                    borderRadius: 24,
-                    background: "rgba(15,15,15,0.85)",
-                    border: "1px solid rgba(250,250,249,0.08)",
-                    boxShadow: "0 15px 35px -10px rgba(0,0,0,.3), 0 5px 20px rgba(0,0,0,.1)",
-                    transform: "translateZ(0)",
-                  }}
-                >
-                  {/* Decorative blurs */}
-                  <div
-                    aria-hidden="true"
-                    style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", borderRadius: 24 }}
-                  >
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: 128,
-                        height: 128,
-                        right: -16,
-                        top: -16,
-                        borderRadius: 999,
-                        filter: "blur(20px)",
-                        opacity: 0.4,
-                        background: t.blur1,
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: 112,
-                        height: 112,
-                        left: -20,
-                        bottom: -24,
-                        borderRadius: 999,
-                        filter: "blur(18px)",
-                        opacity: 0.35,
-                        background: t.blur2,
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: 96,
-                        height: 64,
-                        left: "50%",
-                        top: "50%",
-                        transform: "translate(-50%, -50%)",
-                        borderRadius: 999,
-                        filter: "blur(22px)",
-                        opacity: 0.25,
-                        background: t.blur3,
-                      }}
-                    />
+                <article key={bar.id} className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 shadow-[0_15px_35px_-10px_rgba(0,0,0,.3),0_5px_20px_rgba(0,0,0,.1)]">
+                  <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                    <div className="absolute -right-4 -top-4 h-32 w-32 rounded-full opacity-40 blur-[20px]" style={{ background: t.blur1 }} />
+                    <div className="absolute -bottom-6 -left-5 h-28 w-28 rounded-full opacity-35 blur-[18px]" style={{ background: t.blur2 }} />
+                    <div className="absolute left-1/2 top-1/2 h-16 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-25 blur-[22px]" style={{ background: t.blur3 }} />
                   </div>
 
-                  {/* Image area */}
-                  <div style={{ position: "relative", height: 220, overflow: "hidden" }}>
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        display: "grid",
-                        placeItems: "center",
-                        background: "linear-gradient(135deg,#1F2937,#0F172A)",
-                      }}
-                    >
-                      {/* Simple placeholder shape */}
-                      <div
-                        style={{
-                          width: 56,
-                          height: 80,
-                          borderRadius: 10,
-                          background: "rgba(255,255,255,.06)",
-                          boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)",
-                        }}
-                      />
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "linear-gradient(180deg, rgba(15,15,15,0) 50%, rgba(15,15,15,0.7) 100%)",
-                      }}
-                    />
+                  <div className="relative h-56 overflow-hidden" onClick={() => openProduct(bar.slug)}>
+                    <img src={bar.image} alt={bar.name} className="absolute inset-0 h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
                   </div>
 
-                  {/* Content */}
-                  <div style={{ padding: 20 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                      <span
-                        style={{
-                          color: "#D4A373",
-                          fontSize: 11,
-                          fontWeight: 900,
-                          letterSpacing: 1.5,
-                        }}
-                      >
-                        {bar.category}
-                      </span>
+                  <div className="p-5">
+                    <div className="mb-1 flex justify-between">
+                      <span className="text-[11px] font-extrabold tracking-widest text-amber-300">{bar.category}</span>
                     </div>
-
-                    <h3
-                      style={{
-                        color: "#FAFAF9",
-                        fontWeight: 800,
-                        fontSize: 20,
-                        lineHeight: 1.2,
-                        margin: "0 0 8px",
-                      }}
-                    >
-                      {bar.name}
-                    </h3>
-
-                    <p
-                      style={{
-                        color: "#E5E7EB",
-                        fontSize: 14,
-                        lineHeight: 1.6,
-                        margin: "0 0 12px",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {bar.description}
-                    </p>
-
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
+                    <h3 className="mb-2 text-[19px] font-extrabold leading-tight text-zinc-50">{bar.name}</h3>
+                    <p className="mb-3 line-clamp-2 text-[13.5px] leading-relaxed text-zinc-200">{bar.description}</p>
+                    <div className="mb-4 flex flex-wrap gap-2">
                       {bar.features.slice(0, 2).map((f) => (
-                        <span
-                          key={f}
-                          style={{
-                            fontSize: 12,
-                            padding: "6px 10px",
-                            borderRadius: 999,
-                            color: "rgba(250,250,249,.92)",
-                            background: "rgba(212,163,115,.08)",
-                            border: "1px solid rgba(212,163,115,.16)",
-                            backdropFilter: "blur(6px)",
-                          }}
-                        >
+                        <span key={f} className="rounded-full border border-amber-300/20 bg-amber-300/10 px-2.5 py-1 text-[11px] font-semibold text-zinc-100">
                           {f}
                         </span>
                       ))}
                     </div>
-
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <div
-                        style={{
-                          fontWeight: 900,
-                          fontSize: 22,
-                          background: "linear-gradient(90deg,#F59E0B,#FFB020)",
-                          WebkitBackgroundClip: "text",
-                          color: "transparent",
-                        }}
-                      >
-                        ${bar.price}
-                      </div>
-
-                      <div style={{ display: "flex", gap: 10 }}>
-                        <button
-                          onClick={() => openProduct(bar.slug)}
-                          aria-label="View product"
-                          style={{
-                            padding: 10,
-                            borderRadius: 12,
-                            background: "rgba(212,163,115,.08)",
-                            border: "1px solid rgba(212,163,115,.22)",
-                            color: "#FAFAF9",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <ArrowRight size={16} />
-                        </button>
-
-                        <button
-                          onClick={() => handleAdd(bar)}
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 8,
-                            padding: "10px 14px",
-                            borderRadius: 12,
-                            fontWeight: 800,
-                            background: "linear-gradient(135deg, #D4A373 0%, #F59E0B 100%)",
-                            color: "#0A0B0D",
-                            boxShadow: "0 6px 20px rgba(212,163,115,.2)",
-                            cursor: "pointer",
-                            border: "none",
-                          }}
-                        >
-                          <Plus size={16} />
-                          <span className="sm-only">Add</span>
+                    <div className="flex items-center justify-between">
+                      <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[20px] font-extrabold text-transparent">${bar.price}</div>
+                      <div className="flex gap-2">
+                        <button onClick={() => openProduct(bar.slug)} aria-label="View product" className="grid h-10 w-10 place-items-center rounded-xl border border-amber-300/30 bg-amber-300/10 text-zinc-100 hover:bg-amber-300/15"><ArrowRight className="h-4 w-4" /></button>
+                        <button onClick={() => handleAdd(bar)} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-amber-400 to-orange-400 px-3.5 py-2 font-extrabold text-zinc-900 shadow-[0_6px_20px_rgba(212,163,115,.2)]">
+                          <Plus className="h-4 w-4" /><span>Add</span>
                         </button>
                       </div>
                     </div>
@@ -513,37 +143,6 @@ const {addItem} = useCart()
             })}
           </div>
         </div>
-
-        {/* Minimal floating dots */}
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              style={{
-                position: "absolute",
-                width: [2, 3, 2, 3][i],
-                height: [2, 3, 2, 3][i],
-                borderRadius: 999,
-                background: ["#D4A373", "#F59E0B", "#8BC34A", "#E91E63"][i],
-                top: `${[20, 70, 40, 80][i]}%`,
-                left: `${[15, 85, 10, 90][i]}%`,
-                opacity: 0.2,
-                animation: `floaty ${12 + i * 2}s ease-in-out infinite ${i * 2}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        <style>{`
-          @keyframes floaty {
-            0%,100% { transform: translateY(0) scale(1); opacity: .2; }
-            50% { transform: translateY(-14px) scale(1.1); opacity: .3; }
-          }
-
-          @media (max-width: 640px) {
-            .sm-only { display: none; }
-          }
-        `}</style>
       </section>
 
       <Toast open={showToast} onClose={() => setShowToast(false)} message={toastMessage} />

@@ -1,109 +1,80 @@
 // src/components/shop/GiftsSections.jsx
 import React, { useEffect, useState } from "react";
-import { Gift, Heart, Sparkles, Plus, ArrowRight, Check } from "lucide-react";
+import { Gift, Heart, Plus, ArrowRight, Check, Sparkles } from "lucide-react";
 import { useCart } from "../cart/context";
 
-/* --- Toast (top-right, auto-hide) --- */
+/* --- Toast --- */
 const Toast = ({ open, onClose, message }) => {
-  useEffect(() => {
-    if (!open) return;
-    const t = setTimeout(onClose, 3200);
-    return () => clearTimeout(t);
-  }, [open, onClose]);
-
+  useEffect(() => { if (!open) return; const t = setTimeout(onClose, 3000); return () => clearTimeout(t); }, [open, onClose]);
   if (!open) return null;
   return (
     <>
-      <div
-        role="status"
-        aria-live="polite"
-        className="fixed right-8 bottom-8 z-[100] w-[min(92vw,360px)] animate-[toastIn_.25s_cubic-bezier(.16,1,.3,1)_forwards] rounded-2xl border border-amber-300/40 bg-zinc-900/95 p-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,.45),0_0_0_1px_rgba(212,163,115,.18)]"
-      >
+      <div role="status" aria-live="polite" className="fixed right-5 bottom-6 z-[100] w-[min(92vw,340px)] animate-[toastIn_.25s_cubic-bezier(.16,1,.3,1)_forwards] rounded-2xl border border-amber-300/35 bg-zinc-900/95 p-3.5 shadow-[0_24px_48px_-12px_rgba(0,0,0,.45),0_0_0_1px_rgba(212,163,115,.16)]">
         <div className="flex items-start gap-3">
           <div className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-full border border-emerald-400/40 bg-emerald-400/15">
             <Check className="h-4 w-4 text-emerald-400" />
           </div>
           <div className="min-w-0 flex-1">
-            <h4 className="text-[14px] font-extrabold text-zinc-100">Added to cart</h4>
+            <h4 className="text-[13.5px] font-extrabold text-zinc-100">Added to cart</h4>
             <p className="mt-1 text-[12.5px] leading-relaxed text-zinc-200">{message}</p>
-            <div className="mt-2.5 flex items-center gap-2">
-              <a
-                href="/cart"
-                onClick={onClose}
-                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_6px_20px_rgba(212,163,115,.25)]"
-              >
+            <div className="mt-2 flex items-center gap-2">
+              <a href="/cart" onClick={onClose} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_6px_18px_rgba(212,163,115,.22)]">
                 View cart <ArrowRight className="h-3.5 w-3.5" />
               </a>
-              <button onClick={onClose} className="text-xs font-semibold text-zinc-300 hover:text-zinc-100">
-                Continue shopping
-              </button>
+              <button onClick={onClose} className="text-[12px] font-semibold text-zinc-300 hover:text-zinc-100">Continue shopping</button>
             </div>
           </div>
         </div>
       </div>
-      <style>{`@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}`}</style>
+      <style>{`@keyframes toastIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}`}</style>
     </>
   );
 };
 
-/* --- Data --- */
-const GIFTS = {
-  spotlight: {
-    id: "gift-highlight-ribbon",
-    name: "Ribboned Celebration Set",
-    price: 74,
-    slug: "ribboned-celebration-set",
-    tag: "Ready-to-gift",
-    desc:
-      "A 9-piece bonbon box paired with a single-origin dark bar. Arrives ribboned with a handwritten note card.",
-    img: "/images/gifts/celebration-collection.jpg",
-    icon: <Gift className="h-4 w-4" />,
-    chips: ["9-piece bonbons", "70% Dark bar", "Note card"],
-    tone: "from-amber-400/25 to-orange-600/25",
-  },
-  topLeft: {
-    id: "gift-sweetheart-duo",
-    name: "Sweetheart Duo",
-    price: 46,
-    slug: "sweetheart-duo",
-    tag: "Limited bundle",
-    desc: "Salt-caramel thins with a raspberry 70% bar — a small gesture with big flavor.",
-    img: "/images/gifts/sweetheart-duo.jpg",
-    icon: <Heart className="h-4 w-4" />,
-    chips: ["Caramel thins", "70% Raspberry bar"],
+/* --- Data (sincronizado con CATALOG) --- */
+const GIFTS = [
+  {
+    id: "heart-gift-box",
+    name: "Heart Gift Box",
+    price: 86, // CATALOG
+    slug: "heart-gift-box",
+    tag: "Romantic",
+    desc: "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
+    img: "/images/gifts/heart-gift-box.webp",
     tone: "from-rose-400/25 to-fuchsia-600/25",
+    icon: <Heart className="h-4 w-4" />,
+    chips: ["Hand-painted", "Message card", "Gift-ready"],
+    fit: "contain",
+    focal: "center",
+    scale: 1.22,
+    rotate: 0,
+    top: 42,
+    boost: 1.23,
   },
-  topRight: {
-    id: "gift-office-trio",
-    name: "Office Thanks Trio",
-    price: 59,
-    slug: "office-thanks-trio",
-    tag: "Team favorite",
-    desc: "Three crowd-pleasers with guided tasting cards — perfect for quick appreciation.",
-    img: "/images/gifts/office-thanks-trio.jpg",
-    icon: <Sparkles className="h-4 w-4" />,
-    chips: ["45% Milk", "70% Dark", "85% Extra Dark"],
-    tone: "from-cyan-400/25 to-emerald-600/25",
-  },
-  bottomWide: {
-    id: "gift-luxe-16",
-    name: "Luxe Bonbons — 16",
-    price: 68,
-    slug: "luxe-bonbons-16",
-    tag: "Hand-painted",
-    desc: "A keepsake rigid box with a curated medley of fruit, nut, and single-origin ganaches.",
-    img: "/images/gifts/luxe-16.jpg",
+  {
+    id: "golden-ribbon-keepsake-box",
+    name: "Golden Ribbon Keepsake Box",
+    price: 48, // CATALOG
+    slug: "golden-ribbon-keepsake-box",
+    tag: "Ready-to-gift",
+    desc: "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
+    img: "/images/gifts/keepsake-wood-box.webp",
+    tone: "from-amber-400/25 to-orange-600/25",
     icon: <Gift className="h-4 w-4" />,
-    chips: ["16 artisan bonbons", "Flavor map included"],
-    tone: "from-indigo-400/25 to-violet-600/25",
+    chips: ["Wooden box", "Assorted chocolates", "Gift-ready"],
+    fit: "contain",
+    focal: "top",
+    scale: 1.04,
+    rotate: -11,
+    top: 0,
+    boost: 1.1,
   },
-};
+];
 
-/* --- Small helpers --- */
+/* --- Helpers --- */
 const Badge = ({ icon, children }) => (
   <span className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-[10.5px] font-semibold text-zinc-100 backdrop-blur">
-    {icon}
-    <span className="truncate">{children}</span>
+    {icon}<span className="truncate">{children}</span>
   </span>
 );
 
@@ -113,234 +84,107 @@ const Chip = ({ children }) => (
   </span>
 );
 
-/* --- Cards --- */
-const SpotlightCard = ({ item, onAdd, onOpen }) => (
-  <article className="group relative col-span-12 overflow-hidden rounded-2xl border max-h-[110vh] border-white/10 bg-zinc-900/60 shadow-[0_14px_34px_rgba(0,0,0,.32)] lg:col-span-5 lg:row-span-2">
-    {/* glow */}
-    <div
-      className={`pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br ${item.tone} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-35`}
-    />
-    {/* image */}
-    <div className="relative aspect-[13/10] sm:aspect-[16/11] lg:aspect-[10/11]">
-      <img
-        src={item.img}
-        alt={item.name}
-        className="absolute inset-0 h-full w-4/5 object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        loading="lazy"
-        decoding="async"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
-      <div className="absolute left-4 top-4 z-10">
-        <Badge icon={item.icon}>{item.tag}</Badge>
-      </div>
-    </div>
-    {/* content */}
-    <div className="flex flex-col gap-3 px-5 pb-5 pt-4">
-      <h3 className="text-[19px] font-extrabold text-zinc-50 sm:text-[20px]">{item.name}</h3>
-      <p className="text-[13.5px] leading-relaxed text-zinc-300">{item.desc}</p>
-      <div className="flex flex-wrap gap-1.5">
-        {item.chips.map((c) => (
-          <Chip key={c}>{c}</Chip>
-        ))}
-      </div>
-    </div>
-    {/* actions */}
-    <div className="flex items-center gap-2.5 border-t border-white/10 bg-black/60 px-5 py-3">
-      <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[19px] font-extrabold text-transparent">
-        ${item.price}
-      </div>
-      <button
-        onClick={onAdd}
-        className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[13px] font-extrabold text-zinc-900 shadow-[0_6px_18px_rgba(212,163,115,.22)]"
-      >
-        <Plus className="h-4 w-4" />
-        Add
-      </button>
-      <button
-        aria-label="View product"
-        onClick={onOpen}
-        className="ml-auto grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-zinc-100 hover:bg-white/10"
-      >
-        <ArrowRight className="h-4 w-4" />
-      </button>
-    </div>
-  </article>
-);
+/* --- Card --- */
+const GiftCard = ({ item, onAdd, onOpen }) => {
+  const fitClass = item.fit === "contain" ? "object-contain" : "object-cover";
+  const posClass = item.focal === "top" ? "object-top" : item.focal === "bottom" ? "object-bottom" : "object-center";
+  const boost = item.boost ?? 1.08;
 
-const SquareCard = ({ item, onAdd, onOpen }) => (
-  <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 shadow-[0_12px_28px_rgba(0,0,0,.28)]">
-    <div
-      className={`pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br ${item.tone} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-35`}
-    />
-    <div className="relative aspect-[16/12]">
-      <img
-        src={item.img}
-        alt={item.name}
-        className="absolute inset-0 h-1/2 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        loading="lazy"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
-      <div className="absolute left-3 top-3 z-10">
-        <Badge icon={item.icon}>{item.tag}</Badge>
-      </div>
-    </div>
-    <div className="space-y-2 px-4 pb-4 pt-3">
-      <h3 className="text-[17px] font-extrabold text-zinc-50">{item.name}</h3>
-      <p className="text-[13px] leading-relaxed text-zinc-300 line-clamp-2">{item.desc}</p>
-      <div className="flex flex-wrap gap-1.5">
-        {item.chips.map((c) => (
-          <Chip key={c}>{c}</Chip>
-        ))}
-      </div>
-    </div>
-    <div className="flex items-center gap-2.5 border-t border-white/10 bg-black/60 px-4 py-3">
-      <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[18px] font-extrabold text-transparent">
-        ${item.price}
-      </div>
-      <button
-        onClick={onAdd}
-        className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_6px_18px_rgba(212,163,115,.22)]"
-      >
-        <Plus className="h-4 w-4" />
-        Add
-      </button>
-      <button
-        aria-label="View product"
-        onClick={onOpen}
-        className="ml-auto grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-zinc-100 hover:bg-white/10"
-      >
-        <ArrowRight className="h-4 w-4" />
-      </button>
-    </div>
-  </article>
-);
+  return (
+    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/65 shadow-[0_12px_28px_rgba(0,0,0,.28)]">
+      {/* halo exterior */}
+      <div className={`pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br ${item.tone} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-35`} />
 
-const BannerCard = ({ item, onAdd, onOpen }) => (
-  <article className="group relative col-span-12 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 shadow-[0_12px_28px_rgba(0,0,0,.28)] lg:col-span-7">
-    <div
-      className={`pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br ${item.tone} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-35`}
-    />
-    <div className="relative aspect-[16/9] md:aspect-[16/8]">
-      <img
-        src={item.img}
-        alt={item.name}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        loading="lazy"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
-      <div className="absolute left-4 top-4 z-10">
-        <Badge icon={item.icon}>{item.tag}</Badge>
-      </div>
-    </div>
-    <div className="grid gap-3 px-5 pb-5 pt-4 md:grid-cols-[1fr_auto] md:items-start">
-      <div>
-        <h3 className="text-[18px] font-extrabold text-zinc-50">{item.name}</h3>
-        <p className="mt-1 text-[13.5px] leading-relaxed text-zinc-300">{item.desc}</p>
-        <div className="mt-1.5 flex flex-wrap gap-1.5">
-          {item.chips.map((c) => (
-            <Chip key={c}>{c}</Chip>
-          ))}
+      {/* Imagen + decor */}
+      <div className="relative h-72 sm:h-80" onClick={onOpen}>
+        <img
+          src={item.img}
+          alt={item.name}
+          
+          loading="lazy"
+          decoding="async"
+          className={`absolute inset-0 h-full w-full ${fitClass} ${posClass} will-change-transform`}
+          style={{
+            transform: `translateY(${item.top || 0}px) scale(${item.scale || 1}) rotate(${item.rotate || 0}deg)`,
+            transition: "transform .55s cubic-bezier(.16,1,.3,1), filter .35s",
+            filter: `brightness(${boost}) contrast(${boost}) saturate(${boost + 0.06})`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
+
+        {/* badge */}
+        <div className="absolute left-3 top-3 z-10">
+          <Badge icon={item.icon}>{item.tag}</Badge>
         </div>
       </div>
-      <div className="flex items-center gap-2 md:self-center">
-        <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[18px] font-extrabold text-transparent">
-          ${item.price}
-        </div>
-        <button
-          onClick={onAdd}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_6px_18px_rgba(212,163,115,.22)]"
-        >
-          <Plus className="h-4 w-4" />
-          Add
+
+      {/* Texto */}
+      <div className="space-y-2 px-4 pb-4 pt-3">
+        <h3 className="text-[16.5px] font-extrabold text-zinc-50">{item.name}</h3>
+        <p className="text-[13px] leading-relaxed text-zinc-300 line-clamp-2">{item.desc}</p>
+        <div className="flex flex-wrap gap-1.5">{item.chips.map((c) => <Chip key={c}>{c}</Chip>)}</div>
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center gap-2.5 border-t border-white/10 bg-black/55 px-4 py-3">
+        <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[18px] font-extrabold text-transparent">${item.price}</div>
+        <button onClick={onAdd} className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_6px_18px_rgba(212,163,115,.22)]">
+          <Plus className="h-4 w-4" /> Add
         </button>
+        {/* Discover (mejor CTR) */}
         <button
-          aria-label="View product"
+          aria-label="Discover more about this product"
           onClick={onOpen}
-          className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-zinc-100 hover:bg-white/10"
+          className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-1.5 text-[12px] font-semibold text-amber-300 hover:bg-amber-400/20 transition"
         >
-          <ArrowRight className="h-4 w-4" />
+          <Sparkles className="h-4 w-4" />
+          Discover
         </button>
       </div>
-    </div>
-  </article>
-);
+    </article>
+  );
+};
 
-/* --- Main section (mosaic layout, like bonbons but unique) --- */
+/* --- Main section --- */
 export default function GiftsSections() {
   const { addItem } = useCart();
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
 
   const add = (p) => {
-    addItem({
-      id: p.id,
-      name: p.name,
-      price: p.price,
-      image: p.img,
-      slug: p.slug,
-      type: "gift",
-    });
+    addItem({ id: p.id, name: p.name, price: p.price, image: p.img, slug: p.slug, type: "gift" });
     setToastMsg(`${p.name} was added to your cart.`);
     setToastOpen(true);
   };
   const openProduct = (slug) => (window.location.href = `/shop/${slug}`);
 
-  const { spotlight, topLeft, topRight, bottomWide } = GIFTS;
-
   return (
     <>
-      <section className="rounded-2xl bg-[#0A0B0D] px-4 pb-12 pt-8 sm:px-6 lg:px-8" id="gift-collections">
-        <div className="mx-auto max-w-6xl">
-          <header className="mb-8 text-center">
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-extrabold tracking-widest text-amber-300">
-              <Gift className="h-3.5 w-3.5" />
-              GIFTING &amp; BUNDLES
+      <section id="gifts" className="relative rounded-2xl bg-[#0A0B0D] px-4 pb-10 pt-7 sm:px-6 lg:px-8">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-40" style={{
+          background: `
+            radial-gradient(ellipse 560px 360px at 18% 28%, rgba(212,163,115,0.06) 0%, transparent 52%),
+            radial-gradient(ellipse 480px 520px at 82% 72%, rgba(245,158,11,0.045) 0%, transparent 55%)
+          `,
+        }}/>
+        <div className="relative mx-auto max-w-6xl">
+          <header className="mb-6 text-center">
+            <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[10.5px] font-extrabold tracking-widest text-amber-300">
+              <Gift className="h-3.5 w-3.5" /> GIFTING &amp; BUNDLES
             </p>
-            <h2 className="text-[26px] font-extrabold tracking-tight text-zinc-100 sm:text-[30px]">
-              Thoughtful gifts, beautifully packed
-            </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-[14px] text-zinc-400">
-              Curated bundles for celebrations, thank-yous, and cozy nights in. Add a personal note at checkout.
-            </p>
+            <h2 className="text-[24px] font-extrabold tracking-tight text-zinc-100 sm:text-[28px]">Thoughtful gifts, beautifully packed</h2>
           </header>
 
-          {/* Mosaic layout */}
-          <div className="grid auto-rows-[minmax(220px,auto)] grid-cols-12 gap-5">
-            {/* Left spotlight (taller but not huge) */}
-            <SpotlightCard
-              item={spotlight}
-              onAdd={() => add(spotlight)}
-              onOpen={() => openProduct(spotlight.slug)}
-            />
-
-            {/* Right column: two squares on top */}
-            <div className="col-span-12 grid grid-cols-12 gap-5 lg:col-span-7">
-              <div className="col-span-12 grid grid-cols-12 gap-5">
-                <div className="col-span-12 sm:col-span-6">
-                  <SquareCard
-                    item={topLeft}
-                    onAdd={() => add(topLeft)}
-                    onOpen={() => openProduct(topLeft.slug)}
-                  />
-                </div>
-                <div className="col-span-12 sm:col-span-6">
-                  <SquareCard
-                    item={topRight}
-                    onAdd={() => add(topRight)}
-                    onOpen={() => openProduct(topRight.slug)}
-                  />
-                </div>
-              </div>
-
-              {/* Bottom wide banner */}
-              <BannerCard
-                item={bottomWide}
-                onAdd={() => add(bottomWide)}
-                onOpen={() => openProduct(bottomWide.slug)}
-              />
-            </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {GIFTS.map((g) => (
+              <GiftCard key={g.id} item={g} onAdd={() => add(g)} onOpen={() => openProduct(g.slug)} />
+            ))}
           </div>
         </div>
+
+        <style>{`
+          @keyframes floaty { 0%,100% { transform: translateY(0) scale(1); opacity:.22 } 50% { transform: translateY(-12px) scale(1.08); opacity:.3 } }
+        `}</style>
       </section>
 
       <Toast open={toastOpen} onClose={() => setToastOpen(false)} message={toastMsg} />

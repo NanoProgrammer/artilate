@@ -2,7 +2,13 @@ export type CatalogItem = {
   id: string;
   name: string;
   price: number;           // CAD (unidades)
-  category: "Premium Dark" | "Fruit Infused" | "Nut Collection" | "Bonbons" | "Gifting" | "Limited" | "Snacks";
+  category: "Premium Dark"
+  | "Fruit Infused"
+  | "Nut Collection"
+  | "Bonbons"
+  | "Gifting"
+  | "Limited"
+  | "Snacks";
   tag?: string;
   shortDesc?: string;
   longDesc?: string;
@@ -13,425 +19,223 @@ export type CatalogItem = {
   ingredients?: string;
   allergens?: string;
   images: string[];
+  content?: string[];
 };
 
 export const CATALOG: Record<string, CatalogItem> = {
   /* ───────────────── BARS ───────────────── */
-  "dark-75-pistachio": {
-    id: "dark-75-pistachio",
-    name: "75% Pistachio Crunch",
-    price: 24,
-    category: "Premium Dark",
-    tag: "Bean-to-Bar",
-    shortDesc:
-      "Intensity meets texture: Colombian 75% dark chocolate with roasted Sicilian pistachios and sea salt.",
-    longDesc:
-      "Our 75% Pistachio Crunch bar marries fruit-forward Colombian cacao with the buttery depth of Sicilian pistachios. Each batch is conched low and slow to preserve delicate aromatics, then finished with a whisper of sea salt to brighten the finish. Expect a first bite that cracks, a second that melts, and a lingering pistachio-praline vibe that keeps you reaching back for more.",
-    chips: ["Sicilian Pistachios", "Sea Salt", "Vegan"],
-    cacao: "Single-origin Colombia • 75%",
-    weight: "80 g",
-    dietary: ["Vegan", "Gluten-free"],
-    ingredients:
-      "Cocoa mass*, organic cane sugar*, cocoa butter*, roasted pistachios (tree nuts), sea salt. *Cacao 75%.",
-    allergens:
-      "Contains tree nuts (pistachio). Made in a facility that handles milk and nuts.",
-    images: [
-      "/images/bars/pistachio-bar.jpg",
-      "/images/bars/pistachio-detail1.jpg",
-      "/images/bars/pistachio-detail2.jpg",
-    ],
-  },
-
-  "dark-70-raspberry": {
-    id: "dark-70-raspberry",
-    name: "70% Raspberry Bliss",
-    price: 22,
-    category: "Fruit Infused",
-    tag: "Vegan",
-    shortDesc:
-      "Lush 70% dark layered with freeze-dried raspberry and a breath of rose—bright, perfumed, elegant.",
-    longDesc:
-      "This bar starts with our house 70% dark—rounded, red-fruit forward—then folds in freeze-dried raspberries for pop and perfume. A hint of rose lifts the mid-palate, never overpowering the cacao. It’s a modern fruit bar: clean, vibrant, and quietly romantic.",
-    chips: ["Freeze-Dried Raspberry", "Rose Petals", "Vegan"],
-    cacao: "Single-origin Colombia • 70%",
-    weight: "80 g",
-    dietary: ["Vegan", "Gluten-free"],
-    ingredients:
-      "Cocoa mass*, organic cane sugar*, cocoa butter*, freeze-dried raspberries, rose petals. *Cacao 70%.",
-    allergens: "Made in a facility that handles milk and nuts.",
-    images: ["/images/bars/raspberry-bar.jpg"],
-  },
-
-  "dark-65-mixed-nuts": {
-    id: "dark-65-mixed-nuts",
-    name: "65% Mixed Nuts Delight",
-    price: 20,
+  "milk-37-pistachio": {
+    id: "milk-37-pistachio",
+    name: "37% Milky Pistachio Bar",
+    price: 8,
     category: "Nut Collection",
-    tag: "Crowd-Pleaser",
-    shortDesc:
-      "Silky 65% dark lavishly studded with almonds, hazelnuts, and walnuts for a classic crunch.",
+    tag: "Bean-to-Bar",
+    shortDesc: "Creamy 37% milk chocolate studded with pistachio pieces and a whisper of sea salt.",
     longDesc:
-      "An ode to the timeless nut bar: almonds for snap, hazelnuts for aroma, walnuts for depth—set in our silky 65% dark. Conched to a soft sheen for a clean melt and a nostalgic, shareable crunch.",
-    chips: ["Almond • Hazelnut • Walnut", "Ethically Sourced"],
-    cacao: "Blend • 65%",
-    weight: "90 g",
-    dietary: ["Gluten-free"],
+      "Silky, nostalgic 37% milk chocolate with pops of roasted pistachio and a pinch of sea salt to brighten the melt. Comforting, crunchy, and impossible to share.",
+    chips: ["Creamy 37%", "Pistachio pieces"],
+    cacao: "Milk chocolate • 37%",
+    weight: "40 g",
+    dietary: ["Contains milk"],
     ingredients:
-      "Cocoa mass, organic cane sugar, cocoa butter, almonds, hazelnuts, walnuts.",
+      "Cocoa mass, sugar, cocoa butter, whole milk powder, pistachios (tree nuts), emulsifier (sunflower lecithin), natural flavours.",
     allergens:
-      "Contains tree nuts (almond, hazelnut, walnut). Made in a facility that handles milk.",
-    images: ["/images/bars/mixed-nuts-bar.jpg"],
+      "Contains milk and tree nuts (pistachio). Made in a facility that handles other nuts.",
+    images: ["/images/bars/milk-pistachio.webp","/images/bars/milk-pistachio-1.webp","/images/bars/milk-pistachio-2.webp"],
+    content: ["1 × 40 g bar","Studded with roasted pistachio pieces"]
   },
 
-  /* ───────────────── BONBONS (grid/“Bonbons Menu”) ───────────────── */
+  "milk-37-raspberry-crumble": {
+    id: "milk-37-raspberry-crumble",
+    name: "37% Milky Raspberry Crumble",
+    price: 8,
+    category: "Fruit Infused",
+    tag: "Kid-Friendly",
+    shortDesc: "Silky 37% milk chocolate with raspberry crumble bits for a bright, crunchy finish.",
+    longDesc:
+      "A cheerful bar that pairs creamy 37% milk chocolate with tart raspberry crumble. Crunchy texture, fruity lift, and a smooth, milky finish.",
+    chips: ["Raspberry crumble", "Creamy 37%"],
+    cacao: "Milk chocolate • 37%",
+    weight: "40 g",
+    dietary: ["Contains milk"],
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, whole milk powder, raspberry crumble (raspberry, sugar), emulsifier (sunflower lecithin), natural flavours.",
+    allergens: "Contains milk. Made in a facility that handles nuts.",
+    images: ["/images/bars/milk-raspberry-crumble.webp","/images/bars/milk-raspberry-crumble-1.webp","/images/bars/milk-raspberry-crumble-2.webp","/images/bars/milk-raspberry-crumble-3.webp"],
+    content: ["1 × 40 g bar","Raspberry crumble bits"]
+  },
+
+  "dark-60-pistachio": {
+    id: "dark-60-pistachio",
+    name: "60% Dark Pistachio Bar",
+    price: 11,
+    category: "Nut Collection",
+    shortDesc: "Balanced 64% dark chocolate layered with pistachio pieces—nutty, lightly sweet, satisfying.",
+    longDesc:
+      "A versatile 64% dark built for everyday snacking, speckled with roasted pistachios for a buttery crunch and a softly sweet finish.",
+    chips: ["64% dark", "Pistachio pieces"],
+    cacao: "Dark chocolate • 64%",
+    weight: "40 g",
+    ingredients:
+      "Cocoa mass, organic cane sugar, cocoa butter, pistachios (tree nuts), emulsifier (sunflower lecithin), natural flavours.",
+    allergens:
+      "Contains tree nuts (pistachio). Made in a facility that handles milk and other nuts.",
+    images: ["/images/bars/dark-pistachio.webp", "/images/bars/dark-pistachio-1.webp","/images/bars/dark-pistachio-2.webp"],
+    content: ["1 × 40 g bar","Roasted pistachio pieces"]
+  },
+
+  /* ───────────────── BONBONS ───────────────── */
   "classic-box-9": {
     id: "classic-box-9",
     name: "Classic Box — 9",
-    price: 31,
+    price: 28,
     category: "Bonbons",
-    tag: "Best Seller",
-    shortDesc:
-      "Nine signature bonbons spanning caramel, fruit, single-origin ganache, and praline.",
+    tag: "Signature",
+    shortDesc: "Nine signature bonbons spanning pistachio, caramel with blackberry, and chocolate and hazelnut.",
     longDesc:
-      "Our crowd-pleasing set: thin, glossy shells filled with caramel, fruit-bright ganaches, velvet pralines and a single-origin dark that anchors the flight. Balanced from first bite to last.",
-    chips: ["Balanced", "Gluten-free friendly"],
-    cacao: "Mixed origins",
+     "Nine bonbons that embody the heart of Artilate’s craft. Each piece balances texture, aroma, and emotion — a small story told through fine-flavour cacao. The Pistachio Praliné offers a soft crunch that awakens the senses. The Blackberry Caramel melts slowly, releasing notes of ripe fruit layered over buttery sweetness. The Chocolate & Hazelnut brings pure comfort — a smooth gianduja wrapped in a thin dark shell. Together, they form a tasting journey that moves from nutty and bright to deep and velvety, celebrating the art of balance and flavour precision.",
+    chips: ["Gluten-free friendly", "Balanced"],
+    cacao: "54% dark chocolate single-origin",
     weight: "9 bonbons",
     dietary: ["Gluten-free (not certified)"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavors.",
+    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
     allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/classic-9.jpg"],
+    images: ["/images/bonbons/classic-9.webp", "/images/bonbons/classic-9-1.webp","/images/bonbons/classic-9-2.webp"],
+    content: ["3 × Pistachio Praliné","3 × Caramel with Blackberry","3 × Chocolate & Hazelnut"]
   },
 
   "tropical-box-9": {
     id: "tropical-box-9",
     name: "Tropical Box — 9",
-    price: 33,
+    price: 25,
     category: "Bonbons",
     tag: "Fruity",
-    shortDesc:
-      "A bright journey through tropical fruit ganaches made with real purées and citrus peels.",
+    shortDesc: "Exotic and vibrant: spicy pineapple, passionfruit, and coffee in silky dark chocolate shells.",
     longDesc:
-      "Sun-lit flavors in a neat nine: guava, passion fruit, pineapple rum and lime zest layered over silky ganaches. Juicy acidity, clean finishes, and eye-candy shells.",
-    chips: ["Vegan options", "Limited batch"],
-    cacao: "Colombia 70% • house blend",
+      "An exploration of tropical intensity in three chapters. The Spicy Pineapple surprises with sweet heat and bright citrus sparkle. Passionfruit follows—lush, tangy, and perfectly balanced against the creamy ganache within. Finally, the Coffee bonbon closes the experience with roasted depth and a whisper of caramel. Crafted with 52% single-origin Colombian dark chocolate, this box is a sensory journey from fire to fruit to finesse—sunshine in every bite.",
+    chips: ["Tropical fruits", "Spice & coffee contrast"],
+    cacao: "Single-origin Colombia • 52% dark chocolate",
     weight: "9 bonbons",
     dietary: ["May include dairy"],
     ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, fruit purées, citrus peel, natural flavors.",
+      "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (pineapple, passionfruit), coffee, natural flavours, spices.",
     allergens: "Made in a facility that handles dairy and nuts.",
-    images: ["/images/bonbons/tropical-9.jpg"],
+    images: ["/images/bonbons/tropical-9.webp", "/images/bonbons/tropical-9-1.webp","/images/bonbons/tropical-9-2.webp"],
+    content: ["3 × Spicy Pineapple","3 × Passionfruit","3 × Coffee"]
   },
 
-  "nut-lover-5": {
-    id: "nut-lover-5",
-    name: "Nut Lover Box — 5",
-    price: 20,
-    category: "Bonbons",
-    tag: "Crunchy",
-    shortDesc:
-      "Pralines and gianduja with a satisfying crunch of roasted nuts.",
-    longDesc:
-      "Five mini sculptures of nutty bliss—hazelnut, pistachio, almond, pecan y walnut—con distintos tostados y texturas para un final largo y goloso.",
-    chips: ["Praline", "Roasted Nuts"],
-    cacao: "Mixed origins",
-    weight: "5 bonbons",
-    dietary: ["Contains nuts & dairy"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, hazelnut, pistachio, almond, pecan, walnut.",
-    allergens: "Contains dairy and tree nuts.",
-    images: ["/images/bonbons/nut-5.jpg"],
-  },
-
-  "floral-garden-8": {
-    id: "floral-garden-8",
-    name: "Floral Garden — 8",
+  "classic-box-8": {
+    id: "classic-box-8",
+    name: "Classic Box — 8",
     price: 28,
     category: "Bonbons",
-    tag: "Aromatic",
-    shortDesc:
-      "Delicate infusions layered with cacao—soft floral notes with a long finish.",
+    tag: "Signature",
+    shortDesc: "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
     longDesc:
-      "Un recorrido delicado por flores y cacao: rosas, lavanda y azahar sobre ganaches aireadas. Capas limpias, perfume sutil y final sedoso.",
-    chips: ["Light body", "Infusions"],
-    cacao: "72% dark chocolate",
+      "Eight timeless pieces that showcase Artilate’s classic style: soft caramels, nutty pralinés and vanilla-led ganaches with thin, elegant shells.",
+    chips: ["Crowd-pleaser"],
+    cacao: "57% dark chocolate single-origin",
     weight: "8 bonbons",
-    dietary: ["Contains dairy"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, floral infusions, natural flavors.",
-    allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/bonbons/floral-8.jpg"],
-  },
-
-  "mini-sampler-4": {
-    id: "mini-sampler-4",
-    name: "Mini Sampler — 4",
-    price: 15,
-    category: "Bonbons",
-    tag: "Starter",
-    shortDesc:
-      "A small taste of our best sellers. Perfect add-on for gifts.",
-    longDesc:
-      "Cuatro bocados para conocer la casa: un caramelo, un frutal, un praliné y un origen oscuro. Tamaño mini, carácter grande.",
-    chips: ["Gift-ready"],
-    cacao: "Mixed origins",
-    weight: "4 bonbons",
-    dietary: ["Contains dairy"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées.",
+    dietary: ["Contains dairy & nuts"],
+    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, natural flavours.",
     allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/mini-4.jpg"],
+    images: ["/images/bonbons/classic-8.webp", "/images/bonbons/classic-8-1.webp","/images/bonbons/classic-8-2.webp"],
+    content: ["2 × Caramel with Blackberry","2 × Pistachio Praliné","2 × Chocolate & Hazelnut","2 × Strawberry"]
   },
 
-  "berry-burst-4": {
-    id: "berry-burst-4",
-    name: "Berry Burst — 4",
-    price: 16,
+  "vibrant-box-8": {
+    id: "vibrant-box-8",
+    name: "Vibrant Box — 8",
+    price: 23,
     category: "Bonbons",
-    tag: "Vibrant",
-    shortDesc:
-      "High-fruit intensity with a tart finish—tiny but powerful.",
+    tag: "Fruity",
+    shortDesc: "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
     longDesc:
-      "Pequeño set centrado en frutos rojos: frambuesa y mora en capas vivas sobre chocolate oscuro. Dulzor contenido y acidez brillante.",
-    chips: ["Seasonal fruit"],
-    cacao: "Peru 72%",
-    weight: "4 bonbons",
-    dietary: ["Contains dairy"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, raspberry, blackberry, natural flavors.",
-    allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/bonbons/berry-4.jpg"],
-  },
-
-  "sea-salt-caramel-8": {
-    id: "sea-salt-caramel-8",
-    name: "Sea Salt Caramel — 8",
-    price: 27,
-    category: "Bonbons",
-    tag: "Indulgent",
-    shortDesc:
-      "Slow-cooked caramel with Maldon sea salt in a thin dark shell.",
-    longDesc:
-      "Caramelo lento y mantecoso, cortado con sal marina Maldon y vestido con una cáscara fina de chocolate oscuro para el mejor contraste de snap y cremosidad.",
-    chips: ["Soft center", "Maldon sea salt"],
-    cacao: "72% dark chocolate",
+      "A tropical medley designed to awaken every sense. The Mango bonbon bursts with golden sweetness and smooth acidity. Spicy Pineapple brings a playful spark — juicy heat balanced by silky ganache. Passion Fruit follows with tangy brightness and a lingering citrus perfume. Finally, Caramel with Blackberry bridges fruit and comfort, weaving buttery depth with a touch of tart berry. Crafted with 59% single-origin Colombian dark chocolate, this box is sunshine, spice, and elegance in equal measure.",
+    chips: ["Seasonal fruit", "Tropical spice"],
+    cacao: "Single-origin Colombia • 59% dark chocolate",
     weight: "8 bonbons",
     dietary: ["Contains dairy"],
     ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, sea salt.",
+      "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (mango, pineapple, passion fruit, blackberry), natural flavours, spices.",
     allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/bonbons/caramel-8.jpg"],
+    images: ["/images/bonbons/vibrant-8.webp", "/images/bonbons/vibrant-8-1.webp","/images/bonbons/vibrant-8-2.webp", "/images/bonbons/vibrant-8-3.webp"],
+    content: ["2 × Mango","2 × Spicy Pineapple","2 × Passion Fruit","2 × Caramel with Blackberry"]
   },
 
-  /* ───────────────── GIFTING (mosaic) ───────────────── */
-  "ribboned-celebration-set": {
-    id: "ribboned-celebration-set",
-    name: "Ribboned Celebration Set",
-    price: 74,
+  "essentials-box-6": {
+    id: "essentials-box-6",
+    name: "Essentials Box — 6",
+    price: 18,
+    category: "Bonbons",
+    tag: "Best Value",
+    shortDesc: "Six essentials — pistachio, caramel with blackberry, chocolate & hazelnut, passionfruit, coffee, and strawberry.",
+    longDesc:
+      "A curated tasting set that captures Artilate’s signature balance of flavour and craftsmanship. The Pistachio Praliné opens with roasted depth and creamy texture. Caramel with Blackberry pairs buttery sweetness with bright, jammy fruit. Chocolate & Hazelnut brings comforting gianduja richness in a smooth dark shell. Passionfruit adds a lively tang, Coffee delivers roasted warmth with subtle bitterness, and Strawberry closes the experience with pure, fruit-forward charm. Six handcrafted bonbons that move from nutty and elegant to fresh and vibrant — small in size, rich in story.",
+    chips: ["Gift-ready", "Balanced assortment"],
+    cacao: "Single-origin Colombia • 53% dark chocolate",
+    weight: "6 bonbons",
+    dietary: ["Contains dairy & nuts"],
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio), fruit purées (blackberry, strawberry, passionfruit), coffee, natural flavours.",
+    allergens: "Contains dairy and tree nuts (hazelnut, pistachio).",
+    images: ["/images/bonbons/essentials-6.webp", "/images/bonbons/essentials-6-1.webp","/images/bonbons/essentials-6-2.webp", "/images/bonbons/essentials-6-3.webp"],
+    content: ["1 × Pistachio Praliné","1 × Caramel with Blackberry","1 × Chocolate & Hazelnut","1 × Passionfruit","1 × Coffee","1 × Strawberry"]
+  },
+
+  /* ───────────────── GIFTING ───────────────── */
+  "heart-gift-box": {
+    id: "heart-gift-box",
+    name: "Heart Gift Box",
+    price: 86,
+    category: "Gifting",
+    shortDesc: "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
+    longDesc:
+      "Crafted as a gesture of love and artistry, this keepsake box holds thirty hand-painted heart bonbons made from single-origin Colombian cacao. The Caramel with Blackberry hearts (16) melt into layers of buttery sweetness and ripe fruit. The Pistachio Praliné (10) brings roasted depth and a soft, nutty finish. The Passionfruit hearts (4) brighten the collection with tangy citrus notes that linger delicately. Each piece is hand-finished for colour, gloss, and precision — a romantic composition that blends elegance, flavour, and emotion in every bite.",
+    chips: ["Hand-painted", "Message card", "Gift-ready"],
+    cacao: "Single-origin Colombia • 60% dark chocolate",
+    weight: "30 bonbons",
+    dietary: ["Contains dairy & nuts"],
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts (pistachio), fruit purées (blackberry, passionfruit), natural flavours.",
+    allergens: "Contains dairy and tree nuts (pistachio).",
+    images: ["/images/gifts/heart-gift-box.webp", "/images/gifts/heart-gift-box-1.webp","/images/gifts/heart-gift-box-2.webp", "/images/gifts/heart-gift-box-3.webp", "/images/gifts/heart-gift-box-4.webp"],
+    content: [
+      "16 × Caramel with Blackberry bonbons",
+      "10 × Pistachio Praliné bonbons",
+      "4 × Passionfruit bonbons",
+      "Presented in a reusable keepsake tray"
+    ]
+  },
+
+  "golden-ribbon-keepsake-box": {
+    id: "golden-ribbon-keepsake-box",
+    name: "Golden Ribbon Keepsake Box",
+    price: 48,
     category: "Gifting",
     tag: "Ready-to-gift",
-    shortDesc:
-      "9-piece bonbons + 70% dark bar. Ribboned box with handwritten card.",
+    shortDesc: "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
     longDesc:
-      "Un regalo infalible: una caja colorida de 9 piezas junto a nuestra tableta 70% más querida. Llega con cinta y tarjeta manuscrita con tu mensaje.",
-    chips: ["9-piece Bonbons", "70% Bar", "Note card"],
-    cacao: "Mixed origins",
-    weight: "9 bonbons + 1 bar",
+      "A refined gift that embodies the spirit of Artilate craftsmanship. Inside the reusable wooden keepsake box, tied with a golden ribbon, rests a complete tasting experience. It begins with an eight-piece bonbon collection featuring Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, and Coffee. Two Milky Chocolate Bars bring creamy comfort, while a 63% Dark Chocolate Bar with Pistachio Crumble adds texture and depth. Three chocolate coins sprinkled with nuts complete the ensemble — a thoughtful, elegant gift ready to share or savour slowly.",
+    chips: ["Wooden box", "Assorted chocolates", "Gift-ready"],
+    cacao: "Single-origin Colombia • 54–63% dark & milk chocolate",
+    weight: "Bonbons + 3 bars + 3 coins",
     dietary: ["Contains dairy & nuts"],
     ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavors.",
-    allergens: "Contains dairy and nuts.",
-    images: ["/images/gifts/celebration-collection.jpg"],
-  },
-
-  "sweetheart-duo": {
-    id: "sweetheart-duo",
-    name: "Sweetheart Duo",
-    price: 46,
-    category: "Gifting",
-    tag: "Limited Bundle",
-    shortDesc:
-      "Caramel thins + raspberry 70% bar. A small gesture with style.",
-    longDesc:
-      "Láminas finas de caramelo para el ‘snap’ y la masticación justa, con una tableta 70% a la frambuesa de perfil floral. Dúo pequeño, efecto grande.",
-    chips: ["Caramel Thins", "70% Raspberry Bar"],
-    cacao: "Mixed origins",
-    weight: "1 bar + thins",
-    dietary: ["Contains dairy"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, raspberries, sea salt.",
-    allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/gifts/sweetheart-duo.jpg"],
-  },
-
-  "office-thanks-trio": {
-    id: "office-thanks-trio",
-    name: "Office Thanks Trio",
-    price: 59,
-    category: "Gifting",
-    tag: "Team Favorite",
-    shortDesc:
-      "Three bars (45% milk, 70% dark, 85% extra dark) with tasting cards.",
-    longDesc:
-      "Trío compacto pensado para compartir: de dulzor lácteo a intensidad extra-oscura, con mini guías de cata para romper el hielo en equipo.",
-    chips: ["45% Milk", "70% Dark", "85% Extra Dark"],
-    cacao: "Mixed origins",
-    weight: "3 bars",
-    dietary: ["Contains milk (milk bar)"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, milk powder (milk bar), emulsifier (sunflower lecithin).",
-    allergens: "Contains milk. Made in a facility that handles nuts.",
-    images: ["/images/gifts/office-thanks-trio.jpg"],
-  },
-
-  "luxe-bonbons-16": {
-    id: "luxe-bonbons-16",
-    name: "Luxe Bonbons — 16",
-    price: 68,
-    category: "Gifting",
-    tag: "Hand-painted",
-    shortDesc:
-      "Sixteen artisan bonbons in a keepsake rigid box with flavor map.",
-    longDesc:
-      "Nuestro set más fotogénico: 16 piezas que recorren fruta, frutos secos y orígenes, en caja rígida tipo cajón con mapa de sabores reutilizable.",
-    chips: ["16 pieces", "Flavor Map"],
-    cacao: "Mixed origins",
-    weight: "16 bonbons",
-    dietary: ["Contains dairy & nuts"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavors.",
-    allergens: "Contains dairy and nuts.",
-    images: ["/images/gifts/luxe-16.jpg"],
-  },
-
-  /* ───────────────── LIMITED EDITION ───────────────── */
-  "microlot-huila-72": {
-    id: "microlot-huila-72",
-    name: "Micro-Lot 72% Huila — Single-Farm Bar",
-    price: 14,
-    category: "Limited",
-    tag: "Micro-lot",
-    shortDesc:
-      "One-farm Colombian cacao (Huila). Red fruit, panela, and cocoa nib crunch.",
-    longDesc:
-      "Edición numerada de un solo origen/finca en Huila, Colombia. Nariz a panela y frutos rojos; final con crujiente de nibs. Para coleccionistas de perfiles limpios.",
-    chips: ["Single-farm", "Numbered sleeve"],
-    weight: "55 g",
-    images: ["/images/limited/microlot-huila.jpg"],
-  },
-
-  "midnight-bloom-8": {
-    id: "midnight-bloom-8",
-    name: "Midnight Bloom Bonbons — 8",
-    price: 36,
-    category: "Limited",
-    tag: "Limited run",
-    shortDesc:
-      "Blueberry–lavender confit over vanilla bean ganache in dark shell.",
-    longDesc:
-      "Confit de arándano y lavanda sobre ganache de vainilla bourbon, cubierto por una cáscara oscura lustrosa. Caja satinada negra. Lote corto.",
-    chips: ["Dark shell", "Satin gift box"],
-    weight: "8 bonbons",
-    images: ["/images/limited/midnight-bloom.jpg"],
-  },
-
-  "espresso-caramel-shards": {
-    id: "espresso-caramel-shards",
-    name: "Collab: Espresso Caramel Shards",
-    price: 18,
-    category: "Limited",
-    tag: "Roaster collab",
-    shortDesc:
-      "Brittle shards of espresso caramel dipped in 70% dark, dusted with fine grind.",
-    longDesc:
-      "Bastones quebradizos de caramelo al espresso, bañados en 70% y espolvoreados con molienda fina para un golpe aromático. Hecho a mano en tandas pequeñas.",
-    chips: ["Small batch", "Hand-dipped"],
-    weight: "120 g",
-    images: ["/images/limited/espresso-shards.jpg"],
-  },
-
-  "smoked-gianduja-thin": {
-    id: "smoked-gianduja-thin",
-    name: "Smoked Sea Salt Gianduja — Thin Bar",
-    price: 16,
-    category: "Limited",
-    tag: "Numbered batch",
-    shortDesc:
-      "Hazelnut gianduja kissed with alder-smoked sea salt in an ultra-thin format.",
-    longDesc:
-      "Gianduja de avellana con un guiño de sal marina ahumada con aliso. Formato ultrafino para un ‘snap’ quirúrgico y un fundido impecable.",
-    chips: ["Ultra-thin", "Alder-smoked salt"],
-    weight: "50 g",
-    images: ["/images/limited/gianduja-thin.jpg"],
-  },
-
-  /* ───────────────── SNACKS & MINIS ───────────────── */
-  "chocolate-coins-milk": {
-    id: "chocolate-coins-milk",
-    name: "Chocolate Coins — Milk",
-    price: 7,
-    category: "Snacks",
-    tag: "3-pack",
-    shortDesc: "Milk chocolate coins (set of 3).",
-    longDesc:
-      "Moneditas de chocolate con leche, pulidas y brillantes, listas para meriendas rápidas o para decorar postres.",
-    chips: ["Shareable", "Kid favorite"],
-    images: ["/images/snacks/coins-milk.jpg"],
-  },
-
-  "chocolate-coins-dark": {
-    id: "chocolate-coins-dark",
-    name: "Chocolate Coins — Dark",
-    price: 7,
-    category: "Snacks",
-    tag: "4-pack",
-    shortDesc: "Dark chocolate coins (set of 4).",
-    longDesc:
-      "Versión oscura de nuestras monedas: más cacao, menos dulzor, mismo brillo irresistible.",
-    chips: ["Snack size", "70% dark"],
-    images: ["/images/snacks/coins-dark.jpg"],
-  },
-
-  "chocolate-dinosaurs-mix": {
-    id: "chocolate-dinosaurs-mix",
-    name: "Chocolate Dinosaurs — Mix",
-    price: 12,
-    category: "Snacks",
-    tag: "4-pack",
-    shortDesc: "Playful dinos in mixed chocolate.",
-    longDesc:
-      "Dinosaurios de leche y oscuro para meriendas juguetonas. Moldeado nítido, detalle perfecto.",
-    chips: ["Playful", "Mixed choco"],
-    images: ["/images/snacks/dinos-mix.jpg"],
-  },
-
-  "chocolate-dinosaurs-mini": {
-    id: "chocolate-dinosaurs-mini",
-    name: "Chocolate Dinosaurs — Mini",
-    price: 9,
-    category: "Snacks",
-    tag: "3-pack",
-    shortDesc: "Mini dinos for quick bites.",
-    longDesc:
-      "Minis que desaparecen de un bocado: ideal para bolsillos, lunch o ‘party favors’.",
-    chips: ["Mini size", "Party-friendly"],
-    images: ["/images/snacks/dinos-mini.jpg"],
-  },
-
-  "thin-bar-almond": {
-    id: "thin-bar-almond",
-    name: "Thin Bar — Almond",
-    price: 6,
-    category: "Snacks",
-    tag: "3-pack",
-    shortDesc: "Slim almond bars with a clean snap.",
-    longDesc:
-      "Barras delgadas con almendra tostada. Mucho ‘snap’, dulzor medido y formato perfecto para llevar.",
-    chips: ["On-the-go", "Toasted almond"],
-    images: ["/images/snacks/thin-bar-almond.jpg"],
-  },
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio, almond), fruit purées (blackberry, mango, passionfruit, strawberry), coffee, natural flavours.",
+    allergens: "Contains dairy and tree nuts (hazelnut, pistachio, almond).",
+    images: ["/images/gifts/keepsake-wood-box.webp", "/images/gifts/keepsake-wood-box-1.webp","/images/gifts/keepsake-wood-box-2.webp"],
+    content: [
+      "1 × 8-piece bonbon selection (Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, Coffee — 1 each)",
+      "2 × Milky Chocolate Bars (37%)",
+      "1 × 63% Dark Chocolate Bar with Pistachio Crumble",
+      "3 × Chocolate Coins with Nuts",
+      "Reusable wooden keepsake box with golden ribbon"
+    ]
+  }
 };
+
+
 
 /* (Opcional) mapa de precios en centavos para Stripe */
 export const PRICE_MAP_CENTS: Record<string, number> = Object.fromEntries(

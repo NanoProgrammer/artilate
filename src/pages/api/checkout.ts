@@ -17,26 +17,33 @@ const toCents = (n: number) => Math.round(n * 100);
 
 // Mapea IDs internos → slugs del catálogo (mantén esto como ya lo tienes)
 const ALIASES: Record<string, string> = {
+  "bar-milk-pistachio": "milk-37-pistachio",
+  "milk-pistachio-bar": "milk-37-pistachio",
+  "bar-milk-raspberry": "milk-37-raspberry-crumble",
+  "bar-raspberry-crumble": "milk-37-raspberry-crumble",
+  "bar-dark-pistachio": "dark-60-pistachio",
+  "dark-pistachio-bar": "dark-60-pistachio",
+
+  /* ─────────── BONBONS ─────────── */
   "box-classic-9": "classic-box-9",
+  "classic-9-box": "classic-box-9",
   "box-tropical-9": "tropical-box-9",
-  "box-nutlover-5": "nut-lover-5",
-  "box-floral-8": "floral-garden-8",
-  "box-minis-4": "mini-sampler-4",
-  "box-berry-4": "berry-burst-4",
-  "box-caramel-8": "sea-salt-caramel-8",
-  "gift-highlight-ribbon": "ribboned-celebration-set",
-  "gift-sweetheart-duo": "sweetheart-duo",
-  "gift-office-trio": "office-thanks-trio",
-  "gift-luxe-16": "luxe-bonbons-16",
-  "le-microlot-huila-72": "microlot-huila-72",
-  "le-midnight-bloom-8": "midnight-bloom-8",
-  "le-espresso-shards-120": "espresso-caramel-shards",
-  "le-smoked-gianduja-thin": "smoked-gianduja-thin",
-  "coins-milk": "chocolate-coins-milk",
-  "coins-dark": "chocolate-coins-dark",
-  "dinos-mix": "chocolate-dinosaurs-mix",
-  "dinos-mini": "chocolate-dinosaurs-mini",
-  "thinbar-almond": "thin-bar-almond",
+  "tropical-9-box": "tropical-box-9",
+  "box-classic-8": "classic-box-8",
+  "classic-8-box": "classic-box-8",
+  "box-vibrant-8": "vibrant-box-8",
+  "vibrant-8-box": "vibrant-box-8",
+  "box-essentials-6": "essentials-box-6",
+  "essentials-6-box": "essentials-box-6",
+
+  /* ─────────── GIFTING ─────────── */
+  "heart-box-30": "heart-gift-box",
+  "heart-gift": "heart-gift-box",
+  "gift-heart": "heart-gift-box",
+  "gift-keepsake": "golden-ribbon-keepsake-box",
+  "gift-golden-ribbon": "golden-ribbon-keepsake-box",
+  "golden-ribbon-box": "golden-ribbon-keepsake-box",
+  "mix-gift": "golden-ribbon-keepsake-box",
 };
 const resolveId = (id: string) => (CATALOG[id] ? id : ALIASES[id] || id);
 
@@ -127,8 +134,8 @@ export const POST: APIRoute = async ({ request }) => {
         type: "fixed_amount",
         fixed_amount: { amount: 1000, currency: "CAD" },
         delivery_estimate: {
-          minimum: { unit: "business_day", value: 3 },
-          maximum: { unit: "business_day", value: 5 },
+          minimum: { unit: "business_day", value: 2 },
+          maximum: { unit: "business_day", value: 4 },
         },
       },
     },

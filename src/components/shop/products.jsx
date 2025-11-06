@@ -9,11 +9,11 @@ import '../../styles/productStyle.css'
 export default function products() {
   return (
     <CartProvider>
-      <BarsSection />
-      <SnacksSections />
       <BonbonsSection />
       <GiftsSections />
-      <LimitedEdition />
+      <BarsSection />
+      {/**SnacksSections */}
+      {/**<LimitedEdition /> */}
     </CartProvider>
   )
 }

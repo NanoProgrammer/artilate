@@ -1,207 +1,185 @@
 ---
-/* src/components/HeroShop.astro — shop‑focused hero (responsive + header aware)
-   Notes:
-   - Drop‑in replacement for your current Hero.astro
-   - Adds commerce CTAs, mini featured product, trust/USP strip
-   - Keep using your existing variables/colors. No external deps.
-   - Per request: NO pick‑up, NO free‑shipping messaging. */
+// src/components/HeroShop.astro — compact above-the-fold hero (square image)
 ---
 
-<section class="hero shop-hero" >
-  <div class="hero-background">
-    <div class="hero-gradient"></div>
+<section class="hero shop-hero">
+  <div class="bg-wrap"><div class="bg-grad"></div></div>
 
-    <!-- Ambient particles (decor only) -->
-    <div class="chocolate-particles" aria-hidden="true">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="particle particle-4"></div>
-      <div class="particle particle-5"></div>
-      <div class="particle particle-6"></div>
-    </div>
-  </div>
+  <div class="wrap">
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="col-left">
+        
 
-  <div class="container">
-    <div class="hero-content">
-      <!-- LEFT: Text + CTAs -->
-      <div class="hero-text">
-        <!-- Badge (generic; no free‑shipping) -->
-        <div class="hero-badge scroll-reveal" id="promoBadge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-          <span>Handcrafted Excellence</span>
-        </div>
-
-        <h1 class="hero-title scroll-reveal">
-          Small‑Batch <span class="title-highlight">Chocolate</span>, Ready to Order
+        <h1 class="title">
+          Small-Batch <span class="hl">Chocolate</span>, Ready to Order
         </h1>
 
-        <p class="hero-description scroll-reveal">
-          Bean‑to‑bar bars and filled bonbons crafted in Alberta with ethically sourced Colombian cacao. Order online for fast delivery.
+        <p class="desc">
+          Bean-to-bar bars and filled bonbons crafted in Alberta with ethically sourced Colombian cacao. Order online for fast delivery.
         </p>
 
-        <!-- Primary commerce actions -->
-        <div class="hero-actions scroll-reveal">
-          <a href="/shop" class="primary-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-              <line x1="3" y1="6" x2="21" y2="6"/>
-              <path d="M16 10a4 4 0 0 1-8 0"/>
-            </svg>
-            Shop Collection
-          </a>
-          <a href="/cart" class="secondary-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 12.39A2 2 0 0 0 9.62 15H19a2 2 0 0 0 2-1.65l1.38-7.6H5.12"/>
-            </svg>
-            View Cart
-          </a>
+        <div class="actions">
+          <a href="#bonbons" class="btn btn-primary">Shop Bonbons</a>
+          <a href="#gifts" class="btn btn-secondary">View Gifts</a>
         </div>
-
-        <!-- Quick category chips (link to pre‑filtered shop pages) -->
-        <nav class="category-chips scroll-reveal" aria-label="Shop categories">
-          <a href="/shop?tag=bonbons" class="chip">Bonbons</a>
-          <a href="/shop?tag=dark" class="chip">Dark Bars</a>
-          <a href="/shop?tag=milk" class="chip">Milk Bars</a>
-          <a href="/shop?tag=gift" class="chip">Gift Boxes</a>
-          <a href="/shop?tag=seasonal" class="chip">Seasonal</a>
-        </nav>
       </div>
 
-      <!-- RIGHT: Featured product card (quick‑add) -->
-      <div class="hero-visual fade-in-right">
-        <div class="hero-image-container">
-          <div class="hero-image">
-            <!-- Replace img src with your best‑seller photo -->
-            <img src="/images/hero/featured-bonbons.jpg" alt="Box of artisanal bonbons" class="hero-img" loading="eager"/>
-            <div class="product-card-overlay">
-              <div class="pco-top">
-                <span class="pco-badge">Best Seller</span>
-                
-              </div>
-              
+      <!-- RIGHT -->
+      <div class="col-right">
+        <figure class="shot">
+          <img
+            src="/shop/shophero.webp"
+            alt="Handcrafted bonbons with silky golden filling"
+            loading="eager"
+            class="img"
+          />
+          <!--
+          <div class="quick">
+            <div class="q-info"><strong>Bonbons Box (9)</strong><span>$24</span></div>
+            <form action="/cart/add" method="post">
+              <input type="hidden" name="id" value="BONBONS_9_SKU" />
+              <button type="submit" class="q-add">Add to Cart</button>
+            </form>
           </div>
-        </div>
+          -->
+        </figure>
       </div>
     </div>
-
-  
-  </div>
-
-  <!-- Decorative crack underline -->
-  <div class="hero-crack" aria-hidden="true">
-    <svg viewBox="0 0 1200 60" class="crack-svg" preserveAspectRatio="none">
-      <path class="crack-line" d="M0,30 Q300,20 600,30 T1200,25" stroke="url(#heroGradient)" stroke-width="2" fill="none"/>
-      <defs>
-        <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"  style="stop-color:#D4A373;stop-opacity:0"/>
-          <stop offset="30%" style="stop-color:#D4A373;stop-opacity:.6"/>
-          <stop offset="50%" style="stop-color:#F59E0B;stop-opacity:1"/>
-          <stop offset="70%" style="stop-color:#D4A373;stop-opacity:.6"/>
-          <stop offset="100%"style="stop-color:#D4A373;stop-opacity:0"/>
-        </linearGradient>
-      </defs>
-    </svg>
   </div>
 </section>
 
 <style>
-  :root{ --cacao:#0A0B0D; --ivory:#FAFAF9; --gold:#D4A373; --amber:#F59E0B; --muted:rgba(250,250,249,.8); }
-
-  .shop-hero{ background:var(--cacao); color:var(--ivory); }
-  .hero{ position:relative; min-height: calc(100svh - var(--header-h)); padding-top: calc(var(--header-h) + max(env(safe-area-inset-top), 0px)); display:flex; align-items:center; overflow:hidden; }
-
-  @media (max-width: 480px){ .hero{ --header-h:74px; } }
-
-  .hero-background{ position:absolute; inset:0; overflow:hidden; background:
-      radial-gradient(ellipse at 20% 30%, rgba(212,163,115,.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 70%, rgba(245,158,11,.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 100%, rgba(10,11,13,.9) 0%, transparent 100%);
-  }
-  .hero-gradient{ position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,11,13,.55) 0%, rgba(10,11,13,.38) 100%); z-index:1; }
-
-  .container{ max-width:1280px; margin:0 auto; padding:0 clamp(1rem, 4vw, 2rem); position:relative; z-index:2; width:100%; }
-  .hero-content{ display:grid; grid-template-columns: 1.05fr .95fr; gap: clamp(1.5rem, 3.5vw, 4rem); align-items:center; min-height: clamp(60vh, 78svh, 86vh); }
-
-  .hero-badge{ display:inline-flex; align-items:center; gap:8px; background:rgba(212,163,115,.15); border:1px solid rgba(212,163,115,.3); color:var(--gold); padding:8px 14px; border-radius:999px; font-weight:600; font-size:.9rem; margin-bottom:1rem; backdrop-filter:blur(8px); }
-  .hero-title{ font-family:'Playfair Display',serif; font-size: clamp(2rem, 6vw, 4rem); font-weight:700; line-height:1.1; margin-bottom:1rem; text-shadow:0 4px 20px rgba(212,163,115,.2); }
-  .title-highlight{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-  .hero-description{ font-size: clamp(1rem, 2.2vw, 1.2rem); line-height:1.7; color:var(--muted); margin-bottom:1.25rem; max-width: 54ch; }
-
-  .hero-actions{ display:flex; gap:.9rem; flex-wrap:wrap; }
-  .primary-btn,.secondary-btn,.ghost-btn{ border-radius:12px; padding:14px 22px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; font-size: clamp(.95rem, 2vw, 1rem); }
-  .primary-btn{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); color:var(--cacao); box-shadow:0 8px 32px rgba(212,163,115,.3), 0 2px 16px rgba(0,0,0,.1); }
-  .primary-btn::before{ content:''; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); transition:left .6s ease; }
-  .primary-btn:hover::before{ left:100%; }
-  .primary-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 40px rgba(212,163,115,.4), 0 4px 20px rgba(0,0,0,.15); }
-  .secondary-btn{ background:rgba(212,163,115,.08); color:var(--ivory); border:1px solid rgba(212,163,115,.22); backdrop-filter:blur(8px); }
-  .secondary-btn:hover{ border-color:rgba(212,163,115,.4); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
-  .ghost-btn{ background:transparent; color:var(--ivory); border:1px dashed rgba(212,163,115,.35); }
-  .ghost-btn:hover{ border-color:rgba(212,163,115,.6); transform:translateY(-2px); }
-
-  .hero-visual{ position:relative; height: clamp(360px, 48vw, 600px); }
-  .hero-image-container{ position:relative; width:100%; height:100%; }
-  .hero-image{ width: clamp(260px, 38vw, 460px); aspect-ratio: 4 / 5; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:24px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4), 0 8px 32px rgba(212,163,115,.1); }
-  .hero-img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
-
-  /* Product quick‑add overlay */
-  .product-card-overlay{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; padding:14px; background:linear-gradient(180deg, rgba(10,11,13,.0) 20%, rgba(10,11,13,.55) 100%); }
-  .pco-top{ display:flex; justify-content:space-between; align-items:center; }
-  .pco-badge{ background:rgba(250,250,249,.85); color:#111; font-weight:700; font-size:.8rem; padding:6px 10px; border-radius:999px; }
-  .pco-like{ background:rgba(10,11,13,.5); color:#fff; border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:6px 10px; cursor:pointer; }
-  .pco-bottom{ display:flex; justify-content:space-between; align-items:end; gap:12px; }
-  .pco-info{ color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.35); }
-  .pco-title{ font-size:1.05rem; margin:0 0 .2rem; }
-  .pco-price{ font-weight:700; }
-  .pco-form{ margin:0; }
-  .pco-add{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); color:#111; font-weight:800; border:none; padding:10px 14px; border-radius:12px; cursor:pointer; box-shadow:0 10px 24px rgba(212,163,115,.35); }
-
-  /* USP / trust strip */
-  .usp-strip{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; margin-top:18px; list-style:none; padding:0; }
-  .usp-strip li{ display:flex; align-items:center; gap:10px; font-weight:600; color:var(--muted); background:rgba(212,163,115,.08); border:1px solid rgba(212,163,115,.16); border-radius:12px; padding:10px 12px; }
-
-  /* Decorative */
-  .hero-crack{ position:absolute; bottom:0; left:0; right:0; height: clamp(36px, 6vw, 60px); pointer-events:none; }
-  .crack-svg{ width:100%; height:100%; }
-  .crack-line{ stroke-dasharray:2000; stroke-dashoffset:2000; animation:drawCrack 3s ease-out 1s forwards; }
-  @keyframes drawCrack{ to{ stroke-dashoffset:0; } }
-
-  .chocolate-particles{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-  .particle{ position:absolute; width:4px; height:4px; background:var(--gold); border-radius:50%; opacity:.4; animation:float 8s ease-in-out infinite; }
-  .particle-1{ top:20%; left:15%; animation-delay:0s; } .particle-2{ top:70%; left:85%; animation-delay:1s; }
-  .particle-3{ top:40%; left:10%; animation-delay:2s; } .particle-4{ top:80%; left:70%; animation-delay:3s; }
-  .particle-5{ top:15%; left:90%; animation-delay:4s; } .particle-6{ top:60%; left:30%; animation-delay:5s; }
-  @keyframes float{ 0%,100%{ transform:translateY(0) scale(1); opacity:.4; } 50%{ transform:translateY(-30px) scale(1.5); opacity:.8; } }
-
-  /* Tablet */
-  @media (max-width: 1024px){
-    .hero-content{ grid-template-columns: 1fr; gap: clamp(1.25rem, 2.5vw, 3rem); text-align:center; min-height: auto; }
-    .hero-visual{ order: -1; height: clamp(300px, 45vw, 420px); }
-    .hero-actions{ justify-content:center; }
-    .usp-strip{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  :root{
+    --cacao:#0A0B0D; --ivory:#FAFAF9; --muted:rgba(250,250,249,.84);
+    --gold:#D4A373; --amber:#F59E0B;
   }
 
-  /* Mobile */
-  @media (max-width: 768px){
-    .hero-gradient{ background:linear-gradient(135deg, rgba(10,11,13,.65) 0%, rgba(10,11,13,.55) 100%); }
-    .primary-btn,.secondary-btn,.ghost-btn{ width: min(100%, 320px); justify-content:center; }
+  /* ==== CONTENEDOR PRINCIPAL (compacto / above-the-fold) ==== */
+  .hero{
+    background:var(--cacao); color:var(--ivory);
+    min-height: calc(100svh - var(--header-h,84px));
+    padding: clamp(10px,2vw,18px) 0;
+    display:flex; align-items:center; position:relative; overflow:hidden;
+  }
+  .bg-wrap{ position:absolute; inset:0; overflow:hidden; }
+  .bg-grad{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(60% 60% at 15% 20%, rgba(212,163,115,.12) 0%, transparent 60%),
+      radial-gradient(70% 70% at 85% 75%, rgba(245,158,11,.10) 0%, transparent 60%),
+      linear-gradient(135deg, rgba(10,11,13,.72), rgba(10,11,13,.58));
   }
 
-  /* Extra small */
-  @media (max-width: 420px){ .hero-actions{ gap:.75rem; } }
+  .wrap{ width:100%; max-width:1080px; margin:0 auto; padding:0 clamp(14px,3vw,28px); position:relative; z-index:1; }
+  .grid{
+    display:grid; gap: clamp(16px, 3vw, 32px);
+    grid-template-columns: 1.08fr .92fr;
+    align-items:center;
+    min-height: min(72svh, 720px);
+  }
+
+  /* ==== COLUMNA IZQUIERDA ==== */
+  .col-left{ min-width:0; }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--gold); border:1px solid rgba(212,163,115,.35);
+    background:rgba(212,163,115,.14); border-radius:999px;
+    padding:6px 12px; font-weight:600; font-size:.9rem; margin-bottom:8px;
+  }
+
+  .title{
+    font-family:'Playfair Display',serif; font-weight:800;
+    font-size: clamp(28px, 4.6vw, 48px);
+    line-height:1.08; margin:6px 0 8px; text-wrap:balance;
+    text-shadow:0 2px 14px rgba(212,163,115,.18);
+  }
+  .hl{
+    background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+
+  .desc{
+    max-width:52ch; font-size: clamp(15px,1.6vw,18px);
+    line-height:1.5; color:var(--muted); margin:0 0 12px;
+  }
+
+  .actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    border-radius:12px; padding:12px 18px; font-weight:700;
+    text-decoration:none; font-size: clamp(14px,1.4vw,16px);
+    transition: transform .25s ease, box-shadow .25s ease; white-space:nowrap;
+  }
+  .btn-primary{
+    color:#111; background:linear-gradient(135deg, var(--gold), var(--amber));
+    box-shadow:0 10px 30px rgba(212,163,115,.30);
+  }
+  .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 14px 36px rgba(212,163,115,.40); }
+  .btn-secondary{
+    color:var(--ivory); background:rgba(212,163,115,.08);
+    border:1px solid rgba(212,163,115,.25);
+  }
+  .btn-secondary:hover{ border-color:rgba(212,163,115,.45); }
+
+  /* ==== COLUMNA DERECHA (IMAGEN CUADRADA CONTROLADA) ==== */
+  .col-right{ display:flex; justify-content:center; align-items:center; }
+
+  .shot{
+    position:relative;
+    width: clamp(220px, 30vw, 380px);       /* controla ancho para no empujar el texto */
+    max-height: clamp(220px, 32vw, 380px);  /* tope de altura para mantener above-the-fold */
+    aspect-ratio: 1 / 1;                    /* cuadrada */
+    border-radius:18px; overflow:hidden;
+    box-shadow:0 14px 40px rgba(0,0,0,.45), 0 6px 18px rgba(212,163,115,.12);
+  }
+  .img{
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center 62%;  /* asegura que el corte del relleno quede visible */
+    display:block;
+    scale:1.08;
+  }
+
+  /* Quick add opcional */
+  .quick{
+    position:absolute; inset:auto 10px 10px 10px;
+    display:flex; gap:10px; justify-content:space-between; align-items:center;
+    background:linear-gradient(180deg, rgba(10,11,13,.15), rgba(10,11,13,.55));
+    padding:10px; border-radius:12px; color:#fff;
+  }
+  .q-info{ display:flex; flex-direction:column; gap:2px; }
+  .q-info strong{ font-size:.95rem; }
+  .q-info span{ font-weight:700; }
+  .q-add{
+    appearance:none; border:none; cursor:pointer; padding:10px 14px; border-radius:10px; font-weight:800;
+    background:linear-gradient(135deg, var(--gold), var(--amber)); color:#111;
+    box-shadow:0 8px 22px rgba(212,163,115,.35);
+  }
+
+  /* ==== RESPONSIVE ==== */
+  @media (max-width:1024px){
+    .grid{ grid-template-columns: 1fr 1fr; min-height:64svh; }
+    .title{ font-size: clamp(26px,5vw,42px); }
+    .shot{ width: clamp(220px, 36vw, 360px); max-height: clamp(220px, 36vw, 360px); }
+  }
+
+  @media (max-width:820px){
+    .grid{ grid-template-columns:1fr; gap:12px; min-height:auto; }
+    .col-right{ order:-1; }
+    /* la imagen no supera ~45% del alto de pantalla */
+    .shot{ width:min(78vw, 360px); max-height:min(45vh, 360px); margin:6px auto 2px; }
+    .title, .desc{ text-align:center; }
+    .actions{ justify-content:center; }
+  }
+
+  @media (max-width:420px){
+    .hero{ padding:6px 0; }
+    .badge{ display:none; }  /* libera espacio en el fold */
+    .title{ font-size: clamp(22px, 6.8vw, 28px); margin:4px 0 6px; line-height:1.1; }
+    .desc{ font-size:14px; line-height:1.42; margin-bottom:8px; }
+    .btn{ width:100%; max-width:320px; padding:12px 16px; }
+    /* foto ~40% del viewport */
+    .shot{ width:82vw; max-height:40vh; }
+  }
 </style>
-
-<script lang="ts">
-(() => {
-  // Guard against duplicate init
-  // @ts-ignore
-  if ((window).__heroShopInit) return; // idempotent
-  // @ts-ignore
-  (window).__heroShopInit = true;
-
-  // (Removed free‑shipping unlock logic)
-})();
-</script>
