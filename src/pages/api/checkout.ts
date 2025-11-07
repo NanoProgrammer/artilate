@@ -21,6 +21,7 @@ const ALIASES: Record<string, string> = {
   "milk-pistachio-bar": "milk-37-pistachio",
   "bar-milk-raspberry": "milk-37-raspberry-crumble",
   "bar-raspberry-crumble": "milk-37-raspberry-crumble",
+  "milk-37-rasp-crumble" : "milk-37-raspberry-crumble",
   "bar-dark-pistachio": "dark-60-pistachio",
   "dark-pistachio-bar": "dark-60-pistachio",
 
