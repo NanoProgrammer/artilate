@@ -125,8 +125,6 @@ export const POST: APIRoute = async ({ request }) => {
       automatic_tax: { enabled: false },
       success_url: `${siteUrl}/order/success`,
       cancel_url: `${siteUrl}/order/cancel`,
-      metadata: meta,
-      payment_intent_data: { metadata: meta },
       shipping_options: [
     // Alberta
     {
