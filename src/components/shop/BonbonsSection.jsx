@@ -171,44 +171,73 @@ function Picture({ p, overlay = true, pad = true }) {
 /* ---------- Featured Card (9 pcs) ---------- */
 function FeaturedCard({ p, onAdd, onOpen }) {
   return (
-    <article className="group relative col-span-12 overflow-hidden rounded-3xl border border-amber-300/25 bg-zinc-950/70 shadow-[0_20px_70px_rgba(0,0,0,.45)] lg:col-span-5 xl:col-span-6">
-      <div className={`pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-br ${tone[p.palette] || tone.amber} opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-40`} />
+    <article className="group relative col-span-12 overflow-hidden rounded-3xl border border-amber-300/25 bg-zinc-950/70 shadow-[0_20px_70px_rgba(0,0,0,.45)] lg:col-span-5 xl:col-span-6 scale-[0.95]">
+      {/* glow de borde */}
+      <div
+        className={`pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-br ${
+          tone[p.palette] || tone.amber
+        } opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-40`}
+      />
+
+      {/* Imagen */}
       <Picture p={p} overlay />
+
+      {/* Badge superior */}
       <div className="absolute left-3.5 top-3.5 z-10 flex items-center gap-1 rounded-full border border-amber-300/40 bg-amber-300/15 px-2.5 py-1 text-[10.5px] font-extrabold text-amber-200">
         <Crown className="h-3.5 w-3.5" /> MOST POPULAR • 9 PCS
       </div>
 
-      <div className="grid gap-2.5 p-4 sm:grid-cols-[1fr_auto] sm:items-start">
-        <div>
-          <h3 className="text-[19px] font-extrabold tracking-tight text-zinc-50 sm:text-[21px]">{p.name}</h3>
-          <p className="mt-1 text-[13px] leading-relaxed text-zinc-300">{p.description}</p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {[...(p.subtags || []), ...(p.notes || []).slice(0, 2)].map((t) => (
-              <span key={t} className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10.5px] font-semibold text-zinc-200">{t}</span>
-            ))}
-          </div>
-          <p className="mt-2 text-[10.5px] font-semibold text-zinc-400">{p.origin}</p>
+      {/* Contenido */}
+      <div className="grid gap-2.5 p-4">
+        <h3 className="text-[20px] font-extrabold tracking-tight text-zinc-50 sm:text-[22px]">
+          {p.name}
+        </h3>
+        <p className="mt-1 text-[13px] leading-relaxed text-zinc-300">
+          {p.description}
+        </p>
+
+        {/* chips */}
+        <div className="mt-2 flex flex-wrap gap-0">
+          {[...(p.subtags || []), ...(p.notes || []).slice(0, 1)].map((t) => (
+            <span
+              key={t}
+              className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10.5px] font-semibold text-zinc-200"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Barra inferior: $ | Add | Discover */}
+      <div className="flex items-center gap-2.5 border-t border-white/10 bg-black/60 px-4 py-3">
+        {/* Precio a la izquierda */}
+        <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[20px] font-extrabold leading-none text-transparent">
+          ${p.price}
         </div>
 
-        <div className="flex items-center gap-2 sm:self-center">
-          <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[20px] font-extrabold text-transparent">${p.price}</div>
-          <button onClick={onAdd} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_8px_24px_rgba(212,163,115,.28)]">
-            <Plus className="h-4 w-4" /> Add
-          </button>
-          {/* BOTÓN DISCOVER (mejor CTR) */}
-          <button
-            onClick={onOpen}
-            aria-label="Discover more about this product"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-1.5 text-[12px] font-semibold text-amber-300 hover:bg-amber-400/20 transition"
-          >
-            <Sparkles className="h-4 w-4" />
-            Discover
-          </button>
-        </div>
+        {/* Add */}
+        <button
+          onClick={onAdd}
+          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12.5px] font-extrabold text-zinc-900 shadow-[0_8px_24px_rgba(212,163,115,.28)] active:translate-y-[1px]"
+        >
+          <Plus className="h-4 w-4" /> Add
+        </button>
+
+        {/* Discover a la derecha */}
+        <button
+          onClick={onOpen}
+          aria-label="Discover more about this product"
+          className="ml-auto inline-flex items-center gap-1.5 rounded-xl border border-amber-400/40 bg-black/30 px-3 py-1.5 text-[12px] font-semibold text-amber-300 hover:bg-amber-400/10 transition active:translate-y-[1px]"
+        >
+          <Sparkles className="h-4 w-4" />
+          Discover
+        </button>
       </div>
     </article>
   );
 }
+
 
 /* ---------- Compact Card (8 & 6) ---------- */
 function CompactCard({ p, onAdd, onOpen }) {
