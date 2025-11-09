@@ -11,6 +11,7 @@ const seoData = {
   description:
     'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced Colombian cacao, handcrafted in small batches.',
   ogType: 'website' as const,
+  // JSON-LD extra que tu Layout inyecta dentro de LocalBusiness
   schemaExtras: {
     '@type': ['LocalBusiness', 'FoodEstablishment'],
     servesCuisine: 'Artisanal Chocolates',
@@ -38,24 +39,26 @@ const seoData = {
     }
   },
 
-  /* ✅ Preload SOLO del candidato AVIF que será LCP (~420px)
-     - NO mezclar AVIF y WebP en el mismo imagesrcset del <link>
-     - href apunta al 420w para que el navegador no baje el 640w por defecto
-  */
-  preloadImages: [
-    {
-      href: '/assets/hero-img-420.avif',
-      as: 'image',
-      fetchpriority: 'high',
-      imagesrcset: [
-        '/assets/hero-img-420.avif 420w',
-        '/assets/hero-img-560.avif 560w',
-        '/assets/hero-img-640.avif 640w'
-      ].join(', '),
-      imagesizes: '(max-width:768px) 88vw, (max-width:1200px) 42vw, 420px'
-    }
-  ],
+ preloadImages: [
+  {
+    href: '/assets/hero-img-640.webp',      // fallback inicial
+    as: 'image',
+    fetchpriority: 'high',
+    imagesrcset:
+      '/assets/hero-img-420.avif 420w, ' +
+      '/assets/hero-img-640.avif 640w, ' +
+      '/assets/hero-img-960.avif 960w, ' +
+      '/assets/hero-img-1280.avif 1280w, ' +
+      '/assets/hero-img-420.webp 420w, ' +
+      '/assets/hero-img-640.webp 640w, ' +
+      '/assets/hero-img-960.webp 960w, ' +
+      '/assets/hero-img-1280.webp 1280w',
+    imagesizes: '(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px'
+  }
+],
 
+
+  // Opcional: si quieres canónico custom (siempre absoluto)
   // canonical: 'https://artilate.com/'
 }
 ---
@@ -69,21 +72,26 @@ const seoData = {
 </Layout>
 
 <style>
-  :global(.scroll-reveal){opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-  :global(.scroll-reveal.revealed){opacity:1;transform:translateY(0)}
-  :global(.fade-in-left){opacity:0;transform:translateX(-40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-  :global(.fade-in-left.revealed){opacity:1;transform:translateX(0)}
-  :global(.fade-in-right){opacity:0;transform:translateX(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
-  :global(.fade-in-right.revealed){opacity:1;transform:translateX(0)}
+  /* Animaciones suaves y compositadas (transform/opacity) */
+  :global(.scroll-reveal){ opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  :global(.scroll-reveal.revealed){ opacity:1; transform:translateY(0); }
+
+  :global(.fade-in-left){ opacity:0; transform:translateX(-40px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  :global(.fade-in-left.revealed){ opacity:1; transform:translateX(0); }
+
+  :global(.fade-in-right){ opacity:0; transform:translateX(40px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  :global(.fade-in-right.revealed){ opacity:1; transform:translateX(0); }
 </style>
 
 <script is:inline>
+  // Intersection Observer para revelar en scroll
   const observer = new IntersectionObserver((entries)=> {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.scroll-reveal, .fade-in-left, .fade-in-right')
+    document
+      .querySelectorAll('.scroll-reveal, .fade-in-left, .fade-in-right')
       .forEach(el => observer.observe(el));
   });
 </script>
