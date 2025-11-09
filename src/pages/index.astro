@@ -1,5 +1,4 @@
 ---
-// src/pages/index.astro
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.astro'
 import QualityCards from '../components/QualityCards.astro'
@@ -9,8 +8,10 @@ import Newsletter from '../components/Newsletter.astro'
 
 const seoData = {
   title: 'Artilate — Handcrafted Chocolates from Colombian Cacao',
-  description: 'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced Colombian cacao, handcrafted in small batches with scientific precision.',
+  description:
+    'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced Colombian cacao, handcrafted in small batches.',
   ogType: 'website' as const,
+  // JSON-LD extra que tu Layout inyecta dentro de LocalBusiness
   schemaExtras: {
     '@type': ['LocalBusiness', 'FoodEstablishment'],
     servesCuisine: 'Artisanal Chocolates',
@@ -19,16 +20,32 @@ const seoData = {
       '@type': 'Menu',
       name: 'Chocolate Selection',
       hasMenuSection: [
-        { '@type': 'MenuSection', name: 'Bonbons', hasMenuItem: [
-          { '@type': 'MenuItem', name: 'Classic Box of 9', offers: { '@type': 'Offer', price: '25', priceCurrency: 'CAD' }},
-          { '@type': 'MenuItem', name: 'Tropical Box of 9', offers: { '@type': 'Offer', price: '25', priceCurrency: 'CAD' }}
-        ]},
-        { '@type': 'MenuSection', name: 'Chocolate Bars', hasMenuItem: [
-          { '@type': 'MenuItem', name: 'Dark with Pistachio (40g)', offers: { '@type': 'Offer', price: '6', priceCurrency: 'CAD' }}
-        ]}
+        {
+          '@type': 'MenuSection',
+          name: 'Bonbons',
+          hasMenuItem: [
+            { '@type': 'MenuItem', name: 'Classic Box of 9', offers: { '@type': 'Offer', price: '25', priceCurrency: 'CAD' } },
+            { '@type': 'MenuItem', name: 'Tropical Box of 9', offers: { '@type': 'Offer', price: '25', priceCurrency: 'CAD' } }
+          ]
+        },
+        {
+          '@type': 'MenuSection',
+          name: 'Chocolate Bars',
+          hasMenuItem: [
+            { '@type': 'MenuItem', name: 'Dark with Pistachio (40g)', offers: { '@type': 'Offer', price: '6', priceCurrency: 'CAD' } }
+          ]
+        }
       ]
     }
-  }
+  },
+
+  // ✅ Pasa preloads al Layout: Hero LCP en prioridad alta
+  preloadImages: [
+    { href: '/assets/hero-img-640.webp', as: 'image', fetchpriority: 'high' }
+  ],
+
+  // Opcional: si quieres canónico custom (siempre absoluto)
+  // canonical: 'https://artilate.com/'
 }
 ---
 
@@ -41,59 +58,26 @@ const seoData = {
 </Layout>
 
 <style>
-  /* Global homepage styles */
-  :global(.scroll-reveal) {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  :global(.scroll-reveal.revealed) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  :global(.fade-in-left) {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  :global(.fade-in-left.revealed) {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  :global(.fade-in-right) {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  :global(.fade-in-right.revealed) {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  /* Animaciones suaves y compositadas (transform/opacity) */
+  :global(.scroll-reveal){ opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  :global(.scroll-reveal.revealed){ opacity:1; transform:translateY(0); }
+
+  :global(.fade-in-left){ opacity:0; transform:translateX(-40px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  :global(.fade-in-left.revealed){ opacity:1; transform:translateX(0); }
+
+  :global(.fade-in-right){ opacity:0; transform:translateX(40px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  :global(.fade-in-right.revealed){ opacity:1; transform:translateX(0); }
 </style>
 
-<script>
-  // Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
+<script is:inline>
+  // Intersection Observer para revelar en scroll
+  const observer = new IntersectionObserver((entries)=> {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-      }
-    });
-  }, observerOptions);
-
-  // Observe all elements with animation classes
   document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.scroll-reveal, .fade-in-left, .fade-in-right');
-    animatedElements.forEach(el => observer.observe(el));
+    document
+      .querySelectorAll('.scroll-reveal, .fade-in-left, .fade-in-right')
+      .forEach(el => observer.observe(el));
   });
 </script>

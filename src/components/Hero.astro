@@ -1,12 +1,30 @@
 ---
-/* src/components/Hero.astro (responsive + header aware) */
-
+// Hero (responsive + header aware + GPU-safe animations)
 ---
 
 <section class="hero" style="--header-h:84px">
   <div class="hero-background">
-    <!-- VIDEO de fondo: en mobile usamos metadata + poster para performance -->
-    <img src="/assets/bgExplosion.webp" alt="color explosion" class="hero-explosion" />
+    <!-- BG responsive (1920 base) -->
+    <picture>
+      <source
+        type="image/avif"
+        srcset="/assets/bgExplosion-1280.avif 1280w,
+                /assets/bgExplosion-1920.avif 1920w"
+        sizes="100vw" />
+      <source
+        type="image/webp"
+        srcset="/assets/bgExplosion-1280.webp 1280w,
+                /assets/bgExplosion-1920.webp 1920w"
+        sizes="100vw" />
+      <img
+        src="/assets/bgExplosion-1920.webp"
+        alt="color explosion"
+        class="hero-explosion"
+        width="1920" height="1080"
+        decoding="async"
+        loading="lazy"
+        fetchpriority="low" />
+    </picture>
 
     <div class="hero-gradient"></div>
 
@@ -23,7 +41,7 @@
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
-        <div class="hero-badge ">
+        <div class="hero-badge">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
@@ -35,7 +53,7 @@
         </h1>
 
         <p class="hero-description scroll-reveal">
-          Handcrafted bonbons bursting with flavour, colour, and passion  made in Alberta with single-origin Colombian cacao.
+          Handcrafted bonbons bursting with flavour, colour, and passion made in Alberta with single-origin Colombian cacao.
         </p>
 
         <div class="hero-actions">
@@ -59,10 +77,32 @@
 
       <div class="hero-visual fade-in-right">
         <div class="hero-image-container">
-              <img src="/assets/hero-img.webp" alt="handcrafted chocolate" loading="lazy" decoding="async" class="hero-image"> 
+          <!-- LCP responsive -->
+          <picture class="hero-image">
+            <source
+              type="image/avif"
+              srcset="/assets/hero-img-420.avif 420w,
+                      /assets/hero-img-640.avif 640w,
+                      /assets/hero-img-960.avif 960w,
+                      /assets/hero-img-1280.avif 1280w"
+              sizes="(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px" />
+            <source
+              type="image/webp"
+              srcset="/assets/hero-img-420.webp 420w,
+                      /assets/hero-img-640.webp 640w,
+                      /assets/hero-img-960.webp 960w,
+                      /assets/hero-img-1280.webp 1280w"
+              sizes="(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px" />
+            <img
+              src="/assets/hero-img-640.webp"
+              alt="handcrafted chocolate"
+              width="520" height="430"
+              loading="eager" decoding="async" fetchpriority="high"
+              style="width:100%;height:auto;display:block;border-radius:24px" />
+          </picture>
         </div>
       </div>
-    </div>    
+    </div>
   </div>
 
   <div class="hero-crack" aria-hidden="true">
@@ -86,88 +126,39 @@
     --cacao:#0A0B0D; --ivory:#FAFAF9; --gold:#D4A373; --amber:#F59E0B; --muted:rgba(250,250,249,.8);
   }
 
-  /* HEADER OFFSET + SAFE AREAS */
   .hero{
     position:relative;
-    /* ocupa viewport real restando header; svh corrige el 100vh en mobile */
     max-height: calc(100svh - var(--header-h) + 20px);
     margin: 0 auto;
-    padding-top: max(env(safe-area-inset-top), 0px));
+    padding-top: max(env(safe-area-inset-top), 0px);
     display:flex; align-items:center;
     overflow:hidden; background:var(--cacao); color:var(--ivory);
   }
+  @media (max-width: 480px){ .hero{ --header-h:74px; } }
 
-  /* En móvil tu header usa 74px, así que reducimos var */
-  @media (max-width: 480px){
-    .hero{ --header-h:74px; }
+  .hero-background{ position:absolute; inset:0; overflow:hidden; }
+
+  /* ✅ BG: composited animation (opacity/transform) */
+  .hero-explosion{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center; z-index:0;
+    filter:saturate(1.35) contrast(1.1) brightness(1.05);
+    opacity:0; transform:scale(1.06);
+    animation:heroIn .9s cubic-bezier(.16,1,.3,1) .2s both;
   }
+  @keyframes heroIn{ to{ opacity:1; transform:scale(1) } }
 
-  .hero-background{ position:absolute; inset:0; overflow:hidden;
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(212,163,115,.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 70%, rgba(245,158,11,.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 100%, rgba(10,11,13,.9) 0%, transparent 100%);
-  }
-
-  .hero-explosion {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 0;
-  filter: saturate(1.35) contrast(1.1) brightness(1.05);
-  transform: scale(1.03);
-  animation: heroExplosion 1.6s ease-in-out forwards;
-  animation-delay: 0.2s;
-  clip-path: circle(0% at 50% 50%);
-  overflow: hidden;
-}
-
-/* capa difusa solo en los bordes */
-.hero-explosion::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: inherit;
-  filter: blur(20px);
-  mask-image: radial-gradient(circle at center, transparent 70%, black 100%);
-  mask-mode: alpha;
-  pointer-events: none;
-  z-index: 2;
-}
-
-@keyframes heroExplosion {
-  0% {
-    clip-path: circle(0% at 50% 50%);
-    transform: scale(1.1);
-    opacity: 0;
-  }
-  60% {
-    clip-path: circle(120% at 50% 50%);
-    transform: scale(1.03);
-  }
-  100% {
-    clip-path: circle(150% at 50% 50%);
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-  .hero-gradient{ position:absolute; inset:0;
-    /* un poco más transparente para que luzca el video en desktop */
+  .hero-gradient{
+    position:absolute; inset:0;
     background:linear-gradient(135deg, rgba(10,11,13,.55) 0%, rgba(10,11,13,.38) 100%);
     z-index:1;
   }
 
   .container{ max-width:1280px; margin:0 auto; padding:0 clamp(1rem, 4vw, 2rem); position:relative; z-index:2; width:100%; }
   .hero-content{
-    display:grid;
-    grid-template-columns: 1.05fr .95fr;
+    display:grid; grid-template-columns: 1.05fr .95fr;
     gap: clamp(1.5rem, 3.5vw, 4rem);
-    scale: 0.73;
-    align-items:center;
+    scale: 0.73; align-items:center;
     min-height: clamp(60vh, 78svh, 86vh);
   }
 
@@ -195,19 +186,18 @@
 
   .hero-visual{ position:relative; height: clamp(360px, 48vw, 600px); }
   .hero-image-container{ position:relative; width:100%; height:40%; }
+
   .hero-image{
-    width: clamp(240px, 36vw, 840px);
+    display:block; width: clamp(240px, 36vw, 840px);
     aspect-ratio: 1.2 / 1;
     margin-top: 25%;
     position:absolute; top:70%; left:50%; transform:translate(-50%,-50%);
     border-radius:24px; overflow:hidden;
   }
- 
 
   .hero-crack{ position:absolute; bottom:0; left:0; right:0; height: clamp(36px, 6vw, 60px); pointer-events:none; }
-  .crack-svg{ width:100%; height:100%; }
-  .crack-line{ stroke-dasharray:2000; stroke-dashoffset:2000; animation:drawCrack 3s ease-out 1s forwards; }
-  @keyframes drawCrack{ to{ stroke-dashoffset:0; } }
+  .crack-svg{ width:100%; height:100%; opacity:0; animation:fade .8s ease-out .8s both; }
+  @keyframes fade { to { opacity:1 } }
 
   .chocolate-particles{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
   .particle{ position:absolute; width:4px; height:4px; background:var(--gold); border-radius:50%; opacity:.4; animation:float 8s ease-in-out infinite; }
@@ -216,78 +206,19 @@
   .particle-5{ top:15%; left:90%; animation-delay:4s; } .particle-6{ top:60%; left:30%; animation-delay:5s; }
   @keyframes float{ 0%,100%{ transform:translateY(0) scale(1); opacity:.4; } 50%{ transform:translateY(-30px) scale(1.5); opacity:.8; } }
 
-  /* TABLET ↓: una columna, centrado, CTAs ancho cómodo */
   @media (max-width: 1024px){
     .hero-content{ grid-template-columns: 1fr; gap: clamp(1.25rem, 2.5vw, 3rem); text-align:center; min-height: auto; }
     .hero-visual{ order: -1; height: clamp(300px, 45vw, 420px); }
     .hero-actions{ justify-content:center; }
   }
-
-  /* MÓVIL ↓ */
   @media (max-width: 768px){
     .hero-gradient{ background:linear-gradient(135deg, rgba(10,11,13,.65) 0%, rgba(10,11,13,.55) 100%); }
     .primary-btn,.secondary-btn{ width: min(100%, 320px); justify-content:center; }
   }
+  @media (max-width: 420px){ .hero-actions{ gap:.75rem; } }
 
-  /* EXTRA SMALL */
-  @media (max-width: 420px){
-    .hero-actions{ gap:.75rem; }
+  @media (prefers-reduced-motion: reduce){
+    .hero-explosion, .crack-svg, .particle { animation: none !important; }
   }
 </style>
 
-<script lang="ts">
-(() => {
-  onMount(() => {
-  const video = document.querySelector('.hero-video');
-  const observer = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) video.load();
-  });
-  observer.observe(video);
-});
-
-  // Evita doble init si Astro hidrata varias veces
-  // @ts-ignore
-  if ((window).__heroVideoInit) return;
-  // @ts-ignore
-  (window).__heroVideoInit = true;
-
-  const v = document.querySelector('.hero-video') ;
-  if (!v) return;
-
-  // Si el usuario prefiere menos movimiento, no arrancamos el video
-  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-
-  const startAfterDelay = () => {
-    setTimeout(async () => {
-      try { await v.play(); } catch {/* autoplay bloqueado: ignorar */}
-    }, 250);
-  };
-
-  if (v.readyState >= 2) startAfterDelay();
-  else v.addEventListener('canplay', startAfterDelay, { once: true });
-
-  const freeze = () => {
-    try {
-      v.pause();
-      if (!isNaN(v.duration) && isFinite(v.duration)) {
-        v.currentTime = Math.max(0, v.duration - 0.03);
-      }
-    } catch {/* noop */}
-    v.classList.add('is-frozen');
-  };
-
-  let frozen = false;
-  v.addEventListener('ended', () => { if (!frozen) { frozen = true; freeze(); } }, { once: true });
-  v.addEventListener('timeupdate', () => {
-    if (!frozen && v.duration && (v.duration - v.currentTime) < 0.05) {
-      frozen = true; freeze();
-    }
-  });
-
-  // iOS a veces necesita "touch" para iniciar; si falla, caemos a poster
-  setTimeout(() => {
-    if (v.paused) v.setAttribute('poster', v.getAttribute('poster') || '/bg_passionfrut_poster.jpg');
-  }, 2000);
-})();
-</script>

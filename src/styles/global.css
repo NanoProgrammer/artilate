@@ -1,4 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap');
+/* ===== Auto-hosted fonts (Variable) ===== */
+
+/* Inter variable (peso 100–900) */
+@font-face {
+  font-family: "Inter";
+  src: url("/font/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter italic variable (opcional; úsalo si tienes cursivas) */
+@font-face {
+  font-family: "Inter";
+  src: url("/font/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Playfair Display variable (500–700 incluidos) */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/font/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* (opcional) Playfair italic si la usas */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/font/PlayfairDisplay-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,8 +69,8 @@
     --gradient-4: #805B40;
     --gradient-5: #554539;
 
-    --font-sans: 'Inter', sans-serif;
-    --font-serif: 'Playfair Display', serif;
+    --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
 }
 
 /*
