@@ -5,7 +5,8 @@ import Footer from '../components/Footer.astro'
 
 type HreflangLink = { hreflang: string; href: string }
 type PreloadFont = { href: string; type?: 'font/woff2' | 'font/woff' }
-type PreloadImage = { href: string; as?: 'image'; fetchpriority?: 'high' | 'low' }
+type PreloadImage = { href: string; as?: 'image'; fetchpriority?: 'high' | 'low', imagesrcset?: string;   // 👈 NUEVO
+  imagesizes?: string;  }
 interface Crumb { href: string; name: string }
 
 // 👇 Exporta la interfaz y añade children
@@ -213,8 +214,16 @@ const cssBundleC = '/_astro/index.hnSyaRZ8.css'
 
     <!-- 🔹 Preload de imágenes críticas (LCP) configurable por página -->
     {preloadImages.map((i) => (
-      <link rel="preload" as={i.as ?? 'image'} href={i.href} fetchpriority={i.fetchpriority ?? 'high'} />
-    ))}
+  <link
+    rel="preload"
+    as={i.as ?? 'image'}
+    href={i.href}
+    fetchpriority={i.fetchpriority ?? 'high'}
+    imagesrcset={i.imagesrcset}
+    imagesizes={i.imagesizes}
+  />
+))}
+
 
     <!-- 💡 CSS crítico mínimo (pinta el Hero rápido) -->
     <style>

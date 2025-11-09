@@ -8,6 +8,7 @@
   font-style: normal;
   font-display: swap;
 }
+@media (max-width:768px){ .chocolate-particles{ display:none; } }
 
 /* Inter italic variable (opcional; úsalo si tienes cursivas) */
 @font-face {
