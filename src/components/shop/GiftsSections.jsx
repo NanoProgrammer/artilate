@@ -220,7 +220,7 @@ export default function GiftsSections() {
 
   return (
     <>
-      <section id="gifts" style="content-visibility:auto; contain-intrinsic-size: 700px 1200px"
+      <section id="gifts"  style={{ contentVisibility: 'auto', containIntrinsicSize: '700px 1200px' }}
   className="relative rounded-2xl bg-[#0A0B0D] px-4 pb-10 pt-7 sm:px-6 lg:px-8">
         <div
           aria-hidden

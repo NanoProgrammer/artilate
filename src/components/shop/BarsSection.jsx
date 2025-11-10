@@ -173,7 +173,7 @@ export default function BarsSection() {
 
   return (
     <>
-      <section id="chocolate-bars" style="content-visibility:auto; contain-intrinsic-size: 700px 1200px"
+      <section id="chocolate-bars"  style={{ contentVisibility: 'auto', containIntrinsicSize: '700px 1200px' }}
   className="relative overflow-hidden bg-[#0A0B0D] py-16">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30" style={{
           background: `
