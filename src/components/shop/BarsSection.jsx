@@ -173,7 +173,8 @@ export default function BarsSection() {
 
   return (
     <>
-      <section id="chocolate-bars" className="relative overflow-hidden bg-[#0A0B0D] py-16">
+      <section id="chocolate-bars" style="content-visibility:auto; contain-intrinsic-size: 700px 1200px"
+  className="relative overflow-hidden bg-[#0A0B0D] py-16">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30" style={{
           background: `
             radial-gradient(ellipse 600px 400px at 20% 30%, rgba(212,163,115,0.06) 0%, transparent 50%),

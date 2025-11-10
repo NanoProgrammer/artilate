@@ -300,7 +300,8 @@ export default function BarsSection() {
 
   return (
     <>
-      <section id="bonbons" className="rounded-2xl bg-[#0A0B0D] px-4 pb-14 pt-10 shadow-[0_20px_60px_rgba(0,0,0,.35)] sm:px-6 lg:px-8">
+      <section id="bonbons" style="content-visibility:auto; contain-intrinsic-size: 700px 1200px"
+  className="rounded-2xl bg-[#0A0B0D] px-4 pb-14 pt-10 shadow-[0_20px_60px_rgba(0,0,0,.35)] sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="mb-6 flex items-center justify-center gap-2">
             <Info className="h-4 w-4 text-amber-400" />
