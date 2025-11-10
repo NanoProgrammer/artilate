@@ -15,6 +15,7 @@ const seoData = {
     { href: "/", name: "Home" },
     { href: "/shop", name: "Shop" }
   ],
+  
   schemaExtras: {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -61,8 +62,13 @@ const seoData = {
 
 <Layout 
   {...seoData}
-  preloadImages={[
-    { href: "/assets/shop-hero-bg.jpg", fetchpriority: "high" }
+ preloadImages={[
+    {
+      href: "/images/shop/shophero-800.avif",        // ↩️ misma ruta y formato que <img>
+      fetchpriority: "high",
+      imagesrcset: "/images/shop/shophero-480.avif 480w, /images/shop/shophero-800.avif 800w, /images/shop/shophero-1200.avif 1200w",
+      imagesizes: "(max-width:820px) 82vw, 380px"
+    }
   ]}
 >
   <Hero />
