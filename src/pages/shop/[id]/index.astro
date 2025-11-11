@@ -3,11 +3,26 @@
 import Layout from "../../../layouts/Layout.astro";
 import ContextProduct from "../../../components/shop/contextProduct.jsx";
 export const prerender = true;
-const { id } = Astro.params;
 
-/** Minimal catalog (extend freely). Keys must match product slugs/links used across the site */
-const CATALOG = {
-  /* ───────────────── BARS ───────────────── */
+/* Anchos fijos que vas a generar en /public/images */
+const WIDTHS = [480, 800, 1200] as const;
+
+/* Helpers para construir srcset desde un base SIN extensión ni sufijo de ancho */
+const toSrcSet = (baseNoExt: string, ext: "avif" | "webp") =>
+  WIDTHS.map((w) => `/images${baseNoExt}-${w}.${ext} ${w}w`).join(", ");
+
+/* Quita /images y la extensión .avif/.webp para quedarte con el "base" */
+const toBase = (p: string) =>
+  p.replace(/^\/images/i, "").replace(/\.(avif|webp)$/i, "");
+
+type Product = {
+  id: string; name: string; price: number; category: string; tag?: string;
+  shortDesc: string; longDesc: string; chips?: string[]; cacao?: string; weight?: string;
+  dietary?: string[]; ingredients?: string; allergens?: string; images: string[]; content?: string[];
+};
+
+/* ================= CATALOGO (rutas bajo /public/images) ================= */
+const CATALOG: Record<string, Product> = {
   "milk-37-pistachio": {
     id: "milk-37-pistachio",
     name: "37% Milky Pistachio Bar",
@@ -23,13 +38,13 @@ const CATALOG = {
     dietary: ["Contains milk"],
     ingredients:
       "Cocoa mass, sugar, cocoa butter, whole milk powder, pistachios (tree nuts), emulsifier (sunflower lecithin), natural flavours.",
-    allergens:
-      "Contains milk and tree nuts (pistachio). Made in a facility that handles other nuts.",
-    images: ["/images/bars/milk-pistachio.webp","/images/bars/milk-pistachio-1.webp","/images/bars/milk-pistachio-2.webp"],
-    content: [
-      "1 × 40 g bar",
-      "Studded with roasted pistachio pieces"
-    ]
+    allergens: "Contains milk and tree nuts (pistachio). Made in a facility that handles other nuts.",
+    images: [
+      "/images/bars/milk-pistachio.webp",
+      "/images/bars/milk-pistachio-1.webp",
+      "/images/bars/milk-pistachio-2.webp",
+    ],
+    content: ["1 × 40 g bar", "Studded with roasted pistachio pieces"],
   },
 
   "milk-37-raspberry-crumble": {
@@ -48,11 +63,13 @@ const CATALOG = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, whole milk powder, raspberry crumble (raspberry, sugar), emulsifier (sunflower lecithin), natural flavours.",
     allergens: "Contains milk. Made in a facility that handles nuts.",
-    images: ["/images/bars/milk-raspberry-crumble.webp","/images/bars/milk-raspberry-crumble-1.webp","/images/bars/milk-raspberry-crumble-2.webp","/images/bars/milk-raspberry-crumble-3.webp"],
-    content: [
-      "1 × 40 g bar",
-      "Raspberry crumble bits"
-    ]
+    images: [
+      "/images/bars/milk-raspberry-crumble.webp",
+      "/images/bars/milk-raspberry-crumble-1.webp",
+      "/images/bars/milk-raspberry-crumble-2.webp",
+      "/images/bars/milk-raspberry-crumble-3.webp",
+    ],
+    content: ["1 × 40 g bar", "Raspberry crumble bits"],
   },
 
   "dark-60-pistachio": {
@@ -60,7 +77,8 @@ const CATALOG = {
     name: "60% Dark Pistachio Bar",
     price: 11,
     category: "Nut Collection",
-    shortDesc: "Balanced 64% dark chocolate layered with pistachio pieces—nutty, lightly sweet, satisfying.",
+    shortDesc:
+      "Balanced 64% dark chocolate layered with pistachio pieces—nutty, lightly sweet, satisfying.",
     longDesc:
       "A versatile 64% dark built for everyday snacking, speckled with roasted pistachios for a buttery crunch and a softly sweet finish.",
     chips: ["64% dark", "Pistachio pieces"],
@@ -68,37 +86,43 @@ const CATALOG = {
     weight: "40 g",
     ingredients:
       "Cocoa mass, organic cane sugar, cocoa butter, pistachios (tree nuts), emulsifier (sunflower lecithin), natural flavours.",
-    allergens:
-      "Contains tree nuts (pistachio). Made in a facility that handles milk and other nuts.",
-    images: ["/images/bars/dark-pistachio.webp", "/images/bars/dark-pistachio-1.webp","/images/bars/dark-pistachio-2.webp"],
-    content: [
-      "1 × 40 g bar",
-      "Roasted pistachio pieces"
-    ]
+    allergens: "Contains tree nuts (pistachio). Made in a facility that handles milk and other nuts.",
+    images: [
+      "/images/bars/dark-pistachio.webp",
+      "/images/bars/dark-pistachio-1.webp",
+      "/images/bars/dark-pistachio-2.webp",
+    ],
+    content: ["1 × 40 g bar", "Roasted pistachio pieces"],
   },
 
-  /* ───────────────── BONBONS ───────────────── */
+  /* ================= BONBONS ================= */
+
   "classic-box-9": {
     id: "classic-box-9",
     name: "Classic Box — 9",
     price: 28,
     category: "Bonbons",
     tag: "Signature",
-    shortDesc: "Nine signature bonbons spanning pistachio, caramel with blackberry, and chocolate and hazelnut.",
-    longDesc:
-     "Nine bonbons that embody the heart of Artilate’s craft. Each piece balances texture, aroma, and emotion — a small story told through fine-flavour cacao. The Pistachio Praliné offers a soft crunch that awakens the senses. The Blackberry Caramel melts slowly, releasing notes of ripe fruit layered over buttery sweetness. The Chocolate & Hazelnut brings pure comfort — a smooth gianduja wrapped in a thin dark shell. Together, they form a tasting journey that moves from nutty and bright to deep and velvety, celebrating the art of balance and flavour precision.",
+    shortDesc:
+      "Nine signature bonbons spanning pistachio, caramel with blackberry, and chocolate and hazelnut.",
+    longDesc: "Nine bonbons that embody the heart of Artilate’s craft...",
     chips: ["Gluten-free friendly", "Balanced"],
     cacao: "54% dark chocolate single-origin",
     weight: "9 bonbons",
     dietary: ["Gluten-free (not certified)"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
     allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/classic-9.webp", "/images/bonbons/classic-9-1.webp","/images/bonbons/classic-9-2.webp"],
+    images: [
+      "/images/bonbons/classic-9.webp",
+      "/images/bonbons/classic-9-1.webp",
+      "/images/bonbons/classic-9-2.webp",
+    ],
     content: [
       "3 × Pistachio Praliné",
       "3 × Caramel with Blackberry",
-      "3 × Chocolate & Hazelnut"
-    ]
+      "3 × Chocolate & Hazelnut",
+    ],
   },
 
   "tropical-box-9": {
@@ -107,9 +131,9 @@ const CATALOG = {
     price: 25,
     category: "Bonbons",
     tag: "Fruity",
-    shortDesc: "Exotic and vibrant: spicy pineapple, passionfruit, and coffee in silky dark chocolate shells.",
-    longDesc:
-      "An exploration of tropical intensity in three chapters. The Spicy Pineapple surprises with sweet heat and bright citrus sparkle. Passionfruit follows—lush, tangy, and perfectly balanced against the creamy ganache within. Finally, the Coffee bonbon closes the experience with roasted depth and a whisper of caramel. Crafted with 52% single-origin Colombian dark chocolate, this box is a sensory journey from fire to fruit to finesse—sunshine in every bite.",
+    shortDesc:
+      "Exotic and vibrant: spicy pineapple, passionfruit, and coffee in silky dark chocolate shells.",
+    longDesc: "An exploration of tropical intensity in three chapters...",
     chips: ["Tropical fruits", "Spice & coffee contrast"],
     cacao: "Single-origin Colombia • 52% dark chocolate",
     weight: "9 bonbons",
@@ -117,12 +141,12 @@ const CATALOG = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (pineapple, passionfruit), coffee, natural flavours, spices.",
     allergens: "Made in a facility that handles dairy and nuts.",
-    images: ["/images/bonbons/tropical-9.webp", "/images/bonbons/tropical-9-1.webp","/images/bonbons/tropical-9-2.webp"],
-    content: [
-      "3 × Spicy Pineapple",
-      "3 × Passionfruit",
-      "3 × Coffee"
-    ]
+    images: [
+      "/images/bonbons/tropical-9.webp",
+      "/images/bonbons/tropical-9-1.webp",
+      "/images/bonbons/tropical-9-2.webp",
+    ],
+    content: ["3 × Spicy Pineapple", "3 × Passionfruit", "3 × Coffee"],
   },
 
   "classic-box-8": {
@@ -131,22 +155,27 @@ const CATALOG = {
     price: 28,
     category: "Bonbons",
     tag: "Signature",
-    shortDesc: "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
-    longDesc:
-      "Eight timeless pieces that showcase Artilate’s classic style: soft caramels, nutty pralinés and vanilla-led ganaches with thin, elegant shells.",
+    shortDesc:
+      "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
+    longDesc: "Eight timeless pieces that showcase Artilate’s classic style...",
     chips: ["Crowd-pleaser"],
     cacao: "57% dark chocolate single-origin",
     weight: "8 bonbons",
     dietary: ["Contains dairy & nuts"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, natural flavours.",
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts, natural flavours.",
     allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/classic-8.webp", "/images/bonbons/classic-8-1.webp","/images/bonbons/classic-8-2.webp"],
+    images: [
+      "/images/bonbons/classic-8.webp",
+      "/images/bonbons/classic-8-1.webp",
+      "/images/bonbons/classic-8-2.webp",
+    ],
     content: [
       "2 × Caramel with Blackberry",
       "2 × Pistachio Praliné",
       "2 × Chocolate & Hazelnut",
-      "2 × Strawberry"
-    ]
+      "2 × Strawberry",
+    ],
   },
 
   "vibrant-box-8": {
@@ -155,9 +184,9 @@ const CATALOG = {
     price: 23,
     category: "Bonbons",
     tag: "Fruity",
-    shortDesc: "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
-    longDesc:
-      "A tropical medley designed to awaken every sense. The Mango bonbon bursts with golden sweetness and smooth acidity. Spicy Pineapple brings a playful spark — juicy heat balanced by silky ganache. Passion Fruit follows with tangy brightness and a lingering citrus perfume. Finally, Caramel with Blackberry bridges fruit and comfort, weaving buttery depth with a touch of tart berry. Crafted with 59% single-origin Colombian dark chocolate, this box is sunshine, spice, and elegance in equal measure.",
+    shortDesc:
+      "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
+    longDesc: "A tropical medley designed to awaken every sense...",
     chips: ["Seasonal fruit", "Tropical spice"],
     cacao: "Single-origin Colombia • 59% dark chocolate",
     weight: "8 bonbons",
@@ -165,13 +194,13 @@ const CATALOG = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (mango, pineapple, passion fruit, blackberry), natural flavours, spices.",
     allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/bonbons/vibrant-8.webp", "/images/bonbons/vibrant-8-1.webp","/images/bonbons/vibrant-8-2.webp", "/images/bonbons/vibrant-8-3.webp"],
-    content: [
-      "2 × Mango",
-      "2 × Spicy Pineapple",
-      "2 × Passion Fruit",
-      "2 × Caramel with Blackberry"
-    ]
+    images: [
+      "/images/bonbons/vibrant-8.webp",
+      "/images/bonbons/vibrant-8-1.webp",
+      "/images/bonbons/vibrant-8-2.webp",
+      "/images/bonbons/vibrant-8-3.webp",
+    ],
+    content: ["2 × Mango", "2 × Spicy Pineapple", "2 × Passion Fruit", "2 × Caramel with Blackberry"],
   },
 
   "essentials-box-6": {
@@ -180,9 +209,9 @@ const CATALOG = {
     price: 18,
     category: "Bonbons",
     tag: "Best Value",
-    shortDesc: "Six essentials — pistachio, caramel with blackberry, chocolate & hazelnut, passionfruit, coffee, and strawberry.",
-    longDesc:
-      "A curated tasting set that captures Artilate’s signature balance of flavour and craftsmanship. The Pistachio Praliné opens with roasted depth and creamy texture. Caramel with Blackberry pairs buttery sweetness with bright, jammy fruit. Chocolate & Hazelnut brings comforting gianduja richness in a smooth dark shell. Passionfruit adds a lively tang, Coffee delivers roasted warmth with subtle bitterness, and Strawberry closes the experience with pure, fruit-forward charm. Six handcrafted bonbons that move from nutty and elegant to fresh and vibrant — small in size, rich in story.",
+    shortDesc:
+      "Six essentials — pistachio, caramel with blackberry, chocolate & hazelnut, passionfruit, coffee, and strawberry.",
+    longDesc: "A curated tasting set that captures Artilate’s signature balance...",
     chips: ["Gift-ready", "Balanced assortment"],
     cacao: "Single-origin Colombia • 53% dark chocolate",
     weight: "6 bonbons",
@@ -190,26 +219,32 @@ const CATALOG = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio), fruit purées (blackberry, strawberry, passionfruit), coffee, natural flavours.",
     allergens: "Contains dairy and tree nuts (hazelnut, pistachio).",
-    images: ["/images/bonbons/essentials-6.webp", "/images/bonbons/essentials-6-1.webp","/images/bonbons/essentials-6-2.webp", "/images/bonbons/essentials-6-3.webp"],
+    images: [
+      "/images/bonbons/essentials-6.webp",
+      "/images/bonbons/essentials-6-1.webp",
+      "/images/bonbons/essentials-6-2.webp",
+      "/images/bonbons/essentials-6-3.webp",
+    ],
     content: [
       "1 × Pistachio Praliné",
       "1 × Caramel with Blackberry",
       "1 × Chocolate & Hazelnut",
       "1 × Passionfruit",
       "1 × Coffee",
-      "1 × Strawberry"
-    ]
+      "1 × Strawberry",
+    ],
   },
 
-  /* ───────────────── GIFTING ───────────────── */
+  /* ================= GIFTING ================= */
+
   "heart-gift-box": {
     id: "heart-gift-box",
     name: "Heart Gift Box",
     price: 86,
     category: "Gifting",
-    shortDesc: "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
-    longDesc:
-      "Crafted as a gesture of love and artistry, this keepsake box holds thirty hand-painted heart bonbons made from single-origin Colombian cacao. The Caramel with Blackberry hearts (16) melt into layers of buttery sweetness and ripe fruit. The Pistachio Praliné (10) brings roasted depth and a soft, nutty finish. The Passionfruit hearts (4) brighten the collection with tangy citrus notes that linger delicately. Each piece is hand-finished for colour, gloss, and precision — a romantic composition that blends elegance, flavour, and emotion in every bite.",
+    shortDesc:
+      "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
+    longDesc: "Crafted as a gesture of love and artistry...",
     chips: ["Hand-painted", "Message card", "Gift-ready"],
     cacao: "Single-origin Colombia • 60% dark chocolate",
     weight: "30 bonbons",
@@ -217,13 +252,19 @@ const CATALOG = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, dairy, nuts (pistachio), fruit purées (blackberry, passionfruit), natural flavours.",
     allergens: "Contains dairy and tree nuts (pistachio).",
-    images: ["/images/gifts/heart-gift-box.webp", "/images/gifts/heart-gift-box-1.webp","/images/gifts/heart-gift-box-2.webp", "/images/gifts/heart-gift-box-3.webp", "/images/gifts/heart-gift-box-4.webp"],
+    images: [
+      "/images/gifts/heart-gift-box.webp",
+      "/images/gifts/heart-gift-box-1.webp",
+      "/images/gifts/heart-gift-box-2.webp",
+      "/images/gifts/heart-gift-box-3.webp",
+      "/images/gifts/heart-gift-box-4.webp",
+    ],
     content: [
       "16 × Caramel with Blackberry bonbons",
       "10 × Pistachio Praliné bonbons",
       "4 × Passionfruit bonbons",
-      "Presented in a reusable keepsake tray"
-    ]
+      "Presented in a reusable keepsake tray",
+    ],
   },
 
   "golden-ribbon-keepsake-box": {
@@ -232,9 +273,9 @@ const CATALOG = {
     price: 48,
     category: "Gifting",
     tag: "Ready-to-gift",
-    shortDesc: "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
-    longDesc:
-      "A refined gift that embodies the spirit of Artilate craftsmanship. Inside the reusable wooden keepsake box, tied with a golden ribbon, rests a complete tasting experience. It begins with an eight-piece bonbon collection featuring Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, and Coffee. Two Milky Chocolate Bars bring creamy comfort, while a 63% Dark Chocolate Bar with Pistachio Crumble adds texture and depth. Three chocolate coins sprinkled with nuts complete the ensemble — a thoughtful, elegant gift ready to share or savour slowly.",
+    shortDesc:
+      "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
+    longDesc: "A refined gift that embodies the spirit of Artilate craftsmanship...",
     chips: ["Wooden box", "Assorted chocolates", "Gift-ready"],
     cacao: "Single-origin Colombia • 54–63% dark & milk chocolate",
     weight: "Bonbons + 3 bars + 3 coins",
@@ -242,22 +283,24 @@ const CATALOG = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio, almond), fruit purées (blackberry, mango, passionfruit, strawberry), coffee, natural flavours.",
     allergens: "Contains dairy and tree nuts (hazelnut, pistachio, almond).",
-    images: ["/images/gifts/keepsake-wood-box.webp", "/images/gifts/keepsake-wood-box-1.webp","/images/gifts/keepsake-wood-box-2.webp"],
+    images: [
+      "/images/gifts/keepsake-wood-box.webp",
+      "/images/gifts/keepsake-wood-box-1.webp",
+      "/images/gifts/keepsake-wood-box-2.webp",
+    ],
     content: [
       "1 × 8-piece bonbon selection (Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, Coffee — 1 each)",
       "2 × Milky Chocolate Bars (37%)",
       "1 × 63% Dark Chocolate Bar with Pistachio Crumble",
       "3 × Chocolate Coins with Nuts",
-      "Reusable wooden keepsake box with golden ribbon"
-    ]
-  }
+      "Reusable wooden keepsake box with golden ribbon",
+    ],
+  },
 };
 
-
-
+/* ================ Static paths ================ */
 export function getStaticPaths() {
-  const CATALOG = {
-  /* ───────────────── BARS ───────────────── */
+  const CATALOG: Record<string, Product> = {
   "milk-37-pistachio": {
     id: "milk-37-pistachio",
     name: "37% Milky Pistachio Bar",
@@ -269,13 +312,17 @@ export function getStaticPaths() {
       "Silky, nostalgic 37% milk chocolate with pops of roasted pistachio and a pinch of sea salt to brighten the melt. Comforting, crunchy, and impossible to share.",
     chips: ["Creamy 37%", "Pistachio pieces"],
     cacao: "Milk chocolate • 37%",
-    weight: "80 g",
+    weight: "40 g",
     dietary: ["Contains milk"],
     ingredients:
-      "Cocoa mass, sugar, cocoa butter, whole milk powder, pistachios (tree nuts), sea salt, emulsifier (sunflower lecithin), natural flavours.",
-    allergens:
-      "Contains milk and tree nuts (pistachio). Made in a facility that handles other nuts.",
-    images: ["/images/bars/milk-pistachio.webp"]
+      "Cocoa mass, sugar, cocoa butter, whole milk powder, pistachios (tree nuts), emulsifier (sunflower lecithin), natural flavours.",
+    allergens: "Contains milk and tree nuts (pistachio). Made in a facility that handles other nuts.",
+    images: [
+      "/images/bars/milk-pistachio.webp",
+      "/images/bars/milk-pistachio-1.webp",
+      "/images/bars/milk-pistachio-2.webp",
+    ],
+    content: ["1 × 40 g bar", "Studded with roasted pistachio pieces"],
   },
 
   "milk-37-raspberry-crumble": {
@@ -289,12 +336,18 @@ export function getStaticPaths() {
       "A cheerful bar that pairs creamy 37% milk chocolate with tart raspberry crumble. Crunchy texture, fruity lift, and a smooth, milky finish.",
     chips: ["Raspberry crumble", "Creamy 37%"],
     cacao: "Milk chocolate • 37%",
-    weight: "80 g",
+    weight: "40 g",
     dietary: ["Contains milk"],
     ingredients:
       "Cocoa mass, sugar, cocoa butter, whole milk powder, raspberry crumble (raspberry, sugar), emulsifier (sunflower lecithin), natural flavours.",
     allergens: "Contains milk. Made in a facility that handles nuts.",
-    images: ["/images/bars/milk-raspberry-crumble.webp",]
+    images: [
+      "/images/bars/milk-raspberry-crumble.webp",
+      "/images/bars/milk-raspberry-crumble-1.webp",
+      "/images/bars/milk-raspberry-crumble-2.webp",
+      "/images/bars/milk-raspberry-crumble-3.webp",
+    ],
+    content: ["1 × 40 g bar", "Raspberry crumble bits"],
   },
 
   "dark-60-pistachio": {
@@ -302,56 +355,76 @@ export function getStaticPaths() {
     name: "60% Dark Pistachio Bar",
     price: 11,
     category: "Nut Collection",
-    tag: "Vegan",
-    shortDesc: "Balanced 60% dark chocolate layered with pistachio pieces—nutty, lightly sweet, satisfying.",
+    shortDesc:
+      "Balanced 64% dark chocolate layered with pistachio pieces—nutty, lightly sweet, satisfying.",
     longDesc:
-      "A versatile 60% dark built for everyday snacking, speckled with roasted pistachios for a buttery crunch and a softly sweet finish.",
-    chips: ["60% dark", "Pistachio pieces"],
-    cacao: "Dark chocolate • 60%",
-    weight: "80 g",
-    dietary: ["Vegan", "Gluten-free"],
+      "A versatile 64% dark built for everyday snacking, speckled with roasted pistachios for a buttery crunch and a softly sweet finish.",
+    chips: ["64% dark", "Pistachio pieces"],
+    cacao: "Dark chocolate • 64%",
+    weight: "40 g",
     ingredients:
       "Cocoa mass, organic cane sugar, cocoa butter, pistachios (tree nuts), emulsifier (sunflower lecithin), natural flavours.",
-    allergens:
-      "Contains tree nuts (pistachio). Made in a facility that handles milk and other nuts.",
-    images: ["/images/bars/dark-pistachio.webp"]
+    allergens: "Contains tree nuts (pistachio). Made in a facility that handles milk and other nuts.",
+    images: [
+      "/images/bars/dark-pistachio.webp",
+      "/images/bars/dark-pistachio-1.webp",
+      "/images/bars/dark-pistachio-2.webp",
+    ],
+    content: ["1 × 40 g bar", "Roasted pistachio pieces"],
   },
 
-  /* ───────────────── BONBONS ───────────────── */
+  /* ================= BONBONS ================= */
+
   "classic-box-9": {
     id: "classic-box-9",
     name: "Classic Box — 9",
-    price: 33,
+    price: 28,
     category: "Bonbons",
     tag: "Signature",
-    shortDesc: "Nine signature bonbons spanning caramel, fruit, single-origin ganache, and praline.",
-    longDesc:
-      "Our crowd-pleasing set: thin, glossy shells filled with caramel, fruit-bright ganaches, velvet pralines, and a single-origin dark that anchors the flight. Balanced from first bite to last.",
+    shortDesc:
+      "Nine signature bonbons spanning pistachio, caramel with blackberry, and chocolate and hazelnut.",
+    longDesc: "Nine bonbons that embody the heart of Artilate’s craft...",
     chips: ["Gluten-free friendly", "Balanced"],
-    cacao: "Mixed origins",
+    cacao: "54% dark chocolate single-origin",
     weight: "9 bonbons",
     dietary: ["Gluten-free (not certified)"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
     allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/classic-9.webp"]
+    images: [
+      "/images/bonbons/classic-9.webp",
+      "/images/bonbons/classic-9-1.webp",
+      "/images/bonbons/classic-9-2.webp",
+    ],
+    content: [
+      "3 × Pistachio Praliné",
+      "3 × Caramel with Blackberry",
+      "3 × Chocolate & Hazelnut",
+    ],
   },
 
   "tropical-box-9": {
     id: "tropical-box-9",
     name: "Tropical Box — 9",
-    price: 33,
+    price: 25,
     category: "Bonbons",
     tag: "Fruity",
-    shortDesc: "A bright journey through tropical fruit ganaches made with real purées and citrus peels.",
-    longDesc:
-      "A sunny tour through guava, pineapple, mango and citrus layers that pop—silky ganaches with juicy acidity and clean finishes.",
-    chips: ["Vegan options"],
-    cacao: "Colombia 70% • house blend",
+    shortDesc:
+      "Exotic and vibrant: spicy pineapple, passionfruit, and coffee in silky dark chocolate shells.",
+    longDesc: "An exploration of tropical intensity in three chapters...",
+    chips: ["Tropical fruits", "Spice & coffee contrast"],
+    cacao: "Single-origin Colombia • 52% dark chocolate",
     weight: "9 bonbons",
     dietary: ["May include dairy"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, fruit purées, citrus peel, natural flavours.",
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (pineapple, passionfruit), coffee, natural flavours, spices.",
     allergens: "Made in a facility that handles dairy and nuts.",
-    images: ["/images/bonbons/tropical-9.webp"]
+    images: [
+      "/images/bonbons/tropical-9.webp",
+      "/images/bonbons/tropical-9-1.webp",
+      "/images/bonbons/tropical-9-2.webp",
+    ],
+    content: ["3 × Spicy Pineapple", "3 × Passionfruit", "3 × Coffee"],
   },
 
   "classic-box-8": {
@@ -360,151 +433,303 @@ export function getStaticPaths() {
     price: 28,
     category: "Bonbons",
     tag: "Signature",
-    shortDesc: "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
-    longDesc:
-      "Eight timeless pieces that showcase Artilate’s classic style: soft caramels, nutty pralinés and vanilla-led ganaches with thin, elegant shells.",
+    shortDesc:
+      "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
+    longDesc: "Eight timeless pieces that showcase Artilate’s classic style...",
     chips: ["Crowd-pleaser"],
-    cacao: "Dark & Milk mix",
+    cacao: "57% dark chocolate single-origin",
     weight: "8 bonbons",
     dietary: ["Contains dairy & nuts"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, natural flavours.",
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts, natural flavours.",
     allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/classic-8.webp"]
+    images: [
+      "/images/bonbons/classic-8.webp",
+      "/images/bonbons/classic-8-1.webp",
+      "/images/bonbons/classic-8-2.webp",
+    ],
+    content: [
+      "2 × Caramel with Blackberry",
+      "2 × Pistachio Praliné",
+      "2 × Chocolate & Hazelnut",
+      "2 × Strawberry",
+    ],
   },
 
   "vibrant-box-8": {
     id: "vibrant-box-8",
     name: "Vibrant Box — 8",
-    price: 29,
+    price: 23,
     category: "Bonbons",
     tag: "Fruity",
-    shortDesc: "Eight bright favorites with a juicy, refreshing finish.",
-    longDesc:
-      "A lively selection centered on tropical brightness—think passion fruit and mango over dark chocolate—clean finishes and photogenic shells.",
-    chips: ["Seasonal fruit"],
-    cacao: "Colombia 70%",
+    shortDesc:
+      "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
+    longDesc: "A tropical medley designed to awaken every sense...",
+    chips: ["Seasonal fruit", "Tropical spice"],
+    cacao: "Single-origin Colombia • 59% dark chocolate",
     weight: "8 bonbons",
     dietary: ["Contains dairy"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, fruit purées, natural flavours.",
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (mango, pineapple, passion fruit, blackberry), natural flavours, spices.",
     allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/bonbons/vibrant-8.webp"]
+    images: [
+      "/images/bonbons/vibrant-8.webp",
+      "/images/bonbons/vibrant-8-1.webp",
+      "/images/bonbons/vibrant-8-2.webp",
+      "/images/bonbons/vibrant-8-3.webp",
+    ],
+    content: ["2 × Mango", "2 × Spicy Pineapple", "2 × Passion Fruit", "2 × Caramel with Blackberry"],
   },
 
   "essentials-box-6": {
     id: "essentials-box-6",
     name: "Essentials Box — 6",
-    price: 22,
+    price: 18,
     category: "Bonbons",
     tag: "Best Value",
-    shortDesc: "Six of our most-loved classics—simple, elegant, and perfect for a first taste.",
-    longDesc:
-      "A focused lineup of house favorites: caramel, hazelnut praline and a dark ganache to show the balance we’re known for—small set, big character.",
-    chips: ["Gift-ready"],
-    cacao: "Dark & Milk mix",
+    shortDesc:
+      "Six essentials — pistachio, caramel with blackberry, chocolate & hazelnut, passionfruit, coffee, and strawberry.",
+    longDesc: "A curated tasting set that captures Artilate’s signature balance...",
+    chips: ["Gift-ready", "Balanced assortment"],
+    cacao: "Single-origin Colombia • 53% dark chocolate",
     weight: "6 bonbons",
     dietary: ["Contains dairy & nuts"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, natural flavours.",
-    allergens: "Contains dairy and nuts.",
-    images: ["/images/bonbons/essentials-6.webp"]
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio), fruit purées (blackberry, strawberry, passionfruit), coffee, natural flavours.",
+    allergens: "Contains dairy and tree nuts (hazelnut, pistachio).",
+    images: [
+      "/images/bonbons/essentials-6.webp",
+      "/images/bonbons/essentials-6-1.webp",
+      "/images/bonbons/essentials-6-2.webp",
+      "/images/bonbons/essentials-6-3.webp",
+    ],
+    content: [
+      "1 × Pistachio Praliné",
+      "1 × Caramel with Blackberry",
+      "1 × Chocolate & Hazelnut",
+      "1 × Passionfruit",
+      "1 × Coffee",
+      "1 × Strawberry",
+    ],
   },
 
-  /* ───────────────── GIFTING ───────────────── */
+  /* ================= GIFTING ================= */
+
   "heart-gift-box": {
     id: "heart-gift-box",
     name: "Heart Gift Box",
-    price: 49,
+    price: 86,
     category: "Gifting",
-    tag: "Romantic",
-    shortDesc: "Hand-painted heart bonbons arranged in a keepsake tray.",
-    longDesc:
-      "A romantic assortment of hand-painted heart bonbons presented in a reusable tray. Add a message card to make it personal—elegant, photogenic, and ready to gift.",
+    shortDesc:
+      "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
+    longDesc: "Crafted as a gesture of love and artistry...",
     chips: ["Hand-painted", "Message card", "Gift-ready"],
-    cacao: "Mixed origins",
-    weight: "Assortment",
+    cacao: "Single-origin Colombia • 60% dark chocolate",
+    weight: "30 bonbons",
     dietary: ["Contains dairy & nuts"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
-    allergens: "Contains dairy and nuts.",
-    images: ["/images/gifts/heart-gift-box.webp"]
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts (pistachio), fruit purées (blackberry, passionfruit), natural flavours.",
+    allergens: "Contains dairy and tree nuts (pistachio).",
+    images: [
+      "/images/gifts/heart-gift-box.webp",
+      "/images/gifts/heart-gift-box-1.webp",
+      "/images/gifts/heart-gift-box-2.webp",
+      "/images/gifts/heart-gift-box-3.webp",
+      "/images/gifts/heart-gift-box-4.webp",
+    ],
+    content: [
+      "16 × Caramel with Blackberry bonbons",
+      "10 × Pistachio Praliné bonbons",
+      "4 × Passionfruit bonbons",
+      "Presented in a reusable keepsake tray",
+    ],
   },
 
   "golden-ribbon-keepsake-box": {
     id: "golden-ribbon-keepsake-box",
     name: "Golden Ribbon Keepsake Box",
-    price: 74,
+    price: 48,
     category: "Gifting",
     tag: "Ready-to-gift",
-    shortDesc: "Reusable wooden keepsake box with a ribboned assortment (bonbons + bar).",
-    longDesc:
-      "A reusable wooden keepsake box finished with a golden ribbon, holding a curated assortment of bonbons plus a chocolate bar. Sophisticated presentation, effortless gifting.",
-    chips: ["Wooden box", "Assorted chocolates"],
-    cacao: "Mixed origins",
-    weight: "Bonbons + 1 bar",
+    shortDesc:
+      "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
+    longDesc: "A refined gift that embodies the spirit of Artilate craftsmanship...",
+    chips: ["Wooden box", "Assorted chocolates", "Gift-ready"],
+    cacao: "Single-origin Colombia • 54–63% dark & milk chocolate",
+    weight: "Bonbons + 3 bars + 3 coins",
     dietary: ["Contains dairy & nuts"],
-    ingredients: "Cocoa mass, sugar, cocoa butter, dairy, nuts, fruit purées, natural flavours.",
-    allergens: "Contains dairy and nuts.",
-    images: ["/images/gifts/keepsake-wood-box.webp"]
-  }
+    ingredients:
+      "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio, almond), fruit purées (blackberry, mango, passionfruit, strawberry), coffee, natural flavours.",
+    allergens: "Contains dairy and tree nuts (hazelnut, pistachio, almond).",
+    images: [
+      "/images/gifts/keepsake-wood-box.webp",
+      "/images/gifts/keepsake-wood-box-1.webp",
+      "/images/gifts/keepsake-wood-box-2.webp",
+    ],
+    content: [
+      "1 × 8-piece bonbon selection (Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, Coffee — 1 each)",
+      "2 × Milky Chocolate Bars (37%)",
+      "1 × 63% Dark Chocolate Bar with Pistachio Crumble",
+      "3 × Chocolate Coins with Nuts",
+      "Reusable wooden keepsake box with golden ribbon",
+    ],
+  },
 };
-
   return Object.keys(CATALOG).map((id) => ({
-    params: { id },              // genera /shop/dark-75-pistachio, etc.
-    props: { product: CATALOG[id] }, // pasa el producto como prop
+    params: { id },
+    props: { product: CATALOG[id] },
   }));
 }
 
-const product = CATALOG[id] ?? null;
+/* ================ Page props ================ */
+const { id } = Astro.params;
+const product = CATALOG[id as keyof typeof CATALOG] ?? null;
+if (!product) Astro.response.status = 404;
 
-// SEO
-const title = product
-  ? `${product.name} | Artilate`
-  : "Product not found | Artilate";
+/* ================ SEO + responsive ================ */
+const title = product ? `${product.name} | Artilate` : "Product not found | Artilate";
 const description = product?.shortDesc ?? "Explore Artilate chocolates.";
-const image = product?.images?.[0] ?? "/assets/shop-hero-og.jpg";
 
-const breadcrumbs = [
-  { href: "/", name: "Home" },
-  { href: "/shop", name: "Shop" },
-  ...(product ? [{ href: `/shop/${id}`, name: product.name }] : []),
-];
+/* Bases (sin extensión) */
+const heroBase = product ? toBase(product.images[0]) : null;
+const thumbBases = (product?.images ?? []).slice(1).map(toBase);
+
+/* OG/preview image que SÍ existe (no uses basename) */
+const ogImage = heroBase ? `/images${heroBase}-1200.avif` : "/assets/shop-hero-og.jpg";
+
+/* sizes */
+const sizesHero = "(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 960px";
+const sizesThumb = "(max-width: 640px) 33vw, (max-width: 1024px) 200px, 320px";
 ---
 
-<Layout title={title} description={description} image={image} breadcrumbs={breadcrumbs}>
-  {
-    product ? (
-      <ContextProduct client:load product={product} />
-    ) : (
-      <section class="mx-auto max-w-5xl px-4 py-24 text-center text-zinc-200">
-        <h1 class="mb-3 text-3xl font-extrabold">Product not found</h1>
-        <p class="mb-6 text-zinc-400">
-          We couldn’t locate that item. Try browsing the shop instead.
-        </p>
-        <a href="/shop" class="inline-flex items-center gap-2 rounded-lg bg-amber-400 px-4 py-2 font-extrabold text-zinc-900">
-          Back to shop
-        </a>
-      </section>
-    )
-  }
+<Layout
+  title={title}
+  description={description}
+  image={ogImage}
+  breadcrumbs={[
+    { href: "/", name: "Home" },
+    { href: "/shop", name: "Shop" },
+    ...(product ? [{ href: `/shop/${id}`, name: product.name }] : []),
+  ]}
+>
+  {/* ===== HEAD: Preload del LCP en AVIF + WebP ===== */}
+  {heroBase && (
+    <Fragment slot="head">
+      <link
+        rel="preload"
+        as="image"
+        imagesrcset={toSrcSet(heroBase, "avif")}
+        imagesizes={sizesHero}
+        type="image/avif"
+        fetchpriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        imagesrcset={toSrcSet(heroBase, "webp")}
+        imagesizes={sizesHero}
+        type="image/webp"
+        fetchpriority="high"
+      />
+    </Fragment>
+  )}
 
+  {product ? (
+    <>
+      {/* Island mínima */}
+      <ContextProduct client:visible product={product} />
+
+      {/* ===== Galería ===== */}
+      <section class="mx-auto mt-8 max-w-5xl px-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-12">
+
+          {/* HERO */}
+          <figure class="sm:col-span-7">
+            {heroBase && (
+              <picture>
+  <source type="image/avif" srcset={toSrcSet(heroBase, "avif")} sizes={sizesHero} />
+  <source type="image/webp" srcset={toSrcSet(heroBase, "webp")} sizes={sizesHero} />
+  {/* Fallback: el <img> también tiene srcset con 480/800/1200 */}
+  <img
+    src={`/images${heroBase}-800.webp`}
+    srcset={toSrcSet(heroBase, "webp")}
+    sizes={sizesHero}
+    alt={`${product.name} — main`}
+    width="800"
+    height="800"
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+    onerror="if(!this.dataset.alt){this.dataset.alt=1;this.src=this.src.replace('.webp','.avif');this.srcset=this.srcset.replaceAll('.webp','.avif');}"
+    class="aspect-square w-full rounded-2xl border border-zinc-800 object-cover"
+  />
+</picture>
+            )}
+          </figure>
+
+          {/* THUMBS */}
+          <div class="sm:col-span-5 grid grid-cols-3 gap-3">
+            {thumbBases.map((base, i) => (
+  <picture>
+    <source type="image/avif" srcset={toSrcSet(base, "avif")} sizes={sizesThumb} />
+    <source type="image/webp" srcset={toSrcSet(base, "webp")} sizes={sizesThumb} />
+    <img
+      src={`/images${base}-480.webp`}
+      srcset={toSrcSet(base, "webp")}
+      sizes={sizesThumb}
+      alt={`${product.name} — gallery ${i + 1}`}
+      width="480"
+      height="480"
+      loading="lazy"
+      decoding="async"
+      onerror="if(!this.dataset.alt){this.dataset.alt=1;this.src=this.src.replace('.webp','.avif');this.srcset=this.srcset.replaceAll('.webp','.avif');}"
+      class="aspect-square w-full rounded-xl border border-zinc-800 object-cover"
+    />
+  </picture>
+))}
+
+          </div>
+        </div>
+      </section>
+    </>
+  ) : (
+    <section class="mx-auto max-w-5xl px-4 py-24 text-center text-zinc-200">
+      <h1 class="mb-3 text-3xl font-extrabold">Product not found</h1>
+      <p class="mb-6 text-zinc-400">We couldn’t locate that item. Try browsing the shop instead.</p>
+      <a href="/shop" class="inline-flex items-center gap-2 rounded-lg bg-amber-400 px-4 py-2 font-extrabold text-zinc-900">
+        Back to shop
+      </a>
+    </section>
+  )}
+
+  {/* ===== JSON-LD ===== */}
   <slot name="jsonld">
     {product && (
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Product",
+          sku: product.id,
           name: product.name,
           description: product.shortDesc,
-          image: product.images,
           category: product.category,
+          image: (product.images || []).map((p) =>
+            new URL(p.replace(/^\//, "/"), Astro.site ?? "https://artilate.ca").toString()
+          ),
           brand: { "@type": "Brand", name: "Artilate" },
           offers: {
             "@type": "Offer",
             availability: "https://schema.org/InStock",
             priceCurrency: "CAD",
             price: product.price,
-            url: `https://artilate.ca/shop/${product.id}`,
+            url: new URL(`/shop/${product.id}`, Astro.site ?? "https://artilate.ca").toString(),
           },
         })}
       </script>
     )}
   </slot>
 </Layout>
+
+<style is:global>
+  .aspect-square { aspect-ratio: 1 / 1; }
+</style>
