@@ -1,0 +1,407 @@
+---
+const reviews = [
+  { name: "Gloria Guilbert", role: "Local Guide — Calgary, AB", text: "Delicious and beautiful chocolates — the bonbons look stunning and taste even better." },
+  { name: "José Solisaga", role: "Customer — Calgary, AB", text: "You can actually taste real ingredients. Glossy shells, clean flavours — totally worth it." },
+  { name: "Abigail Slingerlend", role: "Customer — Calgary, AB", text: "Silky, smooth, perfectly balanced — the best chocolate I've had." },
+  { name: "Ashley Hannan", role: "Local — Calgary, AB", text: "Elegant, LOCAL. Creative flavours with gift-ready presentation." },
+  { name: "Renee Park", role: "Event Planner — Downtown Calgary", text: "Elevated our client reception. Guests kept asking where to order." },
+  { name: "Igor Rupyshev", role: "Customer — Calgary, AB", text: "Really amazing — get the big box, you won't get enough!" },
+];
+
+const differentiators: string[] = [
+  "Freshly made after you order",
+  "Small batches",
+  "Limited units",
+  "Made in Alberta",
+  "Single-origin Colombian cacao",
+  "Hand-painted shells",
+  "Gift-ready presentation",
+  "Real fruit & nuts",
+];
+---
+
+<section class="vt">
+  <!-- Stats Cards -->
+  <div class="stats-hero">
+    <div class="stat-card">
+      <div class="stat-icon-wrap">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">4.9</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon-wrap secondary">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9" cy="7" r="4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">120+</div>
+        <div class="stat-label">Local Reviews</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon-wrap tertiary">
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ribbon compacta -->
+  <div class="stat-content" aria-label="Quality differentiators">
+    <ul class="ribbon" role="list">
+      {differentiators.map((d, i) => (
+        <>
+          <li class="r-item">
+            <span class="i-dot" aria-hidden="true"></span>
+            <span class="r-text">{d}</span>
+          </li>
+          {i !== differentiators.length - 1 && <li class="sep" aria-hidden="true"> </li>}
+        </>
+      ))}
+    </ul>
+  </div>
+
+  <div class="hairline" aria-hidden="true"></div>
+
+  <!-- TESTIMONIOS: fila 1 -->
+  <div class="row">
+    <div class="belt">
+      {reviews.map((t) => (
+        <article class="card" tabindex="0">
+          <header class="meta">
+            <div class="avatar" aria-hidden="true">
+              {t.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
+            </div>
+            <div class="who">
+              <h3 class="name">{t.name}</h3>
+              <p class="role">{t.role}</p>
+            </div>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+          </header>
+          <p class="text">"{t.text}"</p>
+        </article>
+      ))}
+      {reviews.map((t) => (
+        <article class="card" tabindex="-1" aria-hidden="true">
+          <header class="meta">
+            <div class="avatar" aria-hidden="true">
+              {t.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
+            </div>
+            <div class="who">
+              <h3 class="name">{t.name}</h3>
+              <p class="role">{t.role}</p>
+            </div>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+          </header>
+          <p class="text">"{t.text}"</p>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- TESTIMONIOS: fila 2 inversa -->
+  <div class="row rev">
+    <div class="belt">
+      {reviews.slice().reverse().map((t) => (
+        <article class="card" tabindex="0">
+          <header class="meta">
+            <div class="avatar" aria-hidden="true">
+              {t.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
+            </div>
+            <div class="who">
+              <h3 class="name">{t.name}</h3>
+              <p class="role">{t.role}</p>
+            </div>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+          </header>
+          <p class="text">"{t.text}"</p>
+        </article>
+      ))}
+      {reviews.slice().reverse().map((t) => (
+        <article class="card" tabindex="-1" aria-hidden="true">
+          <header class="meta">
+            <div class="avatar" aria-hidden="true">
+              {t.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
+            </div>
+            <div class="who">
+              <h3 class="name">{t.name}</h3>
+              <p class="role">{t.role}</p>
+            </div>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+          </header>
+          <p class="text">"{t.text}"</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+:root{
+  --bg:#0A0B0D; --panel:#0B0E11; --ink:#F7F5EF; --muted:rgba(255,255,255,.78);
+  --line:rgba(255,255,255,.12); --gold:#D7B07A; --amber:#F5A623; --fade:rgba(0,0,0,.45);
+  --r-pad: clamp(.6rem, 1.6vw, .9rem);
+  --radius:16px;
+}
+
+.vt{ background:var(--bg); color:var(--ink); padding:2.5rem 0 3rem; position:relative; overflow:hidden; }
+
+.vt::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(215,176,122,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(50px);
+}
+
+/* STATS HERO */
+.stats-hero {
+  max-width: 1200px;
+  margin: 0 auto 3.5rem;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  padding: 2rem 2.2rem;
+  background: linear-gradient(135deg, rgba(16,18,21,.95), rgba(12,14,17,.9));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(215,176,122,.2);
+  box-shadow: 0 12px 36px rgba(0,0,0,.3), 0 0 0 1px rgba(215,176,122,.06) inset;
+}
+
+.stat-icon-wrap {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--gold), var(--amber));
+  box-shadow: 0 6px 20px rgba(215,176,122,.22), inset 0 0 0 1px rgba(255,255,255,.12);
+  flex-shrink: 0;
+}
+
+.stat-icon-wrap.secondary {
+  background: linear-gradient(135deg, #6B5CE7, #8B7FEE);
+  box-shadow: 0 6px 20px rgba(107,92,231,.22), inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.stat-icon-wrap.tertiary {
+  background: linear-gradient(135deg, #E85D75, #F27A8F);
+  box-shadow: 0 6px 20px rgba(232,93,117,.22), inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.stat-icon {
+  width: 26px;
+  height: 26px;
+  color: rgba(10,11,13,.8);
+  stroke-width: 2.5;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 1;
+  
+}
+
+.stat-number {
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--gold), var(--amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+.stat-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent);
+  animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { left: -100%; }
+  50% { left: 100%; }
+}
+
+/* RIBBON COMPACTA */
+.ribbon-wrap{
+  max-width:min(1200px,92vw);
+  margin:0 auto 1.2rem;
+  padding:0 1rem;
+  position:relative;
+  z-index:1;
+}
+
+.ribbon{
+  display:flex; flex-wrap:wrap; gap:.5rem .85rem;
+  list-style:none; padding:0; margin:1.2rem; margin-top: 0;
+  align-items:center; justify-content:center;
+}
+
+.r-item{
+  display:inline-flex; align-items:center; gap:.55rem;
+  padding:.55rem .95rem;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  color:var(--muted);
+  font-size:.9rem;
+  line-height: 1.4;
+}
+
+.i-dot{
+  width:.42rem; height:.42rem; border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  box-shadow:0 0 0 1px rgba(215,176,122,.36) inset;
+}
+.sep{ color:rgba(255,255,255,.32); user-select:none; }
+
+.hairline{
+  max-width:min(1200px,92vw);
+  height:1px; margin:1rem auto 1.5rem;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+}
+
+/* TESTIMONIOS */
+.row{
+  max-width:min(1400px,96vw);
+  margin:0 auto;
+  padding:0 .8rem;
+  overflow:hidden;
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.row + .row{ margin-top:1rem; }
+
+.belt{
+  display:flex; gap:1rem; width:max-content;
+  animation:slide 38s linear infinite;
+}
+.rev .belt{ animation-direction:reverse; animation-duration:41s; }
+
+.card{
+  flex:0 0 auto; width:min(520px, 88vw);
+  padding: calc(var(--r-pad) + .2rem) calc(var(--r-pad) + .4rem);
+  border-radius: var(--radius);
+  background:linear-gradient(180deg, rgba(16,18,21,.92), rgba(12,14,17,.86));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 18px 44px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+}
+.meta{
+  display:flex; align-items:center; gap:.8rem; margin-bottom: .2rem;
+}
+.avatar{
+  width:42px; height:42px; border-radius:999px; display:grid; place-items:center;
+  font-weight:800; letter-spacing:.4px; color:#F6EADB;
+  background: radial-gradient(60% 60% at 40% 30%, rgba(215,176,122,.26), rgba(245,166,35,.10));
+  border:1px solid rgba(215,176,122,.26);
+}
+.who{ min-width:0; }
+.name{ margin:0 0 .15rem; font-size:.97rem; font-weight:700; line-height: 1.3; }
+.role{ margin:0; font-size:.8rem; color:rgba(255,255,255,.6); line-height: 1.3; }
+.stars{ margin-left:auto; color:var(--gold); letter-spacing:.08em; font-size:.92rem; }
+
+.text{
+  margin:.65rem 0 0;
+  color:var(--muted);
+  font-size:1.02rem; line-height:1.55;
+}
+
+.vt:hover .belt{ animation-play-state: paused; }
+@keyframes slide{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* Mobile */
+@media (max-width: 768px){
+  .vt{ padding: 2rem 0 2.5rem; }
+  
+  .stats-hero{
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .stat-card{
+    padding: 1.6rem 1.8rem;
+  }
+  
+  .stat-number{
+    font-size: 1.85rem;
+  }
+  
+  .stat-label{
+    font-size: 0.87rem;
+  }
+  
+  .ribbon-wrap{
+    margin-bottom: 1rem;
+  }
+  
+  .r-item{ 
+    font-size:.87rem; 
+    padding: .5rem .85rem;
+  }
+  
+  .row + .row{ 
+    margin-top: .9rem; 
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .belt{ animation:none; }
+  .stat-shimmer{ animation:none; }
+}
+</style>

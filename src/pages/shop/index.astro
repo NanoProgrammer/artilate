@@ -3,6 +3,7 @@
 import Layout from '../../layouts/Layout.astro'
 import Hero from '../../components/shop/Hero.astro'
 import Products from '../../components/shop/products'
+import ShopTrustAndReviews from '../../components/ShopTrustAndReviews.astro';
 
 export const prerender = true;
 
@@ -72,6 +73,7 @@ const seoData = {
   ]}
 >
   <Hero />
+  <ShopTrustAndReviews />
   <Products client:load/>
 </Layout>
 
