@@ -1,13 +1,12 @@
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definición de variables CSS */
+/* ===========================
+   🎨 Variables globales
+   =========================== */
 :root {
-    /* Colores */
-
+  /* Colores base de Artilate */
   --black-soft:#111416;            /* fondo principal luxe */
   --text-warm:#F5F0E8;             /* texto cálido */
   --beige:#EDE3D4;                 /* fondo claro secciones */
@@ -17,88 +16,97 @@
   --copper:#B87333;                /* cobre */
   --muted:#D9C8B4;                 /* texto secundario */
 
-    --color-base-bg: var(--color-6); /* Define la variable para el fondo del body */
-    --color-primary: var(--color-1); /* Define la variable para el color primario del texto */
-    --filter-color-1: brightness(1.1) contrast(1.2) saturate(1.5);
-  --filter-color-2: brightness(1.2) sepia(0.3) saturate(1.8);
-  --filter-color-3: hue-rotate(-15deg) brightness(1.1) contrast(1);
-  --filter-color-4: brightness(1.3) saturate(2) contrast(1.2);
-  --filter-color-5: brightness(1.4) contrast(1.3) saturate(1.7);
-  --filter-color-6: brightness(1.2) contrast(1.1);
-    /* Gradientes */
-    --gradient-1: #D57023;
-    --gradient-2: #AA6A39;
-    --gradient-3: #FF6F00;
-    --gradient-4: #805B40;
-    --gradient-5: #554539;
+  /* Gradientes */
+  --gradient-1: #D57023;
+  --gradient-2: #AA6A39;
+  --gradient-3: #FF6F00;
+  --gradient-4: #805B40;
+  --gradient-5: #554539;
 
-    --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
-}
-
-/*
-Parte del header     Color sugerido    Clase Tailwind v4
-Fondo     Fondo UI      bg-[--color5]
-Texto (links/logo)   Blanco o Primario    text-white o text-[--color1]
-Link activo / hover Complementario   hover:text-[--color3]
-Botón CTA    Primario + hover      bg-[--color1] hover:bg-[--color3] text-white
-Borde inferior (opcional)    Complementario   border-b border-[--color3]
-*/
-
-* {
-    scroll-behavior: smooth;
-}
-
-/* Capa base para estilos globales */
-@layer base {
-    body {
-        @apply font-sans bg-[var(--color-base-bg)] text-[var(--color-primary)] text-base;
-    }
-}
-
-*{box-sizing:border-box}
-html, body {
-  margin: 0;
-  padding: 0;
-  max-width: 100%;
-  overflow-x: hidden;   /* <- evita scroll horizontal global */
-}
-* { box-sizing: border-box; }
-img, svg, video { max-width: 100%; height: auto; display: block; }
-
-body{background:var(--black-soft);color:var(--text-warm);font:16px/1.55 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-.container{width:min(1100px,92%);margin-inline:auto}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-::selection{background:rgba(212,163,115,.28)}
-
-/* === Cacao 404 Theme — compartido para todas las páginas === */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
+  /* Tema cacao 404 / hero */
   --cacao-black: #0A0B0D;
   --rich-black: #141618;
   --warm-ivory: #FAFAF9;
-  --gold: #D4A373;
   --emerald: #047857;
   --violet: #5B21B6;
   --amber: #F59E0B;
   --warm-gray: rgba(250, 250, 249, 0.8);
+
+  /* Tipografías (Google Fonts) */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Colores globales de texto/fondo */
+  --color-base-bg: var(--cacao-black);
+  --color-primary: var(--warm-ivory);
 }
 
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--cacao-black);
-  color: var(--warm-ivory);
-  line-height: 1.6;
+/* ===========================
+   🌍 Reset & base global
+   =========================== */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
   overflow-x: hidden;
-  padding-top: 84px;
 }
 
-.container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-/* Shell general (reutilizamos las clases del 404 para que sea idéntico) */
+/* Base Tailwind + tema global */
+@layer base {
+  body {
+    @apply text-base antialiased;
+    font-family: var(--font-sans);
+    background: var(--color-base-bg);
+    color: var(--color-primary);
+    line-height: 1.6;
+    padding-top: 84px; /* espacio para header fijo si lo usas */
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(212,163,115,.28);
+}
+
+/* Contenedor general reutilizable */
+.container {
+  width: min(1280px, 92%);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* Accesibilidad */
+.sr-only {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+/* ===========================
+   🌋 Cacao 404 Theme / Hero
+   =========================== */
+
 .error-page {
   min-height: calc(90vh);
   display: flex;
@@ -110,7 +118,13 @@ body {
     radial-gradient(ellipse at 30% 20%, rgba(91, 33, 182, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 70% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 50%);
 }
-.error-content { text-align: center; position: relative; z-index: 2; max-width: 800px; }
+
+.error-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
 
 /* Chocolate crack (decorativo) */
 .chocolate-crack { margin-bottom: 1rem; opacity: 0; animation: crackAppear 1s ease-out 0.5s forwards; }
@@ -118,12 +132,13 @@ body {
 .crack-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawCrack 2s ease-out 0.8s forwards; }
 .crack-line.secondary { animation-delay: 1.2s; opacity: 0.7; }
 .crack-line.tertiary { animation-delay: 1.6s; opacity: 0.4; }
+
 @keyframes crackAppear { to { opacity: 1; } }
 @keyframes drawCrack { to { stroke-dashoffset: 0; } }
 
-/* Títulos y descripciones (reutilizamos nombres del 404 para clonar el estilo) */
+/* Títulos & descripciones */
 .error-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 600;
   color: var(--warm-ivory);
@@ -133,6 +148,7 @@ body {
   transform: translateY(20px);
   animation: slideUp 0.8s ease-out 1.8s forwards;
 }
+
 .error-description {
   font-size: 1.125rem;
   color: var(--warm-gray);
@@ -143,9 +159,12 @@ body {
   transform: translateY(20px);
   animation: slideUp 0.8s ease-out 2s forwards;
 }
-@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 
-/* Botones (idénticos) */
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botones principales */
 .error-actions {
   display: flex;
   gap: 1.5rem;
@@ -156,87 +175,137 @@ body {
   transform: translateY(20px);
   animation: slideUp 0.8s ease-out 2.2s forwards;
 }
-.primary-btn {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
-  color: var(--cacao-black);
-  padding: 16px 32px;
+
+.primary-btn,
+.secondary-btn {
   border-radius: 12px;
-  text-decoration: none;
+  padding: 16px 32px;
   font-weight: 600;
-  font-size: 16px;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow:
-    0 8px 32px rgba(212, 163, 115, 0.3),
-    0 2px 16px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+  transition: all .4s cubic-bezier(.16,1,.3,1);
   position: relative;
   overflow: hidden;
 }
-.primary-btn::before {
-  content: '';
-  position: absolute; top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.6s ease;
-}
-.primary-btn:hover::before { left: 100%; }
-.primary-btn:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 12px 40px rgba(212, 163, 115, 0.4),
-    0 4px 20px rgba(0, 0, 0, 0.15);
-}
-.secondary-btn {
-  background: rgba(212, 163, 115, 0.1);
-  border: 1px solid rgba(212, 163, 115, 0.2);
-  color: var(--warm-ivory);
-  padding: 16px 32px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  display: inline-flex; align-items: center; gap: 12px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(8px);
-  position: relative; overflow: hidden;
-}
-.secondary-btn::before {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(212, 163, 115, 0.05); opacity: 0; transition: opacity 0.3s ease;
-}
-.secondary-btn:hover::before { opacity: 1; }
-.secondary-btn:hover { border-color: rgba(212,163,115,0.4); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
 
-/* Suggested links (si quieres usar) */
-.suggested-links { opacity: 0; transform: translateY(20px); animation: slideUp 0.8s ease-out 2.4s forwards; }
-.suggested-links h3 { font-size: 1rem; color: var(--warm-gray); margin-bottom: 1.5rem; font-weight: 500; }
-.quick-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+/* primary */
+.primary-btn {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+  color: var(--cacao-black);
+  box-shadow:
+    0 8px 32px rgba(212,163,115,.3),
+    0 2px 16px rgba(0,0,0,.1);
+}
+
+.primary-btn::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  left:-100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+  transition:left .6s ease;
+}
+
+.primary-btn:hover::before { left:100%; }
+.primary-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 12px 40px rgba(212,163,115,.4),
+    0 4px 20px rgba(0,0,0,.15);
+}
+
+/* secondary */
+.secondary-btn {
+  background:rgba(212,163,115,.08);
+  color:var(--warm-ivory);
+  border:1px solid rgba(212,163,115,.22);
+  backdrop-filter:blur(8px);
+}
+
+.secondary-btn:hover{
+  border-color:rgba(212,163,115,.4);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+/* Enlaces sugeridos */
+.suggested-links {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.8s ease-out 2.4s forwards;
+}
+
+.suggested-links h3 {
+  font-size: 1rem;
+  color: var(--warm-gray);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.quick-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .quick-link {
   color: rgba(212, 163, 115, 0.8);
-  text-decoration: none; font-size: 15px; font-weight: 500;
-  transition: all 0.3s ease; position: relative; padding: 8px 0;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 8px 0;
 }
+
 .quick-link::after {
-  content: ''; position: absolute; bottom: 2px; left: 0; width: 0; height: 1px;
-  background: var(--gold); transition: width 0.3s ease;
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
 }
+
 .quick-link:hover { color: var(--gold); }
 .quick-link:hover::after { width: 100%; }
 
-/* Partículas */
-.chocolate-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.particle { position: absolute; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; opacity: 0.3; animation: float 6s ease-in-out infinite; }
+/* Partículas decorativas */
+.chocolate-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+
 .particle-1 { top: 20%; left: 10%; animation-delay: 0s; }
 .particle-2 { top: 60%; left: 85%; animation-delay: 1s; }
 .particle-3 { top: 80%; left: 20%; animation-delay: 2s; }
 .particle-4 { top: 30%; left: 70%; animation-delay: 3s; }
 .particle-5 { top: 10%; left: 60%; animation-delay: 4s; }
 .particle-6 { top: 70%; left: 40%; animation-delay: 5s; }
-@keyframes float { 0%,100%{ transform:translateY(0) scale(1); opacity:0.3 } 50%{ transform:translateY(-20px) scale(1.2); opacity:0.6 } }
 
-/* Responsive idéntico */
+@keyframes float {
+  0%,100%{ transform:translateY(0) scale(1); opacity:0.3 }
+  50%{ transform:translateY(-20px) scale(1.2); opacity:0.6 }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .container { padding: 0 1.5rem; }
   .error-actions { flex-direction: column; align-items: center; gap: 1rem; }
@@ -244,6 +313,7 @@ body {
   .quick-links { gap: 1.5rem; }
   .crack-svg { height: 80px; }
 }
+
 @media (max-width: 480px) {
   body { padding-top: 74px; }
   .error-page { min-height: calc(90vh - 74px); padding: 2rem 0; }
@@ -251,10 +321,3 @@ body {
   .error-description { font-size: 1rem; }
   .quick-links { flex-direction: column; gap: 1rem; align-items: center; }
 }
-.primary-btn,.secondary-btn{ border-radius:12px; padding:16px 32px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; }
-  .primary-btn{ background:linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%); color:var(--cacao); box-shadow:0 8px 32px rgba(212,163,115,.3), 0 2px 16px rgba(0,0,0,.1); }
-  .primary-btn::before{ content:''; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); transition:left .6s ease; }
-  .primary-btn:hover::before{ left:100%; }
-  .primary-btn:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(212,163,115,.4), 0 4px 20px rgba(0,0,0,.15); }
-  .secondary-btn{ background:rgba(212,163,115,.08); color:var(--ivory); border:1px solid rgba(212,163,115,.22); backdrop-filter:blur(8px); }
-  .secondary-btn:hover{ border-color:rgba(212,163,115,.4); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
