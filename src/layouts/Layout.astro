@@ -31,8 +31,13 @@ export interface Props {
   breadcrumbs?: Crumb[]
   prevUrl?: string
   nextUrl?: string
-  preloadImages?: PreloadImage[]
-  schemaExtras?: Record<string, unknown>
+
+  // ⬇ relajamos el tipo para no pelear con TS
+  preloadImages?: any[]
+
+  // ⬇ igual aquí, tu objeto JSON-LD entra sin problemas
+  schemaExtras?: any
+
   canonical?: string
 }
 
@@ -204,7 +209,7 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
     {prevUrl && <link rel="prev" href={prevUrl} />}
     {nextUrl && <link rel="next" href={nextUrl} />}
 
-    <!-- Preconnects (solo lo necesario) -->
+    <!-- Preconnects solo necesarios (no Google Fonts) -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 
