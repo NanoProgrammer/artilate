@@ -156,10 +156,7 @@ const webSiteLd = {
   },
 }
 
-// ⚠️ Ajusta estos 3 bundles a los nombres reales generados en build
-const cssBundleA = '/_astro/index.DQSKaPeX.css'
-const cssBundleB = '/_astro/index.B4lsPoXt.css'
-const cssBundleC = '/_astro/index.hnSyaRZ8.css'
+
 ---
 
 <html lang={locale} class="scroll-smooth">
@@ -235,21 +232,6 @@ const cssBundleC = '/_astro/index.hnSyaRZ8.css'
       .primary-btn{background:linear-gradient(135deg,var(--gold),var(--amber));color:#0A0B0D}
     </style>
 
-   <link rel="preload" as="style" href={cssBundleA} onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" as="style" href={cssBundleB} onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" as="style" href={cssBundleC} onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href={cssBundleA}>
-  <link rel="stylesheet" href={cssBundleB}>
-  <link rel="stylesheet" href={cssBundleC}>
-</noscript>
-
-
-    <noscript>
-      <link rel="stylesheet" href={cssBundleA}>
-      <link rel="stylesheet" href={cssBundleB}>
-      <link rel="stylesheet" href={cssBundleC}>
-    </noscript>
 
     <meta name="theme-color" content="#0E0E0E" />
 
