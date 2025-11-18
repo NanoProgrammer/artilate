@@ -204,10 +204,10 @@ const webSiteLd = {
     <!-- Preconnects útiles (≤4) -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- ✅ Preload de fuentes locales en woff2 -->
-    <link rel="preload" as="font" href="/font/Inter-Variable.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="font" href="/font/PlayfairDisplay-Variable.woff2" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet">
 
     <!-- 🔹 Preload de imágenes críticas (LCP) configurable por página -->
     {preloadImages.map((i) => (
