@@ -60,33 +60,21 @@
         <div class="hero-image-container">
           <!-- LCP responsive -->
           <picture class="hero-image">
-  <!-- Versión solo para pantallas grandes (desktop) -->
-  <source
-    type="image/avif"
-    media="(min-width: 1024px)"
-    srcset="/assets/hero-img-960.avif 2x" />
-
-  <!-- Default (mobile + la mayoría de casos) -->
-  <source
-    type="image/avif"
-    srcset="/assets/hero-img-420.avif" />
-
-  <source
-    type="image/webp"
-    srcset="/assets/hero-img-420.webp" />
-
-  <img
-    src="/assets/hero-img-420.webp"
-    alt="handcrafted chocolate"
-    width="420"
-    height="316"
-    loading="eager"
-    decoding="async"
-    fetchpriority="high"
-    style="width:100%;height:auto;display:block;border-radius:24px"
-  />
-</picture>
-
+            <source
+              type="image/avif"
+              srcset="/assets/hero-img-420.avif 420w,"
+              sizes="(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px" />
+            <source
+              type="image/webp"
+              srcset="/assets/hero-img-420.webp 420w,"
+              sizes="(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px" />
+            <img
+              src="/assets/hero-img-420.webp"
+              alt="handcrafted chocolate"
+              width="420" height="316"
+              loading="eager" decoding="async" fetchpriority="high"
+              style="width:100%;height:auto;display:block;border-radius:24px" />
+          </picture>
         </div>
       </div>
     </div>
