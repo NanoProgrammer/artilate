@@ -63,14 +63,12 @@
             <source
               type="image/avif"
               srcset="/assets/hero-img-420.avif 420w,
-                      /assets/hero-img-640.avif 640w,
                       /assets/hero-img-960.avif 960w,
                       /assets/hero-img-1280.avif 1280w"
               sizes="(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px" />
             <source
               type="image/webp"
               srcset="/assets/hero-img-420.webp 420w,
-                      /assets/hero-img-640.webp 640w,
                       /assets/hero-img-960.webp 960w,
                       /assets/hero-img-1280.webp 1280w"
               sizes="(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px" />
@@ -169,7 +167,7 @@
   .hero-image-container{ position:relative; width:100%; height:40%; }
 
   .hero-image{
-    display:block; width: clamp(240px, 32vw, 520px);
+    display:block; width: clamp(240px, 32vw, 420px);
     aspect-ratio: 1.2 / 1;
     margin-top: 25%;
     position:absolute; top:70%; left:50%; transform:translate(-50%,-50%);
