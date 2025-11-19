@@ -8,10 +8,8 @@ import Newsletter from '../components/Newsletter.astro'
 
 const seoData = {
   title: 'Artilate — Handcrafted Chocolates from Colombian Cacao',
-  description:
-    'Premium bean-to-bar chocolates and filled bonbons made in Alberta. Ethically sourced Colombian cacao, handcrafted in small batches.',
+  description: '...',
   ogType: 'website' as const,
-  // JSON-LD extra que tu Layout inyecta dentro de LocalBusiness
   schemaExtras: {
     '@type': ['LocalBusiness', 'FoodEstablishment'],
     servesCuisine: 'Artisanal Chocolates',
@@ -38,24 +36,19 @@ const seoData = {
       ]
     }
   },
-
- preloadImages: [
-  {
-    href: '/assets/hero-img-640.webp',      // fallback inicial
-    as: 'image',
-    fetchpriority: 'high',
-    imagesrcset:
-      '/assets/hero-img-420.avif 420w, ' +
-
-      '/assets/hero-img-420.webp 420w, ',
-    imagesizes: '(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px'
-  }
-],
-
-
-  // Opcional: si quieres canónico custom (siempre absoluto)
-  // canonical: 'https://artilate.com/'
+  preloadImages: [
+    {
+      href: '/assets/hero-img-640.webp',
+      as: 'image',
+      fetchpriority: 'high',
+      imagesrcset:
+        '/assets/hero-img-420.avif 420w, ' +
+        '/assets/hero-img-420.webp 420w, ',
+      imagesizes: '(max-width:768px) 88vw, (max-width:1200px) 42vw, 520px',
+    },
+  ],
 }
+
 ---
 
 <Layout {...seoData}>
@@ -80,14 +73,25 @@ const seoData = {
 </style>
 
 <script is:inline>
-  // Intersection Observer para revelar en scroll
-  const observer = new IntersectionObserver((entries)=> {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  const startObserver = () => {
+    const observer = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed')
+          observer.unobserve(e.target)
+        }
+      }
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
 
-  document.addEventListener('DOMContentLoaded', () => {
     document
       .querySelectorAll('.scroll-reveal, .fade-in-left, .fade-in-right')
-      .forEach(el => observer.observe(el));
-  });
+      .forEach(el => observer.observe(el))
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startObserver)
+  } else {
+    window.addEventListener('load', startObserver, { once: true })
+  }
 </script>
+
