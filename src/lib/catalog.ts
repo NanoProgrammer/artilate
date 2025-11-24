@@ -231,8 +231,70 @@ export const CATALOG: Record<string, CatalogItem> = {
       "1 × 63% Dark Chocolate Bar with Pistachio Crumble",
       "3 × Chocolate Coins with Nuts",
       "Reusable wooden keepsake box with golden ribbon"
-    ]
-  }
+    ],
+  },
+  "christmas-tasting-box-12": {
+  id: "christmas-tasting-box-12",
+  name: "Christmas Tasting Box — 12 Bonbons",
+  price: 32,
+  category: "Limited",
+  tag: "Holiday Edition",
+  shortDesc: "Six festive flavours including Coconut & Orange, crafted with single-origin Colombian cacao.",
+  longDesc:
+    "A joyful Christmas tasting box handcrafted with single-origin Colombian cacao. It features six festive flavours — two bonbons of each — blending fruit, nuts, spice, and bright citrus notes. The perfect box for gifting or sharing during the holidays.",
+  chips: ["Single-origin cacao", "6 flavours", "Handcrafted"],
+  cacao: "Single-origin Colombia • 54–63%",
+  weight: "12 bonbons",
+  dietary: ["Contains dairy & tree nuts"],
+  ingredients:
+    "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio, coconut), fruit purées (orange, mango, pineapple, passionfruit, blackberry, strawberry), coffee, natural flavours, spices.",
+  allergens:
+    "Contains dairy and tree nuts (hazelnut, pistachio, coconut). Made in a facility that handles other nuts.",
+  images: [
+    "/images/christmas/christmas-12-pieces-480.webp",
+    "/images/christmas/christmas-12-pieces-800.webp",
+    "/images/christmas/christmas-12-pieces-1200.webp"
+  ],
+  content: [
+    "2 × Pistachio Praliné",
+    "2 × Caramel with Blackberry",
+    "2 × Chocolate & Hazelnut",
+    "2 × Passionfruit",
+    "2 × Mango",
+    "2 × Coconut & Orange"
+  ]
+},
+
+"christmas-sharing-box-16": {
+  id: "christmas-sharing-box-16",
+  name: "Christmas Sharing Box — 16 Bonbons",
+  price: 42,
+  category: "Limited",
+  tag: "Family Size",
+  shortDesc: "Four crowd-favourite flavours crafted with single-origin Colombian cacao — four bonbons each.",
+  longDesc:
+    "A 16-piece holiday sharing box made with single-origin Colombian cacao. Designed for gatherings and Christmas dinners, it includes four flavours with four pieces each — a festive balance of nuts, fruit, caramel, and bright tropical notes.",
+  chips: ["Single-origin cacao", "Sharing size", "Holiday Edition"],
+  cacao: "Single-origin Colombia • 54–63%",
+  weight: "16 bonbons",
+  dietary: ["Contains dairy & tree nuts"],
+  ingredients:
+    "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio), fruit purées (mango, pineapple, passionfruit, blackberry), natural flavours, spices.",
+  allergens:
+    "Contains dairy and tree nuts (hazelnut, pistachio). Made in a facility that handles other nuts.",
+  images: [
+    "/images/christmas/christmas-16-pieces-480.webp",
+    "/images/christmas/christmas-16-pieces-800.webp",
+    "/images/christmas/christmas-16-pieces-1200.webp"
+  ],
+  content: [
+    "4 × Pistachio Praliné",
+    "4 × Caramel with Blackberry",
+    "4 × Passionfruit",
+    "4 × Spicy Pineapple"
+  ]
+},
+
 };
 
 

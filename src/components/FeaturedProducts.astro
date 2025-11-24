@@ -8,7 +8,7 @@ const items = {
   bottomRight:{ name: "Mix Gift",               slug: "golden-ribbon-keepsake-box",    imgBase: "/images/mix-gift",     tag: "Gift Mix" }
 };
 
-// helper para srcset con sufijos -480 -768 -1080 -1440
+// helper para srcset con sufijos -480 -768 -1080 
 const srcset = (base: string, ext: string, widths: number[]) =>
   widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
 
@@ -42,11 +42,11 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
       </div>
 
       <!-- Imagen -->
-      <div class="absolute left-1/2 -translate-x-1/2 top-4 lg:top-8 xl:top-1/4 w-[94%] lg:w-full xl:w-[116%] max-w-[840px]">
+      <div class="absolute left-1/2 -translate-x-1/2 top-4 lg:top-8  w-[94%] lg:w-full xl:w-[116%] max-w-[840px]">
         <div class="relative aspect-square">
           <picture>
-            <source type="image/avif" srcset={srcset(items.spotlight.imgBase, "avif", [480,768,1080,1440])} sizes={sizesSpotlight} />
-            <source type="image/webp" srcset={srcset(items.spotlight.imgBase, "webp", [480,768,1080,1440])} sizes={sizesSpotlight} />
+            <source type="image/avif" srcset={srcset(items.spotlight.imgBase, "avif", [480,768,1080])} sizes={sizesSpotlight} />
+            <source type="image/webp" srcset={srcset(items.spotlight.imgBase, "webp", [480,768,1080])} sizes={sizesSpotlight} />
             <!-- fallback en WEBP (no JPG) -->
             <img
               src={`${items.spotlight.imgBase}-768.webp`}
@@ -87,8 +87,8 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
         <div class="mx-auto my-0.5 w-[104%] sm:absolute sm:right-3 sm:top-1/2 sm:-translate-y-1/2 sm:w-[72%] lg:right-5 lg:w-[93%]">
           <div class="relative aspect-[5/4]">
             <picture>
-              <source type="image/avif" srcset={srcset(items.topWide.imgBase, "avif", [480,768,1080,1440])} sizes={sizesTopWide} />
-              <source type="image/webp" srcset={srcset(items.topWide.imgBase, "webp", [480,768,1080,1440])} sizes={sizesTopWide} />
+              <source type="image/avif" srcset={srcset(items.topWide.imgBase, "avif", [480,768,1080])} sizes={sizesTopWide} />
+              <source type="image/webp" srcset={srcset(items.topWide.imgBase, "webp", [480,768,1080])} sizes={sizesTopWide} />
               <img
                 src={`${items.topWide.imgBase}-768.webp`}
                 alt={items.topWide.name}
@@ -126,8 +126,8 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
           <div class="mx-auto w-[94%] sm:absolute sm:right-3 sm:bottom-2 sm:w-[80%] lg:right-4 lg:w-[89%]">
             <div class="relative aspect-[5/4]">
               <picture>
-                <source type="image/avif" srcset={srcset(items.bottomLeft.imgBase, "avif", [480,768,1080,1440])} sizes={sizesBottom} />
-                <source type="image/webp" srcset={srcset(items.bottomLeft.imgBase, "webp", [480,768,1080,1440])} sizes={sizesBottom} />
+                <source type="image/avif" srcset={srcset(items.bottomLeft.imgBase, "avif", [480,768,1080])} sizes={sizesBottom} />
+                <source type="image/webp" srcset={srcset(items.bottomLeft.imgBase, "webp", [480,768,1080])} sizes={sizesBottom} />
                 <img
                   src={`${items.bottomLeft.imgBase}-768.webp`}
                   alt={items.bottomLeft.name}
@@ -162,8 +162,8 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
           <div class="mx-auto w-[94%] sm:absolute sm:right-3 sm:top-[15%] sm:w-[82%] lg:right-5 lg:w-[86%] -rotate-12">
             <div class="relative aspect-[5/4]">
               <picture>
-                <source type="image/avif" srcset={srcset(items.bottomRight.imgBase, "avif", [480,768,1080,1440])} sizes={sizesBottom} />
-                <source type="image/webp" srcset={srcset(items.bottomRight.imgBase, "webp", [480,768,1080,1440])} sizes={sizesBottom} />
+                <source type="image/avif" srcset={srcset(items.bottomRight.imgBase, "avif", [480,768,1080])} sizes={sizesBottom} />       
+                <source type="image/webp" srcset={srcset(items.bottomRight.imgBase, "webp", [480,768,1080])} sizes={sizesBottom} />
                 <img
                   src={`${items.bottomRight.imgBase}-768.webp`}
                   alt={items.bottomRight.name}

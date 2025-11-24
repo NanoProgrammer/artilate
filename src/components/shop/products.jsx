@@ -12,7 +12,7 @@ export default function products() {
       <GiftsSections />
       <BarsSection />
       {/**SnacksSections */}
-      {/**<LimitedEdition /> */}
+      <LimitedEdition />
     </CartProvider>
   )
 }

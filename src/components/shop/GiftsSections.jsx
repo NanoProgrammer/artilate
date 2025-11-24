@@ -51,10 +51,10 @@ const GIFTS = [
   {
     id: "heart-gift-box",
     name: "Heart Gift Box",
-    price: 86,
+    price: 99,
     slug: "heart-gift-box",
     tag: "Romantic",
-    desc: "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
+    desc: "Forty hand-painted heart bonbons — 20 caramel with blackberry, 14 pistachio, and 6 passionfruit.",
     imgBase: "/images/gifts/heart-gift-box", // 👈 base para picture
     tone: "from-rose-400/25 to-fuchsia-600/25",
     icon: <Heart className="h-4 w-4" />,
