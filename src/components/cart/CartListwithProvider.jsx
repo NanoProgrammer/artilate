@@ -159,7 +159,8 @@ const checkout = async () => {
 
     // 🎯 Enviar evento de conversión Google Ads (el mismo de tu snippet)
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("event", "ads_conversion_PURCHASE_1", {
+      window.gtag("event", "conversion", {
+        'send_to': 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
         // Google NO requiere send_to aquí en tu caso
         event_callback: redirectToStripe,
         event_timeout: 2000,
