@@ -126,11 +126,12 @@ function CartListInner() {
     return { itemsCount, subtotal };
   }, [cart]);
 
-  const checkout = async () => {
+const checkout = async () => {
   try {
     setLoading(true);
     setErr("");
 
+    // 🧾 Datos enviados a tu backend
     const payload = {
       items: cart.map((p) => ({ id: p.id, quantity: p.quantity || 1 })),
       email: email || undefined,
@@ -148,29 +149,33 @@ function CartListInner() {
       throw new Error(data?.error || "Checkout failed");
     }
 
-    // 🔹 Dispara conversión de Google Ads con valor del carrito
-    if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      const callback = function () {
-        // solo redirige cuando se haya enviado el evento
-        window.location.href = data.url;
-      };
+    // 🚪 Redirección a Stripe (usa fallback y evita doble ejecución)
+    let redirected = false;
+    const redirectToStripe = () => {
+      if (redirected) return;
+      redirected = true;
+      window.location.href = data.url;
+    };
 
-      window.gtag("event", "conversion", {
-        send_to: "AW-17293924614/jNCzCLX3gJkbEIaysbZA",
-        value: Number(subtotal || 0), // valor total en CAD
+    // 🎯 Enviar evento de conversión Google Ads (el mismo de tu snippet)
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "ads_conversion_PURCHASE_1", {
+        // Google NO requiere send_to aquí en tu caso
+        event_callback: redirectToStripe,
+        event_timeout: 2000,
+
+        // 📌 Valor opcional de la compra (Google sí lo acepta si lo configuras en "Value")
+        value: Number(subtotal || 0),
         currency: "CAD",
-        // transaction_id: "<tu-id-de-transaccion>" // opcional
-        event_callback: callback,
       });
 
-      // fallback por si el callback no se ejecuta (máx. 1s de espera)
-      setTimeout(callback, 1000);
+      // fallback por si no responde (máx 2s)
+      setTimeout(redirectToStripe, 2000);
       return;
     }
 
-    // 🔹 Si no existe gtag, redirige normal
-    window.location.href = data.url;
-
+    // Si gtag no existe → redirige normal
+    redirectToStripe();
   } catch (e) {
     console.error(e);
     setErr(e instanceof Error ? e.message : "Checkout failed");
@@ -178,6 +183,8 @@ function CartListInner() {
     setLoading(false);
   }
 };
+
+
 
 
 
