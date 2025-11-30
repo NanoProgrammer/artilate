@@ -210,7 +210,16 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
     {nextUrl && <link rel="next" href={nextUrl} />}
 
     <!-- Preconnects solo necesarios (no Google Fonts) -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y8Q1XJ8KRW');
+</script>
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 
     <!-- 🔤 Preload de fuentes locales (Inter + Playfair) -->
@@ -281,39 +290,7 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
     <!-- Slot para JSON-LD específicos -->
     <slot name="jsonld" />
 
-    <!-- GA/GAds diferido (se desactiva con ?notrack=1) -->
-    
-      <script is:inline>
-        {`
-          (function () {
-            const loadGTM = () => {
-              if (window.__gtmLoaded) return; window.__gtmLoaded = true;
 
-              const s = document.createElement('script');
-              s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW';
-              s.async = true; s.defer = true;
-              document.head.appendChild(s);
-
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){ dataLayer.push(arguments); }
-              window.gtag = gtag;
-
-              gtag('js', new Date());
-              gtag('config', 'G-Y8Q1XJ8KRW');
-              gtag('config', 'AW-17293924614');
-            };
-
-            const idle = () => ('requestIdleCallback' in window)
-              ? requestIdleCallback(loadGTM)
-              : setTimeout(loadGTM, 1500);
-
-            ['pointerdown','keydown','scroll'].forEach(evt =>
-              window.addEventListener(evt, loadGTM, { once:true, passive:true })
-            );
-            window.addEventListener('load', () => idle(), { once:true });
-          })();
-        `}
-      </script>
     
   </body>
 </html>
