@@ -282,7 +282,7 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
     <slot name="jsonld" />
 
     <!-- GA/GAds diferido (se desactiva con ?notrack=1) -->
-    {!noTracking && (
+    
       <script is:inline>
         {`
           (function () {
@@ -299,7 +299,7 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
               window.gtag = gtag;
 
               gtag('js', new Date());
-              gtag('config', 'G-Y8Q1XJ8KRW', { transport_type: 'beacon', anonymize_ip: true });
+              gtag('config', 'G-Y8Q1XJ8KRW');
               gtag('config', 'AW-17293924614');
             };
 
@@ -314,6 +314,6 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
           })();
         `}
       </script>
-    )}
+    
   </body>
 </html>
