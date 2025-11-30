@@ -7,7 +7,29 @@ import CartListwithProvider from "../../components/cart/CartListwithProvider.jsx
 ---
 
 <Layout>
+   <!-- Este script va al <head> gracias a is:inline -->
+  <script is:inline>
+    // Helper para enviar la conversión y luego ir a Stripe
+    function gtagSendEvent(url, value) {
+      var callback = function () {
+        if (typeof url === "string") {
+          window.location = url;
+        }
+      };
 
+      // Evento de Google Ads tal como te lo dio la UI
+      window.gtag?.("event", "ads_conversion_PURCHASE_1", {
+        value: Number(value || 0),
+        currency: "CAD",
+        event_callback: callback,
+        event_timeout: 2000,
+        // aquí podrías agregar transaction_id si luego lo tienes:
+        // transaction_id: "12345",
+      });
+
+      return false;
+    }
+  </script>
   <div class=" flex flex-col lg:flex-row gap-10 justify-between">
     <div class="w-full  h-auto">
       <CartListwithProvider client:only="react" />

@@ -131,7 +131,6 @@ const checkout = async () => {
     setLoading(true);
     setErr("");
 
-    // 🧾 Datos enviados a tu backend
     const payload = {
       items: cart.map((p) => ({ id: p.id, quantity: p.quantity || 1 })),
       email: email || undefined,
@@ -149,7 +148,7 @@ const checkout = async () => {
       throw new Error(data?.error || "Checkout failed");
     }
 
-    // 🚪 Redirección a Stripe (usa fallback y evita doble ejecución)
+    // Redirección a Stripe con fallback
     let redirected = false;
     const redirectToStripe = () => {
       if (redirected) return;
@@ -157,25 +156,19 @@ const checkout = async () => {
       window.location.href = data.url;
     };
 
-    // 🎯 Enviar evento de conversión Google Ads (el mismo de tu snippet)
-    if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("event", "conversion", {
-        'send_to': 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
-        // Google NO requiere send_to aquí en tu caso
-        event_callback: redirectToStripe,
-        event_timeout: 2000,
-
-        // 📌 Valor opcional de la compra (Google sí lo acepta si lo configuras en "Value")
-        value: Number(subtotal || 0),
-        currency: "CAD",
-      });
-
-      // fallback por si no responde (máx 2s)
-      setTimeout(redirectToStripe, 2000);
+    // ✅ Enviar conversión de Google Ads con valor
+    if (
+      typeof window !== "undefined" &&
+      typeof window.gtagSendEvent === "function"
+    ) {
+      // subtotal viene del useMemo de arriba
+      window.gtagSendEvent(data.url, subtotal);
+      // gtagSendEvent ya llama a window.location al terminar
+      // y tiene timeout interno de 2000ms
       return;
     }
 
-    // Si gtag no existe → redirige normal
+    // Si por alguna razón no existe gtagSendEvent → ir directo
     redirectToStripe();
   } catch (e) {
     console.error(e);
@@ -184,10 +177,6 @@ const checkout = async () => {
     setLoading(false);
   }
 };
-
-
-
-
 
   if (!cart.length) {
     return (
