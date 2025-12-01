@@ -131,7 +131,7 @@ export const POST: APIRoute = async ({ request }) => {
       shipping_rate_data: {
         display_name: "shipping",
         type: "fixed_amount",
-        fixed_amount: { amount: 1000, currency: "CAD" },
+        fixed_amount: { amount: 800, currency: "CAD" },
         delivery_estimate: {
           minimum: { unit: "business_day", value: 2 },
           maximum: { unit: "business_day", value: 4 },
