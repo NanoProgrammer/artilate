@@ -148,28 +148,29 @@ const checkout = async () => {
       throw new Error(data?.error || "Checkout failed");
     }
 
-    // Redirección a Stripe con fallback
+    // ---------- Redirección robusta ----------
     let redirected = false;
     const redirectToStripe = () => {
       if (redirected) return;
       redirected = true;
-      window.location.href = data.url;
+      window.location.assign(data.url);
     };
 
-    // ✅ Enviar conversión de Google Ads con valor
-    if (
-      typeof window !== "undefined" &&
-      typeof window.gtagSendEvent === "function"
-    ) {
-      // subtotal viene del useMemo de arriba
-      window.gtagSendEvent(data.url, subtotal);
-      // gtagSendEvent ya llama a window.location al terminar
-      // y tiene timeout interno de 2000ms
-      return;
-    }
+    // Si existe gtag → disparar conversión y usar callback
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "ads_conversion_PURCHASE_1", {
+        value: Number(subtotal || 0),
+        currency: "CAD",
+        event_callback: redirectToStripe,
+        event_timeout: 2000,
+      });
 
-    // Si por alguna razón no existe gtagSendEvent → ir directo
-    redirectToStripe();
+      // Fallback por si el callback nunca se ejecuta
+      setTimeout(redirectToStripe, 2000);
+    } else {
+      // Si no hay gtag, ir directo
+      redirectToStripe();
+    }
   } catch (e) {
     console.error(e);
     setErr(e instanceof Error ? e.message : "Checkout failed");
@@ -177,6 +178,7 @@ const checkout = async () => {
     setLoading(false);
   }
 };
+
 
   if (!cart.length) {
     return (

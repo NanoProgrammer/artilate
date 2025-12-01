@@ -5,27 +5,17 @@ export default function Summary() {
   const { cart } = useContext(CartContext);
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = 24;
+  const shipping = 10;
   const total = subtotal + shipping;
 
   const handleCheckout = async () => {
     try {
-      const items = [
-        ...cart
-          .map(item => ({
-            name: item.title,
-            price: Number(item.price),
-            quantity: item.quantity,
-          }))
-          .filter(item => !isNaN(item.price) && item.price > 0),
-        {
-          name: 'Shipping',
-          price: shipping,
-          quantity: 1,
-        },
-      ];
+      const items = cart.map((item) => ({
+        id: item.id,              // MUY IMPORTANTE
+        quantity: item.quantity,  // MUY IMPORTANTE
+      }));
 
-      const res = await fetch('/api/create-checkout-session', {
+      const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items }),
