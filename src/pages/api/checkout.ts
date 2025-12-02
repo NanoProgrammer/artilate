@@ -45,6 +45,10 @@ const ALIASES: Record<string, string> = {
   "gift-golden-ribbon": "golden-ribbon-keepsake-box",
   "golden-ribbon-box": "golden-ribbon-keepsake-box",
   "mix-gift": "golden-ribbon-keepsake-box",
+ /* ─────────── EDITION LIMITED ─────────── */
+ "christmas-16-pieces": "christmas-sharing-box-16",
+ "christmas-12-pieces": "christmas-tasting-box-12",
+  
 };
 const resolveId = (id: string) => (CATALOG[id] ? id : ALIASES[id] || id);
 
