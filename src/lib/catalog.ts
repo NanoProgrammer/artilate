@@ -236,7 +236,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "christmas-tasting-box-12": {
   id: "christmas-tasting-box-12",
   name: "Christmas Tasting Box — 12 Bonbons",
-  price: 32,
+  price: 35,
   category: "Limited",
   tag: "Holiday Edition",
   shortDesc: "Six festive flavours including Coconut & Orange, crafted with single-origin Colombian cacao.",
@@ -251,9 +251,9 @@ export const CATALOG: Record<string, CatalogItem> = {
   allergens:
     "Contains dairy and tree nuts (hazelnut, pistachio, coconut). Made in a facility that handles other nuts.",
   images: [
-    "/images/christmas/christmas-12-pieces-480.webp",
-    "/images/christmas/christmas-12-pieces-800.webp",
-    "/images/christmas/christmas-12-pieces-1200.webp"
+    "/images/christmas/chrismas-12-pieces-480.webp",
+    "/images/christmas/chrismas-12-pieces-800.webp",
+    "/images/christmas/chrismas-12-pieces-1200.webp"
   ],
   content: [
     "2 × Pistachio Praliné",
@@ -268,7 +268,7 @@ export const CATALOG: Record<string, CatalogItem> = {
 "christmas-sharing-box-16": {
   id: "christmas-sharing-box-16",
   name: "Christmas Sharing Box — 16 Bonbons",
-  price: 42,
+  price: 45,
   category: "Limited",
   tag: "Family Size",
   shortDesc: "Four crowd-favourite flavours crafted with single-origin Colombian cacao — four bonbons each.",
@@ -283,9 +283,9 @@ export const CATALOG: Record<string, CatalogItem> = {
   allergens:
     "Contains dairy and tree nuts (hazelnut, pistachio). Made in a facility that handles other nuts.",
   images: [
-    "/images/christmas/christmas-16-pieces-480.webp",
-    "/images/christmas/christmas-16-pieces-800.webp",
-    "/images/christmas/christmas-16-pieces-1200.webp"
+    "/images/christmas/chrismas-16-pieces-480.webp",
+    "/images/christmas/chrismas-16-pieces-800.webp",
+    "/images/christmas/chrismas-16-pieces-1200.webp"
   ],
   content: [
     "4 × Pistachio Praliné",
