@@ -145,4 +145,43 @@ const seoData = {
 
     @media (max-width:768px){ .container{ padding:0 1.25rem } .primary-btn,.secondary-btn{ width:100%; max-width:280px; justify-content:center } }
   </style>
+   <script is:inline>
+    (async () => {
+      try {
+        // Evita enviar doble conversión si el usuario recarga
+        if (window.__artilateConversionSent) return;
+        window.__artilateConversionSent = true;
+
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get("session_id");
+        if (!sessionId) return;
+
+        const res = await fetch(`/api/checkout?session_id=${sessionId}`);
+        if (!res.ok) return;
+        const data = await res.json();
+
+        // Por si algo viene raro
+        if (!data || !data.amount_total || !data.currency || !data.id) return;
+
+        // 🔥 Enviar conversión a Google Ads CON VALOR
+        if (typeof gtag === "function") {
+          gtag('event', 'conversion', {
+            send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
+            value: data.amount_total,
+            currency: String(data.currency).toUpperCase(), // CAD
+            transaction_id: data.id
+          });
+
+          // Opcional: también GA4 purchase
+          gtag('event', 'purchase', {
+            transaction_id: data.id,
+            currency: String(data.currency).toUpperCase(),
+            value: data.amount_total
+          });
+        }
+      } catch (e) {
+        console.error('conversion tracking error', e);
+      }
+    })();
+  </script>
 </Layout>

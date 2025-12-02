@@ -48,9 +48,34 @@ const ALIASES: Record<string, string> = {
 };
 const resolveId = (id: string) => (CATALOG[id] ? id : ALIASES[id] || id);
 
-export const GET: APIRoute = () =>
-  new Response("Method Not Allowed", { status: 405 });
+export const GET: APIRoute = async ({ url }) => {
+  try {
+    const session_id = url.searchParams.get("session_id");
+    if (!session_id) {
+      return new Response("Missing session_id", { status: 400 });
+    }
 
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    if (!session) {
+      return new Response("Session not found", { status: 404 });
+    }
+
+    return new Response(
+      JSON.stringify({
+        amount_total: session.amount_total ? session.amount_total / 100 : 0,
+        currency: session.currency,
+        id: session.id,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (err: any) {
+    console.error("checkout-session error:", err);
+    return new Response("Server error", { status: 500 });
+  }
+};
 export const POST: APIRoute = async ({ request }) => {
   try {
     const origin = new URL(request.url).origin;
@@ -123,7 +148,7 @@ export const POST: APIRoute = async ({ request }) => {
       phone_number_collection: { enabled: true },
       allow_promotion_codes: true,
       automatic_tax: { enabled: false },
-      success_url: `${siteUrl}/order/success`,
+      success_url: `${siteUrl}/order/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/order/cancel`,
       shipping_options: [
     // Alberta
@@ -156,3 +181,5 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 };
+
+
