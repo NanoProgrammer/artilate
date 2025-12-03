@@ -33,18 +33,20 @@ const description = `Thank you! Your order ${
     <!-- Favicon -->
     <link rel="icon" href="/assets/logo-completo.png" />
 
-   <!-- Google Tag Manager (GA4 + Ads) -->
-<script>
+  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
+  window.gtag_ready = false;
 </script>
 
-<script src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW" defer></script>
+<!-- Carga GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW"
+        onload="window.gtag_ready = true"></script>
 
-<script defer>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-Y8Q1XJ8KRW');
-  gtag('config', 'AW-17710658719'); 
+  gtag('config', 'AW-17710658719');
 </script>
 
 
@@ -225,26 +227,17 @@ const description = `Thank you! Your order ${
       </div>
     </main>
 
-    <!-- Tracking Script -->
-    <script>
+
+<script>
 (async () => {
   try {
     if (window.__artilateConversionSent) return;
     window.__artilateConversionSent = true;
 
-    // 🟡 Espera a que gtag exista
-    function waitForGTAG() {
-      return new Promise(resolve => {
-        const interval = setInterval(() => {
-          if (typeof gtag === "function") {
-            clearInterval(interval);
-            resolve();
-          }
-        }, 50);
-      });
+    // Esperar hasta que GA haya cargado
+    while (!window.gtag_ready) {
+      await new Promise(r => setTimeout(r, 30));
     }
-
-    await waitForGTAG(); // 👈 FIX mágico
 
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get("session_id");
@@ -254,8 +247,9 @@ const description = `Thank you! Your order ${
     if (!res.ok) return;
 
     const data = await res.json();
-    if (!data || !data.amount_total || !data.currency || !data.id) return;
+    if (!data?.amount_total || !data.currency || !data.id) return;
 
+    // GA4 purchase
     gtag('event', 'purchase', {
       transaction_id: data.id,
       value: data.amount_total / 100,
@@ -268,6 +262,7 @@ const description = `Thank you! Your order ${
       }]
     });
 
+    // Google Ads conversion
     gtag('event', 'conversion', {
       send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
       value: data.amount_total / 100,
@@ -275,12 +270,11 @@ const description = `Thank you! Your order ${
       transaction_id: data.id
     });
 
-  } catch (e) {
-    console.error("conversion tracking error", e);
+  } catch (err) {
+    console.error("conversion tracking error", err);
   }
 })();
 </script>
-
 
     <Footer />
   </body>
