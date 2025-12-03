@@ -11,7 +11,19 @@ const seoData = {
 }
 ---
 
+
 <Layout {...seoData}>
+  <!-- ⭐️ Inserta GA SOLO para esta página -->
+  <Fragment slot="head">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y8Q1XJ8KRW');
+      gtag('config', 'AW-17710658719');
+    </script>
+  </Fragment>
   <main class="error-page">
     <div class="container">
       <div class="error-content">
@@ -145,7 +157,7 @@ const seoData = {
 
     @media (max-width:768px){ .container{ padding:0 1.25rem } .primary-btn,.secondary-btn{ width:100%; max-width:280px; justify-content:center } }
   </style>
-   <script is:inline>
+  <script>
 (async () => {
   try {
     if (window.__artilateConversionSent) return;
@@ -161,25 +173,23 @@ const seoData = {
 
     if (!data || !data.amount_total || !data.currency || !data.id) return;
 
-    // 🔥 GA4 purchase COMPLETO
+    // GA4 PURCHASE
     gtag('event', 'purchase', {
       transaction_id: data.id,
-      value: data.amount_total,
+      value: data.amount_total / 100, // Stripe envía centavos
       currency: data.currency.toUpperCase(),
-      items: [
-        {
-          item_id: "artilate_order",
-          item_name: "Artilate Order",
-          quantity: 1,
-          price: data.amount_total
-        }
-      ]
+      items: [{
+        item_id: "artilate_order",
+        item_name: "Artilate Order",
+        quantity: 1,
+        price: data.amount_total / 100
+      }]
     });
 
-    // 🔥 Google Ads conversion (esto sí sirve así)
+    // Google Ads conversion
     gtag('event', 'conversion', {
       send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
-      value: data.amount_total,
+      value: data.amount_total / 100,
       currency: data.currency.toUpperCase(),
       transaction_id: data.id
     });
@@ -189,5 +199,6 @@ const seoData = {
   }
 })();
 </script>
+
 
 </Layout>
