@@ -163,8 +163,7 @@ const webSiteLd = {
   },
 }
 
-// 🚫 Modo sin tracking para Lighthouse: ?notrack=1
-const noTracking = Astro.url.searchParams.get('notrack') === '1'
+
 ---
 
 <html lang={locale} class="scroll-smooth">
@@ -214,7 +213,7 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW">
 </script>
-<script>
+<script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -222,7 +221,7 @@ const noTracking = Astro.url.searchParams.get('notrack') === '1'
   gtag('config', 'G-Y8Q1XJ8KRW');
   gtag('config', 'AW-17710658719');
 </script>
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
     <!-- 🔤 Preload de fuentes locales (Inter + Playfair) -->
     <link
