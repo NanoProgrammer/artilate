@@ -33,16 +33,20 @@ const description = `Thank you! Your order ${
     <!-- Favicon -->
     <link rel="icon" href="/assets/logo-completo.png" />
 
-    <!-- Google Tag -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
+   <!-- Google Tag Manager (GA4 + Ads) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+</script>
 
-      gtag('js', new Date());
-      gtag('config', 'G-Y8Q1XJ8KRW');
-      gtag('config', 'AW-17710658719');
-    </script>
+<script src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW" defer></script>
+
+<script defer>
+  gtag('js', new Date());
+  gtag('config', 'G-Y8Q1XJ8KRW');
+  gtag('config', 'AW-17710658719'); 
+</script>
+
 
     <!-- Fonts -->
     <link
@@ -223,45 +227,60 @@ const description = `Thank you! Your order ${
 
     <!-- Tracking Script -->
     <script>
-    (async () => {
-      try {
-        if (window.__artilateConversionSent) return;
-        window.__artilateConversionSent = true;
+(async () => {
+  try {
+    if (window.__artilateConversionSent) return;
+    window.__artilateConversionSent = true;
 
-        const params = new URLSearchParams(window.location.search);
-        const sessionId = params.get("session_id");
-        if (!sessionId) return;
+    // 🟡 Espera a que gtag exista
+    function waitForGTAG() {
+      return new Promise(resolve => {
+        const interval = setInterval(() => {
+          if (typeof gtag === "function") {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 50);
+      });
+    }
 
-        const res = await fetch(`/api/checkout?session_id=${sessionId}`);
-        if (!res.ok) return;
+    await waitForGTAG(); // 👈 FIX mágico
 
-        const data = await res.json();
-        if (!data?.id) return;
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+    if (!sessionId) return;
 
-        gtag('event', 'purchase', {
-          transaction_id: data.id,
-          value: data.amount_total / 100,
-          currency: data.currency.toUpperCase(),
-          items: [{
-            item_id: "artilate_order",
-            item_name: "Artilate Order",
-            quantity: 1,
-            price: data.amount_total / 100
-          }]
-        });
+    const res = await fetch(`/api/checkout?session_id=${sessionId}`);
+    if (!res.ok) return;
 
-        gtag('event', 'conversion', {
-          send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
-          value: data.amount_total / 100,
-          currency: data.currency.toUpperCase(),
-          transaction_id: data.id
-        });
+    const data = await res.json();
+    if (!data || !data.amount_total || !data.currency || !data.id) return;
 
-      } catch(e){
-        console.error("conversion tracking error", e);
-      }
-    })();
-    </script>
+    gtag('event', 'purchase', {
+      transaction_id: data.id,
+      value: data.amount_total / 100,
+      currency: data.currency.toUpperCase(),
+      items: [{
+        item_id: "artilate_order",
+        item_name: "Artilate Order",
+        quantity: 1,
+        price: data.amount_total / 100
+      }]
+    });
+
+    gtag('event', 'conversion', {
+      send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
+      value: data.amount_total / 100,
+      currency: data.currency.toUpperCase(),
+      transaction_id: data.id
+    });
+
+  } catch (e) {
+    console.error("conversion tracking error", e);
+  }
+})();
+</script>
+
 
     <Footer />
   </body>
