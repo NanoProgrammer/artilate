@@ -33,21 +33,7 @@ const description = `Thank you! Your order ${
     <!-- Favicon -->
     <link rel="icon" href="/assets/logo-completo.png" />
 
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  window.gtag_ready = false;
-</script>
 
-<!-- Carga GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW"
-        onload="window.gtag_ready = true"></script>
-
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-Y8Q1XJ8KRW');
-  gtag('config', 'AW-17710658719');
-</script>
 
 
     <!-- Fonts -->
@@ -178,6 +164,27 @@ const description = `Thank you! Your order ${
   </head>
 
   <body>
+    <script>
+  // gtag SIEMPRE existe (aunque GA no haya cargado)
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+
+  // bandera para saber cuándo GA4 terminó de cargar
+  window.__gtag_loaded = false;
+</script>
+
+<!-- Carga GA4 Y ADS -->
+<script async 
+  src="https://www.googletagmanager.com/gtag/js?id=G-Y8Q1XJ8KRW"
+  onload="window.__gtag_loaded = true">
+</script>
+
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-Y8Q1XJ8KRW');
+  gtag('config', 'AW-17710658719');
+</script>
+
     <Header />
 
     <main class="error-page">
@@ -234,8 +241,8 @@ const description = `Thank you! Your order ${
     if (window.__artilateConversionSent) return;
     window.__artilateConversionSent = true;
 
-    // Esperar hasta que GA haya cargado
-    while (!window.gtag_ready) {
+    // Esperar hasta que GA haya cargado por completo
+    while (!window.__gtag_loaded) {
       await new Promise(r => setTimeout(r, 30));
     }
 
@@ -249,24 +256,27 @@ const description = `Thank you! Your order ${
     const data = await res.json();
     if (!data?.amount_total || !data.currency || !data.id) return;
 
+    const amount = data.amount_total / 100;
+    const currency = data.currency.toUpperCase();
+
     // GA4 purchase
     gtag('event', 'purchase', {
       transaction_id: data.id,
-      value: data.amount_total / 100,
-      currency: data.currency.toUpperCase(),
+      value: amount,
+      currency,
       items: [{
         item_id: "artilate_order",
         item_name: "Artilate Order",
         quantity: 1,
-        price: data.amount_total / 100
+        price: amount
       }]
     });
 
     // Google Ads conversion
     gtag('event', 'conversion', {
       send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
-      value: data.amount_total / 100,
-      currency: data.currency.toUpperCase(),
+      value: amount,
+      currency,
       transaction_id: data.id
     });
 
