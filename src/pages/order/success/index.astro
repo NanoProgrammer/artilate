@@ -200,7 +200,7 @@ const seoData = {
     // GA4 PURCHASE
     gtag('event', 'purchase', {
       transaction_id: data.id,
-      value: data.amount_total / 100,
+      value: data.amount_total,
       currency: data.currency.toUpperCase(),
       items: [{
         item_id: "artilate_order",
