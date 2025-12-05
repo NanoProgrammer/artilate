@@ -146,7 +146,7 @@ const seoData = {
 
     @media (max-width:768px){ .container{ padding:0 1.25rem } .primary-btn,.secondary-btn{ width:100%; max-width:280px; justify-content:center } }
   </style>
- <script>
+<script>
 (async () => {
   try {
     if (window.__artilateConversionSent) return;
@@ -162,59 +162,57 @@ const seoData = {
 
     if (!data || !data.amount_total || !data.currency || !data.id) return;
 
-    // ✅ Esperar a que gtag esté disponible
+    const amount = data.amount_total; // YA viene en dólares
+    const currency = data.currency.toUpperCase();
+
+    // Esperar a gtag()
     const waitForGtag = () => {
       return new Promise((resolve) => {
-        if (typeof gtag !== 'undefined') {
-          resolve();
-          return;
-        }
-        
-        const checkInterval = setInterval(() => {
-          if (typeof gtag !== 'undefined') {
-            clearInterval(checkInterval);
+        if (typeof gtag !== "undefined") return resolve();
+
+        const int = setInterval(() => {
+          if (typeof gtag !== "undefined") {
+            clearInterval(int);
             resolve();
           }
         }, 100);
-        
-        // Timeout después de 10 segundos
+
         setTimeout(() => {
-          clearInterval(checkInterval);
+          clearInterval(int);
           resolve();
         }, 5000);
-        c
       });
     };
 
     await waitForGtag();
 
-    // Verificar nuevamente que gtag existe antes de usarlo
-    if (typeof gtag === 'undefined') {
-      console.warn('gtag not loaded after waiting');
+    if (typeof gtag === "undefined") {
+      console.warn("gtag not loaded after waiting");
       return;
     }
-    else{
-      console.log('gtag loaded successfully');
-    }
 
-    // GA4 PURCHASE
-    gtag('event', 'purchase', {
+    console.log("gtag loaded successfully");
+
+    // 🔹 GA4 PURCHASE — valores CORRECTOS
+    gtag("event", "purchase", {
       transaction_id: data.id,
-      value: data.amount_total,
-      currency: data.currency.toUpperCase(),
-      items: [{
-        item_id: "artilate_order",
-        item_name: "Artilate Order",
-        quantity: 1,
-        price: data.amount_total / 100
-      }]
+      value: amount,
+      currency: currency,
+      items: [
+        {
+          item_id: "artilate_order",
+          item_name: "Artilate Order",
+          quantity: 1,
+          price: amount // NO dividir entre 100
+        }
+      ]
     });
 
-    // Google Ads conversion
-    gtag('event', 'conversion', {
-      send_to: 'AW-17710658719/wq67CJeHgskbEJ_pjP1B',
-      value: data.amount_total / 100,
-      currency: data.currency.toUpperCase(),
+    // 🔹 Google Ads conversion — valores CORRECTOS
+    gtag("event", "conversion", {
+      send_to: "AW-17710658719/wq67CJeHgskbEJ_pjP1B",
+      value: amount, // EN DÓLARES
+      currency: currency,
       transaction_id: data.id
     });
 
@@ -223,6 +221,7 @@ const seoData = {
   }
 })();
 </script>
+
 
 
 </Layout>
