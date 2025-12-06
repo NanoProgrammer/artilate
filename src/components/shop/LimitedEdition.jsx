@@ -57,7 +57,7 @@ const CHRISTMAS_BOXES = [
     name: "Christmas Tasting Box — 12 Bonbons",
     description:
       "Six festive flavours, two bonbons of each. A perfect Christmas tasting box crafted with Colombian cacao.",
-    price: 32,
+    price: 35,
     slug: "christmas-tasting-box-12",
     pieces: 12,
     tag: "6 flavours • 2 of each",
@@ -68,7 +68,7 @@ const CHRISTMAS_BOXES = [
     name: "Christmas Sharing Box — 16 Bonbons",
     description:
       "Four favourite flavours, four bonbons of each. Designed for sharing around the tree and holiday dinners.",
-    price: 42,
+    price: 45,
     slug: "christmas-tasting-box-16",
     pieces: 16,
     tag: "4 flavours • 4 of each",
