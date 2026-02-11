@@ -9,7 +9,7 @@ const url = (base: string, path: string) =>
 async function getProductPaths(): Promise<string[]> {
   try {
     // desde /src/pages a /src/lib
-    const mod = await import("../lib/catalog");
+    const mod = await import("./src/lib/catalog");
     const CATALOG: Record<string, { id: string }> = (mod as any).CATALOG ?? {};
     return Object.keys(CATALOG).map((id) => `/shop/${id}`);
   } catch {
@@ -20,7 +20,7 @@ async function getProductPaths(): Promise<string[]> {
 // Intenta cargar slugs del blog (Sanity). Si no hay client/vars, devuelve []
 async function getJournalPaths(): Promise<string[]> {
   try {
-    const mod = await import("../lib/sanity");
+    const mod = await import("./src/lib/sanity");
     const client = (mod as any).client || (mod as any).sanityClient;
     if (!client) return [];
     // GROQ: posts publicados con slug

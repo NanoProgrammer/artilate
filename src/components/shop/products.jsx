@@ -11,7 +11,7 @@ export default function products() {
       <BonbonsSection />
       <GiftsSections />
       <BarsSection />
-      {/**SnacksSections */}
+      <SnacksSections />
       <LimitedEdition />
     </CartProvider>
   )
