@@ -1,0 +1,382 @@
+---
+import Layout from '../../layouts/Layout.astro'
+export const prerender = true;
+const seoData = {
+  title: 'Colombian Cacao Beans — Artilate',
+  description: 'Fine-aroma Colombian cacao beans for chocolatiers, pastry chefs, and artisan producers. Direct from farm, available wholesale from Alberta.',
+  noindex: false
+}
+const beans = [
+  {
+    name: 'Tumaco — Cacao Fino',
+    region: 'Nariño, Pacific Coast',
+    profile: 'Fruity, bright acidity, notes of red berries and citrus. Great for single-origin bars.',
+    fermentation: '5–6 day box fermentation',
+    available: '60 kg jute bags',
+  },
+  {
+    name: 'Arauquita — Criollo Blend',
+    region: 'Arauca, Eastern Plains',
+    profile: 'Floral and nutty with a mild bitterness. Excellent for bonbons and ganaches.',
+    fermentation: '6–7 day cascade fermentation',
+    available: '60 kg jute bags',
+  },
+  {
+    name: 'San Vicente — Trinitario',
+    region: 'Santander, Andes',
+    profile: 'Deep chocolate, earthy, dried fruit finish. Classic body for blends and baking.',
+    fermentation: '5 day box fermentation',
+    available: '60 kg jute bags',
+  },
+]
+---
+
+<Layout {...seoData}>
+  <main class="beans-page">
+
+    <!-- ═══════════  HERO  ═══════════ -->
+    <section class="beans-hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-particles" aria-hidden="true">
+        <span class="hp hp1"></span><span class="hp hp2"></span><span class="hp hp3"></span>
+        <span class="hp hp4"></span><span class="hp hp5"></span>
+      </div>
+      <div class="container hero-inner">
+        <p class="hero-eyebrow">Direct from Colombia</p>
+        <h1 class="hero-title">Cacao Beans</h1>
+        <p class="hero-sub">Fine-aroma beans sourced from small farms across Colombia — fermented, sun-dried, and shipped to Alberta for you.</p>
+        <a href="#beans-inquiry" class="hero-cta">Request Pricing&ensp;↓</a>
+      </div>
+    </section>
+
+    <!-- ═══════════  WHY OUR BEANS  ═══════════ -->
+    <section class="beans-why">
+      <div class="container why-grid">
+        <div class="why-text">
+          <p class="section-eyebrow">Why Artilate Beans</p>
+          <h2>Farm-direct,<br/>quality-first</h2>
+          <p class="why-body">We work with a small network of Colombian cacao farmers who prioritise flavour over volume. Every lot is fermented on-site, sun-dried, and graded before export. We handle import logistics and warehousing in Alberta — so you get traceable, single-origin beans without the complexity of direct trade.</p>
+        </div>
+        <div class="why-details">
+          <div class="detail-item">
+            <span class="detail-label">Origin</span>
+            <span class="detail-value">Colombia — Nariño, Arauca, Santander</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Certifications</span>
+            <span class="detail-value">Fine Flavour designation · Organic available on select lots</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Minimum Order</span>
+            <span class="detail-value">1 bag (60 kg) per variety</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Warehouse</span>
+            <span class="detail-value">Airdrie, AB — pickup or shipping across Canada</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Ideal For</span>
+            <span class="detail-value">Bean-to-bar makers, pastry chefs, craft chocolatiers, roasters</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════  BEAN VARIETIES  ═══════════ -->
+    <section class="beans-varieties">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Current Lots</p>
+          <h2>Available Varieties</h2>
+          <p class="section-sub">Pricing depends on volume and frequency. Get in touch for a full spec sheet and samples.</p>
+        </div>
+
+        <div class="varieties-grid">
+          {beans.map((b, i) => (
+            <article class="bean-card">
+              <div class="bean-index">{'0' + (i + 1)}</div>
+              <h3>{b.name}</h3>
+              <p class="bean-region">{b.region}</p>
+              <div class="bean-detail-row">
+                <span class="bean-label">Profile</span>
+                <p>{b.profile}</p>
+              </div>
+              <div class="bean-detail-row">
+                <span class="bean-label">Fermentation</span>
+                <p>{b.fermentation}</p>
+              </div>
+              <div class="bean-detail-row">
+                <span class="bean-label">Available in</span>
+                <p>{b.available}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════  INQUIRY FORM (Netlify)  ═══════════ -->
+    <section class="beans-form-section" id="beans-inquiry">
+      <div class="container form-container">
+        <div class="form-intro">
+          <h2>Request Pricing & Samples</h2>
+          <p>Tell us what you're looking for and we'll get back to you within 48 hours with a spec sheet and pricing.</p>
+        </div>
+
+        <form
+          name="beans-inquiry"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="inquiry-form"
+        >
+          <input type="hidden" name="form-name" value="beans-inquiry" />
+          <p class="hidden-honey" aria-hidden="true">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="b-name">Name</label>
+              <input type="text" id="b-name" name="name" required placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="b-email">Email</label>
+              <input type="email" id="b-email" name="email" required placeholder="you@company.com" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="b-company">Company / Business</label>
+              <input type="text" id="b-company" name="company" placeholder="Your business name" />
+            </div>
+            <div class="field">
+              <label for="b-volume">Estimated Volume</label>
+              <input type="text" id="b-volume" name="volume" placeholder="e.g. 2 bags / month" />
+            </div>
+          </div>
+
+          <div class="field full-width">
+            <label for="b-details">Anything else?</label>
+            <textarea id="b-details" name="details" rows="3" placeholder="Varieties you're interested in, sample requests, timeline…"></textarea>
+          </div>
+
+          <button type="submit" class="primary-btn submit-btn">Send Inquiry</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ═══════════  BOTTOM LINKS  ═══════════ -->
+    <section class="beans-bottom">
+      <div class="container bottom-row">
+        <a href="/wholesale" class="bottom-link">← Wholesale Chocolate</a>
+        <a href="/events" class="bottom-link">Events & Weddings →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <style>
+    :root {
+      --cacao:#0A0B0D; --ivory:#FAFAF9; --gold:#D4A373; --amber:#F59E0B;
+      --terra:#8B6F47; --rose:#C9A9A6;
+      --muted:rgba(250,250,249,.65); --glass:rgba(20,22,24,.55);
+    }
+    body{ background:var(--cacao); color:var(--ivory); line-height:1.6; overflow-x:hidden; }
+    .container{ max-width:1200px; margin:0 auto; padding:0 2rem; }
+    .hidden-honey{ display:none; }
+
+    /* ── HERO ── */
+    .beans-hero{
+      position:relative; min-height:88vh; display:flex; align-items:center; justify-content:center;
+      text-align:center; overflow:hidden;
+      background:
+        radial-gradient(ellipse at 35% 30%, rgba(139,111,71,.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 70%, rgba(212,163,115,.07) 0%, transparent 55%),
+        var(--cacao);
+    }
+    .hero-overlay{
+      position:absolute; inset:0;
+      background:repeating-linear-gradient(145deg, transparent, transparent 70px, rgba(139,111,71,.015) 70px, rgba(139,111,71,.015) 71px);
+      pointer-events:none;
+    }
+    .hero-particles{ position:absolute; inset:0; pointer-events:none; }
+    .hp{ position:absolute; width:5px; height:5px; border-radius:50%; background:var(--terra); opacity:0; animation:sparkle 6s ease-in-out infinite; }
+    .hp1{ top:18%; left:22%; animation-delay:0s }
+    .hp2{ top:35%; left:78%; animation-delay:1s }
+    .hp3{ top:72%; left:15%; animation-delay:2s }
+    .hp4{ top:60%; left:85%; animation-delay:3s }
+    .hp5{ top:85%; left:50%; animation-delay:4s }
+    @keyframes sparkle{
+      0%,100%{ opacity:0; transform:scale(.6) translateY(0) }
+      50%{ opacity:.45; transform:scale(1.1) translateY(-12px) }
+    }
+    .hero-inner{ position:relative; z-index:2; max-width:700px; }
+    .hero-eyebrow{
+      font-family:'Cormorant Garamond','Playfair Display',serif;
+      font-size:1.1rem; letter-spacing:.18em; text-transform:uppercase; color:var(--terra);
+      opacity:0; animation:fadeUp .8s ease-out .3s forwards;
+    }
+    .hero-title{
+      font-family:'Playfair Display',serif; font-size:clamp(2.6rem,6.5vw,4.5rem);
+      font-weight:600; margin:.3rem 0 1rem;
+      background:linear-gradient(135deg, var(--ivory) 25%, var(--terra) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      opacity:0; animation:fadeUp .9s ease-out .6s forwards;
+    }
+    .hero-sub{
+      font-size:1.1rem; color:var(--muted); max-width:540px; margin:0 auto 2rem;
+      line-height:1.75; opacity:0; animation:fadeUp .8s ease-out .9s forwards;
+    }
+    .hero-cta{
+      display:inline-block; padding:14px 36px; border:1px solid var(--terra); border-radius:60px;
+      color:var(--terra); text-decoration:none; font-weight:600; letter-spacing:.06em;
+      transition:all .4s cubic-bezier(.16,1,.3,1);
+      opacity:0; animation:fadeUp .8s ease-out 1.2s forwards;
+    }
+    .hero-cta:hover{ background:var(--terra); color:var(--ivory); transform:translateY(-2px); box-shadow:0 8px 28px rgba(139,111,71,.3); }
+    @keyframes fadeUp{ to{ opacity:1; transform:translateY(0) } }
+    .hero-eyebrow,.hero-sub,.hero-cta{ transform:translateY(18px); }
+    .hero-title{ transform:translateY(24px); }
+
+    /* ── WHY ── */
+    .beans-why{ padding:6rem 0; }
+    .why-grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start;
+    }
+    .section-eyebrow{
+      font-family:'Cormorant Garamond','Playfair Display',serif;
+      font-size:.95rem; letter-spacing:.16em; text-transform:uppercase; color:var(--terra); margin-bottom:.35rem;
+    }
+    .why-text h2{
+      font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3vw,2.3rem);
+      margin-bottom:1.2rem; line-height:1.2;
+    }
+    .why-body{ color:var(--muted); line-height:1.7; font-size:.97rem; }
+    .why-details{ display:flex; flex-direction:column; gap:.75rem; }
+    .detail-item{
+      border-bottom:1px solid rgba(139,111,71,.15); padding-bottom:.75rem;
+      display:flex; flex-direction:column; gap:.2rem;
+    }
+    .detail-item:last-child{ border-bottom:none; }
+    .detail-label{
+      font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--terra); font-weight:600;
+    }
+    .detail-value{ color:var(--muted); font-size:.93rem; }
+
+    /* ── VARIETIES ── */
+    .beans-varieties{
+      padding:5rem 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(139,111,71,.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 50%, rgba(212,163,115,.04) 0%, transparent 50%);
+    }
+    .section-header{ text-align:center; margin-bottom:2.5rem; }
+    .section-header h2{
+      font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3vw,2.2rem); margin-bottom:.5rem;
+    }
+    .section-sub{ color:var(--muted); max-width:480px; margin:0 auto; }
+    .varieties-grid{
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:1.5rem;
+      max-width:1060px; margin:0 auto;
+    }
+    .bean-card{
+      border:1px solid rgba(139,111,71,.18); background:var(--glass); backdrop-filter:blur(8px);
+      border-radius:18px; padding:1.75rem 1.5rem; display:flex; flex-direction:column;
+      transition:border-color .35s, transform .35s, box-shadow .35s;
+    }
+    .bean-card:hover{
+      border-color:rgba(139,111,71,.4); transform:translateY(-4px);
+      box-shadow:0 16px 48px rgba(0,0,0,.25);
+    }
+    .bean-index{
+      font-family:'Cormorant Garamond','Playfair Display',serif;
+      font-size:2rem; font-weight:700; color:var(--terra); opacity:.4; line-height:1; margin-bottom:.6rem;
+    }
+    .bean-card h3{
+      font-family:'Playfair Display',serif; font-size:1.15rem; margin:0 0 .25rem; line-height:1.3;
+    }
+    .bean-region{
+      color:var(--terra); font-size:.85rem; font-weight:500; margin:0 0 1rem;
+      letter-spacing:.03em;
+    }
+    .bean-detail-row{ margin-bottom:.7rem; }
+    .bean-detail-row:last-child{ margin-bottom:0; }
+    .bean-label{
+      display:block; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+      color:var(--terra); font-weight:600; margin-bottom:.15rem;
+    }
+    .bean-detail-row p{ color:var(--muted); font-size:.88rem; line-height:1.5; margin:0; }
+
+    /* ── FORM ── */
+    .beans-form-section{
+      padding:5rem 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(139,111,71,.06) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(212,163,115,.03) 0%, transparent 40%);
+    }
+    .form-container{ max-width:700px; }
+    .form-intro{ text-align:center; margin-bottom:2.5rem; }
+    .form-intro h2{
+      font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3vw,2.1rem); margin-bottom:.6rem;
+    }
+    .form-intro p{ color:var(--muted); max-width:480px; margin:0 auto; }
+    .inquiry-form{ display:flex; flex-direction:column; gap:1.25rem; }
+    .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .field{ display:flex; flex-direction:column; gap:.35rem; }
+    .field.full-width{ grid-column:1/-1; }
+    label{ font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    input,textarea{
+      background:var(--glass); border:1px solid rgba(139,111,71,.2); border-radius:10px;
+      padding:12px 14px; color:var(--ivory); font-size:.95rem; font-family:inherit;
+      transition:border-color .3s, box-shadow .3s;
+    }
+    input::placeholder,textarea::placeholder{ color:rgba(250,250,249,.3); }
+    input:focus,textarea:focus{
+      outline:none; border-color:var(--terra);
+      box-shadow:0 0 0 3px rgba(139,111,71,.12);
+    }
+    .submit-btn{
+      align-self:center; margin-top:.5rem; cursor:pointer; border:none; font-size:1rem;
+      padding:15px 44px; border-radius:60px;
+      background:linear-gradient(135deg,var(--terra) 0%,var(--gold) 100%);
+      color:var(--ivory); font-weight:700; letter-spacing:.04em;
+      box-shadow:0 8px 30px rgba(139,111,71,.3);
+      transition:all .4s cubic-bezier(.16,1,.3,1);
+    }
+    .submit-btn:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(139,111,71,.45); }
+
+    /* ── BOTTOM ── */
+    .beans-bottom{ padding:3rem 0 4rem; }
+    .bottom-row{ display:flex; gap:2rem; justify-content:center; flex-wrap:wrap; }
+    .bottom-link{
+      color:var(--terra); text-decoration:none; font-weight:600; font-size:.95rem;
+      padding:10px 24px; border:1px solid rgba(139,111,71,.2); border-radius:10px;
+      transition:all .35s cubic-bezier(.16,1,.3,1);
+    }
+    .bottom-link:hover{ background:rgba(139,111,71,.08); border-color:rgba(139,111,71,.4); transform:translateY(-2px); }
+
+    /* ── SHARED ── */
+    .primary-btn{
+      border-radius:12px; padding:13px 26px; font-weight:600; text-decoration:none;
+      display:inline-flex; align-items:center; gap:8px;
+      transition:all .4s cubic-bezier(.16,1,.3,1);
+      background:linear-gradient(135deg,var(--terra),var(--gold)); color:var(--ivory);
+      box-shadow:0 8px 32px rgba(139,111,71,.3);
+    }
+    .primary-btn:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(139,111,71,.4); }
+
+    @media(max-width:900px){
+      .why-grid{ grid-template-columns:1fr; gap:2.5rem; }
+      .varieties-grid{ grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:640px){
+      .container{ padding:0 1.25rem; }
+      .form-row{ grid-template-columns:1fr; }
+      .varieties-grid{ grid-template-columns:1fr; max-width:420px; }
+      .bottom-row{ flex-direction:column; align-items:center; }
+      .bottom-link{ width:100%; max-width:280px; text-align:center; }
+    }
+  </style>
+</Layout>
