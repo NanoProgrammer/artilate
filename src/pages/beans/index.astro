@@ -29,6 +29,9 @@ const beans = [
     available: '60 kg jute bags',
   },
 ]
+
+// 14 bean images from /assets/beans/
+const beanImages = Array.from({ length: 8 }, (_, i) => `/beans/bean${i + 1}.webp`)
 ---
 
 <Layout {...seoData}>
@@ -78,6 +81,48 @@ const beans = [
             <span class="detail-label">Ideal For</span>
             <span class="detail-value">Bean-to-bar makers, pastry chefs, craft chocolatiers, roasters</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════  INFINITE IMAGE CAROUSEL  ═══════════ -->
+    <section class="beans-carousel-section">
+      <div class="carousel-label">
+        <p class="section-eyebrow">From the Farm</p>
+        <h2>Our Cacao</h2>
+      </div>
+
+      <div class="carousel-viewport" aria-label="Cacao bean gallery">
+        <!-- Track duplicated 3× for seamless infinite loop -->
+        <div class="carousel-track" id="carouselTrack">
+          {[...beanImages, ...beanImages, ...beanImages].map((src, i) => (
+            <div class="carousel-slide">
+              <img
+                src={src}
+                alt={`Cacao beans ${(i % 14) + 1}`}
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="slide-shimmer"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Second row going opposite direction -->
+      <div class="carousel-viewport carousel-viewport--reverse" aria-hidden="true">
+        <div class="carousel-track carousel-track--reverse">
+          {[...beanImages, ...beanImages, ...beanImages].map((src, i) => (
+            <div class="carousel-slide carousel-slide--sm">
+              <img
+                src={src}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="slide-shimmer"></div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -265,6 +310,115 @@ const beans = [
     }
     .detail-value{ color:var(--muted); font-size:.93rem; }
 
+    /* ════════════════════════════════════
+       INFINITE CAROUSEL
+    ════════════════════════════════════ */
+    .beans-carousel-section{
+      padding:5rem 0 4rem;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(139,111,71,.05) 0%, transparent 60%);
+    }
+
+    .carousel-label{
+      text-align:center;
+      margin-bottom:2.5rem;
+    }
+    .carousel-label h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.5rem,3vw,2.2rem);
+      margin:0;
+    }
+
+    /* Viewport: clips overflow and adds fade edges */
+    .carousel-viewport{
+      position:relative;
+      overflow:hidden;
+      margin-bottom:1rem;
+    }
+    .carousel-viewport::before,
+    .carousel-viewport::after{
+      content:'';
+      position:absolute;
+      top:0; bottom:0;
+      width:12rem;
+      z-index:2;
+      pointer-events:none;
+    }
+    .carousel-viewport::before{
+      left:0;
+      background:linear-gradient(to right, var(--cacao) 0%, transparent 100%);
+    }
+    .carousel-viewport::after{
+      right:0;
+      background:linear-gradient(to left, var(--cacao) 0%, transparent 100%);
+    }
+
+    /* The scrolling strip */
+    .carousel-track{
+      display:flex;
+      gap:1rem;
+      width:max-content;
+      /* 14 images × 3 duplicates = 42 slides; animation shifts by 1/3 */
+      animation: scrollLeft 50s linear infinite;
+    }
+    .carousel-track--reverse{
+      animation: scrollRight 65s linear infinite;
+    }
+
+    /* Pause on hover */
+    .carousel-viewport:hover .carousel-track{ animation-play-state:paused; }
+
+    @keyframes scrollLeft{
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(calc(-100% / 3)); }
+    }
+    @keyframes scrollRight{
+      0%   { transform: translateX(calc(-100% / 3)); }
+      100% { transform: translateX(0); }
+    }
+
+    .carousel-slide{
+      position:relative;
+      flex-shrink:0;
+      width:280px;
+      height:200px;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(139,111,71,.15);
+      cursor:pointer;
+    }
+    .carousel-slide--sm{
+      width:200px;
+      height:140px;
+    }
+    .carousel-slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .6s cubic-bezier(.16,1,.3,1), filter .6s ease;
+      filter:saturate(.85) brightness(.9);
+    }
+    .carousel-slide:hover img{
+      transform:scale(1.06);
+      filter:saturate(1.1) brightness(1);
+    }
+
+    /* Subtle golden shimmer overlay */
+    .slide-shimmer{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        135deg,
+        transparent 40%,
+        rgba(212,163,115,.08) 60%,
+        transparent 80%
+      );
+      pointer-events:none;
+    }
+
     /* ── VARIETIES ── */
     .beans-varieties{
       padding:5rem 0;
@@ -370,6 +524,8 @@ const beans = [
     @media(max-width:900px){
       .why-grid{ grid-template-columns:1fr; gap:2.5rem; }
       .varieties-grid{ grid-template-columns:1fr 1fr; }
+      .carousel-slide{ width:220px; height:160px; }
+      .carousel-slide--sm{ width:160px; height:115px; }
     }
     @media(max-width:640px){
       .container{ padding:0 1.25rem; }
@@ -377,6 +533,16 @@ const beans = [
       .varieties-grid{ grid-template-columns:1fr; max-width:420px; }
       .bottom-row{ flex-direction:column; align-items:center; }
       .bottom-link{ width:100%; max-width:280px; text-align:center; }
+      .carousel-slide{ width:180px; height:130px; }
+      .carousel-slide--sm{ width:130px; height:95px; }
+      .carousel-viewport::before,
+      .carousel-viewport::after{ width:4rem; }
+    }
+
+    /* Respect reduced motion preference */
+    @media(prefers-reduced-motion:reduce){
+      .carousel-track,
+      .carousel-track--reverse{ animation:none; }
     }
   </style>
 </Layout>

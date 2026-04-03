@@ -88,7 +88,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "classic-box-9": {
     id: "classic-box-9",
     name: "Classic Box — 9",
-    price: 28,
+    price: 31,
     category: "Bonbons",
     tag: "Signature",
     shortDesc: "Nine signature bonbons spanning pistachio, caramel with blackberry, and chocolate and hazelnut.",
@@ -107,7 +107,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "tropical-box-9": {
     id: "tropical-box-9",
     name: "Tropical Box — 9",
-    price: 25,
+    price: 30,
     category: "Bonbons",
     tag: "Fruity",
     shortDesc: "Exotic and vibrant: spicy pineapple, passionfruit, and coffee in silky dark chocolate shells.",
@@ -127,7 +127,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "classic-box-8": {
     id: "classic-box-8",
     name: "Classic Box — 8",
-    price: 28,
+    price: 25,
     category: "Bonbons",
     tag: "Signature",
     shortDesc: "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
@@ -146,7 +146,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "vibrant-box-8": {
     id: "vibrant-box-8",
     name: "Vibrant Box — 8",
-    price: 23,
+    price: 24,
     category: "Bonbons",
     tag: "Fruity",
     shortDesc: "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
@@ -166,7 +166,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "essentials-box-6": {
     id: "essentials-box-6",
     name: "Essentials Box — 6",
-    price: 18,
+    price: 20,
     category: "Bonbons",
     tag: "Best Value",
     shortDesc: "Six essentials — pistachio, caramel with blackberry, chocolate & hazelnut, passionfruit, coffee, and strawberry.",
@@ -187,7 +187,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "heart-gift-box": {
     id: "heart-gift-box",
     name: "Heart Gift Box",
-    price: 86,
+    price: 149,
     category: "Gifting",
     shortDesc: "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
     longDesc:
@@ -211,7 +211,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "golden-ribbon-keepsake-box": {
     id: "golden-ribbon-keepsake-box",
     name: "Golden Ribbon Keepsake Box",
-    price: 48,
+    price: 58,
     category: "Gifting",
     tag: "Ready-to-gift",
     shortDesc: "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",

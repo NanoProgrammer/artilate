@@ -51,7 +51,7 @@ const GIFTS = [
   {
     id: "heart-gift-box",
     name: "Heart Gift Box",
-    price: 99,
+    price: 149,
     slug: "heart-gift-box",
     tag: "Romantic",
     desc: "Forty hand-painted heart bonbons — 20 caramel with blackberry, 14 pistachio, and 6 passionfruit.",
@@ -69,7 +69,7 @@ const GIFTS = [
   {
     id: "golden-ribbon-keepsake-box",
     name: "Golden Ribbon Keepsake Box",
-    price: 48,
+    price: 58,
     slug: "golden-ribbon-keepsake-box",
     tag: "Ready-to-gift",
     desc: "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
