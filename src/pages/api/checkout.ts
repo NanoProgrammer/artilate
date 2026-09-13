@@ -37,14 +37,6 @@ const ALIASES: Record<string, string> = {
   "box-essentials-6": "essentials-box-6",
   "essentials-6-box": "essentials-box-6",
 
-  /* ─────────── GIFTING ─────────── */
-  "heart-box-30": "heart-gift-box",
-  "heart-gift": "heart-gift-box",
-  "gift-heart": "heart-gift-box",
-  "gift-keepsake": "golden-ribbon-keepsake-box",
-  "gift-golden-ribbon": "golden-ribbon-keepsake-box",
-  "golden-ribbon-box": "golden-ribbon-keepsake-box",
-  "mix-gift": "golden-ribbon-keepsake-box",
  /* ─────────── EDITION LIMITED ─────────── */
  "christmas-16-pieces": "christmas-sharing-box-16",
  "christmas-12-pieces": "christmas-tasting-box-12",

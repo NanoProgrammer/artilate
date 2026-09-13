@@ -6,7 +6,6 @@ export type CatalogItem = {
   | "Fruit Infused"
   | "Nut Collection"
   | "Bonbons"
-  | "Gifting"
   | "Limited"
   | "Snacks";
   tag?: string;
@@ -183,56 +182,6 @@ export const CATALOG: Record<string, CatalogItem> = {
     content: ["1 × Pistachio Praliné","1 × Caramel with Blackberry","1 × Chocolate & Hazelnut","1 × Passionfruit","1 × Coffee","1 × Strawberry"]
   },
 
-  /* ───────────────── GIFTING ───────────────── */
-  "heart-gift-box": {
-    id: "heart-gift-box",
-    name: "Heart Gift Box",
-    price: 149,
-    category: "Gifting",
-    shortDesc: "Thirty hand-painted heart bonbons — 16 caramel with blackberry, 10 pistachio, and 4 passionfruit.",
-    longDesc:
-      "Crafted as a gesture of love and artistry, this keepsake box holds thirty hand-painted heart bonbons made from single-origin Colombian cacao. The Caramel with Blackberry hearts (16) melt into layers of buttery sweetness and ripe fruit. The Pistachio Praliné (10) brings roasted depth and a soft, nutty finish. The Passionfruit hearts (4) brighten the collection with tangy citrus notes that linger delicately. Each piece is hand-finished for colour, gloss, and precision — a romantic composition that blends elegance, flavour, and emotion in every bite.",
-    chips: ["Hand-painted", "Message card", "Gift-ready"],
-    cacao: "Single-origin Colombia • 60% dark chocolate",
-    weight: "30 bonbons",
-    dietary: ["Contains dairy & nuts"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, nuts (pistachio), fruit purées (blackberry, passionfruit), natural flavours.",
-    allergens: "Contains dairy and tree nuts (pistachio).",
-    images: ["/images/gifts/heart-gift-box.webp", "/images/gifts/heart-gift-box-1.webp","/images/gifts/heart-gift-box-2.webp", "/images/gifts/heart-gift-box-3.webp", "/images/gifts/heart-gift-box-4.webp"],
-    content: [
-      "16 × Caramel with Blackberry bonbons",
-      "10 × Pistachio Praliné bonbons",
-      "4 × Passionfruit bonbons",
-      "Presented in a reusable keepsake tray"
-    ]
-  },
-
-  "golden-ribbon-keepsake-box": {
-    id: "golden-ribbon-keepsake-box",
-    name: "Golden Ribbon Keepsake Box",
-    price: 58,
-    category: "Gifting",
-    tag: "Ready-to-gift",
-    shortDesc: "Reusable wooden keepsake box with a ribboned assortment — bonbons, chocolate bars, and coins.",
-    longDesc:
-      "A refined gift that embodies the spirit of Artilate craftsmanship. Inside the reusable wooden keepsake box, tied with a golden ribbon, rests a complete tasting experience. It begins with an eight-piece bonbon collection featuring Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, and Coffee. Two Milky Chocolate Bars bring creamy comfort, while a 63% Dark Chocolate Bar with Pistachio Crumble adds texture and depth. Three chocolate coins sprinkled with nuts complete the ensemble — a thoughtful, elegant gift ready to share or savour slowly.",
-    chips: ["Wooden box", "Assorted chocolates", "Gift-ready"],
-    cacao: "Single-origin Colombia • 54–63% dark & milk chocolate",
-    weight: "Bonbons + 3 bars + 3 coins",
-    dietary: ["Contains dairy & nuts"],
-    ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio, almond), fruit purées (blackberry, mango, passionfruit, strawberry), coffee, natural flavours.",
-    allergens: "Contains dairy and tree nuts (hazelnut, pistachio, almond).",
-    images: ["/images/gifts/keepsake-wood-box.webp", "/images/gifts/keepsake-wood-box-1.webp","/images/gifts/keepsake-wood-box-2.webp"],
-    content: [
-      "1 × 8-piece bonbon selection (Pistachio, Caramel with Blackberry, Passionfruit, Mango, Strawberry, Chocolate & Hazelnut, Spicy Pineapple, Coffee — 1 each)",
-      "2 × Milky Chocolate Bars (37%)",
-      "1 × 63% Dark Chocolate Bar with Pistachio Crumble",
-      "3 × Chocolate Coins with Nuts",
-      "Reusable wooden keepsake box with golden ribbon"
-    ],
-  },
   "christmas-tasting-box-12": {
   id: "christmas-tasting-box-12",
   name: "Christmas Tasting Box — 12 Bonbons",
