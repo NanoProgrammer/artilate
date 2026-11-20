@@ -40,7 +40,7 @@ const products = [
     id: "classic-box-9",
     name: "Classic Box — 9",
     pieces: 9,
-    price: 31,
+    price: 30,
     slug: "classic-box-9",
     tag: "Signature",
     img: "/images/bonbons/classic-9.webp",
@@ -74,7 +74,7 @@ const products = [
     id: "classic-box-8",
     name: "Classic Box — 8",
     pieces: 8,
-    price: 25,
+    price: 29.5,
     slug: "classic-box-8",
     tag: "Signature",
     img: "/images/bonbons/classic-8.webp",
@@ -91,7 +91,7 @@ const products = [
     id: "vibrant-box-8",
     name: "Vibrant Box — 8",
     pieces: 8,
-    price: 24,
+    price: 29.5,
     slug: "vibrant-box-8",
     tag: "Fruity",
     img: "/images/bonbons/vibrant-8.webp",
@@ -213,7 +213,7 @@ function FeaturedCard({ p, onAdd, onOpen }) {
       <div className="flex items-center gap-2.5 border-t border-white/10 bg-black/60 px-4 py-3">
         {/* Precio a la izquierda */}
         <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[20px] font-extrabold leading-none text-transparent">
-          ${p.price}
+          ${Number(p.price).toFixed(2).replace(/\.00$/, "")}
         </div>
 
         {/* Add */}
@@ -264,7 +264,7 @@ function CompactCard({ p, onAdd, onOpen }) {
       </div>
 
       <div className="flex items-center gap-2.5 border-t border-white/10 bg-black/60 px-3.5 py-3">
-        <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[17px] font-extrabold text-transparent">${p.price}</div>
+        <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[17px] font-extrabold text-transparent">${Number(p.price).toFixed(2).replace(/\.00$/, "")}</div>
         <button onClick={onAdd} className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-amber-400 to-orange-400 px-3 py-1.5 text-[12px] font-extrabold text-zinc-900 shadow-[0_6px_18px_rgba(212,163,115,.22)]">
           <Plus className="h-4 w-4" /> Add
         </button>

@@ -20,7 +20,7 @@ export default function CartItem({ id, title, price, quantity, imgUrl }) {
         />
         <div className="flex flex-col">
           <span className="font-semibold text-[var(--color-3)]">{title}</span>
-          <span className="text-sm text-[var(--color-5)]">${price}</span>
+          <span className="text-sm text-[var(--color-5)]">${Number(price).toFixed(2).replace(/\.00$/, "")}</span>
         </div>
       </div>
 

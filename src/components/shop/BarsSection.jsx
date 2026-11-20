@@ -44,7 +44,7 @@ const BARS = [
     id: "milk-37-rasp-crumble",
     name: "37% Milky Raspberry Crumble",
     description: "Silky 37% milk chocolate with raspberry crumble bits for a bright, crunchy finish.",
-    price: 8,
+    price: 15,
     slug: "milk-37-raspberry-crumble",
     category: "MILKY",
     features: ["Raspberry crumble", "Creamy 37%", "Kid-friendly"],
@@ -55,7 +55,7 @@ const BARS = [
     id: "dark-60-pistachio",
     name: "60% Dark Pistachio Bar",
     description: "Balanced 60% dark chocolate layered with pieces of pistachios—nutty, lightly sweet, satisfying.",
-    price: 11,
+    price: 15,
     slug: "dark-60-pistachio",
     category: "DARK",
     features: ["60% dark", "pieces of pistachios", "Vegan"],
@@ -134,7 +134,7 @@ const BarCard = React.memo(function BarCard({ bar, theme, onOpen, onAdd, priorit
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[20px] font-extrabold text-transparent">${bar.price}</div>
+          <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[20px] font-extrabold text-transparent">${Number(bar.price).toFixed(2).replace(/\.00$/, "")}</div>
           <div className="flex gap-2">
             <button
               onClick={() => onOpen(bar.slug)}

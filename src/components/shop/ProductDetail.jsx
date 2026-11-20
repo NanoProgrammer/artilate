@@ -160,7 +160,7 @@ export default function ProductDetail({ product }) {
               {/* Price + Add */}
               <div className="mt-6 flex items-center gap-3">
                 <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[26px] font-extrabold text-transparent">
-                  ${product.price}
+                  ${Number(product.price).toFixed(2).replace(/\.00$/, "")}
                 </div>
                 <button
                   onClick={onAdd}

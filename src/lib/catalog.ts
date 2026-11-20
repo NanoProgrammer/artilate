@@ -48,7 +48,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "milk-37-raspberry-crumble": {
     id: "milk-37-raspberry-crumble",
     name: "37% Milky Raspberry Crumble",
-    price: 8,
+    price: 15,
     category: "Fruit Infused",
     tag: "Kid-Friendly",
     shortDesc: "Silky 37% milk chocolate with raspberry crumble bits for a bright, crunchy finish.",
@@ -68,7 +68,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "dark-60-pistachio": {
     id: "dark-60-pistachio",
     name: "60% Dark Pistachio Bar",
-    price: 11,
+    price: 15,
     category: "Nut Collection",
     shortDesc: "Balanced 64% dark chocolate layered with pistachio pieces—nutty, lightly sweet, satisfying.",
     longDesc:
@@ -88,7 +88,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "classic-box-9": {
     id: "classic-box-9",
     name: "Classic Box — 9",
-    price: 31,
+    price: 30,
     category: "Bonbons",
     tag: "Signature",
     shortDesc: "Nine signature bonbons spanning pistachio, caramel with blackberry, and chocolate and hazelnut.",
@@ -127,7 +127,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "classic-box-8": {
     id: "classic-box-8",
     name: "Classic Box — 8",
-    price: 25,
+    price: 29.5,
     category: "Bonbons",
     tag: "Signature",
     shortDesc: "Timeless signatures—silky caramels, pralinés and vanilla-forward ganaches.",
@@ -146,7 +146,7 @@ export const CATALOG: Record<string, CatalogItem> = {
   "vibrant-box-8": {
     id: "vibrant-box-8",
     name: "Vibrant Box — 8",
-    price: 24,
+    price: 29.5,
     category: "Bonbons",
     tag: "Fruity",
     shortDesc: "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
@@ -268,7 +268,7 @@ export const CATALOG: Record<string, CatalogItem> = {
 "christmas-sharing-box-16": {
   id: "christmas-sharing-box-16",
   name: "Christmas Sharing Box — 16 Bonbons",
-  price: 45,
+  price: 56.5,
   category: "Limited",
   tag: "Family Size",
   shortDesc: "Four crowd-favourite flavours crafted with single-origin Colombian cacao — four bonbons each.",

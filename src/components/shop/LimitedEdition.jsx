@@ -68,7 +68,7 @@ const CHRISTMAS_BOXES = [
     name: "Christmas Sharing Box — 16 Bonbons",
     description:
       "Four favourite flavours, four bonbons of each. Designed for sharing around the tree and holiday dinners.",
-    price: 45,
+    price: 56.5,
     slug: "christmas-tasting-box-16",
     pieces: 16,
     tag: "4 flavours • 4 of each",
@@ -157,7 +157,7 @@ const ChristmasCard = React.memo(function ChristmasCard({
 
         <div className="mt-auto flex items-center justify-between pt-1">
           <div className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-[19px] font-extrabold text-transparent sm:text-[20px]">
-            ${box.price}
+            ${Number(box.price).toFixed(2).replace(/\.00$/, "")}
           </div>
           <div className="flex gap-2">
             <button
