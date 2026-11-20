@@ -1,11 +1,18 @@
 ---
 // FeaturedProducts4.astro — responsive AVIF/WebP sin JPG
+import { CATALOG } from "../lib/catalog";
 
 const items = {
   spotlight:  { name: "Heart Box — 30 Bonbons", slug: "heart-gift-box",               imgBase: "/images/heart-30",     tag: "Gift Favorite" },
   topWide:    { name: "Classic Box — 9",        slug: "classic-box-9",                 imgBase: "/images/classic-9",    tag: "Best Seller" },
   bottomLeft: { name: "Pistachio Crunch Bar",   slug: "dark-60-pistachio",             imgBase: "/images/pistachiobar", tag: "Nut Lover" },
   bottomRight:{ name: "Mix Gift",               slug: "golden-ribbon-keepsake-box",    imgBase: "/images/mix-gift",     tag: "Gift Mix" }
+};
+
+// datos del carrito tomados del catálogo (precio/nombre/imagen reales)
+const cartData = (slug: string) => {
+  const p = CATALOG[slug];
+  return p ? JSON.stringify({ id: p.id, name: p.name, price: p.price, image: p.images?.[0], slug: p.id }) : "";
 };
 
 // helper para srcset con sufijos -480 -768 -1080 
@@ -66,6 +73,9 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
           View Product
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <button type="button" data-add-to-cart={cartData(items.spotlight.slug)} class="add-to-cart inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors duration-300">
+          Add to Cart
+        </button>
       </div>
     </div>
 
@@ -107,6 +117,9 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
             View Product
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
+        <button type="button" data-add-to-cart={cartData(items.topWide.slug)} class="add-to-cart inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors duration-300">
+          Add to Cart
+        </button>
         </div>
       </div>
 
@@ -146,6 +159,9 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
               View Product
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+        <button type="button" data-add-to-cart={cartData(items.bottomLeft.slug)} class="add-to-cart inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors duration-300">
+          Add to Cart
+        </button>
           </div>
         </div>
 
@@ -182,6 +198,9 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
               View Product
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+        <button type="button" data-add-to-cart={cartData(items.bottomRight.slug)} class="add-to-cart inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold bg-amber-400 text-stone-900 hover:bg-amber-300 transition-colors duration-300">
+          Add to Cart
+        </button>
           </div>
         </div>
 
@@ -197,3 +216,21 @@ const whWide   = { w: 1400, h: 1120 };   // ~5:4
     </a>
   </div>
 </div>
+
+<script is:inline>
+  (function () {
+    var KEY = "artilate:cart:v1";
+    function read() { try { var a = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest("[data-add-to-cart]");
+      if (!btn) return;
+      var item; try { item = JSON.parse(btn.getAttribute("data-add-to-cart")); } catch (err) { return; }
+      if (!item || !item.id) return;
+      var cart = read(), hit = cart.find(function (p) { return p.id === item.id; });
+      if (hit) hit.quantity = (hit.quantity || 0) + 1; else { item.quantity = 1; cart.push(item); }
+      try { localStorage.setItem(KEY, JSON.stringify(cart)); window.dispatchEvent(new CustomEvent("cart:changed")); } catch (err) {}
+      var label = btn.textContent; btn.textContent = "Added ✓";
+      setTimeout(function () { btn.textContent = label; }, 1500);
+    });
+  })();
+</script>
