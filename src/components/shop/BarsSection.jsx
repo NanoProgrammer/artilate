@@ -62,6 +62,39 @@ const BARS = [
     colorTheme: "nuts",
     imgBase: "/images/bars/dark-pistachio",
   },
+  {
+    id: "dark-70-bar",
+    name: "70% Dark Chocolate Bar",
+    description: "Colombian 70% dark chocolate bar, hand-splattered with gold and colour.",
+    price: 15,
+    slug: "dark-70-bar",
+    category: "DARK",
+    features: ["70% dark", "Hand-painted", "Colombian cacao"],
+    colorTheme: "nuts",
+    imgBase: "/images/bars/dark-70",
+  },
+  {
+    id: "mini-dark-bar",
+    name: "Mini Dark Chocolate Bar",
+    description: "A smaller hand-splattered dark chocolate bar, perfect as a little treat.",
+    price: 8,
+    slug: "mini-dark-bar",
+    category: "DARK",
+    features: ["Mini size", "Hand-painted"],
+    colorTheme: "nuts",
+    imgBase: "/images/bars/mini-dark",
+  },
+  {
+    id: "coffee-beans-jar",
+    name: "Chocolate-Covered Coffee Beans",
+    description: "Roasted coffee beans coated in chocolate, in a small glass jar.",
+    price: 10,
+    slug: "coffee-beans-jar",
+    category: "DRAGÉES",
+    features: ["Coffee beans", "Glass jar"],
+    colorTheme: "nuts",
+    imgBase: "/images/bars/coffee-beans",
+  },
 ];
 
 const themeMap = {
@@ -186,7 +219,7 @@ export default function BarsSection() {
             <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-extrabold tracking-widest text-amber-300">
               PREMIUM COLLECTION
             </p>
-            <h2 className="text-[26px] font-extrabold tracking-tight text-zinc-100 sm:text-[30px]">Artisan Chocolate Bars</h2>
+            <h2 className="text-[26px] font-extrabold tracking-tight text-zinc-100 sm:text-[30px]">Artisan Chocolate Bars &amp; Dragées</h2>
             <p className="mx-auto mt-2 max-w-2xl text-[14px] text-zinc-400">Handcrafted from ethically sourced cacao — each bar is a small-batch expression of flavor and craft.</p>
           </header>
 

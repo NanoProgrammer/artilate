@@ -99,9 +99,9 @@ const products = [
     description: "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
     subtags: ["Seasonal fruit", "Tropical spice"],
     notes: ["Mango", "Spicy Pineapple", "Passion Fruit", "Caramel with Blackberry"],
-    origin: "Single-origin Colombia • 59% dark chocolate",
-    scale: 0.93,
-    y: "-14%",
+    origin: "Single-origin Colombia • 70% dark chocolate",
+    scale: 1.55,
+    y: "2%",
     fit: "contain",
   },
   {
@@ -117,8 +117,8 @@ const products = [
     subtags: ["Gift-ready", "Balanced assortment"],
     notes: ["Pistachio", "Caramel & Blackberry", "Chocolate & Hazelnut", "Passionfruit", "Coffee", "Strawberry"],
     origin: "Single-origin Colombia • 53% dark chocolate",
-    scale: 0.96,
-    y: "-22%",
+    scale: 1.15,
+    y: "0%",
     fit: "contain",
   },
 ];

@@ -8,7 +8,8 @@ export type CatalogItem = {
   | "Bonbons"
   | "Gifting"
   | "Limited"
-  | "Snacks";
+  | "Snacks"
+  | "Dragées";
   tag?: string;
   shortDesc?: string;
   longDesc?: string;
@@ -84,6 +85,48 @@ export const CATALOG: Record<string, CatalogItem> = {
     content: ["1 × 40 g bar","Roasted pistachio pieces"]
   },
 
+  "dark-70-bar": {
+    id: "dark-70-bar",
+    name: "70% Dark Chocolate Bar",
+    price: 15,
+    category: "Premium Dark",
+    tag: "Hand-painted",
+    shortDesc: "Colombian 70% dark chocolate bar, hand-splattered with gold and colour, in our Fine Artisan Chocolates wrap.",
+    longDesc: "A Colombian-cacao 70% dark chocolate bar finished by hand with a splatter of gold and colour. Wrapped and ready to gift or to keep for yourself.",
+    chips: ["70% dark", "Hand-painted"],
+    cacao: "Dark chocolate • 70%",
+    images: ["/images/bars/dark-70.webp"],
+    content: ["1 × 60 g bar"],
+  },
+
+  "mini-dark-bar": {
+    id: "mini-dark-bar",
+    name: "Mini Dark Chocolate Bar",
+    price: 8,
+    category: "Premium Dark",
+    tag: "Mini",
+    shortDesc: "A smaller hand-splattered dark chocolate bar, perfect as a little treat.",
+    longDesc: "A smaller-format dark chocolate bar, hand-splattered with gold and colour and sealed with our Artilate sticker. A little treat for yourself or a stocking filler.",
+    chips: ["Mini size", "Hand-painted"],
+    cacao: "Dark chocolate",
+    images: ["/images/bars/mini-dark.webp"],
+    content: ["1 × mini bar"],
+  },
+
+  "coffee-beans-jar": {
+    id: "coffee-beans-jar",
+    name: "Chocolate-Covered Coffee Beans",
+    price: 10,
+    category: "Dragées",
+    tag: "New",
+    shortDesc: "Roasted coffee beans coated in chocolate, in a small glass jar.",
+    longDesc: "Crunchy roasted coffee beans coated in chocolate and packed in a small glass jar. A pocket-sized pick-me-up.",
+    chips: ["Coffee beans", "Glass jar"],
+    cacao: "Chocolate-covered • 53% chocolate",
+    images: ["/images/bars/coffee-beans.webp"],
+    content: ["1 × jar"],
+  },
+
   /* ───────────────── BONBONS ───────────────── */
   "classic-box-9": {
     id: "classic-box-9",
@@ -151,15 +194,15 @@ export const CATALOG: Record<string, CatalogItem> = {
     tag: "Fruity",
     shortDesc: "Eight vibrant bonbons — mango, spicy pineapple, passion fruit, and caramel with blackberry.",
     longDesc:
-      "A tropical medley designed to awaken every sense. The Mango bonbon bursts with golden sweetness and smooth acidity. Spicy Pineapple brings a playful spark — juicy heat balanced by silky ganache. Passion Fruit follows with tangy brightness and a lingering citrus perfume. Finally, Caramel with Blackberry bridges fruit and comfort, weaving buttery depth with a touch of tart berry. Crafted with 59% single-origin Colombian dark chocolate, this box is sunshine, spice, and elegance in equal measure.",
+      "A tropical medley designed to awaken every sense. The Mango bonbon bursts with golden sweetness and smooth acidity. Spicy Pineapple brings a playful spark — juicy heat balanced by silky ganache. Passion Fruit follows with tangy brightness and a lingering citrus perfume. Finally, Caramel with Blackberry bridges fruit and comfort, weaving buttery depth with a touch of tart berry. Crafted with 70% single-origin Colombian dark chocolate, this box is sunshine, spice, and elegance in equal measure.",
     chips: ["Seasonal fruit", "Tropical spice"],
-    cacao: "Single-origin Colombia • 59% dark chocolate",
+    cacao: "Single-origin Colombia • 70% dark chocolate",
     weight: "8 bonbons",
     dietary: ["Contains dairy"],
     ingredients:
-      "Cocoa mass, sugar, cocoa butter, dairy, fruit purées (mango, pineapple, passion fruit, blackberry), natural flavours, spices.",
-    allergens: "Contains dairy. Made in a facility that handles nuts.",
-    images: ["/images/bonbons/vibrant-8.webp", "/images/bonbons/vibrant-8-1.webp","/images/bonbons/vibrant-8-2.webp", "/images/bonbons/vibrant-8-3.webp"],
+      "70% dark chocolate couverture (cocoa mass, sugar, cocoa butter, sunflower lecithin), white chocolate couverture, whipping cream 35%, sweetened condensed milk, fruit pulps (mango, passion fruit, blackberry, pineapple), Morita chili pepper, coloured cocoa butter.",
+    allergens: "Contains: milk. May contain: soy, tree nuts, peanuts, eggs, sesame, gluten.",
+    images: ["/images/bonbons/vibrant-8.webp", "/images/bonbons/vibrant-8-1.webp","/images/bonbons/vibrant-8-2.webp"],
     content: ["2 × Mango","2 × Spicy Pineapple","2 × Passion Fruit","2 × Caramel with Blackberry"]
   },
 
@@ -179,7 +222,7 @@ export const CATALOG: Record<string, CatalogItem> = {
     ingredients:
       "Cocoa mass, sugar, cocoa butter, dairy, nuts (hazelnut, pistachio), fruit purées (blackberry, strawberry, passionfruit), coffee, natural flavours.",
     allergens: "Contains dairy and tree nuts (hazelnut, pistachio).",
-    images: ["/images/bonbons/essentials-6.webp", "/images/bonbons/essentials-6-1.webp","/images/bonbons/essentials-6-2.webp", "/images/bonbons/essentials-6-3.webp"],
+    images: ["/images/bonbons/essentials-6.webp", "/images/bonbons/essentials-6-1.webp"],
     content: ["1 × Pistachio Praliné","1 × Caramel with Blackberry","1 × Chocolate & Hazelnut","1 × Passionfruit","1 × Coffee","1 × Strawberry"]
   },
 
